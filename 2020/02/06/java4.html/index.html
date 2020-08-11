@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 
 <head>
   
-  <title>Java之面向对象编程 - Hexo</title>
+  <title>Java之面向对象编程 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   
   
 
@@ -15,9 +16,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java之面向对象编程">
 <meta property="og:url" content="http://yoursite.com/2020/02/06/java4.html/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/java1/java11.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java1/java12.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java4/java41.PNG">
@@ -32,26 +33,21 @@
 <meta property="article:author" content="零点坠落">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
-   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1596990543572">
+  <link rel="stylesheet" href="/css/style.css?v=1597114984649">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
   
   <div id="nexmoe-background">
-    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2019/01/13/5c3aec85a4343.jpg)"></div>
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg"></a>
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
        </div>
     </div>
   </div>
@@ -59,15 +55,15 @@
       <div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="零点坠落">
-            <img src="/images/logo/a3.jpg" alt="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>9</div>
-        <div><span>Tags</span>0</div>
-        <div><span>Categories</span>0</div>
+        <div><span>文章</span>9</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
     </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
         <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
@@ -83,30 +79,30 @@
             </div>
         </a>
         
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友">
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
             <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
             <div class="mdui-list-item-content">
-                我的朋友
+                我的基友
             </div>
         </a>
         
-    </ul>
+    </div>
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-search">
         <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
-            <input id="search_value" name="q" type="search" placeholder="Search">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
         </form>
     </div>
 </div>
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Social</h3>
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
     <div class="nexmoe-widget nexmoe-social">
         <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
             <i class="nexmoefont icon-bilibili"></i>
-        </a><a class="mdui-ripple" href="https://github.com/ZmingWill" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
             <i class="nexmoefont icon-github"></i>
         </a>
     </div>
@@ -119,12 +115,21 @@
   
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Archive</h3>
+    <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
 
   
 </aside>
@@ -138,23 +143,27 @@
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
-        
-        <img src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg">
-        
-        <h1>Java之面向对象编程</h1>
-    </div>
-  <div class="nexmoe-post-meta">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java之面向对象编程" class="lazyload">
+          <h1>Java之面向对象编程</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月06日</a>
     <a><i class="nexmoefont icon-areachart"></i>6.1k 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 28 分钟</a>
-    
+</div>
+
+  <div class="nexmoe-post-right">
     
   </div>
+
   <article>
     <p>主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。</p>
 <a id="more"></a>
-<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img src="/images/java1/java11.jpg" alt=""><br><img src="/images/java1/java12.jpg" alt=""></p>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
 <h3 id="3-1-面向对象与面向过程"><a href="#3-1-面向对象与面向过程" class="headerlink" title="3.1 面向对象与面向过程"></a>3.1 面向对象与面向过程</h3><h5 id="面向对象-OOP-与面向过程-POP"><a href="#面向对象-OOP-与面向过程-POP" class="headerlink" title="面向对象(OOP)与面向过程(POP)"></a>面向对象(OOP)与面向过程(POP)</h5><ul>
 <li><p>二者都是一种思想，面向对象是相对于面向过程而言的。面向过程，强调的是功能行为。面向对象，将功能封装进对象，强调具备了功能的对象。</p>
 </li>
@@ -182,13 +191,13 @@
 </li>
 </ul>
 <hr>
-<h3 id="面向对象的思想概述"><a href="#面向对象的思想概述" class="headerlink" title="面向对象的思想概述"></a>面向对象的思想概述</h3><p><img src="/images/java4/java41.PNG" alt=""></p>
+<h3 id="面向对象的思想概述"><a href="#面向对象的思想概述" class="headerlink" title="面向对象的思想概述"></a>面向对象的思想概述</h3><p><img data-sizes="auto" data-src="/images/java4/java41.PNG" alt="" class="lazyload"></p>
 <ul>
 <li>可以理解为：类 = 汽车设计图；对象 = 实实在在的汽车</li>
 <li>面向对象程序设计的重点是类的设计</li>
 <li>定义类其实是定义类中的成员(成员变量和成员方法)</li>
 </ul>
-<h4 id="1-java类及类的成员"><a href="#1-java类及类的成员" class="headerlink" title="1.java类及类的成员"></a>1.java类及类的成员</h4><p><img src="/images/java4/java42.PNG" alt=""></p>
+<h4 id="1-java类及类的成员"><a href="#1-java类及类的成员" class="headerlink" title="1.java类及类的成员"></a>1.java类及类的成员</h4><p><img data-sizes="auto" data-src="/images/java4/java42.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="类的语法格式"><a href="#类的语法格式" class="headerlink" title="类的语法格式"></a>类的语法格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 class  类名 &#123;</span><br><span class="line">	属性声明;	</span><br><span class="line">	方法声明;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
@@ -253,7 +262,7 @@ xb.move();
 <li>在方法体外，类体内声明的变量称为成员变量。</li>
 <li>在方法体内部声明的变量称为局部变量。</li>
 </ul>
-<p><img src="/images/java4/java44.PNG" alt=""></p>
+<p><img data-sizes="auto" data-src="/images/java4/java44.PNG" alt="" class="lazyload"></p>
 <h4 id="成员变量（属性）和局部变量的区别？"><a href="#成员变量（属性）和局部变量的区别？" class="headerlink" title="成员变量（属性）和局部变量的区别？"></a>成员变量（属性）和局部变量的区别？</h4><ul>
 <li><p>成员变量：</p>
 <pre><code>- 成员变量定义在类中，在整个类中都可以被访问。
@@ -322,7 +331,7 @@ Java里的方法不能独立存在，所有的方法必须定义在类里。
 </ul>
 <h4 id="方法的调用"><a href="#方法的调用" class="headerlink" title="方法的调用"></a>方法的调用</h4><ul>
 <li>方法只有被调用才会被执行</li>
-<li>方法调用的过程分析<br><img src="/imagges/java4/java45.PNG" alt=""></li>
+<li>方法调用的过程分析<br><img data-sizes="auto" data-src="/imagges/java4/java45.PNG" alt="" class="lazyload"></li>
 </ul>
 <h4 id="方法的调用-1"><a href="#方法的调用-1" class="headerlink" title="方法的调用"></a>方法的调用</h4><h5 id="注-意："><a href="#注-意：" class="headerlink" title="注  意："></a>注  意：</h5><ul>
 <li><p>没有具体返回值的情况，返回值类型用关键字void表示，那么该函数中的return语句如果在最后一行可以省略不写。</p>
@@ -643,7 +652,7 @@ public static void main(String args[]){
 </ul>
 </li>
 </ul>
-<p><img src="/images/java4/java43.PNG" alt=""></p>
+<p><img data-sizes="auto" data-src="/images/java4/java43.PNG" alt="" class="lazyload"></p>
 <h6 id="练习4"><a href="#练习4" class="headerlink" title="练习4"></a>练习4</h6><p>1.创建程序,在其中定义两个类：Person和TestPerson类。定义如下：<br>    用setAge()设置人的合法年龄(0~130)，用getAge()返回人的年龄。在TestPerson类中实例化Person类的对象b，调用setAge()和getAge()方法，体会Java的封装性。</p>
 <table>
 <thead>
@@ -941,11 +950,11 @@ public void getInfo(){
  public void setName(String name){
        this.name = name;</code></pre><p>}</p>
 <hr>
-<h3 id="关键字—package"><a href="#关键字—package" class="headerlink" title="关键字—package"></a>关键字—package</h3><p>源文件布局：<br><img src="/images/java4/java46.PNG" alt=""></p>
+<h3 id="关键字—package"><a href="#关键字—package" class="headerlink" title="关键字—package"></a>关键字—package</h3><p>源文件布局：<br><img data-sizes="auto" data-src="/images/java4/java46.PNG" alt="" class="lazyload"></p>
 <h4 id="软件包："><a href="#软件包：" class="headerlink" title="软件包："></a>软件包：</h4><ul>
 <li>包帮助管理大型软件系统：将语义近似的类组织到包中；解决类命名冲突的问题。</li>
 <li>包可以包含类和子包。</li>
-<li>例：某航运软件系统包括：一组域对象、GUI和reports子系统<br><img src="/images/java4/java47.PNG" alt=""></li>
+<li>例：某航运软件系统包括：一组域对象、GUI和reports子系统<br><img data-sizes="auto" data-src="/images/java4/java47.PNG" alt="" class="lazyload"></li>
 </ul>
 <h4 id="关键字—package-1"><a href="#关键字—package-1" class="headerlink" title="关键字—package"></a>关键字—package</h4><ul>
 <li>package语句作为Java源文件的第一条语句，指明该文件中定义的类所在的包。(若缺省该语句，则指定为无名包)。它的格式为：  </li>
@@ -1002,20 +1011,27 @@ public void getInfo(){
                          面(GUI)。
 8.     java.applet----包含applet运行所需的一些类。</code></pre>
   </article>
+
   
     
-<div class="nexmoe-post-copyright">
-<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-<strong>Author：</strong>零点坠落<br>
-<strong>Link：</strong><a href="http://yoursite.com/2020/02/06/java4.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;java4.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;java4.html&#x2F;</a><br>
-
-  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
-
-</div>
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/06/java4.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;java4.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;java4.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
 
 
   
-  <section class="nexmoe-comment">
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
 <div id="gitalk"></div>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
@@ -1024,37 +1040,25 @@ public void getInfo(){
         clientID: '80b2453b6d5f37ad6225',
         clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
         id: window.location.pathname,
-        repo: 'nexmoe.github.io',
-        owner: 'nexmoe',
-        admin: 'nexmoe'
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
     })
     gitalk.render('gitalk')
 </script>
 </section>
+  </div>
 </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
 
 
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-<script src="/js/app.js?v=1596990543573"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
-
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
-
-
-
+<script src="/js/app.js?v=1597114984651"></script>
   
 
 

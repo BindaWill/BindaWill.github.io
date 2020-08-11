@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 
 <head>
   
-  <title>Java之基本语法 - Hexo</title>
+  <title>Java之基本语法 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   
   
 
@@ -15,9 +16,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java之基本语法">
 <meta property="og:url" content="http://yoursite.com/2020/02/05/java3.html/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="主要介绍Java基本语法篇2，涉及循环结构，流程控制语句及Java中数组的使用，供回顾使用。">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/java1/java11.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java1/java12.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java3/java31.PNG">
@@ -30,26 +31,21 @@
 <meta property="article:author" content="零点坠落">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
-   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1596990543574">
+  <link rel="stylesheet" href="/css/style.css?v=1597114984653">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
   
   <div id="nexmoe-background">
-    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2019/01/13/5c3aec85a4343.jpg)"></div>
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg"></a>
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
        </div>
     </div>
   </div>
@@ -57,15 +53,15 @@
       <div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="零点坠落">
-            <img src="/images/logo/a3.jpg" alt="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>9</div>
-        <div><span>Tags</span>0</div>
-        <div><span>Categories</span>0</div>
+        <div><span>文章</span>9</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
     </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
         <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
@@ -81,30 +77,30 @@
             </div>
         </a>
         
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友">
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
             <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
             <div class="mdui-list-item-content">
-                我的朋友
+                我的基友
             </div>
         </a>
         
-    </ul>
+    </div>
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-search">
         <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
-            <input id="search_value" name="q" type="search" placeholder="Search">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
         </form>
     </div>
 </div>
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Social</h3>
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
     <div class="nexmoe-widget nexmoe-social">
         <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
             <i class="nexmoefont icon-bilibili"></i>
-        </a><a class="mdui-ripple" href="https://github.com/ZmingWill" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
             <i class="nexmoefont icon-github"></i>
         </a>
     </div>
@@ -117,12 +113,21 @@
   
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Archive</h3>
+    <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
 
   
 </aside>
@@ -136,23 +141,27 @@
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
-        
-        <img src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg">
-        
-        <h1>Java之基本语法</h1>
-    </div>
-  <div class="nexmoe-post-meta">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java之基本语法" class="lazyload">
+          <h1>Java之基本语法</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月05日</a>
     <a><i class="nexmoefont icon-areachart"></i>4.8k 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 23 分钟</a>
-    
+</div>
+
+  <div class="nexmoe-post-right">
     
   </div>
+
   <article>
     <p>主要介绍Java基本语法篇2，涉及循环结构，流程控制语句及Java中数组的使用，供回顾使用。</p>
 <a id="more"></a>
-<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img src="/images/java1/java11.jpg" alt=""><br><img src="/images/java1/java12.jpg" alt=""></p>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
 <h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="循环语句功能"><a href="#循环语句功能" class="headerlink" title="循环语句功能"></a>循环语句功能</h3><h5 id="在某些条件满足的情况下，反复执行特定代码的功能"><a href="#在某些条件满足的情况下，反复执行特定代码的功能" class="headerlink" title="在某些条件满足的情况下，反复执行特定代码的功能"></a>在某些条件满足的情况下，反复执行特定代码的功能</h5><h4 id="循环语句的四个组成部分"><a href="#循环语句的四个组成部分" class="headerlink" title="循环语句的四个组成部分"></a>循环语句的四个组成部分</h4><ul>
 <li>初始化部分（init_statement）</li>
 <li>循环条件部分（test_exp）</li>
@@ -167,7 +176,7 @@
 <hr>
 <h3 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h3><h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><pre><code>for (初始化表达式①; 布尔值测试表达式②; 更改表达式)｛
             语句或语句块③；
-          ｝</code></pre><p><img src="/images/java3/java31.PNG" alt=""></p>
+          ｝</code></pre><p><img data-sizes="auto" data-src="/images/java3/java31.PNG" alt="" class="lazyload"></p>
 <h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><pre><code>public class ForLoop {
         public static void main(String args[]){
             int result = 0;
@@ -311,8 +320,8 @@ System.out.println(a[3]);    //a[3]的默认值为0
 }</code></pre></li>
 </ul>
 <hr>
-<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p><img src="/images/java3/java33.PNG" alt=""><br><img src="/images/java3/java34.PNG" alt=""></p>
-<h4 id="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"><a href="#练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。" class="headerlink" title="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"></a>练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。</h4><p><img src="/images/java3/java32.PNG" alt=""></p>
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p><img data-sizes="auto" data-src="/images/java3/java33.PNG" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java3/java34.PNG" alt="" class="lazyload"></p>
+<h4 id="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"><a href="#练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。" class="headerlink" title="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"></a>练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。</h4><p><img data-sizes="auto" data-src="/images/java3/java32.PNG" alt="" class="lazyload"></p>
 <h4 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h4><p>声明：int[] x,y[];  以下选项允许通过编译的是：<br>a )   x[0] = y;  //no, x[0]是一个数，y是一个二维数组</p>
 <p>b)    y[0] = x; //yes， y[0]就是一维数组，x是一维数组</p>
 <p>c)    y[0][0] = x;//no， y[0][0] 是一个数字，x是一维数组</p>
@@ -343,7 +352,7 @@ System.out.println(a[3]);    //a[3]的默认值为0
 </ul>
 <hr>
 <h3 id="数组操作常见问题"><a href="#数组操作常见问题" class="headerlink" title="数组操作常见问题"></a>数组操作常见问题</h3><ul>
-<li>编译时，不报错！！<br><img src="/images/java3/java35.PNG" alt=""></li>
+<li>编译时，不报错！！<br><img data-sizes="auto" data-src="/images/java3/java35.PNG" alt="" class="lazyload"></li>
 </ul>
 <h5 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h5><p>使用简单数组<br>(1)创建一个名为TestArray的类，在main()方法中声明array1和array2两个变量，他们是int[]类型的数组。<br>(2)使用大括号{}，把array1初始化为8个素数：2,3,5,7,11,13,17,19。<br>(3)显示array1的内容。<br>(4)赋值array2变量等于array1，修改array2中的偶索引元素，使其等于索引值(如array[0]=0,array[2]=2)。打印出array1。</p>
 <h5 id="思考：array1和array2是什么关系？"><a href="#思考：array1和array2是什么关系？" class="headerlink" title="思考：array1和array2是什么关系？"></a>思考：array1和array2是什么关系？</h5><h5 id="拓展：修改题目，实现array2对array1数组的复制"><a href="#拓展：修改题目，实现array2对array1数组的复制" class="headerlink" title="拓展：修改题目，实现array2对array1数组的复制"></a>拓展：修改题目，实现array2对array1数组的复制</h5><h3 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h3><pre><code>public class Test3 {
@@ -713,20 +722,27 @@ System.out.println(a[3]);    //a[3]的默认值为0
 }</code></pre><p>}</p>
 
   </article>
+
   
     
-<div class="nexmoe-post-copyright">
-<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-<strong>Author：</strong>零点坠落<br>
-<strong>Link：</strong><a href="http://yoursite.com/2020/02/05/java3.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;java3.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;java3.html&#x2F;</a><br>
-
-  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
-
-</div>
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/05/java3.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;java3.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;java3.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
 
 
   
-  <section class="nexmoe-comment">
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
 <div id="gitalk"></div>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
@@ -735,37 +751,25 @@ System.out.println(a[3]);    //a[3]的默认值为0
         clientID: '80b2453b6d5f37ad6225',
         clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
         id: window.location.pathname,
-        repo: 'nexmoe.github.io',
-        owner: 'nexmoe',
-        admin: 'nexmoe'
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
     })
     gitalk.render('gitalk')
 </script>
 </section>
+  </div>
 </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
 
 
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-<script src="/js/app.js?v=1596990543576"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
-
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
-
-
-
+<script src="/js/app.js?v=1597114984655"></script>
   
 
 

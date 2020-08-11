@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 
 <head>
   
-  <title>Java之基本语法 - Hexo</title>
+  <title>Java之基本语法 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   
   
 
@@ -15,9 +16,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java之基本语法">
 <meta property="og:url" content="http://yoursite.com/2020/02/03/java2.html/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="主要介绍Java基本语法，供回顾使用。">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/java1/java11.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java1/java12.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java2/java21.PNG">
@@ -42,26 +43,21 @@
 <meta property="article:author" content="零点坠落">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
-   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1596990543586">
+  <link rel="stylesheet" href="/css/style.css?v=1597114984727">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
   
   <div id="nexmoe-background">
-    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2019/01/13/5c3aec85a4343.jpg)"></div>
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg"></a>
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
        </div>
     </div>
   </div>
@@ -69,15 +65,15 @@
       <div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="零点坠落">
-            <img src="/images/logo/a3.jpg" alt="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>9</div>
-        <div><span>Tags</span>0</div>
-        <div><span>Categories</span>0</div>
+        <div><span>文章</span>9</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
     </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
         <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
@@ -93,30 +89,30 @@
             </div>
         </a>
         
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友">
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
             <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
             <div class="mdui-list-item-content">
-                我的朋友
+                我的基友
             </div>
         </a>
         
-    </ul>
+    </div>
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-search">
         <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
-            <input id="search_value" name="q" type="search" placeholder="Search">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
         </form>
     </div>
 </div>
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Social</h3>
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
     <div class="nexmoe-widget nexmoe-social">
         <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
             <i class="nexmoefont icon-bilibili"></i>
-        </a><a class="mdui-ripple" href="https://github.com/ZmingWill" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
             <i class="nexmoefont icon-github"></i>
         </a>
     </div>
@@ -129,12 +125,21 @@
   
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Archive</h3>
+    <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
 
   
 </aside>
@@ -148,50 +153,54 @@
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
-        
-        <img src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg">
-        
-        <h1>Java之基本语法</h1>
-    </div>
-  <div class="nexmoe-post-meta">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java之基本语法" class="lazyload">
+          <h1>Java之基本语法</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月03日</a>
     <a><i class="nexmoefont icon-areachart"></i>5.5k 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 25 分钟</a>
-    
+</div>
+
+  <div class="nexmoe-post-right">
     
   </div>
+
   <article>
     <p>主要介绍Java基本语法，供回顾使用。</p>
 <a id="more"></a>
-<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img src="/images/java1/java11.jpg" alt=""><br><img src="/images/java1/java12.jpg" alt=""></p>
-<h2 id="2-1-关键字"><a href="#2-1-关键字" class="headerlink" title="2.1  关键字"></a>2.1  关键字</h2><h3 id="关键字的定义和特点"><a href="#关键字的定义和特点" class="headerlink" title="关键字的定义和特点"></a>关键字的定义和特点</h3><p>•定义：被Java语言赋予了特殊含义，用做专门用途的字符串（单词）<br>•特点：关键字中所有字母都为小写<br><img src="/images/java2/java21.PNG" alt=""><br><img src="/images/java2/java22.PNG" alt=""></p>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
+<h2 id="2-1-关键字"><a href="#2-1-关键字" class="headerlink" title="2.1  关键字"></a>2.1  关键字</h2><h3 id="关键字的定义和特点"><a href="#关键字的定义和特点" class="headerlink" title="关键字的定义和特点"></a>关键字的定义和特点</h3><p>•定义：被Java语言赋予了特殊含义，用做专门用途的字符串（单词）<br>•特点：关键字中所有字母都为小写<br><img data-sizes="auto" data-src="/images/java2/java21.PNG" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java2/java22.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h3><p>•Java保留字：现有Java版本尚未使用，但以后版本可能会作为关键字使用。自己命名标记符时要避免使用这些保留字<br>•byValue、cast、future、 generic、 inner、 operator、 outer、 rest、 var 、 goto 、const</p>
 <hr>
-<h3 id="文本编辑"><a href="#文本编辑" class="headerlink" title="文本编辑"></a>文本编辑</h3><p><img src="/images/java2/java23.PNG" alt=""></p>
+<h3 id="文本编辑"><a href="#文本编辑" class="headerlink" title="文本编辑"></a>文本编辑</h3><p><img data-sizes="auto" data-src="/images/java2/java23.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="标识符："><a href="#标识符：" class="headerlink" title="标识符："></a>标识符：</h3><p>•Java 对各种变量、方法和类等要素命名时使用的字符序列称为标识符<br>•<strong>凡是自己可以起名字的地方都叫标识符。</strong></p>
 <h4 id="定义合法标识符规则："><a href="#定义合法标识符规则：" class="headerlink" title="定义合法标识符规则："></a>定义合法标识符规则：</h4><p>由26个英文字母大小写，0-9，$或_组成<br>•<strong><em>数字不可以开头。</em></strong><br>•<strong><em>不可以使用关键字和保留字，但能包含关键字和保留字。</em></strong><br>•<strong><em>Java中严格区分大小写，长度无限制。</em></strong><br>•<strong><em>标识符不能包含空格。</em></strong><br>注意：在起名字时，为了提高阅读性，要尽量有意义，“见名知意”。</p>
 <hr>
 <h3 id="Java中的名称命名规范"><a href="#Java中的名称命名规范" class="headerlink" title="Java中的名称命名规范"></a>Java中的名称命名规范</h3><h4 id="Java中的名称命名规范："><a href="#Java中的名称命名规范：" class="headerlink" title="Java中的名称命名规范："></a>Java中的名称命名规范：</h4><p>•<strong>包名：</strong> 多单词组成时所有字母都小写：xxxyyyzzz<br>•<strong>类名、接口名：</strong> 多单词组成时，所有单词的首字母大写：XxxYyyZzz<br>•<strong>变量名、方法名：</strong> 多单词组成时，第一个单词首字母小写，第二个单词开始每个单词首字母大写：xxxYyyZzz<br>•<strong>常量名：</strong> 所有字母都大写。多单词时每个单词用下划线连接：XXX_YYY_ZZZ</p>
-<h2 id="2-3-变-量"><a href="#2-3-变-量" class="headerlink" title="2.3  变  量"></a>2.3  变  量</h2><p><img src="/images/java2/java24.PNG" alt=""></p>
+<h2 id="2-3-变-量"><a href="#2-3-变-量" class="headerlink" title="2.3  变  量"></a>2.3  变  量</h2><p><img data-sizes="auto" data-src="/images/java2/java24.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="变量的概念："><a href="#变量的概念：" class="headerlink" title="变量的概念："></a>变量的概念：</h3><p>•内存中的一个存储区域<br>•该区域有自己的名称（变量名）和类型（数据类型）<br>•<strong>Java中每个变量必须先声明，后使用</strong><br>•该区域的数据可以在同一类型范围内不断变化</p>
 <h3 id="使用变量注意："><a href="#使用变量注意：" class="headerlink" title="使用变量注意："></a>使用变量注意：</h3><p>•变量的作用域：一对{ }之间有效<br>•初始化值</p>
 <h3 id="定义变量的格式："><a href="#定义变量的格式：" class="headerlink" title="定义变量的格式："></a>定义变量的格式：</h3><p>•数据类型    变量名  =  初始化值<br>•<strong>变量是通过使用变量名来访问这块区域的</strong></p>
 <hr>
-<h3 id="变量的分类-按数据类型"><a href="#变量的分类-按数据类型" class="headerlink" title="变量的分类-按数据类型"></a>变量的分类-按数据类型</h3><p><strong>对于每一种数据都定义了明确的具体数据类型，在内存中分配了不同大小的内存空间。</strong><br><img src="/images/java2/java25.PNG" alt=""></p>
-<h4 id="补充：变量的分类-按声明的位置的不同"><a href="#补充：变量的分类-按声明的位置的不同" class="headerlink" title="补充：变量的分类-按声明的位置的不同"></a>补充：变量的分类-按声明的位置的不同</h4><p><strong>•在方法体外，类体内声明的变量称为成员变量。</strong><br><strong>•在方法体内部声明的变量称为局部变量。</strong><br><img src="/images/java2/java26.PNG" alt=""></p>
+<h3 id="变量的分类-按数据类型"><a href="#变量的分类-按数据类型" class="headerlink" title="变量的分类-按数据类型"></a>变量的分类-按数据类型</h3><p><strong>对于每一种数据都定义了明确的具体数据类型，在内存中分配了不同大小的内存空间。</strong><br><img data-sizes="auto" data-src="/images/java2/java25.PNG" alt="" class="lazyload"></p>
+<h4 id="补充：变量的分类-按声明的位置的不同"><a href="#补充：变量的分类-按声明的位置的不同" class="headerlink" title="补充：变量的分类-按声明的位置的不同"></a>补充：变量的分类-按声明的位置的不同</h4><p><strong>•在方法体外，类体内声明的变量称为成员变量。</strong><br><strong>•在方法体内部声明的变量称为局部变量。</strong><br><img data-sizes="auto" data-src="/images/java2/java26.PNG" alt="" class="lazyload"></p>
 <h4 id="●注意：二者在初始化值方面的异同"><a href="#●注意：二者在初始化值方面的异同" class="headerlink" title="●注意：二者在初始化值方面的异同:"></a>●注意：二者在初始化值方面的异同:</h4><p>同：都有生命周期      异：局部变量除形参外，需显式初始化。</p>
 <hr>
-<h3 id="整数类型：byte、short、int、long"><a href="#整数类型：byte、short、int、long" class="headerlink" title="整数类型：byte、short、int、long"></a>整数类型：byte、short、int、long</h3><p>•Java各整数类型有固定的表数范围和字段长度，不受具体OS的影响，以保证java程序的可移植性。<br><strong>•java的整型常量默认为 int 型，声明long型常量须后加‘l’或‘L’</strong><br><img src="/images/java2/java27.PNG" alt=""></p>
+<h3 id="整数类型：byte、short、int、long"><a href="#整数类型：byte、short、int、long" class="headerlink" title="整数类型：byte、short、int、long"></a>整数类型：byte、short、int、long</h3><p>•Java各整数类型有固定的表数范围和字段长度，不受具体OS的影响，以保证java程序的可移植性。<br><strong>•java的整型常量默认为 int 型，声明long型常量须后加‘l’或‘L’</strong><br><img data-sizes="auto" data-src="/images/java2/java27.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="浮点类型：float、double"><a href="#浮点类型：float、double" class="headerlink" title="浮点类型：float、double"></a>浮点类型：float、double</h3><p>•与整数类型类似，Java 浮点类型也有固定的表数范围和字段长度，不受具体OS的影响。<br><strong>•Java 的浮点型常量默认为double型，声明float型常量，须后加‘f’或‘F’。</strong></p>
-<h4 id="浮点型常量有两种表示形式："><a href="#浮点型常量有两种表示形式：" class="headerlink" title="浮点型常量有两种表示形式："></a>浮点型常量有两种表示形式：</h4><p>•十进制数形式：如：5.12       512.0f        .512   (必须有小数点）<br>•  科学计数法形式:如：5.12e2      512E2     100E-2<br><img src="/images/java2/java28.PNG" alt=""></p>
+<h4 id="浮点型常量有两种表示形式："><a href="#浮点型常量有两种表示形式：" class="headerlink" title="浮点型常量有两种表示形式："></a>浮点型常量有两种表示形式：</h4><p>•十进制数形式：如：5.12       512.0f        .512   (必须有小数点）<br>•  科学计数法形式:如：5.12e2      512E2     100E-2<br><img data-sizes="auto" data-src="/images/java2/java28.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="字符类型：char"><a href="#字符类型：char" class="headerlink" title="字符类型：char"></a>字符类型：char</h3><p> •char 型数据用来表示通常意义上“字符”(2字节)</p>
-<h4 id="字符型常量的三种表现形式："><a href="#字符型常量的三种表现形式：" class="headerlink" title="字符型常量的三种表现形式："></a>字符型常量的三种表现形式：</h4><p>• 字符常量是用单引号(‘ ’)括起来的单个字符，涵盖世界上所有书面语的字符。例如：char c1                   = ‘a’;   char c2 = ‘中’; char c3 =  ‘9’;<br>•Java中还允许使用转义字符‘\’来将其后的字符转变为特殊字符型常量。例如：char c3 = ‘\n’;   // ‘\n’表示换行符<br>• 直接使用 Unicode 值来表示字符型常量：‘\uXXXX’。其中，XXXX代表一个十六进制整数。如：\u000a 表示 \n。<br>•char类型是可以进行运算的。因为它都对应有Unicode码。<br><img src="/images/java2/java29.PNG" alt=""></p>
+<h4 id="字符型常量的三种表现形式："><a href="#字符型常量的三种表现形式：" class="headerlink" title="字符型常量的三种表现形式："></a>字符型常量的三种表现形式：</h4><p>• 字符常量是用单引号(‘ ’)括起来的单个字符，涵盖世界上所有书面语的字符。例如：char c1                   = ‘a’;   char c2 = ‘中’; char c3 =  ‘9’;<br>•Java中还允许使用转义字符‘\’来将其后的字符转变为特殊字符型常量。例如：char c3 = ‘\n’;   // ‘\n’表示换行符<br>• 直接使用 Unicode 值来表示字符型常量：‘\uXXXX’。其中，XXXX代表一个十六进制整数。如：\u000a 表示 \n。<br>•char类型是可以进行运算的。因为它都对应有Unicode码。<br><img data-sizes="auto" data-src="/images/java2/java29.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="布尔类型：boolean"><a href="#布尔类型：boolean" class="headerlink" title="布尔类型：boolean"></a>布尔类型：boolean</h3><h4 id="boolean-类型适于逻辑运算，一般用于程序流程控制："><a href="#boolean-类型适于逻辑运算，一般用于程序流程控制：" class="headerlink" title="boolean 类型适于逻辑运算，一般用于程序流程控制："></a>boolean 类型适于逻辑运算，一般用于程序流程控制：</h4><p><strong>if条件控制语句；</strong><br><strong>while循环控制语句；</strong><br><strong>do-while循环控制语句；</strong><br><strong>for循环控制语句；</strong><br><strong>boolean类型数据只允许取值true和false，无null。<br>                 不可以0或非 0 的整数替代false和true，这点和C语言不同。</strong></p>
 <hr>
@@ -202,10 +211,10 @@ String s2 = “he” + “ll”+”o”;
   System.out.println(s0 ==s1);   
     System.out.println(s0 ==s2);</code></pre><h4 id="输出："><a href="#输出：" class="headerlink" title="输出："></a>输出：</h4><p><strong>true<br>  true</strong><br>  <strong><em>String s3 = new String(“hello”);又如何理解呢？</em></strong></p>
 <hr>
-<h3 id="集成开发环境（IDE）"><a href="#集成开发环境（IDE）" class="headerlink" title="集成开发环境（IDE）"></a>集成开发环境（IDE）</h3><p><img src="/images/java2/java210.PNG" alt=""></p>
+<h3 id="集成开发环境（IDE）"><a href="#集成开发环境（IDE）" class="headerlink" title="集成开发环境（IDE）"></a>集成开发环境（IDE）</h3><p><img data-sizes="auto" data-src="/images/java2/java210.PNG" alt="" class="lazyload"></p>
 <h4 id="Eclipse安装（推荐）"><a href="#Eclipse安装（推荐）" class="headerlink" title="Eclipse安装（推荐）"></a>Eclipse安装（推荐）</h4><p>官网下载，方法看以下网址<br><a href="https://jingyan.baidu.com/article/b0b63dbf02e4d24a4830701a.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/b0b63dbf02e4d24a4830701a.html</a><br>网盘下载（推荐）<br>链接：<a href="https://pan.baidu.com/s/1qqiI22OgkW2aw1hTHIjFfQ" target="_blank" rel="noopener">https://pan.baidu.com/s/1qqiI22OgkW2aw1hTHIjFfQ</a><br>提取码：zugz<br>解压，使用</p>
 <hr>
-<h3 id="基本数据类型转换"><a href="#基本数据类型转换" class="headerlink" title="基本数据类型转换"></a>基本数据类型转换</h3><p><strong>自动类型转换：容量小的类型自动转换为容量大的数据类型。数据类型按容量大小排序为：</strong><br><img src="/images/java2/java211.PNG" alt=""><br><strong>•有多种类型的数据混合运算时，系统首先自动将所有数据转换成容量最大的那种数据类型，然后再进行计算。<br>•byte,short,char之间不会相互转换，他们三者在计算时首先转换为int类型。<br>•当把任何基本类型的值和字符串值进行连接运算时(+)，基本类型的值将自动转化为字符串类型。</strong></p>
+<h3 id="基本数据类型转换"><a href="#基本数据类型转换" class="headerlink" title="基本数据类型转换"></a>基本数据类型转换</h3><p><strong>自动类型转换：容量小的类型自动转换为容量大的数据类型。数据类型按容量大小排序为：</strong><br><img data-sizes="auto" data-src="/images/java2/java211.PNG" alt="" class="lazyload"><br><strong>•有多种类型的数据混合运算时，系统首先自动将所有数据转换成容量最大的那种数据类型，然后再进行计算。<br>•byte,short,char之间不会相互转换，他们三者在计算时首先转换为int类型。<br>•当把任何基本类型的值和字符串值进行连接运算时(+)，基本类型的值将自动转化为字符串类型。</strong></p>
 <pre><code>String str1 = 4;        //判断对错：错  需要加上双引号
 String str2 = 3.5f + “”;             //判断str2对错：对
  System.out.println(str2);        //输出：3.5
@@ -228,7 +237,7 @@ double result = c+i+d;     //判断：对   102.314</code></pre><p>4）</p>
 short s = 3;
 short t = s + b;          //判断：错</code></pre><h2 id="2-4-运算符"><a href="#2-4-运算符" class="headerlink" title="2.4  运算符"></a>2.4  运算符</h2><h3 id="运算符是一种特殊的符号，用以表示数据的运算、赋值和比较等。"><a href="#运算符是一种特殊的符号，用以表示数据的运算、赋值和比较等。" class="headerlink" title="运算符是一种特殊的符号，用以表示数据的运算、赋值和比较等。"></a>运算符是一种特殊的符号，用以表示数据的运算、赋值和比较等。</h3><p><strong>算术运算符<br>赋值运算符<br>比较运算符（关系运算符）<br>逻辑运算符<br>位运算符<br>三元运算符</strong></p>
 <hr>
-<h3 id="1-算术运算符"><a href="#1-算术运算符" class="headerlink" title="1.算术运算符"></a>1.算术运算符</h3><p><img src="/images/java2/java212.PNG" alt=""></p>
+<h3 id="1-算术运算符"><a href="#1-算术运算符" class="headerlink" title="1.算术运算符"></a>1.算术运算符</h3><p><img data-sizes="auto" data-src="/images/java2/java212.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="算术运算符的注意问题"><a href="#算术运算符的注意问题" class="headerlink" title="算术运算符的注意问题"></a>算术运算符的注意问题</h3><p><strong>•如果对负数取模，可以把模数负号忽略不记，如：5%-2=1。 但被模数是负数则不可忽略。此外，取模运算的结果不一定总是整数。<br>•对于除号“/”，它的整数除和小数除是有区别的：整数之间做除法时，只保留整数部分而舍弃小数部分。</strong><br>例如：int x=3510;x=x/1000*1000;  x的结果是？<br>“+”除字符串相加功能外，还能把非字符串转换成字符串.<br>      例如：System.out.println(“5+5=”+5+5); //打印结果是？5+5=55</p>
 <h4 id="以下二者的区别："><a href="#以下二者的区别：" class="headerlink" title="以下二者的区别："></a>以下二者的区别：</h4><pre><code>System.out.println(&apos;*&apos; + &apos;\t&apos; +&apos;*&apos;);
@@ -263,9 +272,9 @@ if(b1=true)
 System.out.println(i);//
    i++;
  System.out.println(i);//</code></pre><hr>
-<h3 id="3-比较运算符"><a href="#3-比较运算符" class="headerlink" title="3.比较运算符"></a>3.比较运算符</h3><p><img src="/images/java2/java213.PNG" alt=""><br><strong>比较运算符的结果都是boolean型，也就是要么是true，要么是false。<br>比较运算符“==”不能误写成“=” 。</strong></p>
+<h3 id="3-比较运算符"><a href="#3-比较运算符" class="headerlink" title="3.比较运算符"></a>3.比较运算符</h3><p><img data-sizes="auto" data-src="/images/java2/java213.PNG" alt="" class="lazyload"><br><strong>比较运算符的结果都是boolean型，也就是要么是true，要么是false。<br>比较运算符“==”不能误写成“=” 。</strong></p>
 <hr>
-<h3 id="4-逻辑运算符"><a href="#4-逻辑运算符" class="headerlink" title="4.逻辑运算符"></a>4.逻辑运算符</h3><p><strong>&amp;—逻辑与         | —逻辑或         ！—逻辑非<br>&amp;&amp; —短路与      || —短路或        ^ —逻辑异或</strong><br><img src="/images/java2/java214.PNG" alt=""></p>
+<h3 id="4-逻辑运算符"><a href="#4-逻辑运算符" class="headerlink" title="4.逻辑运算符"></a>4.逻辑运算符</h3><p><strong>&amp;—逻辑与         | —逻辑或         ！—逻辑非<br>&amp;&amp; —短路与      || —短路或        ^ —逻辑异或</strong><br><img data-sizes="auto" data-src="/images/java2/java214.PNG" alt="" class="lazyload"></p>
 <h4 id="逻辑运算符用于连接布尔型表达式，在Java中不可以写成3-lt-x-lt-6，应该写成x-gt-3-amp-x-lt-6-。"><a href="#逻辑运算符用于连接布尔型表达式，在Java中不可以写成3-lt-x-lt-6，应该写成x-gt-3-amp-x-lt-6-。" class="headerlink" title="逻辑运算符用于连接布尔型表达式，在Java中不可以写成3&lt;x&lt;6，应该写成x&gt;3 &amp; x&lt;6 。"></a>逻辑运算符用于连接布尔型表达式，在Java中不可以写成3&lt;x&lt;6，应该写成x&gt;3 &amp; x&lt;6 。</h4><h4 id="“-amp-”和“-amp-amp-”的区别："><a href="#“-amp-”和“-amp-amp-”的区别：" class="headerlink" title="“&amp;”和“&amp;&amp;”的区别："></a>“&amp;”和“&amp;&amp;”的区别：</h4><p>单&amp;时，左边无论真假，右边都进行运算；<br>双&amp;时，如果左边为真，右边参与运算，如果左边为假，那么右边不参与运算。<br><strong>“|”和“||”的区别同理，||表示：当左边为真，右边不参与运算。<br>在不需要逻辑运算两边都参与运算的时候，尽量使用&amp;&amp;和||<br>异或( ^ )与或( | )的不同之处是：当左右都为true时，结果为false。<br>      理解：异或，追求的是“异”!</strong></p>
 <h4 id="请写出每题的输出结果"><a href="#请写出每题的输出结果" class="headerlink" title="请写出每题的输出结果"></a>请写出每题的输出结果</h4><pre><code>int x = 1;
  int y=1;
@@ -292,12 +301,12 @@ System.out.println(i);//
    x =7;
 }
  System.out.println(&quot;x=&quot;+x+&quot;,y=&quot;+y);//7 1</code></pre><hr>
-<h3 id="5-位运算符"><a href="#5-位运算符" class="headerlink" title="5.位运算符"></a>5.位运算符</h3><p><img src="/images/java2/java216.PNG" alt=""></p>
-<h4 id="注意：无-lt-lt-lt"><a href="#注意：无-lt-lt-lt" class="headerlink" title="注意：无&lt;&lt;&lt;"></a>注意：无&lt;&lt;&lt;</h4><p>位运算是直接对二进制进行运算<br><img src="/images/java2/java217.PNG" alt=""></p>
+<h3 id="5-位运算符"><a href="#5-位运算符" class="headerlink" title="5.位运算符"></a>5.位运算符</h3><p><img data-sizes="auto" data-src="/images/java2/java216.PNG" alt="" class="lazyload"></p>
+<h4 id="注意：无-lt-lt-lt"><a href="#注意：无-lt-lt-lt" class="headerlink" title="注意：无&lt;&lt;&lt;"></a>注意：无&lt;&lt;&lt;</h4><p>位运算是直接对二进制进行运算<br><img data-sizes="auto" data-src="/images/java2/java217.PNG" alt="" class="lazyload"></p>
 <hr>
 <h3 id="6-三元运算符"><a href="#6-三元运算符" class="headerlink" title="6.三元运算符"></a>6.三元运算符</h3><h4 id="格式"><a href="#格式" class="headerlink" title="格式:"></a>格式:</h4><p>**(条件表达式)? 表达式1：表达式2；</p>
 <pre><code>          为true，运算后的结果是表达式1；
-为false，运算后的结果是表达式2；**</code></pre><h4 id="练习：-获取两个数中的较大数"><a href="#练习：-获取两个数中的较大数" class="headerlink" title="练习： 获取两个数中的较大数"></a>练习： 获取两个数中的较大数</h4><pre><code>获取三个数中的较大数</code></pre><h4 id="运算符的优先级"><a href="#运算符的优先级" class="headerlink" title="运算符的优先级"></a>运算符的优先级</h4><p><img src="/images/java2/java218.PNG" alt=""></p>
+为false，运算后的结果是表达式2；**</code></pre><h4 id="练习：-获取两个数中的较大数"><a href="#练习：-获取两个数中的较大数" class="headerlink" title="练习： 获取两个数中的较大数"></a>练习： 获取两个数中的较大数</h4><pre><code>获取三个数中的较大数</code></pre><h4 id="运算符的优先级"><a href="#运算符的优先级" class="headerlink" title="运算符的优先级"></a>运算符的优先级</h4><p><img data-sizes="auto" data-src="/images/java2/java218.PNG" alt="" class="lazyload"></p>
 <h2 id="2-5-程序流程控制"><a href="#2-5-程序流程控制" class="headerlink" title="2.5  程序流程控制"></a>2.5  程序流程控制</h2><h4 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h4><pre><code>***程序从上到下逐行地执行，中间没有任何判断和跳转。***</code></pre><h4 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h4><pre><code>***根据条件，选择性地执行某段代码。
 有if…else和switch两种分支语句。***</code></pre><h4 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h4><pre><code>     ***根据循环条件，重复性的执行某段代码。
      有while、do…while、for三种循环语句。***
@@ -563,20 +572,27 @@ System.out.println(2 == 2 ? (3 == 3 ? 3 : 4) : &quot;1&quot;);
             }
 }</code></pre>
   </article>
+
   
     
-<div class="nexmoe-post-copyright">
-<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-<strong>Author：</strong>零点坠落<br>
-<strong>Link：</strong><a href="http://yoursite.com/2020/02/03/java2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;java2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;java2.html&#x2F;</a><br>
-
-  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
-
-</div>
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/03/java2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;java2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;java2.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
 
 
   
-  <section class="nexmoe-comment">
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
 <div id="gitalk"></div>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
@@ -585,37 +601,25 @@ System.out.println(2 == 2 ? (3 == 3 ? 3 : 4) : &quot;1&quot;);
         clientID: '80b2453b6d5f37ad6225',
         clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
         id: window.location.pathname,
-        repo: 'nexmoe.github.io',
-        owner: 'nexmoe',
-        admin: 'nexmoe'
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
     })
     gitalk.render('gitalk')
 </script>
 </section>
+  </div>
 </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
 
 
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-<script src="/js/app.js?v=1596990543589"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
-
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
-
-
-
+<script src="/js/app.js?v=1597114984729"></script>
   
 
 
