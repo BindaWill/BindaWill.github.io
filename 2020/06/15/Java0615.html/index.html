@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Blade 微服务项目搭建 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="主要总结在工作中对SpringCloud框架搭建和开发相关知识的理解与认识，涉及Java语言和Spring框架的具体理解与知识点，以供后期理解与参考，有很多不足之处，待后期完善和补充。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blade 微服务项目搭建">
+<meta property="og:url" content="http://yoursite.com/2020/06/15/Java0615.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="主要总结在工作中对SpringCloud框架搭建和开发相关知识的理解与认识，涉及Java语言和Spring框架的具体理解与知识点，以供后期理解与参考，有很多不足之处，待后期完善和补充。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-framework.png">
+<meta property="article:published_time" content="2020-06-15T14:10:21.000Z">
+<meta property="article:modified_time" content="2020-09-10T01:21:23.885Z">
+<meta property="article:author" content="零点坠落">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-framework.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1603768576371">
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>47</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2020 零点坠落
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="/images/logo/a1.jpg" data-sizes="auto" alt="Blade 微服务项目搭建" class="lazyload">
+          <h1>Blade 微服务项目搭建</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年06月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>508 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>主要总结在工作中对SpringCloud框架搭建和开发相关知识的理解与认识，涉及Java语言和Spring框架的具体理解与知识点，以供后期理解与参考，有很多不足之处，待后期完善和补充。</p>
+<a id="more"></a>
+<h4 id="学习思维导图及架构图"><a href="#学习思维导图及架构图" class="headerlink" title="学习思维导图及架构图"></a>学习思维导图及架构图</h4><p><img data-sizes="auto" data-src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-framework.png" alt="" class="lazyload"></p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><ol>
+<li>api鉴权报401，令牌失效，鉴权失败</li>
+</ol>
+<ul>
+<li>解决方法，重新检查api配置文件，鉴权时分清post与get。</li>
+</ul>
+<ol start="2">
+<li>Process finished with exit code 1</li>
+</ol>
+<ul>
+<li>解决方法：删除重复依赖</li>
+</ul>
+<ol start="3">
+<li>ResourceApplication: Failed to retrieve application JMX service URL</li>
+</ol>
+<h4 id="搭建步骤步骤："><a href="#搭建步骤步骤：" class="headerlink" title="搭建步骤步骤："></a>搭建步骤步骤：</h4><p>mybatis,参数类型不匹配<br>(1).新建子工程<br>      在blade-service 上右击依次选择 New -&gt;Module，进入Module界面后，再在 New Module 界面选中左侧的 Maven 并且点击 Next，以同样的方法在 blade-service-api 下新建 api 工程，为工程下的pom.xml设置基本信息。<br>（2）新建api<br>     创建 API 用到的是 Controller ，所以我们新建一个 controller 的 package 并新建一个<br>DemoController 的类。<br>(3)Redis 缓存</p>
+<p>（3）crud</p>
+<pre><code>/**
+* * 新增
+*/
+@PostMapping(&quot;/save&quot;)
+public R save(@RequestBody Blog blog) {
+  return R.status(service.save(blog));
+}
+
+/**
+* 修改
+*/
+@PostMapping(&quot;/update&quot;)
+public R update(@RequestBody Blog blog) {
+  return R.status(service.updateById(blog));
+}
+
+/**
+* 删除
+*/
+@PostMapping(&quot;/remove&quot;)
+public R remove(@RequestParam String  ids) {
+  return R.status(service.removeByIds(Func.toIntList(ids)));
+}
+
+
+/**
+* 单条查询
+*/
+@GetMapping(&quot;/detail&quot;)
+public R&lt;Blog&gt; detail(@RequestParam Integer id) {
+  Blog detail = service.getById(id);
+  return R.data(detail);
+ }
+
+/**
+ * 查询多条
+ *
+@GetMapping(&quot;/list&quot;)
+public R&lt;List&lt;Blog&gt;&gt; list() {
+  List&lt;Blog&gt; list = service.list();
+  return R.data(list);
+*/
+
+  /**
+  * 查询多条（模糊查询）
+   *
+  @GetMapping(&quot;/list&quot;)
+  public R&lt;List&lt;Blog&gt;&gt; list(Blog blog) {
+     List&lt;Blog&gt; list = service.list(Condition.getQueryWrapper(blog));
+     return R.data(list);
+
+   */
+     /**
+       * 查询多条(lambda 模式，并且按时间倒序排序)
+      * */
+     @GetMapping(&quot;/list&quot;)
+     public R&lt;List&lt;Blog&gt;&gt; list(@RequestParam Map&lt;String, Object&gt; blog) {
+        List&lt;Blog&gt; list = service.list(Condition.getQueryWrapper(blog, Blog.class).lambda().orderByDesc(Blog::getBlogDate));
+        return R.data(list);
+
+  /**
+  * 分页
+  */
+ @GetMapping(&quot;/page&quot;)
+ public R&lt;IPage&lt;Blog&gt;&gt; page(@ApiIgnore @RequestParam Map&lt;String, Object&gt; blog, Query query) {
+  IPage&lt;Blog&gt; pages = service.page(Condition.getPage(query), Condition.getQueryWrapper(blog, Blog.class)); return R.data(pages); }
+
+  }
+}</code></pre>
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/06/15/Java0615.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;15&#x2F;Java0615.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;15&#x2F;Java0615.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1603768576373"></script>
+  
+
+
+
+
+
+</body>
+
+</html>
