@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java面试突击一百道 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="01.谈谈你对面向对象思想的理解 首先，谈谈“面向过程”和”面向对象“  我觉得这两者主要是思考角度的差异，面向过程更多是以“执行者”的角度来思考问题，而面向对象更多是以”组织者“的的角度来思考问题，举个例子，比如我要产生一个0-10之间的随机数，如果以”面向过程”的思维，我更多的关注如何设计一个算法，然后保证比较均衡的产生0-10的随机数，而面向对象的思维下我更多的会关注，我应该找谁来帮我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试突击一百道">
+<meta property="og:url" content="http://yoursite.com/2021/01/03/Interview100.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="01.谈谈你对面向对象思想的理解 首先，谈谈“面向过程”和”面向对象“  我觉得这两者主要是思考角度的差异，面向过程更多是以“执行者”的角度来思考问题，而面向对象更多是以”组织者“的的角度来思考问题，举个例子，比如我要产生一个0-10之间的随机数，如果以”面向过程”的思维，我更多的关注如何设计一个算法，然后保证比较均衡的产生0-10的随机数，而面向对象的思维下我更多的会关注，我应该找谁来帮我们">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-199da3b71771a2ac8a6abca871d2bca2_720w.jpg">
+<meta property="og:image" content="https://img-blog.csdn.net/20170729110914749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1OTYxNDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="article:published_time" content="2021-01-02T17:01:37.000Z">
+<meta property="article:modified_time" content="2021-02-26T08:48:57.271Z">
+<meta property="article:author" content="零点坠落">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-199da3b71771a2ac8a6abca871d2bca2_720w.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1614441977107">
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>56</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 零点坠落
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+          <img data-src="/images/java1/b1.jpg" data-sizes="auto" alt="Java面试突击一百道" class="lazyload">
+          <h1>Java面试突击一百道</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年01月03日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 13 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <a id="more"></a>
+
+<h4 id="01-谈谈你对面向对象思想的理解"><a href="#01-谈谈你对面向对象思想的理解" class="headerlink" title="01.谈谈你对面向对象思想的理解"></a>01.谈谈你对面向对象思想的理解</h4><ul>
+<li>首先，谈谈“面向过程”和”面向对象“</li>
+</ul>
+<p>我觉得这两者主要是思考角度的差异，面向过程更多是以“执行者”的角度来思考问题，而面向对象更多是以”组织者“的的角度来思考问题，举个例子，比如我要产生一个0-10之间的随机数，如果以”面向过程”的思维，我更多的关注如何设计一个算法，然后保证比较均衡的产生0-10的随机数，而面向对象的思维下我更多的会关注，我应该找谁来帮我们做这件事，比如Random类，调用其中提供的方法就行了。</p>
+<p>所以面向对象的思维更多的是考虑如何去选择合适的工具，然后组织到一起干一件事。</p>
+<p>就好比一个导演，要拍一部电影，那么首先要有男主角和女主角，然后其他等等，最后把这些资源组织起来，拍成一部电影。</p>
+<p>再回到我们的程序世界，这种组织者的思维无处不在，比如我们要开发项目，以三层架构的模式来开发，那么这个时候，我们不需要造轮子，只需要选择市面上主流的框架即可，比如SpringMVC，Spring，MyBatis等等，这些都是各层的主流框架。</p>
+<h4 id="并发编程我们需要关注哪些方面？"><a href="#并发编程我们需要关注哪些方面？" class="headerlink" title="并发编程我们需要关注哪些方面？"></a>并发编程我们需要关注哪些方面？</h4><p>主要有3个核心问题：分工，同步，互斥</p>
+<p>分工：如何将任务拆分成多线程执行</p>
+<p>将大任务拆分成不同职能的小任务交由不同的线程去执行，这样很多任务都是并发执行的大大缩减任务执行时间。</p>
+<p>同步：线程之间如何协调</p>
+<p>任务执行完后，才能进行B任务，任务的执行需要各线程的协调</p>
+<p>互斥：如何保证同一时间只允许一个线程访问同一资源</p>
+<p>当多岔路口的车需要进入同一个入口时，便需要依次排队进入。</p>
+<p>分工，同步关注的是性能问题，互斥关注的是安全问题</p>
+<h4 id="1-JDK-JRE-JVM有什么区别？"><a href="#1-JDK-JRE-JVM有什么区别？" class="headerlink" title="1.JDK,JRE,JVM有什么区别？"></a>1.JDK,JRE,JVM有什么区别？</h4><ul>
+<li><p>JDK(Java DeveLopment Kit) Java开发工具包，提供了Java开发环境和运行环境。包含了编译Java源文件的编辑器Javac，还有调试和分析工具。</p>
+</li>
+<li><p>JRE(Java Runtime Environment) Java运行环境，包含Java虚拟机及一些基础类库。</p>
+</li>
+<li><p>JVM(Java Virtual Machine) Java虚拟机，提供执行字节码文件的能力。</p>
+</li>
+</ul>
+<p>所以，如果只是运行Java程序,只需要安装JRE即可。</p>
+<p>另外注意，JVM是实现Java跨平台的核心，但JVM本身是不能跨平台的，不同的平台需要安装相应的JVM。</p>
+<p><img data-sizes="auto" data-src="https://pic3.zhimg.com/80/v2-199da3b71771a2ac8a6abca871d2bca2_720w.jpg" alt="" class="lazyload"></p>
+<h4 id="2-Java的基本数据类型有哪些？"><a href="#2-Java的基本数据类型有哪些？" class="headerlink" title="2. Java的基本数据类型有哪些？"></a>2. Java的基本数据类型有哪些？</h4><p>boolean，char，byte，short，int，long，float，double<br>而String是引用类型</p>
+<p>它们的存储位置：</p>
+<p><img data-sizes="auto" data-src="https://img-blog.csdn.net/20170729110914749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1OTYxNDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="" class="lazyload"></p>
+<h4 id="3-和equals的区别"><a href="#3-和equals的区别" class="headerlink" title="3. ==和equals的区别"></a>3. ==和equals的区别</h4><ul>
+<li><p>== 比较的是值</p>
+<blockquote>
+<p>比较基本数据类型，比较的是数值</p>
+</blockquote>
+<blockquote>
+<p>比较引用数据类型，比较的是引用所指的值（地址）</p>
+</blockquote>
+</li>
+<li><p>equals 默认比较也是地址，这个方法最初是定义在Object上，默认的实现就是比较地址<br>自定义的类，如何需要比较的是内容，那么就要学String，重写equals</p>
+</li>
+</ul>
+<p>案例：</p>
+<pre><code>String s1 = new String(&quot;zs&quot;);
+String s2 = new String(&quot;zs&quot;);
+System.out.println(s1 == s2);
+
+false
+双方均new了对象
+
+
+
+String s3 = &quot;zs&quot;;
+String s4 = &quot;zs&quot;;
+System.out.println(s3 == s4);
+
+true
+双方均指向常量池的地址
+
+System.out.println(s3 == s1);
+
+false
+s3指向常量池的地址
+s1指向的是对象引用的地址
+
+
+String s5 = &quot;zszs&quot;;
+String s6 = s3+s4;
+System.out.println(s5 == s6);
+
+false
+s5指向常量池的地址
+s6拼接变量，new了新对象
+
+
+final String s7 = &quot;zs&quot;;
+final String s8 = &quot;zs&quot;;
+String s9 = s7+s8;
+System.out.println(s5 == s9);
+
+true
+由于s7和s8都是常量，s9在运算时结果也会转变成常量
+s9和s5均指向常量池的值（”zszs”）
+
+
+final String s10 = s3+s4;
+System.out.println(s5 == s10);
+
+false
+s10拼接变量指向引用的对象地址
+s5指向常量池</code></pre><h4 id="4-final的作用"><a href="#4-final的作用" class="headerlink" title="4. final的作用"></a>4. final的作用</h4><ul>
+<li><p>final修饰类：表示类不可变，不可继承</p>
+<p>比如，String，不可变性</p>
+</li>
+<li><p>final修饰方法：表示方法不可被重写</p>
+<p>比如模板方法，可以固定我们的算法</p>
+</li>
+<li><p>final修饰变量：这个变量就是常量</p>
+<p>注意：</p>
+</li>
+<li><p>修饰的是基本数据类型，这个值本身不能修改</p>
+</li>
+<li><p>修饰的是引用类型，引用的指向不能修改</p>
+<p>比如下面的代码是可以的</p>
+</li>
+</ul>
+<pre><code>fianl Student student = new Student(1,&quot;Andy&quot;);
+student.setAge(18);        //注意这个是可以的！
+
+//Student s2 = new Student(1,&quot;Tom&quot;);
+//student = s2;            //注意这样是不可以的！</code></pre><p><strong>final修饰的对象内容是可以改变的，但是引用时不能内改变的，如果执行注释到的内容，将新生成的s2对象赋值给student的话就会报错。</strong></p>
+<h4 id="5，String-s-“java”与String-s-new-String-“java”"><a href="#5，String-s-“java”与String-s-new-String-“java”" class="headerlink" title="5，String s = “java”与String s = new String(“java”)"></a>5，String s = “java”与String s = new String(“java”)</h4><p>String s = “java”;</p>
+<p>String s = new String(“java”);</p>
+<p>这两者的内存分配方式是不一样的。</p>
+<p>第一种方式，JVM会将其分配到常量池，而第二种方式是分配到堆内存</p>
+<h4 id="6-String-StringBuffer-StringBuilder区别"><a href="#6-String-StringBuffer-StringBuilder区别" class="headerlink" title="6. String, StringBuffer, StringBuilder区别"></a>6. String, StringBuffer, StringBuilder区别</h4><p>String 跟其他两个类的区别是</p>
+<blockquote>
+<p>String是final类型，每次声明的都是不可变对象，所以每次操作都会产生新的String对象，然后将指针指向新的String对象。</p>
+</blockquote>
+<p>StringBuffer,StringBuilder都是在原有对象上进行操作</p>
+<blockquote>
+<p>所以，如果需要经常需要改变字符串内容，则采用这两者。</p>
+</blockquote>
+<p>StringBuffer vs StringBuilder</p>
+<blockquote>
+<p>前者是线程安全的，后者是线程不安全的。</p>
+</blockquote>
+<blockquote>
+<p>线程不安全性能更高，所以在开发中，优先采<br>用StringBuilder.</p>
+</blockquote>
+<blockquote>
+<p>StringBuilder &gt; StringBuffer &gt; String</p>
+</blockquote>
+<p>开发中，你用StringBuilder来解决什么问题？</p>
+<ul>
+<li>字符串拼接的问题：</li>
+</ul>
+<p>方法内：</p>
+<pre><code>StringBuilder sb = new StringBuilder();
+sb.append(&quot;&quot;);</code></pre><p><strong>如果一个线程访问一个资源，你不用考虑线程安不安全，可以放心使用；如果多个线程访问一个资源，你才要考虑线程安不安全。</strong></p>
+<h4 id="7，接口和抽象类的区别"><a href="#7，接口和抽象类的区别" class="headerlink" title="7，接口和抽象类的区别"></a>7，接口和抽象类的区别</h4><ul>
+<li>这个问题，要分JDK版本来区分回答：</li>
+</ul>
+<p>JDK1.8之前：</p>
+<ul>
+<li>语法：</li>
+<li>抽象类：方法可以有抽象的，也可以有非抽象, 有构造器</li>
+<li>接口：方法都是抽象，属性都是常量，默认有public static final修饰</li>
+<li>设计：</li>
+<li>抽象类：同一类事物的抽取，比如针对Dao层操作的封装，如，BaseDao，BaseServiceImpl</li>
+</ul>
+<ul>
+<li>接口：通常更像是一种标准的制定，定制系统之间对接的标准<br>例子：</li>
+</ul>
+<ol>
+<li>单体项目，分层开发，interface作为各层之间的纽带，在controller中注入IUserService，在Service注入IUserDao</li>
+<li>分布式项目，面向服务的开发，抽取服务service，这这两个角色之间的纽带，依然是接口</li>
+</ol>
+<p>JDK1.8之后：</p>
+<p>  接口里面可以有实现的方法，注意要在方法的声明上加上default或者static</p>
+<p>最后区分几个概念：</p>
+<pre><code>多继承，多重继承，多实现
+多重继承：A-&gt;B-&gt;C（爷孙三代的关系）
+多实现：Person implements IRunable,IEatable（符合多项国际化标准）
+多继承：接口可以多继承，类只支持单继承      </code></pre><h4 id="8-算法题-求N的阶乘"><a href="#8-算法题-求N的阶乘" class="headerlink" title="8. 算法题- 求N的阶乘"></a>8. 算法题- 求N的阶乘</h4><p>这道算法题一般考查的递归的编程技能，那么我们回顾下递归程序的特点：</p>
+<p>1，什么是递归？  </p>
+<pre><code>递归，就是方法内部调用方法自身</code></pre><p>  递归的注意事项：</p>
+<pre><code>找到规律，编写递归公式
+找到出口（边界值），让递归有结束边界
+注意：如果递归太多层，或者没有正确结束递归，则会出现“栈内存溢出Error”！
+问题：为什么会出现栈内存溢出，而不是堆内存溢出？</code></pre><ol start="2">
+<li>这道题怎么写？</li>
+</ol>
+<p>规律： N! = (n-1)!*n</p>
+<p>出口： n==1或n==0 return 1;</p>
+<pre><code> public static int getResult(int n){
+   if(n&lt;0){
+     throw new ValidateException(&quot;非法参数&quot;)；
+   }
+   if(n==1 || n==0){
+     return 1;
+   }else{
+   return getResult(n-1)*n;
+}</code></pre><p>}</p>
+<h4 id="算法题-斐波那契数列的第n个数是几？"><a href="#算法题-斐波那契数列的第n个数是几？" class="headerlink" title="算法题-斐波那契数列的第n个数是几？"></a>算法题-斐波那契数列的第n个数是几？</h4><p>如何实现递归求斐波那切数列第N个数字的值（传说中的不死神兔就是这个问题）</p>
+<p>数字的规律：1,1,2,3,5,8,13,21….</p>
+<p>所以，我们可以分析编写如下：</p>
+<p>   规则：每个数等于前两个数之和<br>   出口：第一项和第2项都等于1</p>
+<pre><code>public staic int getFeiBo(int n){
+  if(n&lt;0){
+    throw new ValidateException(&quot;非法参数&quot;)；
+  }
+  if(n==1|| n==2){
+    return 1;
+  }else{
+    return getFeiBo(n-2)+getFeiBo(n-1);
+  }
+}</code></pre><h4 id="9，Int和Integer的区别（重点）"><a href="#9，Int和Integer的区别（重点）" class="headerlink" title="9，Int和Integer的区别（重点）"></a>9，Int和Integer的区别（重点）</h4><p>1，来，先来一道考题，你看做对了吗？</p>
+<pre><code>Integer i1 = new Integer(12);
+Integer i2 = new Integer(12);
+System.out.println(i1 == i2);
+
+ false
+
+
+Integer i3 = 126;
+Integer i4 = 126;
+int i5 = 126;
+System.out.println(i3 == i4);
+System.out.println(i3 == i5);
+
+true
+true
+
+
+Integer i6 = 128;
+Integer i7 = 128;
+int i8 = 128;
+System.out.println(i6 == i7);
+System.out.println(i6 == i8);
+
+false
+false</code></pre><p>以上这些输出的答案是什么？true or false？ why？</p>
+<p>你可以自己先思考，再看后面的答案分析。</p>
+<p>答案揭晓</p>
+<p>分情况来比较</p>
+<ul>
+<li>都定义为Integer的比较：</li>
+</ul>
+<p>new：一旦new，就是开辟一块新内存，结果肯定是false</p>
+<p>不new：看范围Integer做了缓存，-128至127，当你取值在这个范围的时候，会采用缓存的对象，所以会相等当不在这个范围，内部创建新的对象，此时不相等</p>
+<p>*Integer和int的比较：</p>
+<p>实际比较的是数值，Integer会做拆箱的动作，来跟基本数据类型做比较此时跟是否在缓存范围内或是否new都没关系</p>
+<p>源码分析：</p>
+<blockquote>
+<p>当我们写Integer i = 126,实际上做了自动装箱：Integer i = Integer.valueOf(126);</p>
+</blockquote>
+<p>分析这段源码</p>
+<pre><code>public static Integer valueOf(int i) {
+    if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
+        return IntegerCache.cache[i + (-IntegerCache.low)];
+    return new Integer(i);
+}
+//IntegerCache是Integer的内部类
+private static class IntegerCache {
+    static final int low = -128;
+    static final int high;
+    static final Integer cache[];
+    static {
+        // high value may be configured by     property
+        int h = 127;​​</code></pre><h4 id="12，方法的重写和重载的区别"><a href="#12，方法的重写和重载的区别" class="headerlink" title="12，方法的重写和重载的区别"></a>12，方法的重写和重载的区别</h4><p>重载：</p>
+<ul>
+<li>发生在一个类里面，方法名相同，参数列表不同（混淆点：跟返回类型没关系）</li>
+</ul>
+<p>以下不构成重载</p>
+<p>public double add(int a,int b)</p>
+<p>public int add(int a,int b)​</p>
+<p>重写：</p>
+<ul>
+<li>发生在父类子类之间的，方法名相同，参数列表相同</li>
+</ul>
+<h4 id="Lis和set的区别"><a href="#Lis和set的区别" class="headerlink" title="Lis和set的区别"></a>Lis和set的区别</h4><ul>
+<li>List(列表)：有序的，可重复的</li>
+</ul>
+<p>ArrayList LinkedList</p>
+<p>List存放的对象是有序可重复的，List关注的是索引，拥有一系列和索引有关的方法，查询速度快，插入删除速度慢</p>
+<ul>
+<li>set(集)：无序的，不可重复的</li>
+</ul>
+<p>HashSet TreeSet</p>
+<p>集合中的对象是不按特定的方式排序，只是简单地把对象加入集合</p>
+<ul>
+<li>map(映射)：键值对，键唯一，值不唯一</li>
+</ul>
+<p>对map集合遍历时先得到键的set集合，对set集合进行遍历得到相应的值。</p>
+<h4 id="16-谈谈ArrayList和LinkedList的区别"><a href="#16-谈谈ArrayList和LinkedList的区别" class="headerlink" title="16.谈谈ArrayList和LinkedList的区别"></a>16.谈谈ArrayList和LinkedList的区别</h4><ul>
+<li>ArrayList 数组 连续一块内存空间</li>
+<li>LinkedList 双向链表，不是连续的内存空间</li>
+</ul>
+<p>Arraylist，查找快，因为是连续的内存空间，方便寻址，但删除，插入慢，因为需要发生数据迁移。</p>
+<p>LinkedList,查找慢，因为需要通过指针一个个查找，但删除，插入快，因为只要改变前后节点的指针指向即可。</p>
+<h4 id="17-SpringIOC"><a href="#17-SpringIOC" class="headerlink" title="17. SpringIOC"></a>17. SpringIOC</h4><p>1.谈谈SpringIOC的理解</p>
+<p>控制翻转，将对象创建的任务由程序员本身转向容器。</p>
+<ol start="2">
+<li><p>谈谈springIOC的应用场景</p>
+</li>
+<li><p>说说如何实现IOC容器<br>知道找你们实现</p>
+</li>
+</ol>
+<p>完成两件事</p>
+<ol>
+<li>解析</li>
+<li>实现复制</li>
+</ol>
+<p>配置文件的方式</p>
+<ol>
+<li>解析XML —-&gt; Dom4j</li>
+<li>调用方法，实现注入（反射）</li>
+</ol>
+<p>注解的方式</p>
+<ol>
+<li>解析类</li>
+</ol>
+<p>这个类是归spring管理<br>获取到类的注解信息和属性的注解信息（反射）<br>2. 赋值</p>
+<p>使用方式：<br>1.配置文件的方式<br><bean><br>   <agrs>/<agrs><br><bean></p>
+<pre><code>public class UserController{
+  pubic void setUserService(IuserService userService){
+    this.userService = userService;
+  }
+ }</code></pre><p>2.注解的方式<br>@Contr oller<br>class </p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2021/01/03/Interview100.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;01&#x2F;03&#x2F;Interview100.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;01&#x2F;03&#x2F;Interview100.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1614441977109"></script>
+  
+
+
+
+
+
+</body>
+
+</html>

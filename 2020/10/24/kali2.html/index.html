@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>HW弹药库之红方作战手册 - 火星环游日记</title>
+  <title>HW红方作战手册 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -14,18 +14,18 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
   <meta name="description" content="今天学习一下渗透攻击的主要流程与手段，以便能直观的了解渗透攻击的各个步骤与重点，作为今后回顾的一个参考。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HW弹药库之红方作战手册">
+<meta property="og:title" content="HW红方作战手册">
 <meta property="og:url" content="http://yoursite.com/2020/10/24/kali2.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="今天学习一下渗透攻击的主要流程与手段，以便能直观的了解渗透攻击的各个步骤与重点，作为今后回顾的一个参考。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-24T07:23:21.000Z">
-<meta property="article:modified_time" content="2020-10-24T06:54:47.552Z">
+<meta property="article:modified_time" content="2020-10-27T08:08:46.179Z">
 <meta property="article:author" content="零点坠落">
 <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1603768907239">
+  <link rel="stylesheet" href="/css/style.css?v=1614441977124">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -49,7 +49,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>47</div>
+        <div><span>文章</span>56</div>
         <div><span>标签</span>0</div>
         <div><span>分类</span>0</div>
     </div>
@@ -107,7 +107,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
     </div>
   </div>
 
@@ -124,7 +124,7 @@
   
 </aside>
     <div class="nexmoe-copyright">
-        &copy; 2020 零点坠落
+        &copy; 2021 零点坠落
         Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
         & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
     </div>
@@ -135,8 +135,8 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
-          <img data-src="/images/logo/a1.jpg" data-sizes="auto" alt="HW弹药库之红方作战手册" class="lazyload">
-          <h1>HW弹药库之红方作战手册</h1>
+          <img data-src="/images/logo/a1.jpg" data-sizes="auto" alt="HW红方作战手册" class="lazyload">
+          <h1>HW红方作战手册</h1>
       </div>
   
   
@@ -153,47 +153,61 @@
   <article>
     <p>今天学习一下渗透攻击的主要流程与手段，以便能直观的了解渗透攻击的各个步骤与重点，作为今后回顾的一个参考。</p>
 <a id="more"></a>
-<pre><code>以下仅针对日常 &quot;红队&quot; 场景, 进行了一次相对全面完整的实战攻击利用技术提炼汇总
-针对不同的渗透阶段,所可能会用到的一些技术都做了详尽梳理说明 (后面可能还会整理出对应的完整工具链,虽然那不是最主要的)
-由于红队不同于一般的渗透测试, 强调更多的是如何搞进去拿到相应机器权限 或者 实现某特定目的
-而不局限于你一定要在什么时间, 用什么技术 或者 必须通过什么途径去搞,相比传统渗透测试,红队则更趋于真实的入侵活动
-这种场景其实对防御者的 实战对抗经验 和 技术深度 都是比较大的挑战
-所以,以下的所有技术点也几乎都是完全站在这种场景和角度下来考量梳理的
-需要特别说明的是, 所有攻击手法在现实中都绝不是完全孤立使用的, 往往很多手法都是相互灵活组合起来进行循环利用
-由于绝大部分内容都是基于本人平时学习实战积累的一些经验,加之每个人的实际渗透思路都不同
-所以肯定会有遗漏的地方,也欢迎弟兄们一起来积极指正补充完善
-个人觉得,最好的防御永远不是怎么去防某个工具,是个明白人都知道,因为工具这些东西本身就是死的
-稍微改下,定制下, 现有的规则可能马上就防不住了,且一直会处于疲于应付的被动防御状态
-尤其是针对红队这种特殊场景的,你的实际对手很可能都是有一定技术实力的人
-所以针对每种核心的攻击技术技术展开做深入分析, 直接从源头上进行防御才是最靠谱的
-虽然说短期这种成本代价相对较高, 但长期来看, 是一劳永逸的, 沉淀下来的这些东西最终也会慢慢形成自己产品的核心竞争力和特色
-说白点,这种对抗,本质上拼的还是双方的技术实力,不仅要能在不知觉的情况下搞进去,而且要能无限制加大对方后期的溯源成本
-另外,作为一名合格的攻防人员,工具的熟练掌握仅仅只是极小的一部分,对各种利用原理的深度理解和二次定制能力才是你的核心</code></pre><h3 id="日常流程简要说明"><a href="#日常流程简要说明" class="headerlink" title="日常流程简要说明"></a>日常流程简要说明</h3><p><strong>入口权限</strong> =&gt; <strong>内网搜集/探测</strong> =&gt; <strong>免杀提权[非必须]</strong> =&gt; <strong>抓取登录凭证</strong> =&gt; <strong>跨平台横向</strong> =&gt; <strong>入口维持</strong> =&gt; <strong>数据回传</strong> =&gt; <strong>定期权限维护</strong></p>
+<blockquote>
+<p>以下仅针对日常 “红队” 场景, 进行了一次相对全面完整的实战攻击利用技术提炼汇总<br>    针对不同的渗透阶段,所可能会用到的一些技术都做了详尽梳理说明 (后面可能还会整理出对应的完整工具链,虽然那不是最主要的)<br>    由于红队不同于一般的渗透测试, 强调更多的是如何搞进去拿到相应机器权限 或者 实现某特定目的<br>    而不局限于你一定要在什么时间, 用什么技术 或者 必须通过什么途径去搞,相比传统渗透测试,红队则更趋于真实的入侵活动<br>    这种场景其实对防御者的 实战对抗经验 和 技术深度 都是比较大的挑战<br>    所以,以下的所有技术点也几乎都是完全站在这种场景和角度下来考量梳理的<br>    需要特别说明的是, 所有攻击手法在现实中都绝不是完全孤立使用的, 往往很多手法都是相互灵活组合起来进行循环利用<br>    由于绝大部分内容都是基于本人平时学习实战积累的一些经验,加之每个人的实际渗透思路都不同<br>    所以肯定会有遗漏的地方,也欢迎弟兄们一起来积极指正补充完善<br>    个人觉得,最好的防御永远不是怎么去防某个工具,是个明白人都知道,因为工具这些东西本身就是死的<br>    稍微改下,定制下, 现有的规则可能马上就防不住了,且一直会处于疲于应付的被动防御状态<br>    尤其是针对红队这种特殊场景的,你的实际对手很可能都是有一定技术实力的人<br>    所以针对每种核心的攻击技术技术展开做深入分析, 直接从源头上进行防御才是最靠谱的<br>    虽然说短期这种成本代价相对较高, 但长期来看, 是一劳永逸的, 沉淀下来的这些东西最终也会慢慢形成自己产品的核心竞争力和特色<br>    说白点,这种对抗,本质上拼的还是双方的技术实力,不仅要能在不知觉的情况下搞进去,而且要能无限制加大对方后期的溯源成本<br>    另外,作为一名合格的攻防人员,工具的熟练掌握仅仅只是极小的一部分,对各种利用原理的深度理解和二次定制能力才是你的核心</p>
+</blockquote>
+<hr>
+<h3 id="日常流程简要说明"><a href="#日常流程简要说明" class="headerlink" title="日常流程简要说明"></a>日常流程简要说明</h3><p><strong>入口权限</strong> =&gt; <strong>内网搜集/探测</strong> =&gt; <strong>免杀提权[非必须]</strong> =&gt; <strong>抓取登录凭证</strong> =&gt; <strong>跨平台横向</strong> =&gt; <strong>入口维持</strong> =&gt; <strong>数据回传</strong> =&gt; <strong>定期权限维护</strong></p>
 <h5 id="1-入口权限获取-前期侦察，搜集阶段本身就不存在太多可防御的点，非防御重心"><a href="#1-入口权限获取-前期侦察，搜集阶段本身就不存在太多可防御的点，非防御重心" class="headerlink" title="1. 入口权限获取 [ 前期侦察，搜集阶段本身就不存在太多可防御的点，非防御重心 ]"></a>1. 入口权限获取 [ 前期侦察，搜集阶段本身就不存在太多可防御的点，非防御重心 ]</h5><pre><code>绕CDN找出目标所有真实ip段
+
 找目标的各种Web管理后台登录口
+
 批量抓取目标所有真实C段 Web banner
+
 批量对目标所有真实C段 进行基础服务端口扫描探测识别
+
 尝试目标DNS是否允许区域传送,如果不允许则继续尝试子域爆破
+
 批量抓取目标所有子域 Web banner
+
 批量对目标所有子域集中进行基础服务端口探测识别
+
 批量识别目标 所有存活Web站点的Web程序指纹 及其详细版本
+
 从 Git 中查找目标泄露的各类 敏感文件 及 账号密码,偶尔甚至还能碰到目标不小心泄露的各种云的 &quot;AccessKey&quot;
+
 从网盘 / 百度文库 中查找目标泄露的各类 敏感文件 及 账号密码
+
 从各第三方历史漏洞库中查找目标曾经泄露的 各种敏感账号密码 [ 国内目标很好使 ]
+
 目标Svn里泄露的各类 敏感文件
+
 网站目录扫描 [ 查找目标网站泄露的各类敏感文件, 网站备份文件, 敏感配置文件, 源码 , 别人的webshell, 等等等...]
+
 目标站点自身在前端代码中泄露的各种敏感信息
+
 fofa / shodan / bing / google  hacking 深度利用
+
 搜集目标 学生学号 / 员工工号 / 目标邮箱 [ 并顺手到各个社工库中去批量查询这些邮箱曾经是否泄露过密码 ]
+
 目标自己对外提供的各种 技术文档 / wiki 里泄露的各种账号密码及其它敏感信息
+
 目标微信小程序
+
 分析目标app Web请求
+
 借助js探针搜集目标内网信息
+
 想办法混入目标的各种 内部QQ群 / 微信群
+
 分析目标直接供应商 [尤其是技术外包]
+
 根据前面已搜集到的各类信息制作有针对性的弱口令字典
+
 目标所用 Waf 种类识别 与 绕过
+
 BypassWAF 文件上传 / 读取 / 下载
+
    BypassWAF Sql注入
    BypassWAF RCE
    BypassWAF 各类Java Web中间件已知Nday漏洞利用
@@ -637,41 +651,24 @@ Metasploit [二次开发]
 ......</code></pre><h4 id="14-各类常用-Webshell管理工具"><a href="#14-各类常用-Webshell管理工具" class="headerlink" title="14 各类常用 Webshell管理工具"></a>14 各类常用 Webshell管理工具</h4><pre><code>菜刀    caidao20160622
 冰蟹    Behinder_v2.0.1
 蚁剑    AntSword
-......</code></pre><h4 id="15-免杀-及-各类防火墙对抗"><a href="#15-免杀-及-各类防火墙对抗" class="headerlink" title="15 免杀 及 各类防火墙对抗"></a>15 免杀 及 各类防火墙对抗</h4><pre><code>静态
-
-混淆:
+......</code></pre><h4 id="15-免杀-及-各类防火墙对抗"><a href="#15-免杀-及-各类防火墙对抗" class="headerlink" title="15 免杀 及 各类防火墙对抗"></a>15 免杀 及 各类防火墙对抗</h4><p>静态</p>
+<pre><code>混淆:
 手工混淆,有源码的情况下,尝试逐个替换可能是关键特征字符串的 命名空间名, 函数名, 变量名, 字符串 等等等....
 工具混淆,针对各种语言的专业混淆工具 [ 有商业版 ]
-...
-
-加壳:
-一些常用公开壳的实际效果可能并不是太好 [ 也有商业壳 ]
-最好的方式还是尝试自己写壳,就是成本较高
-...
-
-动态
-
-反射
+...</code></pre><p>加壳:<br>    一些常用公开壳的实际效果可能并不是太好 [ 也有商业壳 ]<br>    最好的方式还是尝试自己写壳,就是成本较高<br>    …</p>
+<p>动态</p>
+<pre><code>反射
 shellcode 内存加解密执行 ( 对于现在的某些杀软来讲,可能并没什么卵用,别人拦的基本都是你的最终调用 )
 白利用
-......
-
-注:
-   理论上, 这些应该也没有什么非常通用的方法
-   大多还是事先针对特定的杀软针对性的不停调试分析出它到底怎么拦,怎么查的,然后再针对性的对症下药
-
-流量:
-
-域前置[利用大厂cdn]
+......</code></pre><p>注:<br>       理论上, 这些应该也没有什么非常通用的方法<br>       大多还是事先针对特定的杀软针对性的不停调试分析出它到底怎么拦,怎么查的,然后再针对性的对症下药</p>
+<p>流量:</p>
+<pre><code>域前置[利用大厂cdn]
 DNS加密隧道
 第三方公共邮箱上线
 第三方网盘上线
 第三方社交网站上线
-第三方匿名社交工具上线[eg: tg机器人,tor...]
+第三方匿名社交工具上线[eg: tg机器人,tor...]</code></pre><p>本文来自 klionsec的github</p>
 
-
-
-本文来自 klionsec的github</code></pre>
   </article>
 
   
@@ -720,7 +717,7 @@ DNS加密隧道
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1603768907241"></script>
+<script src="/js/app.js?v=1614441977127"></script>
   
 
 
