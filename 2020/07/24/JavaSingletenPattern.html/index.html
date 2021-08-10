@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>Java设计模式之单例模式 - 火星环游日记</title>
+  <title>SpringCloud各层框架注解简述 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -14,18 +14,18 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
   <meta name="description" content="单例模式（SingletenPattern）是Java中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方法，本文我将通过资料以及自己的理解详细梳理对单例模式的运用和理解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java设计模式之单例模式">
+<meta property="og:title" content="SpringCloud各层框架注解简述">
 <meta property="og:url" content="http://yoursite.com/2020/07/24/JavaSingletenPattern.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="单例模式（SingletenPattern）是Java中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方法，本文我将通过资料以及自己的理解详细梳理对单例模式的运用和理解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-24T12:33:43.000Z">
-<meta property="article:modified_time" content="2021-02-23T03:15:09.526Z">
+<meta property="article:modified_time" content="2020-08-12T07:35:47.762Z">
 <meta property="article:author" content="零点坠落">
 <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1628614368369">
+  <link rel="stylesheet" href="/css/style.css?v=1628614407792">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -135,8 +135,8 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
-          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java设计模式之单例模式" class="lazyload">
-          <h1>Java设计模式之单例模式</h1>
+          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="SpringCloud各层框架注解简述" class="lazyload">
+          <h1>SpringCloud各层框架注解简述</h1>
       </div>
   
   
@@ -155,144 +155,151 @@
 <a id="more"></a>
 
 <hr>
-<h2 id="Java设计模式之单例模式"><a href="#Java设计模式之单例模式" class="headerlink" title="Java设计模式之单例模式"></a>Java设计模式之单例模式</h2><h4 id="1、单例模式是什么？"><a href="#1、单例模式是什么？" class="headerlink" title="1、单例模式是什么？"></a>1、单例模式是什么？</h4><ul>
-<li>单例模式顾名思义就是在整个运行时域，一个类只有一个实例对象;<h4 id="为什么需要单例模式？"><a href="#为什么需要单例模式？" class="headerlink" title="为什么需要单例模式？"></a>为什么需要单例模式？</h4></li>
-<li>因为有的类的实例对象创建和销毁对资源来说消耗不大，比如说String，而有的类比较庞大和复杂，如果频繁的创建和销毁对象，并且这些在对象完全是可以复用的情况下，那么将会造成一些不必要的性能浪费；</li>
-</ul>
-<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><ul>
-<li>现在我要写一个访问数据库的demo，而创建数据库链接对象是一个耗资源的操作，并且数据库链接完全是可以复用的，那么我就可以将这个对象设计成单例的，这样我只需要创建一次并且重复使用这个对象就行了，而不需要每次都去访数据库去创建一个链接对象，如果那样做将会是一个非常恐怖的事情。</li>
-</ul>
-<h4 id="那么在Java中，是如何实现单例模式呢？"><a href="#那么在Java中，是如何实现单例模式呢？" class="headerlink" title="那么在Java中，是如何实现单例模式呢？"></a>那么在Java中，是如何实现单例模式呢？</h4><ul>
-<li>单例模式有很多种写法，有些人不以为然，觉得这样没有意义，完全就是一个茴香豆有几种写法一样的问题，自己呢只要会一种就够了，但是对于复杂的编程环境，只掌握一种是无法解决所有实际的业务的，在我看来，每种写法都是处于不同的思考方式，而且设计的十分巧妙，其中的思想是值得细品和借鉴的。</li>
-</ul>
-<hr>
-<h4 id="在单例模式中，需要考虑三点："><a href="#在单例模式中，需要考虑三点：" class="headerlink" title="在单例模式中，需要考虑三点："></a>在单例模式中，需要考虑三点：</h4><blockquote>
-<p>1.是不是线程安全？</p>
-</blockquote>
-<blockquote>
-<p>2.是不是懒加载？</p>
-</blockquote>
-<blockquote>
-<p>3.能不能通过反射破坏？</p>
-</blockquote>
-<h5 id="再举个栗子"><a href="#再举个栗子" class="headerlink" title="再举个栗子"></a>再举个栗子</h5><pre><code>public class Singleton{
-    //让构造函数私有, 这样该类就不会被实例化
-    private Singleton(){}
-    //初始化对象为null
-    private static Singleton instance = null;
-    //获取唯一可用的对象
-    public static Singleton getInstance(){
-        if (instance == null){
-            instance = new Singleton();
-        }
-        return instance;
-    }</code></pre><ul>
-<li>在这里我写了一个名叫Singleton的类，来表示我们需要构造的这个单例，首先我们将构造器设置为private，那么其他类就没有办法通过new来构造这个Singleton对象实例了；而其他类中需要使用Singleton对象的话，只能通过调用getInstance方法，在getInstance方法中，首先判断instance是否被构造过，如果构造过就直接使用，如果没有就当场构造。</li>
-</ul>
-<h4 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h4><ul>
-<li>首先我们可以看到，实例对象是第1次被调用的时候才真正被构建的，而不是程序的启动它就构建好了等你调用的，这种滞后构建的方式就叫做懒加载。</li>
-</ul>
-<h5 id="懒加载的好处是什么？"><a href="#懒加载的好处是什么？" class="headerlink" title="懒加载的好处是什么？"></a>懒加载的好处是什么？</h5><ul>
-<li>因为有些对象构建开销是比较大的，假如这个对象在项目启动时就构建，万一从来没有调用个，那么就比较浪费了；只有真正需要使用了再去构建，这是更加合理的。就像去吃自助餐，盘子就这么大，不管想不想吃都往盘子里装，到最后不想吃的一大堆，想吃的反而装不下了。</li>
-</ul>
-<h4 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h4><ol>
-<li>我们再来看看上面那个栗子：</li>
-</ol>
-<pre><code>public class Singleton{
-    //让构造函数为private, 这样该类就不会被实例化
-    private Singleton(){}
-    //初始化对象为null
-    private static Singleton instance = null;
-    //获取唯一可用的对象
-    public static Singleton getInstance(){
-   //当在执行instance == null时，可能多个线程同时进入，容易被实例化多次。
-        if (instance == null){
-            instance = new Singleton();
-           }
-        return instance;
-    }</code></pre><p> <strong>不难看出这个例子不是线程安全的，当在执行instance == null时，可能多个线程同时进入，容易被实例化多次。</strong></p>
-<ol start="2">
-<li>那该如何使其线程安全呢，这时可以想到加上synchronized就好了，可以将代码改造成下面这个样子：</li>
-</ol>
-<pre><code>public class Singleton{
-  private Singleton(){}
-  private static Singleton instance = null;
-  //获取唯一可用的对象
-  public static synchronized Singleton getInstance(){
-      if (instance == null){
-          instance = new Singleton();
-         }
-      return instance;
-  }</code></pre><p><strong>这种方法大多数情况下是不可取的，这样虽然能保证在同一时刻只有一个线程能够进入getInstance方法，但这也引入了新的问题；其实我们只想要对象在创建的时候同步线程，而这样的话，每次在获取对象时都需要进行同步操作，对性能的影响非常大，</strong></p>
-<p><strong><em>通过对以上的思考，我发现，线程安全问题出现在了构建对象的阶段，那么我们只要在编译期构建对象，在运行时调用，就不用考虑线程安全的问题了。</em></strong></p>
-<ol start="3">
-<li>于是，我们这样写：</li>
-</ol>
-<pre><code>public class Singleton{
-  private static Singleton instance = new Singleton();
-  private Singleton(){}
-  //获取唯一可用的对象
-  public static Singleton getInstance(){
-      return instance;
-  }
-}</code></pre><p><strong>可以看出这样是能保证线程安全的，但这种写法不是懒加载</strong></p>
-<p>那么有没有既是懒加载有实现线程安全的写法呢？</p>
-<p><strong>我们可以回到第二种写法，来看看是到底是哪里出了问题：形成低效的原因在于getInstance()上加了synchronized,所以导致每个进入该方法的线程首先得获取锁，那么只要在构建对象的时候同步，而可以直接使用对象时就没必要同步了。</strong></p>
-<ol start="4">
-<li>像这样：</li>
-</ol>
-<pre><code>public class Singleton{
-  private static Singleton singleton;
-  private Singleton(){}
-  public static  Singleton getInstance(){
-      if (singleton == null){
-          synchronized(Singleton.class){
-          singleton = new Singleton();
-          }
-      }
-      return singleton;
-      }
-   }</code></pre><p><strong>现在getInstance是不需要竞争锁的，所有线程都可以直接进入，此时进入第二步判断，如果实例对象还没有创建，那么多个线程开始争抢锁，抢到锁的线程开始创建实例对象，实例对象创建之后，所有的线程在执行第二步时都可以直接跳过，返回实例化对象进行调用，这就解决了最开始的低效问题</strong></p>
-<p><strong><em>但这时我们会发现，虽然只有一个线程能够抢到锁，但可能会有其他线程已经进入if代码块，此时正在等待，一定线程a执行完，线程b就会立马抢到锁，然后进行对象创建，这样对象就会被创建多次，这个问题也不难，我们再加一个判空操作就能解决</em></strong></p>
-<ol start="5">
-<li>如下：</li>
-</ol>
-<pre><code>public class Singleton{
-  private static Singleton singleton;
-  private Singleton(){}
-  public static  Singleton getInstance(){
-      if (singleton == null){
-          synchronized(Singleton.class){
-            if(singleton == null){}
-          singleton = new Singleton();
-             }
-          }
-      }
-      return singleton;
-      }
-   }</code></pre><p><strong>我们假设两个线程同时进入getInstance方法，这边a首先获取锁然后创建了singleton实例对象，当它构建完成后交还锁，这时候吧线程也会立即获取锁，在获得锁之后它也会进行一个判空，但singleton实例对象a线程创建，b线程会直接跳过if代码块，返回singleton实例，这样就会造成线程不安全的问题了</strong></p>
+<h2 id="Springcloud各层框架注解"><a href="#Springcloud各层框架注解" class="headerlink" title="Springcloud各层框架注解"></a>Springcloud各层框架注解</h2><h3 id="声明Bean的注解"><a href="#声明Bean的注解" class="headerlink" title="声明Bean的注解:"></a>声明Bean的注解:</h3><blockquote>
 <ul>
-<li>这种对对象进行两次判空的操作叫做双检锁</li>
+<li>@Component : 组件,没有明确的角色</li>
+<li>@Service : 在业务逻辑层(service层)使用</li>
+<li>@Repository : 在数据访问层(dao层)使用.</li>
+<li>@Controller : 在展现层(MVC–SpringMVC)使用</li>
 </ul>
-<p>我们创建一个SingleObject类。SingleObjectl类有它的私有构造函数和本身的一个静态实例。<br>SingleObject类提供了一个静态方法，供外界获取它的静态实例。SingletonPattemDemo,我们演示类使用SingleObject类来获取SingleObject对象。</p>
-<p>首先创建一个Singleton类</p>
-<pre><code>public class SingleObject{
+</blockquote>
+<h3 id="注入Bean的注解"><a href="#注入Bean的注解" class="headerlink" title="注入Bean的注解:"></a>注入Bean的注解:</h3><blockquote>
+<ul>
+<li>@Autowired : Spring提供的注解.</li>
+<li>@Inject : JSR-330提供的注解</li>
+<li>@Resource : JSR-250提供的注解</li>
+</ul>
+</blockquote>
+<h3 id="配置文件的注解"><a href="#配置文件的注解" class="headerlink" title="配置文件的注解:"></a>配置文件的注解:</h3><blockquote>
+<ul>
+<li>@Configuration : 声明当前类是个配置类,相当于一个Spring配置的xml文件.</li>
+<li>@ComponentScan (cn.test.demo): 自动扫描包名下所有使用</li>
+<li>@Component @Service  @Repository @Controller 的类,并注册为Bean</li>
+<li>@WiselyConfiguration : 组合注解 可以替代</li>
+<li>@Configuration和@ComponentScan</li>
+<li>@Bean : 注解在方法上,声明当前方法的返回值为一个Bean.</li>
+<li>@Bean(initMethod=”aa”,destroyMethod=”bb”)–&gt; 指定 aa和bb方法在构造之后.Bean销毁之前执行.</li>
+</ul>
+</blockquote>
+<h3 id="AOP切面编程注解"><a href="#AOP切面编程注解" class="headerlink" title="AOP切面编程注解:"></a>AOP切面编程注解:</h3><blockquote>
+<ul>
+<li>@Aspect : 声明这是一个切面</li>
+<li>@After @Before. @Around 定义切面,可以直接将拦截规则(切入点 PointCut)作为参数</li>
+<li>@PointCut : 专门定义拦截规则 然后在</li>
+<li>@After @Before. @Around 中调用</li>
+<li>@Transcational : 事务处理</li>
+<li>@Cacheable : 数据缓存</li>
+<li>@EnableAaspectJAutoProxy : 开启Spring 对 这个切面(Aspect )的支持</li>
+<li>@Target (ElementType.TYPE):元注解,用来指定注解修饰类的那个成员 –&gt;指定拦截规则</li>
+<li>@Retention(RetentionPolicy.RUNTIME)</li>
+<li>–&gt;当定义的注解的@Retention为RUNTIME时，才能够通过运行时的反射机制来处理注解.–&gt;指定拦截规则</li>
+</ul>
+</blockquote>
+<h3 id="Spring-常用配置"><a href="#Spring-常用配置" class="headerlink" title="Spring 常用配置:"></a>Spring 常用配置:</h3><blockquote>
+<ul>
+<li>@import :导入配置类</li>
+<li>@Scope : 新建Bean的实例 &gt; - @Scope(“prototype”) 声明Scope 为 Prototype</li>
+<li>@Value : 属性注入</li>
+<li>@Value (“我爱你”)  –&gt; 普通字符串注入</li>
+<li>@Value (“#{systemProperties[‘os.name’]}”) –&gt;注入操作系统属性</li>
+<li>@Value (“#{ T (java.lang.Math).random()  * 100.0 }”) –&gt; 注入表达式结果</li>
+<li>@Value (“#{demoService.another}”) –&gt; 注入其他Bean属性</li>
+<li>@Value ( “classpath:com/wisely/highlight_spring4/ch2/el/test.txt” ) –&gt; 注入文件资源</li>
+<li>@Value (“<a href="http://www.baidu.com&quot;)--&gt;注入网址资源" target="_blank" rel="noopener">http://www.baidu.com&quot;)--&gt;注入网址资源</a></li>
+<li>@Value (“${book.name}” ) –&gt; 注入配置文件  注意: 使用的是$ 而不是 #</li>
+<li>@PostConstruct : 在构造函数执行完之后执行</li>
+<li>@PreDestroy  : 在 Bean 销毁之前执行</li>
+<li>ActiveProfiles : 用来声明活动的 profile</li>
+<li>profile: 为不同环境下使用不同的配置提供了支持</li>
+<li>@Profile(“dev”) …….对方法名为 dev-xxxx的方法提供实例化Bean</li>
+<li>@EnableAsync : 开启异步任务的支持(多线程)</li>
+<li>@Asyns : 声明这是一个异步任务,可以在类级别 和方法级别声明.</li>
+<li>@EnableScheduling : 开启对计划任务的支持(定时器)</li>
+<li>@Scheduled : 声明这是一个计划任务 支持多种计划任务,包含 cron. fixDelay fixRate</li>
+<li>@Scheduled (dixedDelay = 5000) 通过注解 定时更新</li>
+<li>@Conditional : 条件注解,根据满足某一特定条件创建一个特定的Bean</li>
+<li>@ContextConfiguration : 加载配置文件</li>
+<li>@ContextConfiguration(classes = {TestConfig.class})</li>
+<li>@ContextConfiguration用来加载ApplicationContext<br>classes属性用来加载配置类</li>
+<li>@WebAppCofiguration : 指定加载 ApplicationContext是一个WebApplicationContext</li>
+<li>@Enable*注解:</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>@EnableAsync : 开启异步任务的支持(多线程)</li>
+<li>@EnableScheduling : 开启对计划任务的支持(定时器)</li>
+<li>@EnableWebMVC : 开启对Web MVC 的配置支持</li>
+<li>@EnableAaspectJAutoProxy : 开启Spring 对 这个切面(Aspect )的支持</li>
+<li>@EnableConfigurationProperties 开启对@ConfigurationProperties注解配置Bean的支持</li>
+<li>@EnableJpaRepositories : 开启对Spring Data JAP Repository 的支持</li>
+<li>@EnableTransactionManagement 开启对注解式事物的支持</li>
+<li>@EnableCaching开启注解是缓存的支持.</li>
+<li>@EnableDiscoveryClient 让服务发现服务器,使用服务器.Spring cloud 实现服务发现</li>
+<li>@EnableEurekaServer 注册服务器 spring cloud 实现服务注册@</li>
+<li>@EnableScheduling 让spring可以进行任务调度,功能类似于spring.xml文件中的命名空间<a href="task:*">task:*</a></li>
+<li>@EnableCaching 开启Cache缓存支持;<br>SpringMVC 常用注解:</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>@Controller : 注解在类上 声明这个类是springmvc里的Controller,将其声明为一个spring的Bean.</li>
+<li>@RequestMapping :可以注解在类上和方法上 映射WEB请求(访问路径和参数)<br>@RequestMapping(value= “/convert”,produces+{“application/x-wisely”}) 设置访问URL 返回值类型</li>
+<li>@ResponseBody : 支持将返回值放入response体内 而不是返回一个页面(返回的是一个组数据)</li>
+<li>@RequestBody : 允许request的参数在request体中,而不是直接连接在地址后面 次注解放置在参数前</li>
+<li>@Path Variable : 用来接收路径参数 如/test/001,001为参数,次注解放置在参数前</li>
+<li>@RestController : @Controller + @ResponseBody 组合注解</li>
+<li>@ControllerAdvice : 通过@ControllerAdvice可以将对已控制器的全局配置放置在同一个位置</li>
+<li>@ExceptionHandler : 用于全局处理控制器的异常</li>
+<li>@ExceptionHandier(value=Exception.class) –&gt;通过value属性可过滤拦截器条件,拦截所有的异常</li>
+<li>@InitBinder : 用来设置WebDataBinder , WebDataBinder用来自动绑定前台请求参数到Model中.</li>
+<li>@ModelAttrbuute : 绑定键值对到Model中,</li>
+<li>@RunWith : 运行器</li>
+<li>@RunWith(JUnit4.class)就是指用JUnit4来运行</li>
+<li>@RunWith(SpringJUnit4ClassRunner.class),让测试运行于Spring测试环境</li>
+<li>@RunWith(Suite.class)的话就是一套测试集合，</li>
+<li>@WebAppConfiguration(“src/main/resources”) : 注解在类上,用来声明加载的ApplicationContex 是一个WebApplicationContext ,它的属性指定的是Web资源的位置,默认为 src/main/webapp ,自定义修改为 resource</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>@Before : 在 xxx 前初始化</li>
+</ul>
+</blockquote>
+<p>Spring Boot 注解:</p>
+<blockquote>
+<ul>
+<li>@SpringBootApplication : 是Spring Boot 项目的核心注解 主要目的是开启自动配置 @SpringBootApplication注解是一个组合注解,主要组合了@Configuration .+@EnableAutoConfiguration.+@ComponentScan<br>@Value : 属性注入,读取properties或者 Yml 文件中的属性</li>
+<li>@ConfigurationProperties : 将properties属性和一个Bean及其属性关联,从而实现类型安全的配置 @ConfigurationProperties(prefix = “author”,locations = {“classpath:config/author.properties”}) 通过@ConfigurationProperties加载配置,通过prefix属性指定配置前缀,通过location指定配置文件位置</li>
+<li>@EnableAutoConfiguration 注解:作用在于让 Spring Boot   根据应用所声明的依赖来对 Spring 框架进行自动配置        这个注解告诉Spring Boot根据添加的jar依赖猜测你想如何配置Spring。由于spring-boot-starter-web添加了Tomcat和Spring MVC，所以auto-configuration将假定你正在开发一个web应用并相应地对Spring进行设置。</li>
+<li>@ Configuration @EnableAutoConfiguration (exclude={xxxx.class}) 禁用特定的自动配置</li>
+<li>@SpringBootApplication   注解等价于以默认属性使用 @Configuration，@EnableAutoConfiguration和     @ComponentScan。</li>
+</ul>
+</blockquote>
+<h3 id="SuppressWarnings注解"><a href="#SuppressWarnings注解" class="headerlink" title="@SuppressWarnings注解"></a>@SuppressWarnings注解</h3><blockquote>
+<ul>
+<li>@SuppressWarnings(“unchecked”)<br>告诉编译器忽略 unchecked 警告信息,如使用 list ArrayList等未进行参数化产生的警告信息</li>
+<li>@SuppressWarnings(“serial”)<br>如果编译器出现这样的警告信息: The serializable class WmailCalendar does not declare a static final serialVersionUID field of type long     使用这个注释将警告信息去掉。</li>
+<li>@SuppressWarnings(“deprecation”)<br>如果使用了使用@Deprecated注释的方法，编译器将出现警告信息。使用这个注释将警告信息去掉。</li>
+<li>@SuppressWarnings(“unchecked”, “deprecation”)<br>告诉编译器同时忽略unchecked和deprecation的警告信息。</li>
+<li>@SuppressWarnings(value={“unchecked”, “deprecation”})<br>等同于@SuppressWarnings(“unchecked”, “deprecation”)</li>
+</ul>
+</blockquote>
+<h3 id="FeignClient"><a href="#FeignClient" class="headerlink" title="@FeignClient"></a>@FeignClient</h3><p>@FeignClient标签的常用属性如下：</p>
+<blockquote>
+<ul>
+<li>name：指定FeignClient的名称，如果项目使用了Ribbon，name属性会作为微服务的名称，用于服务发现</li>
+<li>url: url一般用于调试，可以手动指定@FeignClient调用的地址</li>
+<li>decode404:当发生http 404错误时，如果该字段位true，会调用decoder进行解码，否则抛出FeignException</li>
+<li>configuration: Feign配置类，可以自定义Feign的Encoder、Decoder、LogLevel、Contract</li>
+<li>fallback: 定义容错的处理类，当调用远程接口失败或超时时，会调用对应接口的容错逻辑，fallback指定的类必须实现@FeignClient标记的接口</li>
+<li>fallbackFactory: 工厂类，用于生成fallback类示例，通过这个属性我们可以实现每个接口通用的容错逻辑，减少重复的代码</li>
+<li>path: 定义当前FeignClient的统一前缀</li>
+</ul>
+</blockquote>
+<h3 id="component"><a href="#component" class="headerlink" title="@component"></a>@component</h3><p>把普通pojo实例化到spring容器中，相当于配置文件中的</p>
+<p>泛指各种组件，就是说当我们的类不属于各种归类的时候（不属于@Controller、@Services等的时候），我们就可以使用@Component来标注这个类。</p>
 
-//创建SingleObject 的一个对象
-     private static SingleObject instance = new SingleObject();
-
-//让构造函数为private, 这样该类就不会被实例化
-private SingleObject(){}
-
-//获取唯一可用的对象
-public static SingleObject getInstance(){
-    return instance;
-}
-
-public void showMessage(){
-    System.out.println(&quot;Hello World!&quot;);
-  }
-}</code></pre>
   </article>
 
   
@@ -341,7 +348,7 @@ public void showMessage(){
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1628614368371"></script>
+<script src="/js/app.js?v=1628614407794"></script>
   
 
 
