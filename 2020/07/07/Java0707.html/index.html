@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Mybatis 工作原理 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="最近项目要用到mybatis-puls,在学习mybatis-puls一定得先重新了解一下mybatis的工作原理，那让我们回顾一下mybatis是如何工作的吧！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis 工作原理">
+<meta property="og:url" content="http://yoursite.com/2020/07/07/Java0707.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="最近项目要用到mybatis-puls,在学习mybatis-puls一定得先重新了解一下mybatis的工作原理，那让我们回顾一下mybatis是如何工作的吧！">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-07T14:10:21.000Z">
+<meta property="article:modified_time" content="2020-10-27T02:21:06.281Z">
+<meta property="article:author" content="零点坠落">
+<meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1655133067890">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>57</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 零点坠落
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="/images/logo/a1.jpg" data-sizes="auto" alt="Mybatis 工作原理" class="lazyload">
+          <h1>Mybatis 工作原理</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年07月07日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 21 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>最近项目要用到mybatis-puls,在学习mybatis-puls一定得先重新了解一下mybatis的工作原理，那让我们回顾一下mybatis是如何工作的吧！</p>
+<a id="more"></a>
+
+<h3 id="mybatis有以下几种核心部件，先让我们简单理解一下其中几个部件的作用"><a href="#mybatis有以下几种核心部件，先让我们简单理解一下其中几个部件的作用" class="headerlink" title="mybatis有以下几种核心部件，先让我们简单理解一下其中几个部件的作用"></a>mybatis有以下几种核心部件，先让我们简单理解一下其中几个部件的作用</h3><p><strong>核心部件</strong></p>
+<pre><code>SqlSession
+Executor
+StatementHandler
+ParameterHandler
+ResultSetHandler
+TypeHandler
+MappedStatement
+Configuration</code></pre><h4 id="1-SqlSession"><a href="#1-SqlSession" class="headerlink" title="1.SqlSession"></a>1.SqlSession</h4><ul>
+<li><p>SqlSession提供select/insert/update/delete方法，在旧版本中使用使用SqlSession接口的这些方法，但是新版的Mybatis中就会建议使用Mapper接口的方法。</p>
+</li>
+<li><p>映射器其实就是一个动态代理对象，进入到MapperMethod的execute方法就能简单找到SqlSession的删除、更新、查询、选择方法，从底层实现来说：通过动态代理技术，让接口跑起来，之后采用命令模式，最后还是采用了SqlSession的接口方法（getMapper()方法等到Mapper）执行SQL查询（也就是说Mapper接口方法的实现底层还是采用SqlSession接口方法实现的）。</p>
+</li>
+</ul>
+<h4 id="2-Execute执行器"><a href="#2-Execute执行器" class="headerlink" title="2.Execute执行器"></a>2.Execute执行器</h4><ul>
+<li>调度执行StatementHandler、ParmmeterHandler、ResultHandler执行相应的SQL语句；</li>
+<li>执行器起到至关重要的作用，它是真正执行Java与数据库交互的东西，参与了整个SQL查询执行过程中。</li>
+</ul>
+<p><strong>1）主要有三种执行器：</strong> 简易执行器SIMPLE（不配置就是默认执行器）、REUSE是一种重用预处理语句、BATCH批量更新、批量专用处理器</p>
+<pre><code>package org.apache.ibatis.session;
+
+/**
+* @author Clinton Begin
+*/
+public enum ExecutorType {
+    SIMPLE, REUSE, BATCH
+}</code></pre><p><strong>2）执行器作用：</strong>Executor会先调用StatementHandler的prepare()方法预编译SQL语句，同时设置一些基本的运行参数，然后调用StatementHandler的parameterize()方法（实际上是启用了ParameterHandler设置参数）设置参数，resultHandler再组装查询结果返回调用者完成一次查询完成预编译，简单总结起来就是即先预编译SQL语句，之后设置参数（跟JDBC的prepareStatement过程类似）最后如果有查询结果就会组装返回。</p>
+<p>首先，以SimpleExecutor为例，查看源码我们得到如下几点重要知识点：</p>
+<ul>
+<li><strong>第一：Executor通过Configuration对象中newExecutor()方法中选择相应的执行器生成</strong></li>
+</ul>
+<pre><code>public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
+
+    public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
+        executorType = executorType == null ? defaultExecutorType : executorType;
+        executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
+        Executor executor;
+     if (ExecutorType.BATCH == executorType) {
+         executor = new BatchExecutor(this, transaction);
+     } else if (ExecutorType.REUSE == executorType) {
+         executor = new ReuseExecutor(this, transaction);
+     } else {
+         executor = new SimpleExecutor(this, transaction);
+     }
+     if (cacheEnabled) {
+         executor = new CachingExecutor(executor);
+     }
+         executor = (Executor) interceptorChain.pluginAll(executor);
+    return executor;
+   }</code></pre><p><strong>（注：最后interceptorChain.pluginAll()中执行层层动态代理，最后在可以在调用真正的Executor前可以修改插件代码，这也就是为什么学会Mybatis的插件必须要知道SqlSession的运行过程）</strong></p>
+<ul>
+<li><p>第二：在执行器中StatementHandler是根据Configuration构建的**</p>
+<pre><code>public SimpleExecutor(Configuration configuration, Transaction transaction) {
+    super(configuration, transaction);
+    }
+
+@Override
+public int doUpdate(MappedStatement ms, Object parameter) throws SQLException {
+  Statement stmt = null;
+  try {
+    Configuration configuration = ms.getConfiguration();
+    StatementHandler handler = configuration.newStatementHandler(this, ms, parameter, RowBounds.DEFAULT, null, null);
+    stmt = prepareStatement(handler, ms.getStatementLog());
+    return handler.update(stmt);
+  } finally {
+    closeStatement(stmt);
+  }
+}</code></pre></li>
+<li><p><strong>第三：Executor会执行StatementHandler的prepare()方法进行预编译—-&gt;填入connection对象等参数—-&gt;再调用parameterize()方法设置参数—-&gt;完成预编译</strong></p>
+</li>
+</ul>
+<pre><code>private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+  private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+Statement stmt;
+Connection connection = getConnection(statementLog);
+stmt = handler.prepare(connection, transaction.getTimeout());
+handler.parameterize(stmt);
+return stmt;
+}</code></pre><h4 id="3-StatementHanlder数据库会话器"><a href="#3-StatementHanlder数据库会话器" class="headerlink" title="3.StatementHanlder数据库会话器"></a>3.StatementHanlder数据库会话器</h4><p><strong>1）作用：简单来说就是专门处理数据库会话。详细来说就是进行预编译并且调用ParameterHandler的setParameters()方法设置参数。</strong></p>
+<p><strong>2）数据库会话器主要有三种：SimpleStatementHandler、PrepareStatementHandler、CallableStatementHandler，分别对应Executor的三种执行器（SIMPLE、REUSE、BATCH）</strong></p>
+<ul>
+<li><p>我们从上述Executor的prepareStatement()方法中调用了StatementHandler的parameterize()开始一步步地查看源码，如下得到几点重要的知识点：</p>
+</li>
+<li><p><strong>第一：StatementHandler的生成是由Configuration方法中newStatementHandler()方法生成的，但是正在创建的是实现了StatementHandler接口的RoutingStatementHandler对象</strong></p>
+</li>
+</ul>
+<pre><code>public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+      StatementHandler statementHandler = new RoutingStatementHandler(executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);
+      statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
+  return statementHandler;
+}</code></pre><ul>
+<li><strong>第二：RoutingStatementHandler的通过适配器模式找到对应（根据上下文）的StatementHandler执行的，并且有SimpleStatementHandler、PrepareStatementHandler、CallableStatementHandler，分别对应Executor的三种执行器（SIMPLE、REUSE、BATCH）</strong></li>
+</ul>
+<pre><code>public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+
+  switch (ms.getStatementType()) {
+    case STATEMENT:
+      delegate = new SimpleStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+      break;
+    case PREPARED:
+      delegate = new PreparedStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+      break;
+    case CALLABLE:
+      delegate = new CallableStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+      break;
+    default:
+      throw new ExecutorException(&quot;Unknown statement type: &quot; + ms.getStatementType());
+  }</code></pre><ul>
+<li><p><strong>之后主要以PrepareStatementHandler为例，我们观察到：它是实现BaseStatementHandler接口的，最后BaseStatementHandler又是实现StatementHandler接口的</strong></p>
+<pre><code>public class PreparedStatementHandler extends BaseStatementHandler
+......
+public abstract class BaseStatementHandler implements StatementHandler</code></pre></li>
+</ul>
+<p>** 它主要有三种方法：prepare、parameterize和query，我们查看源码：**</p>
+<ul>
+<li><strong>第三：在BaseStatementHandler中重写prepare()方法，instantiateStatement()方法完成预编译，之后设置一些基础配置（获取最大行数，超时）</strong></li>
+</ul>
+<pre><code>@Override
+public Statement prepare(Connection connection, Integer transactionTimeout) throws SQLException {
+  ErrorContext.instance().sql(boundSql.getSql());
+  Statement statement = null;
+  try {
+    statement = instantiateStatement(connection);
+    setStatementTimeout(statement, transactionTimeout);
+    setFetchSize(statement);
+    return statement;
+  } catch (SQLException e) {
+    closeStatement(statement);
+    throw e;
+  } catch (Exception e) {
+    closeStatement(statement);
+    throw new ExecutorException(&quot;Error preparing statement.  Cause: &quot; + e, e);
+  }
+}  </code></pre><ul>
+<li><strong>第四：instantiateStatement()预编译实际上也是使用了JDBC的prepareStatement()完成预编译</strong></li>
+</ul>
+<pre><code>@Override
+protected Statement instantiateStatement(Connection connection) throws SQLException {
+  String sql = boundSql.getSql();
+  if (mappedStatement.getKeyGenerator() instanceof Jdbc3KeyGenerator) {
+    String[] keyColumnNames = mappedStatement.getKeyColumns();
+    if (keyColumnNames == null) {
+      return connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+    } else {
+      return connection.prepareStatement(sql, keyColumnNames);
+    }
+  } else if (mappedStatement.getResultSetType() != null) {
+    return connection.prepareStatement(sql, mappedStatement.getResultSetType().getValue(), ResultSet.CONCUR_READ_ONLY);
+  } else {
+    return connection.prepareStatement(sql);
+  }
+}</code></pre><ul>
+<li><strong>第五：在prepareStatement中重写parameterize()方法。prepare()预编译完成之后，Executor会调用parameterize()方法（在上面的Executor部分中已经做了介绍），实际上是调用ParameterHandler的setParameters()方法</strong></li>
+</ul>
+<pre><code>@Override
+public void parameterize(Statement statement) throws SQLException {
+  parameterHandler.setParameters((PreparedStatement) statement);
+}</code></pre><h4 id="4-ParameterHandler参数处理器"><a href="#4-ParameterHandler参数处理器" class="headerlink" title="4. ParameterHandler参数处理器"></a>4. ParameterHandler参数处理器</h4><pre><code>作用：对预编译中参数进行设置，如果有配置typeHandler，自然会对注册的typeHandler对参数进行处理</code></pre><p>查看并学习源码，得到以下几点重要知识点：</p>
+<ul>
+<li><strong>第一：Mybatis提供了ParamterHandler的默认实现类DefalutParameterHandler</strong></li>
+</ul>
+<p>  　　　　　　<br>    public interface ParameterHandler {</p>
+<pre><code>Object getParameterObject();
+
+void setParameters(PreparedStatement ps)
+    throws SQLException;
+
+}</code></pre><p>（其中：getParameterObject是返回参数对象，setParameters()是设置预编译参数）</p>
+<ul>
+<li><strong>第二：从parameterObject中取到参数，然后使用typeHandler（注册在Configuration中）进行参数处理：</strong></li>
+</ul>
+<pre><code>@Override
+public void setParameters(PreparedStatement ps) {
+  ErrorContext.instance().activity(&quot;setting parameters&quot;).object(mappedStatement.getParameterMap().getId());
+  List&lt;ParameterMapping&gt; parameterMappings = boundSql.getParameterMappings();
+  if (parameterMappings != null) {
+    for (int i = 0; i &lt; parameterMappings.size(); i++) {
+      ParameterMapping parameterMapping = parameterMappings.get(i);
+      if (parameterMapping.getMode() != ParameterMode.OUT) {
+        Object value;
+        String propertyName = parameterMapping.getProperty();
+        if (boundSql.hasAdditionalParameter(propertyName)) { // issue #448 ask first for additional params
+          value = boundSql.getAdditionalParameter(propertyName);
+        } else if (parameterObject == null) {
+          value = null;
+        } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+          value = parameterObject;
+        } else {
+          MetaObject metaObject = configuration.newMetaObject(parameterObject);
+          value = metaObject.getValue(propertyName);
+        }
+        TypeHandler typeHandler = parameterMapping.getTypeHandler();
+        JdbcType jdbcType = parameterMapping.getJdbcType();
+        if (value == null &amp;&amp; jdbcType == null) {
+          jdbcType = configuration.getJdbcTypeForNull();
+        }
+        try {
+          typeHandler.setParameter(ps, i + 1, value, jdbcType);
+        } catch (TypeException e) {
+          throw new TypeException(&quot;Could not set parameters for mapping: &quot; + parameterMapping + &quot;. Cause: &quot; + e, e);
+        } catch (SQLException e) {
+          throw new TypeException(&quot;Could not set parameters for mapping: &quot; + parameterMapping + &quot;. Cause: &quot; + e, e);
+        }
+      }
+    }
+  }
+}</code></pre><h4 id="5-ResultSetHandler结果集处理器"><a href="#5-ResultSetHandler结果集处理器" class="headerlink" title="5.ResultSetHandler结果集处理器"></a>5.ResultSetHandler结果集处理器</h4><pre><code>作用：很简单，就是组装结果返回结果集</code></pre><ul>
+<li><strong>第一：ResultSetHandler接口，handlerResultSets()是包装并返回结果集的，handleOutputParameters()是处理存储过程输出参数的</strong></li>
+</ul>
+<pre><code>public interface ResultSetHandler {
+
+&lt;E&gt; List&lt;E&gt; handleResultSets(Statement stmt) throws SQLException;
+
+&lt;E&gt; Cursor&lt;E&gt; handleCursorResultSets(Statement stmt) throws SQLException;
+
+void handleOutputParameters(CallableStatement cs) throws SQLException;</code></pre><ul>
+<li><strong>第二：Mybatis提供了默认的ResultSetHandler实现类DefaultResultSetHandler，其中重点是handlerResultSets()的实现，但是其实现过程比较复杂，这里不过多介绍（emmmmm….个人目前能力还达理解，仍需努力）</strong></li>
+</ul>
+<ul>
+<li><strong>第三：在Executor中doQuery()方法返回了封装的结果集</strong></li>
+</ul>
+<pre><code>@Override
+public &lt;E&gt; List&lt;E&gt; doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+  Statement stmt = null;
+  try {
+    Configuration configuration = ms.getConfiguration();
+    StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+    stmt = prepareStatement(handler, ms.getStatementLog());
+    return handler.&lt;E&gt;query(stmt, resultHandler);
+  } finally {
+    closeStatement(stmt);
+  }
+}</code></pre><ul>
+<li><strong>第四：实际上是返回结果是调用了resultSetHandler的handleResultSets()方法</strong></li>
+</ul>
+<pre><code>@Override
+public &lt;E&gt; List&lt;E&gt; query(Statement statement, ResultHandler resultHandler) throws SQLException {
+  PreparedStatement ps = (PreparedStatement) statement;
+  ps.execute();
+  return resultSetHandler.&lt;E&gt; handleResultSets(ps);
+}</code></pre><h5 id="6-SqlSession运行总结"><a href="#6-SqlSession运行总结" class="headerlink" title="6. SqlSession运行总结"></a>6. SqlSession运行总结</h5><ul>
+<li>SqlSession的运行主要是依靠Executor执行器调用（调度）StatementHandler、parameterHanlder、ResultSetHandler，Executor首先通过创建StamentHandler执行预编译并设置参数运行，而整个过程需要如下几步才能完成：</li>
+</ul>
+<pre><code>private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+Statement stmt;
+Connection connection = getConnection(statementLog);
+stmt = handler.prepare(connection, transaction.getTimeout());
+handler.parameterize(stmt);
+return stmt;
+}</code></pre><p>1）prepare预编译SQL</p>
+<blockquote>
+<p>由适配模式生成的RoutingStatementHandler根据上下文选择生成三种相应的XXXStatementHandler；</p>
+</blockquote>
+<blockquote>
+<p>在生成的XXXStatementHandler内部instantiateStatement()方法执行底层JDBC的prepareStatement()方法完成预编译</p>
+</blockquote>
+<p>2）parameterize设置参数</p>
+<blockquote>
+<p>默认是DefaultParameterHandler（实现了parameterHandler接口）中setParameter()方法完成参数配置，其中参数从ParameterObject中取出，交给typeHandler处理</p>
+</blockquote>
+<p>3）doUpdate/doQuery执行SQL</p>
+<blockquote>
+<p>返回的结果通过默认的DefaultResultSetHandler（实现了ResultSetHandler接口）封装</p>
+</blockquote>
+<hr>
+<h3 id="再来看看mybatis总体原理"><a href="#再来看看mybatis总体原理" class="headerlink" title="再来看看mybatis总体原理"></a>再来看看mybatis总体原理</h3><h4 id="在分析工作原理之前，看一下我的-mybatis-全局配置文件"><a href="#在分析工作原理之前，看一下我的-mybatis-全局配置文件" class="headerlink" title="在分析工作原理之前，看一下我的 mybatis 全局配置文件"></a>在分析工作原理之前，看一下我的 mybatis 全局配置文件</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration
+PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+    &lt;!-- 和spring整合后 environments配置将废除 --&gt;
+    &lt;environments default=&quot;development&quot;&gt;
+        &lt;environment id=&quot;development&quot;&gt;
+            &lt;!-- 使用jdbc事务管理 --&gt;
+            &lt;transactionManager type=&quot;JDBC&quot; /&gt;
+            &lt;!-- 数据库连接池 --&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+                &lt;property name=&quot;url&quot;
+                    value=&quot;jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&quot; /&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot; /&gt;
+                &lt;property name=&quot;password&quot; value=&quot;123456&quot; /&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;mappers&gt;
+       &lt;mapper  resource=&quot;sqlMapper/userMapper.xml&quot;/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;</code></pre><h5 id="第一步：创建一个-sqlSessionFactory"><a href="#第一步：创建一个-sqlSessionFactory" class="headerlink" title="第一步：创建一个 sqlSessionFactory"></a>第一步：创建一个 sqlSessionFactory</h5><p>在了解如何创建 sqlSessionFactory 之前，先看一下 mybatis 是如何加载全局配置文件，解析 xml 文件生成 Configuration 的</p>
+<pre><code>public Configuration parse() {
+if (parsed) {
+  throw new BuilderException(&quot;Each XMLConfigBuilder can only be used once.&quot;);
+}
+parsed = true;
+parseConfiguration(parser.evalNode(&quot;/configuration&quot;));
+return configuration;
+}</code></pre><hr>
+<pre><code>public Configuration parse() {
+if (parsed) {
+  throw new BuilderException(&quot;Each XMLConfigBuilder can only be used once.&quot;);
+}
+parsed = true;
+parseConfiguration(parser.evalNode(&quot;/configuration&quot;));
+return configuration;
+ }</code></pre><p>在上面的第二段代码中有一句</p>
+<pre><code>mapperElement(root.evalNode(&quot;mappers&quot;));</code></pre><p>刚好我们的全局配置文件中有一个 mapper 的配置，由此可见，mapperElemet () 方法是解析 mapper 映射文件的，具体代码如下</p>
+<pre><code>private void mapperElement(XNode parent) throws Exception {
+if (parent != null) {
+  for (XNode child : parent.getChildren()) {
+    if (&quot;package&quot;.equals(child.getName())) {
+      String mapperPackage = child.getStringAttribute(&quot;name&quot;);
+      configuration.addMappers(mapperPackage);
+    } else {
+      String resource = child.getStringAttribute(&quot;resource&quot;);
+      String url = child.getStringAttribute(&quot;url&quot;);
+      String mapperClass = child.getStringAttribute(&quot;class&quot;);
+      if (resource != null &amp;&amp; url == null &amp;&amp; mapperClass == null) {//进入该判断
+        ErrorContext.instance().resource(resource);
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
+        mapperParser.parse();
+      } else if (resource == null &amp;&amp; url != null &amp;&amp; mapperClass == null) {
+        ErrorContext.instance().resource(url);
+        InputStream inputStream = Resources.getUrlAsStream(url);
+        XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url, configuration.getSqlFragments());
+        mapperParser.parse();
+      } else if (resource == null &amp;&amp; url == null &amp;&amp; mapperClass != null) {
+        Class&lt;?&gt; mapperInterface = Resources.classForName(mapperClass);
+        configuration.addMapper(mapperInterface);
+      } else {
+        throw new BuilderException(&quot;A mapper element may only specify a url, resource or class, but not more than one.&quot;);
+        }
+      }
+    }
+  }
+}</code></pre><p>根据以上代码可以分析，在写 mapper 映射文件的地址时不仅可以写成 resource，还可以写成 url 和 mapperClass 的形式，由于我们用的是 resource，所以直接进入第一个判断，最后解析 mapper 映射文件的方法是</p>
+<pre><code>private void configurationElement(XNode context) {
+try {
+  String namespace = context.getStringAttribute(&quot;namespace&quot;);
+  if (namespace.equals(&quot;&quot;)) {
+      throw new BuilderException(&quot;Mapper&apos;s namespace cannot be empty&quot;);
+  }
+  builderAssistant.setCurrentNamespace(namespace);
+  cacheRefElement(context.evalNode(&quot;cache-ref&quot;));
+  cacheElement(context.evalNode(&quot;cache&quot;));
+  parameterMapElement(context.evalNodes(&quot;/mapper/parameterMap&quot;));
+  resultMapElements(context.evalNodes(&quot;/mapper/resultMap&quot;));
+  sqlElement(context.evalNodes(&quot;/mapper/sql&quot;));
+  buildStatementFromContext(context.evalNodes(&quot;select|insert|update|delete&quot;));
+} catch (Exception e) {
+  throw new BuilderException(&quot;Error parsing Mapper XML. Cause: &quot; + e, e);
+ }
+}</code></pre><p>其中具体解析每一个 sql 语句节点的是</p>
+<pre><code>buildStatementFromContext(context.evalNodes(&quot;select|insert|update|delete&quot;));</code></pre><p>进入这个方法一层层深究，最后到这里可以知道 MappedStatement 是由 builderAssistant（即 MapperBuildAssistant）创建的。</p>
+<pre><code>public void parseStatementNode() {
+...
+builderAssistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType,
+    fetchSize, timeout, parameterMap, parameterTypeClass, resultMap, resultTypeClass,
+    resultSetTypeEnum, flushCache, useCache, resultOrdered,
+    keyGenerator, keyProperty, keyColumn, databaseId, langDriver, resultSets);
+  }</code></pre><p>最后进入方法 addMappedStatement ()，mappedStatement 最后以 id 为键保存在了 Configuration 中的一个 map 变量 mappedStatements 中。</p>
+<pre><code>public MappedStatement addMappedStatement(
+  String id,
+  SqlSource sqlSource,
+  StatementType statementType,
+  SqlCommandType sqlCommandType,
+  Integer fetchSize,
+  Integer timeout,
+  String parameterMap,
+  Class&lt;?&gt; parameterType,
+  String resultMap,
+  Class&lt;?&gt; resultType,
+  ResultSetType resultSetType,
+  boolean flushCache,
+  boolean useCache,
+  boolean resultOrdered,
+  KeyGenerator keyGenerator,
+  String keyProperty,
+  String keyColumn,
+  String databaseId,
+  LanguageDriver lang,
+  String resultSets) {
+
+if (unresolvedCacheRef) throw new IncompleteElementException(&quot;Cache-ref not yet resolved&quot;);
+
+id = applyCurrentNamespace(id, false);
+boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
+
+MappedStatement.Builder statementBuilder = new MappedStatement.Builder(configuration, id, sqlSource, sqlCommandType);
+statementBuilder.resource(resource);
+statementBuilder.fetchSize(fetchSize);
+statementBuilder.statementType(statementType);
+statementBuilder.keyGenerator(keyGenerator);
+statementBuilder.keyProperty(keyProperty);
+statementBuilder.keyColumn(keyColumn);
+statementBuilder.databaseId(databaseId);
+statementBuilder.lang(lang);
+statementBuilder.resultOrdered(resultOrdered);
+statementBuilder.resulSets(resultSets);
+setStatementTimeout(timeout, statementBuilder);
+
+setStatementParameterMap(parameterMap, parameterType, statementBuilder);
+setStatementResultMap(resultMap, resultType, resultSetType, statementBuilder);
+setStatementCache(isSelect, flushCache, useCache, currentCache, statementBuilder);
+
+MappedStatement statement = statementBuilder.build();
+configuration.addMappedStatement(statement);
+return statement;
+}</code></pre><p>最后回到我们的创建 sqlSessionFactory 上，之前的一切都是为了生成一个 sqlSessionFactory 服务的</p>
+<pre><code>public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+try {
+  XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+  return build(parser.parse());
+} catch (Exception e) {
+  throw ExceptionFactory.wrapException(&quot;Error building SqlSession.&quot;, e);
+} finally {
+  ErrorContext.instance().reset();
+  try {
+    inputStream.close();
+  } catch (IOException e) {
+    // Intentionally ignore. Prefer previous error.
+    }
+  }
+}
+
+public SqlSessionFactory build(Configuration config) {
+return new DefaultSqlSessionFactory(config);
+ }</code></pre><p>从上面的代码可以看出最后是通过以 Configuration 为参数 build () 方法生成 DefautSqlSessionFactory。</p>
+<hr>
+<h5 id="第二步：创建-sqlSession"><a href="#第二步：创建-sqlSession" class="headerlink" title="第二步：创建 sqlSession"></a>第二步：创建 sqlSession</h5><pre><code>public SqlSession openSession() {
+return openSessionFromDataSource(configuration.getDefaultExecutorType(), null, false);
+ }</code></pre><hr>
+<pre><code>private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) {
+
+  Transaction tx = null;
+  try {
+    final Environment environment = configuration.getEnvironment();
+    final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);
+    tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
+    final Executor executor = configuration.newExecutor(tx, execType);
+    return new DefaultSqlSession(configuration, executor, autoCommit);
+  } catch (Exception e) {
+    closeTransaction(tx); // may have fetched a connection so lets call close()
+    throw ExceptionFactory.wrapException(&quot;Error opening session.  Cause: &quot; + e, e);
+  } finally {
+    ErrorContext.instance().reset();
+  }
+}</code></pre><hr>
+<pre><code>//返回一个SqlSession，默认使用DefaultSqlSession
+ public DefaultSqlSession(Configuration configuration, Executor executor, boolean autoCommit) {
+    this.configuration = configuration;
+    this.executor = executor;
+    this.dirty = false;
+    this.autoCommit = autoCommit;
+  }</code></pre><p>executor 在这一步得到创建，具体的使用在下一步。</p>
+<hr>
+<h5 id="第三步：执行具体的-sql-请求"><a href="#第三步：执行具体的-sql-请求" class="headerlink" title="第三步：执行具体的 sql 请求"></a>第三步：执行具体的 sql 请求</h5><p>在我的代码里执行的是</p>
+<pre><code>User user = sqlSession.selectOne(&quot;test.findUserById&quot;, 1);</code></pre><p>具体到里面的方法就是</p>
+<pre><code>public &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, RowBounds rowBounds) {
+
+  try {
+   //1.根据Statement Id，在mybatis 配置对象Configuration中查找和配置文件相对应的MappedStatement
+    MappedStatement ms = configuration.getMappedStatement(statement);
+    //2. 将查询任务委托给MyBatis 的执行器 Executor
+    List&lt;E&gt; result = executor.query(ms, wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);
+    return result;
+  } catch (Exception e) {
+    throw ExceptionFactory.wrapException(&quot;Error querying database.  Cause: &quot; + e, e);
+  } finally {
+    ErrorContext.instance().reset();
+  }
+}</code></pre><p>在这里通过 statementId 拿到了我们在第一步存在 map 里面的 MappedStatement。在这里引用参考博客的一句话：</p>
+<blockquote>
+<p>SqlSession 根据 Statement ID, 在 mybatis 配置对象 Configuration 中获取到对应的 MappedStatement 对象，然后调用 mybatis 执行器来执行具体的操作。</p>
+</blockquote>
+<p>再继续看 query () 和 queryFromDatabase () 这两个方法</p>
+<pre><code>@SuppressWarnings(&quot;unchecked&quot;)
+public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+  ErrorContext.instance().resource(ms.getResource()).activity(&quot;executing a query&quot;).object(ms.getId());
+  if (closed) throw new ExecutorException(&quot;Executor was closed.&quot;);
+  if (queryStack == 0 &amp;&amp; ms.isFlushCacheRequired()) {
+    clearLocalCache();
+  }
+  List&lt;E&gt; list;
+  try {
+    queryStack++;
+    list = resultHandler == null ? (List&lt;E&gt;) localCache.getObject(key) : null;
+    if (list != null) {
+      handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+    } else {
+      list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+    }
+  } finally {
+    queryStack--;
+  }
+  if (queryStack == 0) {
+    for (DeferredLoad deferredLoad : deferredLoads) {
+      deferredLoad.load();
+    }
+    deferredLoads.clear(); // issue #601
+    if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
+      clearLocalCache(); // issue #482
+    }
+  }
+  return list;
+}</code></pre><hr>
+<pre><code>private &lt;E&gt; List&lt;E&gt; queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+    List&lt;E&gt; list;
+    localCache.putObject(key, EXECUTION_PLACEHOLDER);
+    try {
+      list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
+    } finally {
+      localCache.removeObject(key);
+    }
+    localCache.putObject(key, list);
+    if (ms.getStatementType() == StatementType.CALLABLE) {
+      localOutputParameterCache.putObject(key, parameter);
+    }
+    return list;
+  }</code></pre><ul>
+<li>在这两个方法里面会为当前的查询创建一个缓存 key，如果缓存中没有值，直接从数据库中读取，执行查询后将得到的 list 结果放入缓存之中。</li>
+</ul>
+<p>紧接着看 doQuery () 在 SimpleExecutor 类中重写的方法</p>
+<pre><code>public &lt;E&gt; List&lt;E&gt; doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+
+  Statement stmt = null;
+  try {
+    Configuration configuration = ms.getConfiguration();
+    StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+    stmt = prepareStatement(handler, ms.getStatementLog());
+    return handler.&lt;E&gt;query(stmt, resultHandler);
+  } finally {
+    closeStatement(stmt);
+  }
+}</code></pre><p>Statement 连接对象就是在这里创建的，因此 Executor 的作用之一就是创建 Statement 了，创建完后又把 Statement 丢给 StatementHandler 返回 List 查询结果。</p>
+<p>接下来再看一下这里的两个方法 prepareStatement () 和 query () 的具体实现</p>
+<pre><code>private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+
+  Statement stmt;
+  Connection connection = getConnection(statementLog);
+  stmt = handler.prepare(connection);
+  handler.parameterize(stmt);
+  return stmt;
+}</code></pre><hr>
+<pre><code>Statement stmt;
+Connection connection = getConnection(statementLog);
+stmt = handler.prepare(connection);
+handler.parameterize(stmt);
+return stmt;</code></pre><p>   }</p>
+<ul>
+<li>prepareStatement () 是创建 Statement 的具体实现方法，调用 parameterize () 对创建的 Statement 对象设置参数，即为我们设为占位符的地方赋上指定的参数，parameterize () 方法再深入进去就是调用 ParameterHandler 的 setParameters () 方法具体赋值了。</li>
+</ul>
+<p>这里的 query () 是调用了 ResultSetHandler 的 handleResultSets (Statement) 方法。作用就是把 ResultSet 结果集对象转换成 List 类型的集合。</p>
+<h5 id="通过总结以上步骤可以得到mybatis的总体流程："><a href="#通过总结以上步骤可以得到mybatis的总体流程：" class="headerlink" title="通过总结以上步骤可以得到mybatis的总体流程："></a>通过总结以上步骤可以得到mybatis的总体流程：</h5><ul>
+<li><blockquote>
+<p>根据具体传入的参数，动态地生成需要执行的 SQL 语句，用 BoundSql 对象表示<br>为当前的查询创建一个缓存 Key</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>缓存中没有值，直接从数据库中读取数据</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>执行查询，返回 List 结果，然后 将查询的结果放入缓存之中</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>根据既有的参数，创建 StatementHandler 对象来执行查询操作</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>将创建 Statement 传递给 StatementHandler 对象，调用 parameterize () 方法赋值</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>调用 StatementHandler.query () 方法，返回 List 结果集</p>
+</blockquote>
+</li>
+</ul>
+<p>参考博客：</p>
+<p><a href="https://www.cnblogs.com/jian0110/p/9452592.html" target="_blank" rel="noopener">https://www.cnblogs.com/jian0110/p/9452592.html</a><br><a href="https://www.cnblogs.com/scuury/p/10371246.html" target="_blank" rel="noopener">https://www.cnblogs.com/scuury/p/10371246.html</a></p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/07/07/Java0707.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;07&#x2F;Java0707.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;07&#x2F;Java0707.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1655133067891"></script>
+  
+
+
+
+
+
+</body>
+
+</html>

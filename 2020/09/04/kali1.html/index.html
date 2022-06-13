@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>黑客日记之SQL注入原理 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="SQL注入是比较常见的网络攻击方式，它不是利用操作系统的漏洞，而是针对程序员编写时的疏忽，不注意规范书写 sql 语句和对特殊字符进行过滤…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑客日记之SQL注入原理">
+<meta property="og:url" content="http://yoursite.com/2020/09/04/kali1.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="SQL注入是比较常见的网络攻击方式，它不是利用操作系统的漏洞，而是针对程序员编写时的疏忽，不注意规范书写 sql 语句和对特殊字符进行过滤…">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/kali1/1.png">
+<meta property="og:image" content="http://yoursite.com/images/kali1/2.png">
+<meta property="article:published_time" content="2020-09-04T13:10:37.000Z">
+<meta property="article:modified_time" content="2020-09-08T01:52:15.736Z">
+<meta property="article:author" content="零点坠落">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/kali1/1.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1655133067866">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>57</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 零点坠落
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="/images/logo/a1.jpg" data-sizes="auto" alt="黑客日记之SQL注入原理" class="lazyload">
+          <h1>黑客日记之SQL注入原理</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年09月04日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 13 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>SQL注入是比较常见的网络攻击方式，它不是利用操作系统的漏洞，而是针对程序员编写时的疏忽，不注意规范书写 sql 语句和对特殊字符进行过滤…</p>
+<a id="more"></a>
+
+<h3 id="SQL注入是什么"><a href="#SQL注入是什么" class="headerlink" title="SQL注入是什么"></a>SQL注入是什么</h3><p>SQL注入是比较常见的网络攻击方式，它不是利用操作系统的漏洞，而是针对程序员编写时的疏忽，不注意规范书写 sql 语句和对特殊字符进行过滤，导致客户端可以通过全局变量POST 和 GET 提交一些 sql 语句正常执行。产生 Sql 注入，通过SQL语句，实现无账号登录，甚至篡改数据库。</p>
+<h3 id="SQL注入的原因"><a href="#SQL注入的原因" class="headerlink" title="SQL注入的原因"></a>SQL注入的原因</h3><p>语言的分类：</p>
+<ol>
+<li><p>解释型语言：解释型语言是一种在运行时由运行时一个运行时组件解释语言代码并执行其中包含的指令的语言（比如：Java、C#、PHP、JavaScript、VBScript、Perl、Python、Ruby、Shell等等，源代码不是直接翻译成机器语言，而是先翻译成中间代码，再由解释器对中间代码进行解释运行，例如Java中的JVM就是一个解释器及编译器）</p>
+</li>
+<li><p>编译型语言：代码在生成时直接转换为机器指令，然后在运行时直接由使用该语言的计算机执行这些指令，机器语言是用二进制代码表示的计算机能够直接识别并执行的一种机器指令的集合。（编译型语言：C、C++等等）</p>
+</li>
+</ol>
+<p><strong>在解释型语言中，如果程序与用户进行交互，用户可以构造特殊的输入来拼接到程序中执行，从而使得程序依据用户输入执行有可能存在恶意行为的代码。</strong></p>
+<p><strong>举个栗子：</strong>在与用户交互的程序中，用户的输入拼接到SQL语句中，执行了与原定计划不同的行为，从而产生了SQL注入漏洞。</p>
+<hr>
+<h3 id="SQL注入攻击思路"><a href="#SQL注入攻击思路" class="headerlink" title="SQL注入攻击思路"></a>SQL注入攻击思路</h3><ol>
+<li>寻找SQL注入的位置（例如：用户登录注册，用户搜索等等）</li>
+<li>判断服务器类型和后台数据库类型</li>
+<li>针对不同的服务器和数据库特点进行SQL注入攻击</li>
+</ol>
+<hr>
+<h3 id="SQL注入案例"><a href="#SQL注入案例" class="headerlink" title="SQL注入案例"></a>SQL注入案例</h3><pre><code>String sql = &quot;select * from user_table where username=
+&apos; &quot;+userName+&quot; &apos; and password=&apos; &quot;+password+&quot; &apos;&quot;;</code></pre><ul>
+<li>当输入了上面的用户名和密码，上面的SQL语句变成：</li>
+</ul>
+<pre><code>SELECT * FROM user_table WHERE username=
+&apos;’or 1 = 1 -- and password=&apos;’</code></pre><h5 id="分析SQL语句："><a href="#分析SQL语句：" class="headerlink" title="分析SQL语句："></a>分析SQL语句：</h5><ul>
+<li><p>条件后面username=”or 1=1 用户名等于 ” 或1=1 那么这个条件一定会成功；</p>
+</li>
+<li><p>然后后面加两个-，这意味着注释，它将后面的语句注释，让他们不起作用，这样语句永远都能正确执行，用户轻易骗过系统，获取合法身份。</p>
+</li>
+<li><p>这还是比较温柔的，如果是执行<br>SELECT * FROM user_table WHERE<br>username=’’ ;DROP DATABASE (DB Name) –’ and password=’’篡改删除数据库，后果不堪设想。</p>
+</li>
+</ul>
+<h3 id="如何防御SQL注入"><a href="#如何防御SQL注入" class="headerlink" title="如何防御SQL注入"></a>如何防御SQL注入</h3><p>我们知道程序凡是存在SQL注入漏洞，其程序都要接收来自客户端用户输入的变量或者URL传递的参数，并且这个变量或参数是组成SQL语句的一部分，而且这个变量或参数并没有通过合理的效验，便可以直接插入SQL语句中，这是十分可怕的。</p>
+<p>对于用户输入的内容或参数的传递，我们都要时刻保持警惕，并对它进行合理的效验，确保它的合法性，我们应该遵循安全领域的【外部数据不可信任】的原则，纵观Web安全领域的各种攻击方式，大多数都是因为开发者违反了这个原则而导致的，开发者应该自然的从变量的检测、过滤、验证下手，从而通过限制特殊字符，类型，长度，格式等等方式，避免SQL注入的发生。</p>
+<h6 id="检测变量，对变量的数据类型和格式加以限制"><a href="#检测变量，对变量的数据类型和格式加以限制" class="headerlink" title="检测变量，对变量的数据类型和格式加以限制"></a><strong>检测变量，对变量的数据类型和格式加以限制</strong></h6><blockquote>
+<p>例如，编写的SQL语句是类似where id = {$id}这种形式，且数据库中的id字段都为数据，就应该在该SQL执行前,确保用户输入或传递的变量id是int类型（加以判断，检测id的合法性）;如果接受邮箱，则一定要严格确保变量符合邮箱格式，而时间，日期等等也是同一个道理</p>
+</blockquote>
+<p>这样我们就可以知道：当变量具有固定格式时，在SQL语句执行前，应该严格的进行格式检查，确保变量符合我们预想的格式，从而很多程度上避免SQL注入攻击。</p>
+<h6 id="过滤特殊符号"><a href="#过滤特殊符号" class="headerlink" title="过滤特殊符号"></a><strong>过滤特殊符号</strong></h6><p>对于无法确定固定格式的变量，一定要进行特殊符号过滤或转义处理。</p>
+<h6 id="绑定变量，使用预编译语句"><a href="#绑定变量，使用预编译语句" class="headerlink" title="绑定变量，使用预编译语句"></a><strong>绑定变量，使用预编译语句</strong></h6><p>MySQL提供了预编译语句的支持，不同的程序语言，都分别有使用预编译语句的方法</p>
+<p>实际上，绑定变量使用预编译语句是预防SQL注入的最佳方式，使用预编译的SQL语句语义不会发生改变，在SQL语句中，变量用问号?表示，黑客即使本事再大，也无法改变SQL语句的结构</p>
+<h3 id="预编译语句是如何防止SQL注入的"><a href="#预编译语句是如何防止SQL注入的" class="headerlink" title="预编译语句是如何防止SQL注入的"></a>预编译语句是如何防止SQL注入的</h3><p>首先，我们要清楚一条sql的执行过程：</p>
+<p>　　1. 词法和语义解析<br>　　2. 优化sql语句，制定执行计划<br>　　3. 执行并返回结果</p>
+<blockquote>
+<p>我们把这种普通语句称作Immediate Statements。</p>
+</blockquote>
+<ul>
+<li>但是很多情况，我们的一条sql语句可能会反复执行，或者每次执行的时候只有个别的值不同（比如query的where子句值不同，update的set子句值不同,insert的values值不同）。</li>
+</ul>
+<ul>
+<li><p>如果每次都需要经过上面的词法语义解析、语句优化、制定执行计划等，则效率就明显不行了。</p>
+</li>
+<li><p>所谓预编译语句就是将这类语句中的值用占位符替代，可以视为将sql语句模板化或者说参数化，一般称这类语句叫Prepared Statements或者Parameterized Statements</p>
+</li>
+</ul>
+<ul>
+<li>预编译语句的优势在于归纳为：一次编译、多次运行，省去了解析优化等过程；此外预编译语句能防止sql注入。</li>
+</ul>
+<p>在我看来预编译最大的作用便是防止SQl注入</p>
+<p>举个栗子</p>
+<pre><code>@Before
+public void init() {
+//获取数据库连接
+final String DRIVER = &quot;com.mysql.jdbc.Driver&quot;;
+final String URL = &quot;jdbc:mysql://127.0.0.1:3306/employees?characterEncoding=utf-8&amp;useSSL=true&amp;verifyServerCertificate=false&amp;useServerPrepStmts=true&amp;cachePrepStmts=true&quot;;
+final String USER = &quot;root&quot;;
+final String PWD = &quot;&quot;;
+try {
+
+    Class.forName(DRIVER);
+    con = DriverManager.getConnection(URL, USER, PWD);
+} catch (ClassNotFoundException e) {
+    e.printStackTrace();
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+}
+@After
+public void end() {
+try {
+    con.close();
+} catch (SQLException e) {
+    e.printStackTrace();
+  }
+}</code></pre><p>测试一下：</p>
+<pre><code>@Test
+public void test1() throws SQLException {
+//非预编译
+String testSql = &quot;select * from departments where dept_no = &quot;;
+String args = &quot;1 or 1=1&quot;;
+Statement statement=con.createStatement();
+statement.execute(testSql+args);
+}
+
+@Test
+public void test2() throws SQLException {
+//预编译
+String testSql = &quot;select * from departments where dept_no = ?&quot;;
+String args = &quot;1 or 1=1&quot;;
+PreparedStatement ps = con.prepareStatement(sql);
+ps.setString(1,args);
+ps.execute();
+}</code></pre><p>然后打开mysql的全日志，方法如下：<br><img data-sizes="auto" data-src="/images/kali1/1.png" alt="" class="lazyload"></p>
+<p>执行test，可以在log中看到：<br><img data-sizes="auto" data-src="/images/kali1/2.png" alt="" class="lazyload"></p>
+<h4 id="为什么PrepareStatement可以防止sql注入"><a href="#为什么PrepareStatement可以防止sql注入" class="headerlink" title="为什么PrepareStatement可以防止sql注入"></a>为什么PrepareStatement可以防止sql注入</h4><p>　　原理是采用了预编译的方法，先将SQL语句中可被客户端控制的参数集进行编译，生成对应的临时变量集，再使用对应的设置方法，为临时变量集里面的元素进行赋值，赋值函数setString()，会对传入的参数进行强制类型检查和安全检查，所以就避免了SQL注入的产生。下面具体分析</p>
+<p>#####（1）：为什么Statement会被sql注入</p>
+<p>　　因为Statement之所以会被sql注入是因为SQL语句结构发生了变化。比如：</p>
+<pre><code>&quot;select*from tablename where username=&apos;&quot;+uesrname+  
+&quot;&apos;and password=&apos;&quot;+password+&quot;&apos;&quot;</code></pre><p>　　在用户输入’or true or’之后sql语句结构改变。</p>
+<pre><code>select*from tablename where username=&apos;&apos;or true or&apos;&apos; and password=&apos;&apos;</code></pre><p>这样本来是判断用户名和密码都匹配时才会计数，但是经过改变后变成了或的逻辑关系，不管用户名和密码是否匹配该式的返回值永远为true;</p>
+<p>#####　（2）为什么Preparement可以防止SQL注入。</p>
+<p>　　因为Preparement样式为</p>
+<pre><code>select*from tablename where username=? and password=?</code></pre><p>该SQL语句会在得到用户的输入之前先用数据库进行预编译，这样的话不管用户输入什么用户名和密码的判断始终都是并的逻辑关系，防止了SQL注入</p>
+<p>　　简单总结，参数化能防注入的原因在于，语句是语句，参数是参数，参数的值并不是语句的一部分，数据库只按语句的语义跑，至于跑的时候是带一个普通背包还是一个怪物，不会影响行进路线，无非跑的快点与慢点的区别。</p>
+<h3 id="mybatis是如何防止SQL注入的"><a href="#mybatis是如何防止SQL注入的" class="headerlink" title="mybatis是如何防止SQL注入的"></a>mybatis是如何防止SQL注入的</h3><pre><code>&lt;select id=&quot;selectByNameAndPassword&quot; parameterType=&quot;java.util.Map&quot; resultMap=&quot;BaseResultMap&quot;&gt;
+select id, username, password, role
+from user
+where username = #{username,jdbcType=VARCHAR}
+and password = #{password,jdbcType=VARCHAR}
+&lt;/select&gt;
+
+&lt;select id=&quot;selectByNameAndPassword&quot; parameterType=&quot;java.util.Map&quot; resultMap=&quot;BaseResultMap&quot;&gt;
+select id, username, password, role
+from user
+where username = ${username,jdbcType=VARCHAR}
+and password = ${password,jdbcType=VARCHAR}
+&lt;/select&gt;</code></pre><p>mybatis中的#和$的区别：</p>
+<ol>
+<li>#将传入的数据都当成一个字符串，会对自动传入的数据加一个双引号。</li>
+</ol>
+<p>如：where username=#{username}，如果传入的值是111,那么解析成sql时的值为where username=”111”, 如果传入的值是id，则解析成的sql为where username=”id”.　</p>
+<ol start="2">
+<li><p>$将传入的数据直接显示生成在sql中。<br>如：where username=${username}，如果传入的值是111,那么解析成sql时的值为where username=111；<br>如果传入的值是;drop table user;，则解析成的sql为：select id, username, password, role from user where username=;drop table user;</p>
+</li>
+<li><p>#方式能够很大程度防止sql注入，$方式无法防止Sql注入。</p>
+</li>
+<li><p>$方式一般用于传入数据库对象，例如传入表名.</p>
+</li>
+<li><p>一般能用#的就别用$，若不得不使用“${xxx}”这样的参数，要手工地做好过滤工作，来防止sql注入攻击。</p>
+</li>
+<li><p>在MyBatis中，“${xxx}”这样格式的参数会直接参与SQL编译，从而不能避免注入攻击。但涉及到动态表名和列名时，只能使用“${xxx}”这样的参数格式。所以，这样的参数需要我们在代码中手工进行处理来防止注入。<br>【结论】在编写MyBatis的映射语句时，尽量采用“#{xxx}”这样的格式。若不得不使用“${xxx}”这样的参数，要手工地做好过滤工作，来防止SQL注入攻击。</p>
+</li>
+</ol>
+<p>mybatis是如何做到防止sql注入的</p>
+<p>　　MyBatis框架作为一款半自动化的持久层框架，其SQL语句都要我们自己手动编写，这个时候当然需要防止SQL注入。其实，MyBatis的SQL是一个具有“输入+输出”的功能，类似于函数的结构，参考上面的两个例子。其中，parameterType表示了输入的参数类型，resultType表示了输出的参数类型。回应上文，如果我们想防止SQL注入，理所当然地要在输入参数上下功夫。上面代码中使用#的即输入参数在SQL中拼接的部分，传入参数后，打印出执行的SQL语句，会看到SQL是这样的：</p>
+<p>select id, username, password, role from user where username=? and password=?<br>　　不管输入什么参数，打印出的SQL都是这样的。这是因为MyBatis启用了预编译功能，在SQL执行前，会先将上面的SQL发送给数据库进行编译；执行时，直接使用编译好的SQL，替换占位符“?”就可以了。因为SQL注入只能对编译过程起作用，所以这样的方式就很好地避免了SQL注入的问题。</p>
+<p>　　【底层实现原理】MyBatis是如何做到SQL预编译的呢？其实在框架底层，是JDBC中的PreparedStatement类在起作用，PreparedStatement是我们很熟悉的Statement的子类，它的对象包含了编译好的SQL语句。这种“准备好”的方式不仅能提高安全性，而且在多次执行同一个SQL时，能够提高效率。原因是SQL已编译好，再次执行时无需再编译</p>
+<p>本文参考：<a href="https://www.jianshu.com/p/6f6195da1063" target="_blank" rel="noopener">https://www.jianshu.com/p/6f6195da1063</a></p>
+<pre><code>https://www.cnblogs.com/myseries/p/10821372.html</code></pre>
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/09/04/kali1.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;04&#x2F;kali1.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;04&#x2F;kali1.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1655133067867"></script>
+  
+
+
+
+
+
+</body>
+
+</html>

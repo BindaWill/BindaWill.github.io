@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java高级类特性 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="类（class）是构造对象的模板或蓝图，由类构造（construct)对象的过程称为创建类的实例（instance）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java高级类特性">
+<meta property="og:url" content="http://yoursite.com/2020/02/08/java5.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="类（class）是构造对象的模板或蓝图，由类构造（construct)对象的过程称为创建类的实例（instance）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/java1/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/java1/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/java5/java51.PNG">
+<meta property="og:image" content="http://yoursite.com/images/java5/java52.PNG">
+<meta property="og:image" content="http://yoursite.com/images/java5/java53.PNG">
+<meta property="og:image" content="http://yoursite.com/images/java5/java55.PNG">
+<meta property="og:image" content="http://yoursite.com/images/java5/java56.PNG">
+<meta property="og:image" content="http://yoursite.com/images/java5/java57.PNG">
+<meta property="article:published_time" content="2020-02-08T12:12:13.000Z">
+<meta property="article:modified_time" content="2020-02-28T15:11:54.000Z">
+<meta property="article:author" content="零点坠落">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1655133067912">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>57</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 零点坠落
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java高级类特性" class="lazyload">
+          <h1>Java高级类特性</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月08日</a>
+    <a><i class="nexmoefont icon-areachart"></i>9.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 41 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>类（class）是构造对象的模板或蓝图，由类构造（construct)对象的过程称为创建类的实例（instance）</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="4-1-面向对象特征之二：继承"><a href="#4-1-面向对象特征之二：继承" class="headerlink" title="4.1  面向对象特征之二：继承"></a>4.1  面向对象特征之二：继承</h3><ul>
+<li>为描述和处理个人信息，定义类Person:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Person</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name : String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>age : int</td>
+<td>-</td>
+</tr>
+<tr>
+<td>+getInfo() : String</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<pre><code>public class Person {
+public String name;
+public int age;
+public String getInfo()   
+ {...}
+ }</code></pre><h4 id="继-承-1"><a href="#继-承-1" class="headerlink" title="继  承(1)"></a>继  承(1)</h4><ul>
+<li>为描述和处理学生信息，定义类Student:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Student</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name : String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>age : int</td>
+<td>-</td>
+</tr>
+<tr>
+<td>school : String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>getInfo() : String</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<pre><code> public class Student {
+ public String name;
+ public int age;
+ public String school;
+
+ public String getInfo()  
+{...}
+}</code></pre><p><img data-sizes="auto" data-src="/images/java5/java51.PNG" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java5/java52.PNG" alt="" class="lazyload"></p>
+<h4 id="继-承-2"><a href="#继-承-2" class="headerlink" title="继  承(2)"></a>继  承(2)</h4><ul>
+<li>通过继承，简化Student类的定义:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Person</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+name : String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>age : int</td>
+<td>-</td>
+</tr>
+<tr>
+<td>birthDate : Date</td>
+<td>-</td>
+</tr>
+<tr>
+<td>getInfo() : String</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Student</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>school : String</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<pre><code>public class Person {
+public String name;
+public int age;
+public String getInfo() {...}
+ }
+
+public class Student extends Person{
+public String school;
+ }</code></pre><ul>
+<li><strong>Student类继承了父类Person的所有属性和方法，并增加了一个属性school。Person中的属性和方法,Student都可以利用。</strong></li>
+</ul>
+<h4 id="继-承-3"><a href="#继-承-3" class="headerlink" title="继  承(3)"></a>继  承(3)</h4><ul>
+<li><p>为什么要有继承？</p>
+<ul>
+<li>多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中，那么多个类无需再定义这些属性和行为，只要继承那个类即可。</li>
+</ul>
+</li>
+<li><p>此处的多个类称为子类，单独的这个类称为父类（基类或超类）。可以理解为:“子类 is a 父类”</p>
+</li>
+<li><p>类继承语法规则:</p>
+<ul>
+<li>class Subclass extends Superclass{ }</li>
+</ul>
+</li>
+</ul>
+<h4 id="继-承-4"><a href="#继-承-4" class="headerlink" title="继  承(4)"></a>继  承(4)</h4><p><img data-sizes="auto" data-src="/images/java5/java53.PNG" alt="" class="lazyload"></p>
+<ul>
+<li>作用：<ul>
+<li>继承的出现提高了代码的复用性。</li>
+<li>继承的出现让类与类之间产生了关系，提供了多态的前提。</li>
+<li>不要仅为了获取其他类中某个功能而去继承</li>
+</ul>
+</li>
+</ul>
+<h4 id="类的继承-5"><a href="#类的继承-5" class="headerlink" title="类的继承 (5)"></a>类的继承 (5)</h4><ul>
+<li>子类继承了父类，就继承了父类的方法和属性。</li>
+<li>在子类中，可以使用父类中定义的方法和属性，也可以创建新的数据和方法。</li>
+<li>在Java 中，继承的关键字用的是“extends”，即子类不是父类的子集，而是对父类的“扩展”。<h5 id="关于继承的规则："><a href="#关于继承的规则：" class="headerlink" title="关于继承的规则："></a>关于继承的规则：</h5></li>
+</ul>
+<p>子类不能直接访问父类中私有的(private)的成员变量和方法。<br>！<a href="/images/java5/java54.PNG"></a></p>
+<h4 id="类的继承-6"><a href="#类的继承-6" class="headerlink" title="类的继承 (6)"></a>类的继承 (6)</h4><ul>
+<li>Java只支持单继承，不允许多重继承<ul>
+<li>一个子类只能有一个父类</li>
+<li>一个父类可以派生出多个子类</li>
+</ul>
+</li>
+</ul>
+<pre><code>class SubDemo extends Demo{ }   //ok
+class SubDemo extends Demo1,Demo2...//error</code></pre><p><img data-sizes="auto" data-src="/images/java5/java55.PNG" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java5/java56.PNG" alt="" class="lazyload"></p>
+<h5 id="单继承举例"><a href="#单继承举例" class="headerlink" title="单继承举例"></a>单继承举例</h5><p><img data-sizes="auto" data-src="/images/java5/java57.PNG" alt="" class="lazyload"></p>
+<p>1.(1)定义一个ManKind类，包括<br>成员变量int sex和int salary；<br>方法void manOrWorman()：根据sex的值显示“man”(sex==1)或者“women”(sex==0)；<br>方法void employeed()：根据salary的值显示“no job”(salary==0)或者“ job”(salary!=0)。<br>   (2)定义类Kids继承ManKind，并包括<br>成员变量int yearsOld；<br>方法printAge()打印yearsOld的值。<br>   (3)在Kids类的main方法中实例化Kids的对象someKid，用该对象访问其父类的成员变量及方法。</p>
+<pre><code>  /*
+  *这是一个描述成员的类
+  */
+  public class ManKind {
+  int sex;  //性别
+  int salary;  //薪酬
+
+
+//这是一个打印输出性别的方法
+public void manOrWorman(){
+    if (sex==1){
+        System.out.println(&quot;man&quot;);
+    }else {
+        System.out.println(&quot;women&quot;);
+    }
+
+}
+//这是一个打印输出是否有工作的方法
+public void employeed(){
+    if (salary==0){
+        System.out.println(&quot;no job&quot;);
+    }else {
+        System.out.println(&quot;job&quot;);
+    }
+   }
+ }
+
+  /**
+  * 这是一个继承ManKind的子类
+  */
+  public class Kids extends ManKind {
+
+  int yearsOld; //年龄
+  public static void main(String[] args) {
+
+    Kids somekid = new Kids();//实例化Kids的对象someKid
+    somekid.yearsOld= 12;
+    somekid.sex=1;
+    somekid.salary=0;
+
+    somekid.manOrWorman();  //访问父类manOrWorman方法
+    somekid.printAge();  // 访问printAge方法
+    somekid.employeed();// 访问父类employeed方法
+
+
+
+}
+ ////这是一个打印输出年龄的方法
+public void printAge(){
+
+    System.out.println(&quot;年龄为&quot;+yearsOld);//
+   }
+ }</code></pre><hr>
+<h3 id="4-2-方法的重写-override"><a href="#4-2-方法的重写-override" class="headerlink" title="4.2  方法的重写(override)"></a>4.2  方法的重写(override)</h3><ul>
+<li>定义：在子类中可以根据需要对从父类中继承来的方法进行改造，也称方法的重置、覆盖。在程序执行时，子类的方法将覆盖父类的方法。</li>
+<li>要求：<ul>
+<li>重写方法必须和被重写方法具有相同的方法名称、参数列表和返回值类型。</li>
+<li>重写方法不能使用比被重写方法更严格的访问权限。</li>
+<li>重写和被重写的方法须同时为static的，或同时为非static的</li>
+<li>子类方法抛出的异常不能大于父类被重写方法的异常</li>
+</ul>
+</li>
+</ul>
+<h5 id="重写方法举例-1"><a href="#重写方法举例-1" class="headerlink" title="重写方法举例(1)"></a>重写方法举例(1)</h5><pre><code> public class Person {
+        public String name;
+        public int age;
+        public String getInfo() {
+        return &quot;Name: &quot;+ name + &quot;\n&quot; +&quot;age: &quot;+ age;
+         }
+      }
+public class Student extends Person {
+        public String school;
+        public String getInfo() {       //重写方法
+        return  &quot;Name: &quot;+ name + &quot;\nage: &quot;+ age 
+          + &quot;\nschool: &quot;+ school;
+         }
+        public static void main(String args[]){
+       Student s1=new Student();
+       s1.name=&quot;Bob&quot;;
+       s1.age=20;
+       s1.school=&quot;school2&quot;;
+       System.out.println(s1.getInfo());   //Name:Bob  age:20  school:school2
+        }
+     }</code></pre><ul>
+<li>Person p1=new Person();<br>p1.getInfo();<ul>
+<li>//调用Person类的getInfo()方法</li>
+</ul>
+</li>
+<li>Student s1=new Student();<br>s1.getInfo();<ul>
+<li>//调用Student类的getInfo()方法</li>
+<li>这是一种“多态性”：同名的方法，用不同的对象来区分调用的是哪一个方法。</li>
+</ul>
+</li>
+</ul>
+<h5 id="重写方法举例-2"><a href="#重写方法举例-2" class="headerlink" title="重写方法举例(2)"></a>重写方法举例(2)</h5><pre><code>class Parent {
+public void method1() {}
+}
+
+class Child extends Parent {
+private void method1() {}  
+//非法，子类中的method1()的访问权限private比被覆盖方法的访问权限public弱
+}
+
+public class UseBoth {
+public static void main(String[] args) {
+    Parent p1 = new Parent();
+    Child p2 = new Child();
+    p1.method1();
+    p2.method1();
+     }
+}</code></pre><hr>
+<h3 id="4-3-四种访问权限修饰符"><a href="#4-3-四种访问权限修饰符" class="headerlink" title="4.3 四种访问权限修饰符"></a>4.3 四种访问权限修饰符</h3><p><strong>Java权限修饰符public、protected、private置于类的成员定义前，用来限定对象对该类对象成员的访问权限。</strong></p>
+<p>修饰符|类内部|同一个包|子类|任何地方<br>—|—|—|—|—|—<br>private|Yes<br>default(缺省)|Yes|Yse<br>protected|Yes|Yse|Yes<br>public|Yes|Yse|Yes|Yes</p>
+<ul>
+<li><strong>对于class的权限修饰只可以用public和default。</strong><ul>
+<li><strong>public类可以在任意地方被访问。</strong></li>
+<li><strong>default类只可以被同一个包内部的类访问。</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="访问控制举例"><a href="#访问控制举例" class="headerlink" title="访问控制举例"></a>访问控制举例</h4><pre><code>class Parent{
+    private int f1 = 1;
+    int f2 = 2;
+    protected  int f3 = 3;
+    public  int f4 = 4;
+    private  void  fm1() {System.out.println(&quot;in fm1() f1=&quot; + f1);}
+    void fm2() {System.out.println(&quot;in fm2() f2=&quot; + f2);}
+    protected  void  fm3() {System.out.println(&quot;in fm3() f3=&quot; + f3);}
+    public void fm4() {System.out.println(&quot;in fm4() f4=&quot; + f4);}    
+ }
+
+
+ class Child extends Parent{               //设父类和子类在同一个包内
+    private int c1 = 21;
+    public  int c2 = 22;     
+private void cm1(){System.out.println(&quot;in cm1() c1=&quot; + c1);}
+public  void cm2(){System.out.println(&quot;in cm2() c2=&quot; + c2);}
+public static void main(String args[]){
+    int i; 
+    Parent  p = new Parent();        
+    i = p.f2;            //    i = p.f3;        i = p.f4;                p.fm2();         //    p.fm3();    p.fm4();        
+    Child  c = new Child();
+    i = c.f2;            //    i = c.f3;        i = c.f4;        
+    i = c.c1;            //    i = c.c2;        
+    c.cm1();        // c.cm2();    c.fm2();   c.fm3();   c.fm4()
+     }
+ }</code></pre><h4 id="访问控制分析"><a href="#访问控制分析" class="headerlink" title="访问控制分析"></a>访问控制分析</h4><p>父类Parent和子类Child在同一包中定义时：</p>
+<table>
+<thead>
+<tr>
+<th>子类对象可以访问的数据</th>
+<th>子类的对象可以调用的方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>f2_default</td>
+<td>fm2()_default</td>
+</tr>
+<tr>
+<td>f3_protected</td>
+<td>fm3()_ protected</td>
+</tr>
+<tr>
+<td>f4_public</td>
+<td>fm4()_ public</td>
+</tr>
+<tr>
+<td>c1_private</td>
+<td>cm1()_private</td>
+</tr>
+<tr>
+<td>c2_public</td>
+<td>cm2()_public</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="4-4-关键字super"><a href="#4-4-关键字super" class="headerlink" title="4.4  关键字super"></a>4.4  关键字super</h3><ul>
+<li>在Java类中使用super来调用父类中的指定操作：<ul>
+<li>super可用于访问父类中定义的属性</li>
+<li>super可用于调用父类中定义的成员方法</li>
+<li>super可用于在子类构造方法中调用父类的构造器</li>
+</ul>
+</li>
+<li>注意：<ul>
+<li>尤其当子父类出现同名成员时，可以用super进行区分</li>
+<li>super的追溯不仅限于直接父类</li>
+<li>super和this的用法相像，this代表本类对象的引用，super代表父类的内存空间的标识</li>
+</ul>
+</li>
+</ul>
+<h4 id="关键字super举例"><a href="#关键字super举例" class="headerlink" title="关键字super举例"></a>关键字super举例</h4><pre><code>class Person {
+protected String name=&quot;张三&quot;;
+         protected int age;
+public String getInfo() {
+                 return &quot;Name: &quot; + name + &quot;\nage: &quot; + age;
+    } }
+class Student extends Person {
+         protected String name = &quot;李四&quot;;
+private String school = &quot;New Oriental&quot;;
+public String getSchool(){ return school; }
+    public String getInfo() {
+            return super.getInfo() +&quot;\nschool: &quot; +school;
+    } }
+public class TestStudent{
+public static void main(String[] args){
+    Student st = new Student();
+    System.out.println(st.getInfo());
+} }</code></pre><h4 id="调用父类的构造器"><a href="#调用父类的构造器" class="headerlink" title="调用父类的构造器"></a>调用父类的构造器</h4><ul>
+<li>子类中所有的构造器默认都会访问父类中空参数的构造器</li>
+<li>当父类中没有空参数的构造器时，子类的构造器必须通过this(参数列表)或者super(参数列表)语句指定调用本类或者父类中相应的构造器，且必须放在构造器的第一行</li>
+<li>如果子类构造器中既未显式调用父类或本类的构造器，且父类中又没有无参的构造器，则编译出错</li>
+</ul>
+<h4 id="调用父类构造器举例"><a href="#调用父类构造器举例" class="headerlink" title="调用父类构造器举例"></a>调用父类构造器举例</h4><pre><code>  public class Person {
+
+ private String name;
+ private int age;
+private Date birthDate;    
+
+ public Person(String name, int age, Date d) {
+         this.name = name;
+        this.age = age;
+         this.birthDate = d;
+        }
+ public Person(String name, int age) {
+         this(name, age, null);
+ }
+ public Person(String name, Date d) {
+         this(name, 30, d);
+ }
+  public Person(String name) {
+         this(name, 30);
+    }
+    // ……
+ }</code></pre><h4 id="调用父类构造器举例-1"><a href="#调用父类构造器举例-1" class="headerlink" title="调用父类构造器举例"></a>调用父类构造器举例</h4><p>   public class Student extends Person {<br>     private String school;</p>
+<pre><code>        public Student(String name, int age, String s) {
+          super(name, age);
+          school = s;
+        }
+public Student(String name, String s) {
+          super(name);
+         school = s;
+}
+public Student(String s) { // 编译出错: no super(),系统将调用父类  
+                                                     无参数的构造方法。
+          school = s;
+}</code></pre><p>  }</p>
+<h4 id="this和super的区别"><a href="#this和super的区别" class="headerlink" title="this和super的区别"></a>this和super的区别</h4><table>
+<thead>
+<tr>
+<th>No.</th>
+<th>区别点</th>
+<th>this</th>
+<th>super</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>访问属性</td>
+<td>访问本类中的属性，如果本类没有此属性则从父类中继续查找</td>
+<td>访问父类中的属性</td>
+</tr>
+<tr>
+<td>2</td>
+<td>调用方法</td>
+<td>访问本类的方法</td>
+<td>直接访问父类中的方法</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>调用构造器</td>
+<td>调用本类构造器，必须放在构造器首行</td>
+</tr>
+<tr>
+<td>4</td>
+<td>特殊</td>
+<td>表示当前对象</td>
+<td>无此概念</td>
+</tr>
+</tbody></table>
+<h4 id="4-5简单类对象的实例化过程"><a href="#4-5简单类对象的实例化过程" class="headerlink" title="4.5简单类对象的实例化过程"></a>4.5简单类对象的实例化过程</h4><p>！<a href="/images/java5/java58.PNG"></a></p>
+<h4 id="4-5子类对象的实例化过程"><a href="#4-5子类对象的实例化过程" class="headerlink" title="4.5子类对象的实例化过程"></a>4.5子类对象的实例化过程</h4><p>! <a href="/images/java5/java59.PNG"></a></p>
+<h4 id="4-6-面向对象特征之三：多态性"><a href="#4-6-面向对象特征之三：多态性" class="headerlink" title="4.6  面向对象特征之三：多态性"></a>4.6  面向对象特征之三：多态性</h4><ul>
+<li><p>多态性，是面向对象中最重要的概念，在java中有两种体现：</p>
+<ul>
+<li>方法的重载(overload)和重写(overwrite)。</li>
+<li>对象的多态性   ——可以直接应用在抽象类和接口上。</li>
+</ul>
+</li>
+<li><p>Java引用变量有两个类型：编译时类型和运行时类型。编译时类型由声明该变量时使用的类型决定，运行时类型由实际赋给该变量的对象决定。</p>
+<ul>
+<li>若编译时类型和运行时类型不一致，就出现多态（Polymorphism）</li>
+</ul>
+</li>
+</ul>
+<h4 id="多态性-2"><a href="#多态性-2" class="headerlink" title="多态性(2)"></a>多态性(2)</h4><ul>
+<li><p>对象的多态—在Java中,子类的对象可以替代父类的对象使用</p>
+<ul>
+<li>一个变量只能有一种确定的数据类型</li>
+<li>一个引用类型变量可能指向(引用)多种不同类型的对象<br>Person p = new Person();<br>Person e = new Student(); // Person类型的变量e，指向Student类型的对象</li>
+</ul>
+</li>
+<li><p><strong>子类可看做是特殊的父类，所以父类类型的引用可以指向子类的对象：向上转型(upcasting)。</strong></p>
+</li>
+</ul>
+<h4 id="多态性-3"><a href="#多态性-3" class="headerlink" title="多态性(3)"></a>多态性(3)</h4><ul>
+<li><p>一个引用类型变量如果声明为父类的类型，但实际引用的是子类对象，那么该变量就不能再访问子类中添加的属性和方法</p>
+<pre><code>Student m = new Student();
+m.school = “pku”;       //合法,Student类有school成员变量
+Person e = new Student(); 
+e.school = “pku”;    //非法,Person类没有school成员变量
+属性是在编译时确定的，编译时e为Person类型，没有school成员变量，因而编译错误。</code></pre></li>
+</ul>
+<h4 id="虚拟方法调用-Virtual-Method-Invocation"><a href="#虚拟方法调用-Virtual-Method-Invocation" class="headerlink" title="虚拟方法调用(Virtual Method Invocation)"></a>虚拟方法调用(Virtual Method Invocation)</h4><ul>
+<li><p>正常的方法调用</p>
+<pre><code>Person p = new Person();
+  p.getInfo();
+Student s = new Student();
+   s.getInfo();</code></pre></li>
+<li><p>虚拟方法调用(多态情况下)</p>
+<pre><code>Person e = new Student();
+e.getInfo();    //调用Student类的getInfo()方法</code></pre></li>
+<li><p>编译时类型和运行时类型<br>编译时e为Person类型，而方法的调用是在运行时确定的，所以调用的是Student类的getInfo()方法。——动态绑定</p>
+</li>
+</ul>
+<h4 id="多态小结"><a href="#多态小结" class="headerlink" title="多态小结"></a>多态小结</h4><ul>
+<li><p>前提：</p>
+<ul>
+<li>需要存在继承或者实现关系</li>
+<li>要有覆盖操作</li>
+</ul>
+</li>
+<li><p>成员方法：</p>
+<ul>
+<li>编译时：要查看引用变量所属的类中是否有所调用的方法。</li>
+<li>运行时：调用实际对象所属的类中的重写方法。</li>
+</ul>
+</li>
+<li><p>成员变量：</p>
+<ul>
+<li>不具备多态性，只看引用变量所属的类。</li>
+</ul>
+</li>
+<li><p>子类继承父类</p>
+<ul>
+<li>若子类重写了父类方法，就意味着子类里定义的方法彻底覆盖了父类里的同名方法，系统将不可能把父类里的方法转移到子类中</li>
+<li>对于实例变量则不存在这样的现象，即使子类里定义了与父类完全相同的实例变量，这个实例变量依然不可能覆盖父类中定义的实例变量</li>
+</ul>
+</li>
+</ul>
+<h4 id="多态性应用举例"><a href="#多态性应用举例" class="headerlink" title="多态性应用举例"></a>多态性应用举例</h4><ul>
+<li><p>方法声明的形参类型为父类类型，可以使用子类的对象作为实参调用该方法</p>
+<pre><code>public class Test{ 
+public void method(Person e) {
+         //……
+         e.getInfo();
+ }
+public static  void main(Stirng args[]){
+         Test t = new Test();
+          Student m = new Student();
+          t.method(m); //子类的对象m传送给父类类型的参数e
+     }
+  }</code></pre></li>
+</ul>
+<h4 id="多态性应用举例-1"><a href="#多态性应用举例-1" class="headerlink" title="多态性应用举例"></a>多态性应用举例</h4><ul>
+<li><p>方法声明的形参类型为父类类型，可以使用子类的对象作为实参调用该方法</p>
+<pre><code>public class Test{ 
+ public void method(Person e) {
+         //……
+         e.getInfo();
+   }
+public static  void main(Stirng args[]){
+         Test t = new Test();
+          Student m = new Student();
+          t.method(m); //子类的对象m传送给父类类型的参数e
+     }
+}</code></pre></li>
+</ul>
+<hr>
+<h3 id="instanceof-操作符"><a href="#instanceof-操作符" class="headerlink" title="instanceof 操作符"></a>instanceof 操作符</h3><ul>
+<li><p>x instanceof A：检验x是否为类A的对象，返回值为boolean型。</p>
+<ul>
+<li>要求x所属的类与类A必须是子类和父类的关系，否则编译错误。</li>
+<li>如果x属于类A的子类B，x instanceof  A值也为true。</li>
+</ul>
+</li>
+</ul>
+<pre><code> public class Person extends Object {…}
+ public class Student extends Person {…}
+ public class Graduate extends Person {…}
+ -------------------------------------------------------------------
+ public void method1(Person e) {
+  if (e instanceof Person) 
+    // 处理Person类及其子类对象
+if (e instanceof Student) 
+    //处理Student类及其子类对象
+if (e instanceof Graduate)
+    //处理Graduate类及其子类对象
+  }</code></pre><hr>
+<h3 id="4-7-Object-类"><a href="#4-7-Object-类" class="headerlink" title="4.7  Object 类"></a>4.7  Object 类</h3><ul>
+<li><p>Object类是所有Java类的根父类</p>
+</li>
+<li><p>如果在类的声明中未使用extends关键字指明其父类，则默认父类为Object类 </p>
+<pre><code>public class Person {
+...
+}
+等价于：
+public class Person extends Object {
+...
+}</code></pre></li>
+<li><p>例：method(Object obj){…}//可以接收任何类作为其参数</p>
+<pre><code>Person o=new Person();  
+method(o);</code></pre></li>
+</ul>
+<h4 id="Object类中的主要方法"><a href="#Object类中的主要方法" class="headerlink" title="Object类中的主要方法"></a>Object类中的主要方法</h4><table>
+<thead>
+<tr>
+<th>NO.</th>
+<th>方法名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>public Objext()</td>
+<td>构造</td>
+<td>构造方法</td>
+</tr>
+<tr>
+<td>2</td>
+<td>public boolean equals（Object obj）</td>
+<td>普通</td>
+<td>对象比较</td>
+</tr>
+<tr>
+<td>3</td>
+<td>public int hashCodes（）</td>
+<td>普通</td>
+<td>取得Hash码</td>
+</tr>
+<tr>
+<td>4</td>
+<td>public String toString（）</td>
+<td>普通</td>
+<td>对象打印时调用</td>
+</tr>
+</tbody></table>
+<h4 id="对象类型转换-Casting"><a href="#对象类型转换-Casting" class="headerlink" title="对象类型转换 (Casting )"></a>对象类型转换 (Casting )</h4><ul>
+<li><p>基本数据类型的Casting：</p>
+<ul>
+<li>自动类型转换：小的数据类型可以自动转换成大的数据类型<pre><code>如long g=20;           double d=12.0f</code></pre></li>
+<li>强制类型转换：可以把大的数据类型强制转换(casting)成小的数据类型<pre><code>如 float f=(float)12.0;   int a=(int)1200L</code></pre></li>
+</ul>
+</li>
+<li><p><strong>对Java对象的强制类型转换称为造型</strong></p>
+<ul>
+<li><strong>从子类到父类的类型转换可以自动进行</strong></li>
+<li><strong>从父类到子类的类型转换必须通过造型(强制类型转换)实现</strong></li>
+<li><strong>无继承关系的引用类型间的转换是非法的</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="对象类型转换举例"><a href="#对象类型转换举例" class="headerlink" title="对象类型转换举例"></a>对象类型转换举例</h4><pre><code>public class ConversionTest{
+public static void main(String[] args) {
+   double d = 13.4;
+   long l = (long)d;
+   System.out.println(l);
+   int in = 5;
+   //boolean b = (boolean)in;
+   Object obj = &quot;Hello&quot;;
+   String objStr = (String)obj;
+   System.out.println(objStr);
+   Object objPri = new Integer(5);
+   //所以下面代码运行时引发ClassCastException异常
+   String str = (String)objPri;
+    }
+}</code></pre><h4 id="对象类型转换举例-1"><a href="#对象类型转换举例-1" class="headerlink" title="对象类型转换举例"></a>对象类型转换举例</h4><pre><code>public class Test{ 
+          public void method(Person e) {     //设Person类中没有getschool()                        方法
+    // System.out.pritnln(e.getschool());   //非法,编译时错误
+
+     if(e  instanceof  Student){
+             Student me = (Student)e;    //将e强制转换为Student类型
+             System.out.pritnln(me.getschool());
+     }        
+  }
+   public static  void main(Stirng args[]){
+          Test t = new Test();
+           Student m = new Student();
+           t.method(m);
+      }
+  }</code></pre><p>! <a href="/images/java5/java510.PNG"></a></p>
+<h4 id="操作符与equals方法"><a href="#操作符与equals方法" class="headerlink" title="==操作符与equals方法"></a>==操作符与equals方法</h4><ul>
+<li><p>= =： </p>
+<ul>
+<li><p>基本类型比较值:只要两个变量的值相等，即为true.<br>int a=5; if(a==6){…}</p>
+</li>
+<li><p>引用类型比较引用(是否指向同一个对象):只有指向同一个对象时，==才返回true.</p>
+<p>   Person p1=new Person();   </p>
+<pre><code>Person p2=new Person();
+ if (p1==p2){…}</code></pre><ul>
+<li>用“==”进行比较时，符号两边的数据类型必须兼容(可自动转换的基本数据类型除外)，否则编译出错；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>equals()：所有类都继承了Object，也就获得了equals()方法。还可以重写。</p>
+<ul>
+<li>只能比较引用类型，其作用与“==”相同,比较是否指向同一个对象。     </li>
+<li>格式:obj1.equals(obj2)</li>
+</ul>
+</li>
+<li><p>特例：当用equals()方法进行比较时，对类File、String、Date及包装类（Wrapper Class）来说，是比较类型及内容而不考虑引用的是否是同一个对象；</p>
+<ul>
+<li>原因：在这些类中重写了Object类的equals()方法。</li>
+</ul>
+</li>
+</ul>
+<h4 id="toString-方法"><a href="#toString-方法" class="headerlink" title="toString() 方法"></a>toString() 方法</h4><ul>
+<li>toString()方法在Object类中定义，其返回值是String类型，返回类名和它的引用地址。</li>
+<li>在进行String与其它类型数据的连接操作时，自动调用toString()方法<br>  Date now=new Date();<br>  System.out.println(“now=”+now);  相当于<pre><code>System.out.println(“now=”+now.toString());   </code></pre></li>
+<li>可以根据需要在用户自定义类型中重写toString()方法<br>  如String 类重写了toString()方法，返回字符串的值。<br>  s1=“hello”;<br>  System.out.println(s1);//相当于System.out.println(s1.toString());</li>
+<li>基本类型数据转换为String类型时，调用了对应包装类的toString()方法<ul>
+<li>int a=10;   System.out.println(“a=”+a);</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-7-包装类-Wrapper"><a href="#4-7-包装类-Wrapper" class="headerlink" title="4.7  包装类(Wrapper)"></a>4.7  包装类(Wrapper)</h4><ul>
+<li>针对八种基本定义相应的引用类型—包装类（封装类）</li>
+<li>有了类的特点，就可以调用类中的方法。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>基本数据类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>基本数据类型包装成包装类的实例    —装箱</p>
+<ul>
+<li>通过包装类的构造器实现：<br>int i = 500;   Integer t = new Integer(i);</li>
+<li>还可以通过字符串参数构造包装类对象：<br>Float f = new Float(“4.56”);<br>Long l = new Long(“asdf”);  //NumberFormatException</li>
+</ul>
+</li>
+<li><p>获得包装类对象中包装的基本类型变量    —拆箱<br>调用包装类的.xxxValue()方法：<br>  boolean b = bObj.booleanValue();</p>
+</li>
+<li><p>JDK1.5之后，支持自动装箱，自动拆箱。但类型必须匹配。</p>
+</li>
+<li><p>字符串转换成基本数据类型</p>
+<ul>
+<li>通过包装类的构造器实现：<br>int i = new Integer(“12”);</li>
+<li>通过包装类的parseXxx(String s)静态方法：<br>Float f = Float.parseFloat(“12.1”);</li>
+</ul>
+</li>
+<li><p>基本数据类型转换成字符串</p>
+<ul>
+<li>调用字符串重载的valueOf()方法：<br>String fstr = String.valueOf(2.34f);</li>
+<li>更直接的方式：<br>String intStr = 5 + “”</li>
+</ul>
+</li>
+</ul>
+<h4 id="包装类用法举例"><a href="#包装类用法举例" class="headerlink" title="包装类用法举例"></a>包装类用法举例</h4><p>int i = 500;<br>Integer t = new Integer(i);</p>
+<ul>
+<li>装箱：包装类使得一个基本数据类型的数据变成了类。<br>有了类的特点，可以调用类中的方法。</li>
+</ul>
+<p>String s = t.toString(); // s = “500“,t是类，有toString方法<br>String s1 = Integer.toString(314); // s1= “314“  将数字转换成字符串。<br>String s2=“4.56”;<br>double ds=Double.parseDouble(s2);   //将字符串转换成数字</p>
+<h4 id="包装类的用法举例"><a href="#包装类的用法举例" class="headerlink" title="包装类的用法举例"></a>包装类的用法举例</h4><ul>
+<li>拆箱：将数字包装类中内容变为基本数据类型。</li>
+</ul>
+<p>int j = t.intValue();    // j = 500，intValue取出包装类中的数据</p>
+<ul>
+<li>包装类在实际开发中用的最多的在于字符串变为基本数据类型。</li>
+</ul>
+<p>String str1 = “30” ;<br>String str2 = “30.3” ;<br>int x = Integer.parseInt(str1) ;    // 将字符串变为int型<br>float f = Float.parseFloat(str2) ; // 将字符串变为int型</p>
+<hr>
+<h3 id="5-1-关键字static"><a href="#5-1-关键字static" class="headerlink" title="5.1  关键字static"></a>5.1  关键字static</h3><ul>
+<li>当我们编写一个类时，其实就是在描述其对象的属性和行为，而并没有产生实质上的对象，只有通过new关键字才会产生出对象，这时系统才会分配内存空间给对象，其方法才可以供外部调用。我们有时候希望无论是否产生了对象或无论产生了多少对象的情况下，某些特定的数据在内存空间里只有一份，例如所有的中国人都有个国家名称，每一个中国人都共享这个国家名称，不必在每一个中国人的实例对象中都单独分配一个用于代表国家名称的变量。</li>
+</ul>
+<p>！<a href="/images/java5/java511.PNG"></a></p>
+<pre><code>class Circle{
+   private double radius;
+   public Circle(double radius){this.radius=radius;}
+   public double findArea(){return Math.PI*radius*radius;}}</code></pre><ul>
+<li><p>创建两个Circle对象</p>
+<pre><code>Circle c1=new Circle(2.0);    //c1.radius=2.0
+Circle c2=new Circle(3.0);    //c2.radius=3.0</code></pre></li>
+<li><p>Circle类中的变量radius是一个实例变量(instance variable)，它属于类的每一个对象，不能被同一个类的不同对象所共享。</p>
+</li>
+<li><p>上例中c1的radius独立于c2的radius，存储在不同的空间。c1中的radius变化不会影响c2的radius，反之亦然。</p>
+</li>
+<li><p><strong>如果想让一个类的所有实例共享数据，就用类变量！</strong></p>
+</li>
+</ul>
+<h4 id="类属性、类方法的设计思想"><a href="#类属性、类方法的设计思想" class="headerlink" title="类属性、类方法的设计思想"></a>类属性、类方法的设计思想</h4><ul>
+<li><p>类属性作为该类各个对象之间共享的变量。在设计类时,分析哪些类属性不因对象的不同而改变，将这些属性设置为类属性。相应的方法设置为类方法。</p>
+</li>
+<li><p><strong>如果方法与调用者无关，则这样的方法通常被声明为类方法，由于不需要创建对象就可以调用类方法，从而简化了方法的调用</strong></p>
+</li>
+</ul>
+<h4 id="关键字static"><a href="#关键字static" class="headerlink" title="关键字static"></a>关键字static</h4><ul>
+<li><p>使用范围：</p>
+<ul>
+<li>在Java类中，可用static修饰属性、方法、代码块、内部类</li>
+</ul>
+</li>
+<li><p>被修饰后的成员具备以下特点：</p>
+<ul>
+<li>随着类的加载而加载</li>
+<li>优先于对象存在</li>
+<li>修饰的成员，被所有对象所共享</li>
+<li>访问权限允许时，可不创建对象，直接被类调用</li>
+</ul>
+</li>
+</ul>
+<pre><code>class Circle {
+private double radius;
+public static String name = &quot;这是一个圆&quot;;
+public static String getName(){
+return name;}
+public Circle(double radius) {
+getName();
+this.radius = radius;}
+public double findArea() {
+return Math.PI * radius * radius;}
+public void display(){
+System.out.println(&quot;name:&quot;+name+&quot;radius:&quot;+radius);
+}}
+
+public class TestStatic {
+public static void main(String[] args) {
+Circle c1 = new Circle(2.0);
+Circle c2 = new Circle(3.0);
+c1.display();
+c2.display();
+  }
+ }</code></pre><h4 id="类变量-class-Variable"><a href="#类变量-class-Variable" class="headerlink" title="类变量(class Variable)"></a>类变量(class Variable)</h4><ul>
+<li>类变量（类属性）由该类的所有实例共享</li>
+</ul>
+<p>！<a href="/images/java5/java512.PNG"></a></p>
+<pre><code> public class Person {
+ private int id;
+ public static int total = 0;
+ public Person() {
+  total++;
+  id = total;
+ }
+}</code></pre><h4 id="类变量应用举例"><a href="#类变量应用举例" class="headerlink" title="类变量应用举例"></a>类变量应用举例</h4><pre><code>class Person {
+    private int id;
+    public static int total = 0;
+    public Person() {
+       total++;
+       id = total;
+    }
+    public static void main(String args[]){
+      Person Tom=new Person();
+Tom.id=0;
+total=100; // 不用创建对象就可以访问静态成员
+     }
+ }
+
+public class OtherClass {
+     public static void main(String args[]) {
+       Person.total = 100;  // 不用创建对象就可以访问静态成员
+                    //访问方式：类名.类属性，类名.类方法
+      System.out.println(Person.total);
+      Person c = new Person(); 
+      System.out.println(c.total);    //输出101
+     }}</code></pre><h4 id="类方法-class-Method"><a href="#类方法-class-Method" class="headerlink" title="类方法(class Method)"></a>类方法(class Method)</h4><ul>
+<li><p>没有对象的实例时，可以用类名.方法名()的形式访问由static标记的类方法。</p>
+</li>
+<li><p>在static方法内部只能访问类的static属性，不能访问类的非static属性。</p>
+<pre><code>class Person {
+private int id;
+private static int total = 0;
+public static int getTotalPerson() { 
+id++;    //非法
+return total;
+}
+public Person() {
+      total++;
+ id = total;
+}}
+public class TestPerson {
+ public static void main(String[] args) {
+ System.out.println(&quot;Number of total is &quot; +Person.getTotalPerson());
+  //没有创建对象也可以访问静态方法
+ Person p1 = new Person();
+  System.out.println( &quot;Number of total is &quot;+ Person.getTotalPerson());
+ }}</code></pre></li>
+</ul>
+<hr>
+<h3 id="单例-Singleton-设计模式"><a href="#单例-Singleton-设计模式" class="headerlink" title="单例 (Singleton)设计模式"></a>单例 (Singleton)设计模式</h3><ul>
+<li>设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索。</li>
+<li>所谓类的单例设计模式，就是采取一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法。如果我们要让类在一个虚拟机中只能产生一个对象，我们首先必须将类的构造方法的访问权限设置为private，这样，就不能用new操作符在类的外部产生类的对象了，但在类内部仍可以产生该类的对象。因为在类的外部开始还无法得到类的对象，只能调用该类的某个静态方法以返回类内部创建的对象，静态方法只能访问类中的静态成员变量，所以，指向类内部产生的该类对象的变量也必须定义成静态的。</li>
+</ul>
+<h4 id="单例-Singleton-设计模式-饿汉式"><a href="#单例-Singleton-设计模式-饿汉式" class="headerlink" title="单例(Singleton)设计模式-饿汉式"></a>单例(Singleton)设计模式-饿汉式</h4><pre><code>class Single{
+//private的构造器，不能在类的外部创建该类的对象
+private Single() {} 
+//私有的，只能在类的内部访问
+private static Single onlyone = new Single();
+//getSingle()为static，不用创建对象即可访问
+public static Single getSingle() {
+   return onlyone;
+   }
+}
+public class TestSingle{
+public static void main(String args[]) {        
+   Single  s1 = Single.getSingle();      //访问静态方法
+   Single  s2 = Single.getSingle();
+   if (s1==s2){
+       System.out.println(&quot;s1 is equals to s2!&quot;);
+   }}}</code></pre><h4 id="单例-Singleton-设计模式-懒汉式"><a href="#单例-Singleton-设计模式-懒汉式" class="headerlink" title="单例(Singleton)设计模式-懒汉式"></a>单例(Singleton)设计模式-懒汉式</h4><pre><code>class Singleton{
+//1.将构造器私有化，保证在此类的外部，不能调用本类的构造器。
+private Singleton(){
+}
+//2.先声明类的引用
+//4.也需要配合static的方法，用static修饰此类的引用。
+private static Singleton  instance = null;
+//3.设置公共的方法来访问类的实例
+public static Singleton  getInstance(){
+//3.1如果类的实例未创建，那些先要创建，然后返回给调用者：本类。因此，需要static 修饰。
+    if(instance == null){
+        instance = new Singleton();
+    }
+//3.2 若有了类的实例，直接返回给调用者。
+    return instance;
+}  }</code></pre><ul>
+<li>举例：java.lang.Runtime</li>
+</ul>
+<p>！<a href="/images/java5/java513.PNG"></a></p>
+<hr>
+<p>###5.2  理解main方法的语法 </p>
+<ul>
+<li>由于java虚拟机需要调用类的main()方法，所以该方法的访问权限必须是public，又因为java虚拟机在执行main()方法时不必创建对象，所以该方法必须是static的，该方法接收一个String类型的数组参数，该数组中保存执行java命令时传递给所运行的类的参数。 </li>
+</ul>
+<p>！<a href="/images/java5/java514.PNG"></a></p>
+<h4 id="命令行参数用法举例"><a href="#命令行参数用法举例" class="headerlink" title="命令行参数用法举例"></a>命令行参数用法举例</h4><pre><code>public class CommandPara {
+  public static void main(String[] args) {
+ for ( int i = 0; i &lt; args.length; i++ ) {
+          System.out.println(&quot;args[&quot; + i + &quot;] = &quot; + args[i]);
+   }  } }
+ //运行程序CommandPara.java
+ java CommandPara &quot;lisa&quot;  &quot;bily&quot;  &quot;Mr Brown&quot;
+
+ 输出结果：
+
+ args[0] = lisa
+ args[1] = bily
+ args[2] = Mr Brown</code></pre><h4 id="5-3-类的成员之四：初始化块"><a href="#5-3-类的成员之四：初始化块" class="headerlink" title="5.3  类的成员之四：初始化块"></a>5.3  类的成员之四：初始化块</h4><p>！<a href="/images/java5/java515.PNG"></a></p>
+<ul>
+<li><p>初始化块(代码块)作用：</p>
+<ul>
+<li>对Java对象进行初始化</li>
+</ul>
+</li>
+<li><p>程序的执行顺序：<br>声明成员变量的默认值</p>
+</li>
+</ul>
+<p>显式初始化、多个初始化块依次被执行（同级别下按先后顺序执行）</p>
+<p>构造器再对成员进行赋值操作</p>
+<h4 id="5-3-类的成员之四：初始化块-1"><a href="#5-3-类的成员之四：初始化块-1" class="headerlink" title="5.3  类的成员之四：初始化块"></a>5.3  类的成员之四：初始化块</h4><ul>
+<li><p>一个类中初始化块若有修饰符，则只能被static修饰，称为静态代码块(static block )，当类被载入时，类属性的声明和静态代码块先后顺序被执行，且只被执行一次。</p>
+</li>
+<li><p><strong>static块通常用于初始化static (类)属性</strong></p>
+<pre><code>class Person {
+public static int total;
+static {
+      total = 100;//为total赋初值 
+   }
+ …… //其它属性或方法声明
+ }</code></pre></li>
+</ul>
+<h4 id="5-3-类的成员之四：初始化块-2"><a href="#5-3-类的成员之四：初始化块-2" class="headerlink" title="5.3  类的成员之四：初始化块"></a>5.3  类的成员之四：初始化块</h4><ul>
+<li><p>非静态代码块：没有static修饰的代码块</p>
+<pre><code>1.可以有输出语句。
+2.可以对类的属性声明进行初始化操作。
+3.可以调用静态和非静态的变量或方法。
+4.若有多个非静态的代码块，那么按照从上到下的顺序依
+    次执行。
+5.每次创建对象的时候，都会执行一次。且先于构造器执行</code></pre></li>
+<li><p>静态代码块：用static 修饰的代码块</p>
+<pre><code>1.可以有输出语句。
+2.可以对类的属性声明进行初始化操作。
+3.不可以对非静态的属性初始化。即：不可以调用非静态的属
+  性和方法。
+4.若有多个静态的代码块，那么按照从上到下的顺序依次执行。
+5.静态代码块的执行要先于非静态代码块。
+6.静态代码块只执行一次</code></pre></li>
+</ul>
+<h4 id="初始化块举例"><a href="#初始化块举例" class="headerlink" title="初始化块举例"></a>初始化块举例</h4><p>！<a href="/images/java5/java516.PNG"></a><br>！<a href="/images/java5/java517.PNG"></a></p>
+<h4 id="5-4-关键字：final"><a href="#5-4-关键字：final" class="headerlink" title="5.4  关键字：final"></a>5.4  关键字：final</h4><ul>
+<li>在Java中声明类、属性和方法时，可使用关键字final来修饰,表示“最终”。<ul>
+<li>final标记的类不能被继承。提高安全性，提高程序的可读性。<br>String类、System类、StringBuffer类</li>
+<li>final标记的方法不能被子类重写。<br>Object类中的getClass()。</li>
+<li>final标记的变量(成员变量或局部变量)即称为常量。名称大写，且只能被赋值一次。</li>
+<li>final标记的成员变量必须在声明的同时或在每个构造方法中或代码块中显式赋值，然后才能使用。<br>final double PI=3.14;</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-final修饰类"><a href="#1-final修饰类" class="headerlink" title="1.final修饰类"></a>1.final修饰类</h4><pre><code>final class A{
+}
+class B extends A{     //错误，不能被继承。
+}
+**Final修饰的类不能被继承**</code></pre><h4 id="2-final修饰方法"><a href="#2-final修饰方法" class="headerlink" title="2.final修饰方法"></a>2.final修饰方法</h4><pre><code>class A{
+  public final void print(){
+           System.out.println(“A”);
+  }
+ }
+ class B extends A{     
+   public void print(){   //错误，不能被重写。
+             System.out.println(“众软”);
+    }
+  }</code></pre><ul>
+<li><strong>Final修饰的方法不能被子类重写</strong></li>
+</ul>
+<h4 id="3-final修饰变量——常量"><a href="#3-final修饰变量——常量" class="headerlink" title="3.final修饰变量——常量"></a>3.final修饰变量——常量</h4><pre><code>class  A{
+   private final String INFO = “众软”;  //声明常量
+   public void print(){
+             //INFO = “众软”;
+    }
+ }</code></pre><ul>
+<li><strong>常量名要大写，内容不可修改。</strong></li>
+<li>static final：全局常量</li>
+</ul>
+<h4 id="关键字final应用举例"><a href="#关键字final应用举例" class="headerlink" title="关键字final应用举例"></a>关键字final应用举例</h4><pre><code>public final class Test{
+ public static int totalNumber = 5 ;
+ public final int ID;
+ public Test(){
+     ID = ++totalNumber;  //可在构造方法中给final变量赋值
+ }
+    public static void main(String[] args) {
+     Test t = new Test();
+     System.out.println(t.ID);        
+     final int I = 10;
+     final int J;
+     J = 20;
+     J = 30;  //非法
+     }}</code></pre><h4 id="5-5-抽象类-abstract-class"><a href="#5-5-抽象类-abstract-class" class="headerlink" title="5.5  抽象类(abstract class)"></a>5.5  抽象类(abstract class)</h4><ul>
+<li>随着继承层次中一个个新子类的定义，类变得越来越具体，而父类则更一般，更通用。类的设计应该保证父类和子类能够共享特征。有时将一个父类设计得非常抽象，以至于它没有具体的实例，这样的类叫做抽象类。</li>
+</ul>
+<p>！<a href="/images/java5/java518.PNG"></a></p>
+<ul>
+<li>用abstract关键字来修饰一个类时，这个类叫做抽象类；</li>
+<li>用abstract来修饰一个方法时，该方法叫做抽象方法。<ul>
+<li>抽象方法：只有方法的声明，没有方法的实现。以分号结束：abstract int abstractMethod( int a );</li>
+</ul>
+</li>
+<li>含有抽象方法的类必须被声明为抽象类。</li>
+<li>抽象类不能被实例化。抽象类是用来作为父类被继承的，抽象类的子类必须重写父类的抽象方法，并提供方法体。若没有重写全部的抽象方法，仍为抽象类。</li>
+<li>不能用abstract修饰属性、私有方法、构造器、静态方法、final的方法</li>
+</ul>
+<h4 id="抽象类举例"><a href="#抽象类举例" class="headerlink" title="抽象类举例"></a>抽象类举例</h4><pre><code> abstract class A{   
+ abstract void m1( );
+ public void m2( ){
+  System.out.println(&quot;A类中定义的m2方法&quot;);
+ }
+ }
+
+class B extends A{
+ void m1( ){
+   System.out.println(&quot;B类中定义的m1方法&quot;);
+ }
+ }
+
+ public class Test{
+ public static void main( String args[ ] ){
+   A a = new B( );
+   a.m1( );
+   a.m2( );
+    }
+  }</code></pre><h4 id="抽象类应用"><a href="#抽象类应用" class="headerlink" title="抽象类应用"></a>抽象类应用</h4><p>抽象类是用来模型化那些父类无法确定全部实现，而是由其子类提供具体实现的对象的类</p>
+<p>！<a href="/images/java5/java519.PNG"></a></p>
+<ul>
+<li>在航运公司系统中，Vehicle类需要定义两个方法分别计算运输工具的燃料效率和行驶距离</li>
+<li>问题：卡车(Truck)和驳船(RiverBarge)的燃料效率和行驶距离的计算方法完全不同。Vehicle类不能提供计算方法，但子类可以。</li>
+</ul>
+<h4 id="抽象类应用-1"><a href="#抽象类应用-1" class="headerlink" title="抽象类应用"></a>抽象类应用</h4><ul>
+<li><p>解决方案<br>  Java允许类设计者指定：超类声明一个方法但不提供实现，该方法的实现由子类提供。这样的方法称为抽象方法。有一个或更多抽象方法的类称为抽象类。</p>
+</li>
+<li><p>Vehicle是一个抽象类，有两个抽象方法。</p>
+<pre><code>public abstract class Vehicle{
+public abstract double   calcFuelEfficiency();        //计算燃料效率的抽象方法
+public abstract double  calcTripDistance();     //计算行驶距离的抽象方法
+ }
+ public class Truck extends Vehicle{
+  public double calcFuelEfficiency( )   { //写出计算卡车的燃料效率的具体方法   }
+    public double calcTripDistance( )    {  //写出计算卡车行驶距离的具体方法   }
+}
+
+  public class RiverBarge extends Vehicle{
+  public double calcFuelEfficiency( ) { //写出计算驳船的燃料效率的具体方法  }
+   public double calcTripDistance( )  {  //写出计算驳船行驶距离的具体方法}
+   }</code></pre></li>
+<li><p><strong>注意：抽象类不能实例化   new Vihicle()是非法的</strong></p>
+</li>
+</ul>
+<p>问题1：为什么抽象类不可以使用final关键字声明？</p>
+<p>  （抽象类不能被实例化。抽象类是用来被继承的，抽象类的子类必须重写父类的抽象方法，并提供方法体）</p>
+<p>问题2：一个抽象类中可以定义构造器吗？</p>
+<p>抽象类可以有构造方法，只是不能直接创建抽象类的实例对象而已。<br>抽象类不能实例化   new Vihicle()是非法的</p>
+<h4 id="模板方法设计模式-TemplateMethod"><a href="#模板方法设计模式-TemplateMethod" class="headerlink" title="模板方法设计模式(TemplateMethod)"></a>模板方法设计模式(TemplateMethod)</h4><ul>
+<li><p>抽象类体现的就是一种模板模式的设计，抽象类作为多个子类的通用模板，子类在抽象类的基础上进行扩展、改造，但子类总体上会保留抽象类的行为方式。</p>
+</li>
+<li><p><strong>解决的问题：</strong></p>
+<ul>
+<li>当功能内部一部分实现是确定，一部分实现是不确定的。这时可以把不确定的部分暴露出去，让子类去实现。</li>
+<li>编写一个抽象父类，父类提供了多个子类的通用方法，并把一个或多个方法留给其子类实现，就是一种模板模式。</li>
+</ul>
+</li>
+</ul>
+<pre><code> abstract class Template{
+ public final void getTime(){
+  long start = System.currentTimeMillis();
+  code();
+  long end = System.currentTimeMillis();
+  System.out.println(&quot;执行时间是：&quot;+(end - start));
+  }
+  public abstract void code();
+ }
+ class SubTemplate extends Template{
+public void code(){
+  for(int i = 0;i&lt;10000;i++){
+  System.out.println(i);
+} } }</code></pre><hr>
+<h3 id="5-6-接-口"><a href="#5-6-接-口" class="headerlink" title="5.6 接 口"></a>5.6 接 口</h3><ul>
+<li><p>有时必须从几个类中派生出一个子类，继承它们所有的属性和方法。但是，Java不支持多重继承。有了接口，就可以得到多重继承的效果。</p>
+</li>
+<li><p>接口(interface)是抽象方法和常量值的定义的集合。</p>
+</li>
+<li><p>从本质上讲，接口是一种特殊的抽象类，这种抽象类中只包含常量和方法的定义，而没有变量和方法的实现。</p>
+</li>
+<li><p>实现接口类：<br>class SubClass implements InterfaceA{ }</p>
+</li>
+<li><p>一个类可以实现多个接口，接口也可以继承其它接口。</p>
+</li>
+<li><p>接口的特点：</p>
+<ul>
+<li>用interface来定义。</li>
+<li>接口中的所有成员变量都默认是由public static final修饰的。</li>
+<li>接口中的所有方法都默认是由public abstract修饰的。</li>
+<li>接口没有构造器。</li>
+<li>接口采用多层继承机制。</li>
+</ul>
+</li>
+</ul>
+<p>*接口定义举例</p>
+<pre><code> public interface Runner {
+ int ID = 1;
+ void start();
+   public void run();
+void stop();
+ }</code></pre><ul>
+<li><p>实现接口的类中必须提供接口中所有方法的具体实现内容，方可实例化。否则，仍为抽象类。</p>
+</li>
+<li><p>接口的主要用途就是被实现类实现。（面向接口编程）</p>
+</li>
+<li><p>与继承关系类似，接口与实现类之间存在多态性</p>
+</li>
+<li><p>定义Java类的语法格式：先写extends，后写implements</p>
+<pre><code>  &lt; modifier&gt; class &lt; name&gt; [extends &lt; superclass&gt;]
+[implements &lt; interface&gt; [,&lt; interface&gt;]* ] {
+ &lt; declarations&gt;*
+}</code></pre></li>
+</ul>
+<p>！<a href="/images/java5/java520.PNG"></a></p>
+<p>！<a href="/images/java5/java521.PNG"></a></p>
+<p>！<a href="/images/java5/java522.PNG"></a></p>
+<p>！<a href="/images/java5/java523.PNG"></a></p>
+<h4 id="接口应用举例-1"><a href="#接口应用举例-1" class="headerlink" title="接口应用举例(1)"></a>接口应用举例(1)</h4><p>！<a href="/images/java5/java524.PNG"></a></p>
+<h4 id="接口应用举例-2"><a href="#接口应用举例-2" class="headerlink" title="接口应用举例(2)"></a>接口应用举例(2)</h4><ul>
+<li><p>一个类可以实现多个无关的接口</p>
+<pre><code>interface Runner { public void run();}
+interface Swimmer {public double swim();}
+class Creator{public int eat(){…}} 
+class Man extends Creator implements Runner ,Swimmer{
+ public void run() {……}
+ public double swim()  {……}
+ public int eat() {……}
+}</code></pre></li>
+</ul>
+<ul>
+<li><p>与继承关系类似，接口与实现类之间存在多态性</p>
+<pre><code>public class Test{
+    public static void main(String args[]){
+ Test t = new Test();
+ Man m = new Man();
+ t.m1(m);
+ t.m2(m);
+ t.m3(m);
+    }
+    public String m1(Runner f) { f.run(); }
+    public void  m2(Swimmer s) {s.swim();}
+    public void  m3(Creator a) {a.eat();}
+}</code></pre></li>
+</ul>
+<h4 id="接口的其他问题"><a href="#接口的其他问题" class="headerlink" title="接口的其他问题"></a>接口的其他问题</h4><ul>
+<li><p>如果实现接口的类中没有实现接口中的全部方法，必须将此类定义为抽象类 </p>
+</li>
+<li><p>接口也可以继承另一个接口，使用extends关键字。</p>
+<pre><code> interface MyInterface{
+ String s=“MyInterface”;
+ public void absM1();
+ }
+interface SubInterface extends MyInterface{
+ public void absM2();
+ }
+   public class SubAdapter implements SubInterface{
+ public void absM1(){System.out.println(“absM1”);}
+ public void absM2(){System.out.println(“absM2”);}
+ }</code></pre></li>
+<li><p>实现类SubAdapter必须给出接口SubInterface以及父接口MyInterface中所有方法的实现。</p>
+</li>
+</ul>
+<hr>
+<h4 id="工厂方法-FactoryMethod"><a href="#工厂方法-FactoryMethod" class="headerlink" title="工厂方法(FactoryMethod)"></a>工厂方法(FactoryMethod)</h4><ul>
+<li><strong>FactoryMethod模式是设计模式中应用最为广泛的模式，在面向对象的编程中，对象的创建工作非常简单，对象的创建时机却很重要。FactoryMethod解决的就是这个问题，它通过面向对象的手法，将所要创建的具体对象的创建工作延迟到了子类，从而提供了一种扩展的策略，较好的解决了这种紧耦合的关系。</strong></li>
+</ul>
+<h4 id="工厂方法举例"><a href="#工厂方法举例" class="headerlink" title="工厂方法举例"></a>工厂方法举例</h4><p>！<a href="/images/java5/java525.PNG"></a></p>
+<hr>
+<h3 id="5-7-类的成员之五：内部类"><a href="#5-7-类的成员之五：内部类" class="headerlink" title="5.7  类的成员之五：内部类"></a>5.7  类的成员之五：内部类</h3><ul>
+<li>在Java中，允许一个类的定义位于另一个类的内部，前者称为内部类，后者称为外部类。</li>
+<li>Inner class一般用在定义它的类或语句块之内，在外部引用它时必须给出完整的名称。<ul>
+<li>Inner class的名字不能与包含它的类名相同；</li>
+</ul>
+</li>
+<li>Inner class可以使用外部类的私有数据，因为它是外部类的成员，同一个类的成员之间可相互访问。而外部类要访问内部类中的成员需要:内部类.成员或者内部类对象.成员。</li>
+<li>分类：成员内部类（static成员内部类和非static成员内部类）<pre><code>局部内部类（不谈修饰符）、匿名内部类</code></pre></li>
+</ul>
+<h4 id="内部类举例-1"><a href="#内部类举例-1" class="headerlink" title="内部类举例 (1)"></a>内部类举例 (1)</h4><pre><code> class A {
+private int s;
+public class B{
+       public void mb() {
+   s = 100;     
+   System.out.println(&quot;在内部类B中s=&quot; + s);
+       }  }
+ public void ma() {
+   B i = new B();
+   i.mb();
+  }  }
+
+  public class Test {    
+  public static void main(String args[]){
+       A o = new A();
+       o.ma();
+    }   } </code></pre><h4 id="内部类特性"><a href="#内部类特性" class="headerlink" title="内部类特性"></a>内部类特性</h4><ul>
+<li>Inner class作为类的成员：<ul>
+<li>可以声明为final的</li>
+<li>和外部类不同，Inner class可声明为private或protected；</li>
+<li>Inner class 可以声明为static的，但此时就不能再使用外层类的非static的成员变量；</li>
+</ul>
+</li>
+<li>Inner class作为类：<ul>
+<li>可以声明为abstract类 ，因此可以被其它的内部类继承</li>
+</ul>
+</li>
+</ul>
+<p><strong>【注意】非static的内部类中的成员不能声明为static的，只有在外部类或static的内部类中才可声明static成员。</strong></p>
+<h4 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h4><ul>
+<li><p>匿名内部类不能定义任何静态成员、方法和类，只能创建匿名内部类的一个实例。一个匿名内部类一定是在new的后面，用其隐含实现一个接口或实现一个类。</p>
+<pre><code>new 父类构造器（实参列表）|实现接口(){
+ //匿名内部类的类体部分
+}</code></pre></li>
+</ul>
+<pre><code>interface  A{
+public  abstract void fun1();
+  }
+public class Outer{
+ public static void main(String[] args) {
+ new Outer().callInner(new A(){
+        //接口是不能new但此处比较特殊是子类对象实现接口，只不过没有为对象取名
+     public void fun1() {
+         System.out.println(“implement for fun1&quot;);
+     }
+    });// 两步写成一步了
+    }
+  public void callInner(A a) {
+ a.fun1();
+    }
+  }  </code></pre><hr>
+<p>###面向对象内容总结</p>
+<p>！<a href="/images/java5/java526.PNG"></a></p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/08/java5.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;08&#x2F;java5.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;08&#x2F;java5.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1655133067913"></script>
+  
+
+
+
+
+
+</body>
+
+</html>

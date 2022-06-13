@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>MySQL学习之基础入门 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="MySQL是一种关系型数据库管理系统，对于个人开发者和中小型企业都是不错的选择，我将逐步学习mysql的sql基本的使用方法，从MySQL执行引擎再到索引、事务等知识，一步步地学习MySQL相关技术的实现原理，更好地了解如何基于这些知识来优化sql，减少SQL执行时间，通过执行计划对SQL性能进行分析，再到MySQL的主从复制、主备部署等内容，以便让更完整地了解整个MySQL方面的技术体系，从而能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL学习之基础入门">
+<meta property="og:url" content="http://yoursite.com/2020/09/15/MySQL1.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="MySQL是一种关系型数据库管理系统，对于个人开发者和中小型企业都是不错的选择，我将逐步学习mysql的sql基本的使用方法，从MySQL执行引擎再到索引、事务等知识，一步步地学习MySQL相关技术的实现原理，更好地了解如何基于这些知识来优化sql，减少SQL执行时间，通过执行计划对SQL性能进行分析，再到MySQL的主从复制、主备部署等内容，以便让更完整地了解整个MySQL方面的技术体系，从而能">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/MySQL/MySQL0915/MySQL1.png">
+<meta property="article:published_time" content="2020-09-15T06:00:13.000Z">
+<meta property="article:modified_time" content="2020-09-19T02:46:45.939Z">
+<meta property="article:author" content="零点坠落">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/MySQL/MySQL0915/MySQL1.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1655133067860">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="零点坠落" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="零点坠落"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="零点坠落">
+            <img src="/images/logo/a3.jpg" alt="零点坠落" alt="零点坠落">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>57</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 零点坠落
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="/images/logo/a1.jpg" data-sizes="auto" alt="MySQL学习之基础入门" class="lazyload">
+          <h1>MySQL学习之基础入门</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年09月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 4 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>MySQL是一种关系型数据库管理系统，对于个人开发者和中小型企业都是不错的选择，我将逐步学习mysql的sql基本的使用方法，从MySQL执行引擎再到索引、事务等知识，一步步地学习MySQL相关技术的实现原理，更好地了解如何基于这些知识来优化sql，减少SQL执行时间，通过执行计划对SQL性能进行分析，再到MySQL的主从复制、主备部署等内容，以便让更完整地了解整个MySQL方面的技术体系，从而能够在日常操作中灵活运用。</p>
+<a id="more"></a>
+<h2 id="数据库的好处"><a href="#数据库的好处" class="headerlink" title="数据库的好处"></a>数据库的好处</h2><pre><code>1.持久化数据到本地
+2。可以实现结构化查询，方便管理</code></pre><h2 id="数据库的概念"><a href="#数据库的概念" class="headerlink" title="数据库的概念"></a>数据库的概念</h2><h5 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h5><ul>
+<li><strong>数据库（database):存储数据的“仓库”。它保存了一系列有组织的数据。</strong><h5 id="DBMS"><a href="#DBMS" class="headerlink" title="DBMS"></a>DBMS</h5></li>
+<li><strong>数据库管理系统（Databese Management System）。数据库是通过DBMS创建和操作的容器。</strong><h5 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h5></li>
+<li><strong>结构化查询语言（Structure Query Language）：专门用来与数据库通信的语言。</strong></li>
+</ul>
+<hr>
+<h3 id="SQL的特点："><a href="#SQL的特点：" class="headerlink" title="SQL的特点："></a>SQL的特点：</h3><pre><code>1.不是某种特定的数据库供应商专有的语言，几乎所有DBMS都支持SQL。
+2.简单易学</code></pre><h3 id="MySQL产品的特点"><a href="#MySQL产品的特点" class="headerlink" title="MySQL产品的特点"></a>MySQL产品的特点</h3><ul>
+<li>MySQL数据库隶属于MySQLAB公司，总部位于瑞典，后被oracle收购。</li>
+<li>优点：<ul>
+<li>成本低：开放源代码，一般可以免费试用</li>
+<li>性能高：执行很快</li>
+<li>简单：很容易安装和使用</li>
+</ul>
+</li>
+<li>DBMS分为两类:<ul>
+<li>基于共享文件系统的DBMS（Access）</li>
+<li>基于客户机——服务器的DB MS（MySQL,Oracle,SqlServer）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="MySQL的简单使用"><a href="#MySQL的简单使用" class="headerlink" title="MySQL的简单使用"></a>MySQL的简单使用</h3><p>MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成的</p>
+<p><img data-sizes="auto" data-src="/images/MySQL/MySQL0915/MySQL1.png" alt="" class="lazyload"></p>
+<ul>
+<li><p>表头(header): 每一列的名称;</p>
+</li>
+<li><p>列(col): 具有相同数据类型的数据的集合;</p>
+</li>
+<li><p>行(row): 每一行用来描述某个人/物的具体信息;</p>
+</li>
+<li><p>值(value): 行的具体信息, 每个值必须与该列的数据类型相同;</p>
+</li>
+<li><p>键(key): 表中用来识别某个特定的人物的方法, 键的值在当前列中具有唯一性。</p>
+</li>
+</ul>
+<h4 id="MySQL服务的启动和停止"><a href="#MySQL服务的启动和停止" class="headerlink" title="MySQL服务的启动和停止"></a>MySQL服务的启动和停止</h4><pre><code>方式一：
+计算机-管理工具-服务
+方式二：用DOS命令
+启动服务：net stat mysql
+停止服务：net start mysql</code></pre><hr>
+<h3 id="MySQL服务的登录和退出"><a href="#MySQL服务的登录和退出" class="headerlink" title="MySQL服务的登录和退出"></a>MySQL服务的登录和退出</h3><h4 id="登录MySQL"><a href="#登录MySQL" class="headerlink" title="登录MySQL"></a>登录MySQL</h4><pre><code>mysql -h 127.0.0.1 -u 用户名 -pmysql -D 所选择的数据库名 -h 主机名 -u 用户名 -pmysql&gt;
+
+exit # 退出 使用 “quit;” 或 “\q;” 一样的效果
+
+mysql&gt; status;  # 显示当前mysql的version的各种信息
+
+mysql&gt; select version(); # 显示当前mysql的version信息
+
+mysql&gt; show global variables like &apos;port&apos;; # 查看MySQL端口号</code></pre><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>对于表的操作需要先进入库use 库名;</p>
+<ul>
+<li>创建一个名为 samp_db 的数据库，数据库字符编码指定为 gbkcreate database samp_db character set gbk;<ul>
+<li>drop database samp_db;——- 删除 库名为samp_db的库</li>
+<li>show databases;        ——- 显示数据库。</li>
+<li>use samp_db;     ——- 选择创建的数库</li>
+<li>samp_dbshow tables;     ——- 显示samp_db下面所有的表名字</li>
+<li>describe 表名;    ——- 显示数据表的结构</li>
+<li>delete from 表名; - 清空表中记录</li>
+</ul>
+</li>
+</ul>
+<h4 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h4><p>使用 create table 语句可完成对表的创建, create table 的常见形式:</p>
+<p>语法：create table 表名称(列声明);</p>
+<pre><code>CREATE TABLE `user_accounts` (
+ `id`   int(100) unsigned NOT NULL AUTO_INCREMENT primary key,
+ `password`   varchar(32)   NOT NULL DEFAULT &apos;&apos; COMMENT &apos;用户密码&apos;,
+ `reset_password` tinyint(32)       NOT NULL DEFAULT 0 COMMENT &apos;用户类型：0－不需要重置密码；1-需要重置密码&apos;,
+ `mobile`  varchar(20)   NOT NULL DEFAULT &apos;&apos; COMMENT &apos;手机&apos;,
+ `create_at` timestamp(6)  NOT NULL DEFAULT CURRENT_TIMESTAMP(6),  
+ `update_at`      timestamp(6)      NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+   -- 创建唯一索引，不允许重复  UNIQUE INDEX
+ idx_user_mobile(`mobile`))ENGINE=InnoDB DEFAULT CHARSET=utf8COMMENT=&apos;用户表信息&apos;;</code></pre><h4 id="数据类型属性"><a href="#数据类型属性" class="headerlink" title="数据类型属性"></a>数据类型属性</h4><ul>
+<li><p>NULL：数据列可包含NULL值；</p>
+</li>
+<li><p>NOT NULL：数据列不允许包含NULL值；</p>
+</li>
+<li><p>DEFAULT：默认值；</p>
+</li>
+<li><p>PRIMARY：KEY 主键；</p>
+</li>
+<li><p>AUTO_INCREMENT：自动递增，适用于整数类型；</p>
+</li>
+<li><p>UNSIGNED：是指数值类型只能为正数；</p>
+</li>
+<li><p>CHARACTER SET name：指定一个字符集；</p>
+</li>
+<li><p>COMMENT：对表或者字段说明；</p>
+</li>
+</ul>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>零点坠落<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/09/15/MySQL1.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;15&#x2F;MySQL1.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;15&#x2F;MySQL1.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'ZmingWill.github.io',
+        owner: 'ZmingWill',
+        admin: 'ZmingWill'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1655133067861"></script>
+  
+
+
+
+
+
+</body>
+
+</html>
