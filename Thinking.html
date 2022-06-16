@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>关于并发编程的一些思考 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="关于并发编程的一些思考并发编程是程序员修炼功底之一，那么我们应该关注那些方面？  主要有三个核心问题：分工，同步，互斥  分工是指如何将任务拆分成多线程执行举个例子，假如现在有一个公司的CEO，他的任务便是管理好公司，但就管理公司而言，需要做的任务就比较多了；我们将管理公司看成一个很大的任务，但细看这个任务包括：人力招聘和管理，产品设计和研发，推广和销售，公司税务等等，如果单凭CEO一个人来完">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于并发编程的一些思考">
+<meta property="og:url" content="http://yoursite.com/Thinking.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="关于并发编程的一些思考并发编程是程序员修炼功底之一，那么我们应该关注那些方面？  主要有三个核心问题：分工，同步，互斥  分工是指如何将任务拆分成多线程执行举个例子，假如现在有一个公司的CEO，他的任务便是管理好公司，但就管理公司而言，需要做的任务就比较多了；我们将管理公司看成一个很大的任务，但细看这个任务包括：人力招聘和管理，产品设计和研发，推广和销售，公司税务等等，如果单凭CEO一个人来完">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzE4YzczNTEzOGFhNTRhNGNhYzM2YTY2ZjQ3OThmNDA4?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL3AxLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzA2NjhlZDAzNmY0ZDRiYjRhYmIzMWQxYjViNjUxYWY2?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzFiNTY5MmE0ZmNmYjRkNDY5MjBjM2Y2ZWUxYmJkODE2?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzU2YzVkNzQ0YjVlODRkZDRiNTFlMWFkMDk0NmY2OTY2?x-oss-process=image/format,png">
+<meta property="article:published_time" content="2021-02-22T04:23:37.000Z">
+<meta property="article:modified_time" content="2021-02-28T03:03:35.000Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzE4YzczNTEzOGFhNTRhNGNhYzM2YTY2ZjQ3OThmNDA4?x-oss-process=image/format,png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1655399440432">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>49</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+          <img data-src="/images/java1/b1.jpg" data-sizes="auto" alt="关于并发编程的一些思考" class="lazyload">
+          <h1>关于并发编程的一些思考</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年02月22日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.8k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 7 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <a id="more"></a>
+
+<h4 id="关于并发编程的一些思考"><a href="#关于并发编程的一些思考" class="headerlink" title="关于并发编程的一些思考"></a>关于并发编程的一些思考</h4><p>并发编程是程序员修炼功底之一，那么我们应该关注那些方面？</p>
+<blockquote>
+<p>主要有三个核心问题：分工，同步，互斥</p>
+</blockquote>
+<h4 id="分工是指如何将任务拆分成多线程执行"><a href="#分工是指如何将任务拆分成多线程执行" class="headerlink" title="分工是指如何将任务拆分成多线程执行"></a>分工是指如何将任务拆分成多线程执行</h4><p>举个例子，假如现在有一个公司的CEO，他的任务便是管理好公司，但就管理公司而言，需要做的任务就比较多了；我们将管理公司看成一个很大的任务，但细看这个任务包括：人力招聘和管理，产品设计和研发，推广和销售，公司税务等等，如果单凭CEO一个人来完成这些任务，管理好这个公司不知道得到猴年马月。</p>
+<p>我们要做的是把工作细分，将人员招聘和管理的任务交给人力资源部门去完成，将产品的设计交给设计部门去完成，将产品的开发交给开发部门去完成，将运营和推广交给运营和市场部门去完成，将公司税务交给财务部门去完成，而CEO的任务便是统筹并协调各部门，完成计划和规划公司未来。</p>
+<p>这样很多任务在都可以是并发进行的，大大缩短了管理好公司的时间。</p>
+<p><img data-sizes="auto" data-src="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzE4YzczNTEzOGFhNTRhNGNhYzM2YTY2ZjQ3OThmNDA4?x-oss-process=image/format,png" alt="" class="lazyload"></p>
+<p>所以，安排合适的人去做合适的事情，在实际工作中是非常重要的。映射到并发编程领域也是同样的道理。如果将所有的任务交给一个线程执行，就好比将公司的所有事情交给你一个人去做一样。等到把事情做完了，黄花菜也凉了。</p>
+<p>所以，在并发编程中，我们同样需要将任务进行拆解，分工给合适的线程去完成。</p>
+<p><img data-sizes="auto" data-src="https://imgconvert.csdnimg.cn/aHR0cDovL3AxLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzA2NjhlZDAzNmY0ZDRiYjRhYmIzMWQxYjViNjUxYWY2?x-oss-process=image/format,png" alt="" class="lazyload"></p>
+<p>在并发编程领域，也需要注意一个问题：这个任务该不该交给其他线程去执行（分工给合适的线程去做）。也就是说，应该主线程执行的任务不要交给子线程去做，否则，是解决不了问题的。这就好比一家公司的CEO将如何规划公司的未来交给一个产品开发人员去做一样，这不仅不能规划好公司的未来，甚至会与公司的价值观背道而驰。</p>
+<p>在JavaSDK中的：Executor、Fork/Join和Future都是实现分工的一种方式。</p>
+<h4 id="同步是指线程之间如何协调"><a href="#同步是指线程之间如何协调" class="headerlink" title="同步是指线程之间如何协调"></a>同步是指线程之间如何协调</h4><p>当将工作细分给每个人，接下来就是如何同步每个人的任务了</p>
+<p>假设小明是一位前端开发人员，他渲染业务的数据等先等小刚的接口完成，而小刚写接口又要等小李的服务开发完成，所以任务之间存在依赖关系，前面的任务完成后，才能进行后面的任务。</p>
+<p><img data-sizes="auto" data-src="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzFiNTY5MmE0ZmNmYjRkNDY5MjBjM2Y2ZWUxYmJkODE2?x-oss-process=image/format,png" alt="" class="lazyload"></p>
+<p>当然，对于实际工作中，这种任务的同步，大多数靠的是人与人之间的沟通，小李的服务写完了，告诉小光，小光则马上进行接口开发，等小光的接口开发完成后，又告诉了小明，小明马上调用接口将返回的数据渲染在页面上。</p>
+<p>这种同步机制映射到并发编程领域，就是一个线程的任务执行完毕之后，通知其他的后续线程执行任务。</p>
+<p>对于这种线程之间的同步，我们可以使用下面的 if 伪代码来表示。</p>
+<pre><code>if(前面的任务完成){
+    执行当前任务
+}else{
+    继续等待前面任务的执行
+}</code></pre><p>如果为了更能够及时的判断出前面的任务是否已经完成，我们也可以使用 while 伪代码来表示。</p>
+<pre><code>while(前面的任务未完成){
+    继续等待前面任务的执行
+}
+执行当前任务</code></pre><p>上述伪代码表示的意义是相同的：当线程执行的条件不满足时，线程需要继续等待，一旦条件满足，就需要唤醒等待的线程继续执行。</p>
+<p>在并发编程领域，一个典型的场景就是生产者-消费者模型。当队列满时，生产者线程需要等待，队列不满时，需要唤醒生产者线程；当队列为空时，消费者线程需要等待，队列不空时，需要唤醒消费者。我们可以使用下面的伪代码来表示生产者-消费者模型。</p>
+<p>生产者</p>
+<pre><code>while(队列已满){
+    生产者线程等待
+}
+唤醒生产者</code></pre><p>消费者</p>
+<pre><code>while(队列为空){
+    消费者等待
+}
+唤醒消费者</code></pre><p>在Java的SDK中，提供了一些实现线程之间同步的工具类，比如说：CountDownLatch、 CyclicBarrier 等。</p>
+<h4 id="而互斥是如何保证同一时刻只允许一个线程访问同一资源"><a href="#而互斥是如何保证同一时刻只允许一个线程访问同一资源" class="headerlink" title="而互斥是如何保证同一时刻只允许一个线程访问同一资源"></a>而互斥是如何保证同一时刻只允许一个线程访问同一资源</h4><p>当多个岔路口的车辆需要汇入一条道路，这条道路一次只允许一辆车辆通过，此时车辆就需要排队依次进入路口。</p>
+<p>如果多个线程同时访问同一个共享变量，则可能会发生意想不到的后果，而这种意想不到的后果主要是由线程的可见性、原子性和有序性问题产生的。而解决可见性、原子性和有序性问题的核心，就是互斥。</p>
+<p>Java中提供的synchronized、Lock、ThreadLocal、final关键字等都可以解决互斥的问题。</p>
+<p>例如，我们以synchronized为例来说明如何进行线程间的互斥，伪代码如下所示。</p>
+<pre><code>//修饰方法
+public synchronized void xxx(){
+
+}
+//修饰代码块
+public void xxx(){
+  synchronized(obj){
+
+  }
+}
+//修饰代码块
+public void xxx(){
+  synchronized(XXX.class){
+
+  }
+}
+//修饰静态方法
+public synchronized static void xxx(){
+
+}</code></pre><p>当我们用synchronized修饰普通方法时，锁的是当前实例对象；修饰静态方法时，锁的是Class对象，放在代码块上，锁是Synchonized括号里配置的对象，可以是实例对象，也可以是Class对象，锁的是Synchonized括号里配置的对象，可以是实例对象，也可以是Class对象。</p>
+<h4 id="分工和同步关注的是性能问题，而互斥关注的是安全问题"><a href="#分工和同步关注的是性能问题，而互斥关注的是安全问题" class="headerlink" title="分工和同步关注的是性能问题，而互斥关注的是安全问题"></a>分工和同步关注的是性能问题，而互斥关注的是安全问题</h4><p> 并发编程旨在最大限度的利用计算机的资源，提高程序执行的性能，这需要线程之间的分工和同步来实现，在保证性能的同时，又需要保证线程的安全，这就又需要保证线程之间的互斥性。而并发编程的难点问题，往往又是由可见性、原子性和有序性问题导致的。所以，我们在学习并发编程时，一定要先弄懂线程之间的分工、同步和互斥。</p>
+<h4 id="附上并发编程需要掌握的核心技能知识图，也祝大家在学习并发编程时，少走弯路。"><a href="#附上并发编程需要掌握的核心技能知识图，也祝大家在学习并发编程时，少走弯路。" class="headerlink" title="附上并发编程需要掌握的核心技能知识图，也祝大家在学习并发编程时，少走弯路。"></a>附上并发编程需要掌握的核心技能知识图，也祝大家在学习并发编程时，少走弯路。</h4><p><img data-sizes="auto" data-src="https://imgconvert.csdnimg.cn/aHR0cDovL3AzLnBzdGF0cC5jb20vbGFyZ2UvcGdjLWltYWdlLzU2YzVkNzQ0YjVlODRkZDRiNTFlMWFkMDk0NmY2OTY2?x-oss-process=image/format,png" alt="" class="lazyload"></p>
+<p>参考自：<a href="https://blog.csdn.net/GYHYCX/article/details/106225369" target="_blank" rel="noopener">https://blog.csdn.net/GYHYCX/article/details/106225369</a></p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/Thinking.html" title="http:&#x2F;&#x2F;yoursite.com&#x2F;Thinking.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;Thinking.html</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1655399440433"></script>
+  
+
+
+
+
+
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+</body>
+
+</html>
