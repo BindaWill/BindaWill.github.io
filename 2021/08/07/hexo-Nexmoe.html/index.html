@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>hexo主题Nexmoe搭建过程记录-主题安装及搭建 - 火星环游日记</title>
+  <title>hexo主题Nexmoe搭建流程 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -14,21 +14,25 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
   <meta name="description" content="在使用 Nexmoe 之前，请仔细阅读 Hexo 的官方文档，完成对 Hexo 的安装，并完成对 config.yml 的基本配置（标题、介绍、作者、时区、语言等）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo主题Nexmoe搭建过程记录-主题安装及搭建">
-<meta property="og:url" content="http://yoursite.com/2021/08/07/hexo1.html/index.html">
+<meta property="og:title" content="hexo主题Nexmoe搭建流程">
+<meta property="og:url" content="http://yoursite.com/2021/08/07/hexo-Nexmoe.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="在使用 Nexmoe 之前，请仔细阅读 Hexo 的官方文档，完成对 Hexo 的安装，并完成对 config.yml 的基本配置（标题、介绍、作者、时区、语言等）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-07T15:20:25.000Z">
-<meta property="article:modified_time" content="2022-06-16T10:44:24.738Z">
+<meta property="article:modified_time" content="2022-06-26T14:42:33.377Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1655399440247">
+  <link rel="stylesheet" href="/css/style.css?v=1658073317679">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
   
   <div id="nexmoe-background">
     <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
@@ -144,15 +148,15 @@
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
   
-      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
-          <img data-src="/images/hexo/Hexo616.jpeg" data-sizes="auto" alt="hexo主题Nexmoe搭建过程记录-主题安装及搭建" class="lazyload">
-          <h1>hexo主题Nexmoe搭建过程记录-主题安装及搭建</h1>
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/hexo/Hexo616.jpeg" data-sizes="auto" alt="hexo主题Nexmoe搭建流程" class="lazyload">
+          <h1>hexo主题Nexmoe搭建流程</h1>
       </div>
   
   
   <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月07日</a>
-    <a><i class="nexmoefont icon-areachart"></i>367 字</a>
+    <a><i class="nexmoefont icon-areachart"></i>370 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
 </div>
 
@@ -164,21 +168,23 @@
     <p>在使用 Nexmoe 之前，请仔细阅读 Hexo 的官方文档，完成对 Hexo 的安装，并完成对 config.yml 的基本配置（标题、介绍、作者、时区、语言等）</p>
 <a id="more"></a>
 <hr>
-<h3 id="使用-NPM-安装主题"><a href="#使用-NPM-安装主题" class="headerlink" title="使用 NPM 安装主题#"></a>使用 NPM 安装主题#</h3><pre><code>npm i hexo-theme-nexmoe</code></pre><h3 id="安装-WordCount（必须）"><a href="#安装-WordCount（必须）" class="headerlink" title="安装 WordCount（必须）"></a>安装 WordCount（必须）</h3><p>其他主题不同，安装 Nexmoe 需要额外的步骤</p>
-<p>主题默认已经集成了文章【字数统计】、【阅读时长】统计功能，需要WordCount的支持</p>
+<h4 id="1-使用-NPM-安装主题"><a href="#1-使用-NPM-安装主题" class="headerlink" title="1. 使用 NPM 安装主题"></a>1. 使用 NPM 安装主题</h4><pre><code>$ npm i hexo-theme-nexmoe</code></pre><h4 id="2-安装-WordCount（必须）"><a href="#2-安装-WordCount（必须）" class="headerlink" title="2. 安装 WordCount（必须）"></a>2. 安装 WordCount（必须）</h4><p>其他主题不同，安装 Nexmoe 需要额外的步骤:</p>
+<ul>
+<li>主题默认已经集成了文章【字数统计】、【阅读时长】统计功能，需要WordCount的支持</li>
+</ul>
 <p>运行如下命令安装</p>
-<pre><code>npm i --save hexo-wordcount</code></pre><h3 id="启用-Nexmoe"><a href="#启用-Nexmoe" class="headerlink" title="启用 Nexmoe"></a>启用 Nexmoe</h3><p>在 config.yml 中，修改 theme 的值为 nexmoe</p>
-<h3 id="配置-Nexmoe"><a href="#配置-Nexmoe" class="headerlink" title="配置 Nexmoe"></a>配置 Nexmoe</h3><p>安装好主题后，在 Hexo 根目录下修改 _config.nexmoe.yml</p>
-<h3 id="运行-Nexmoe"><a href="#运行-Nexmoe" class="headerlink" title="运行 Nexmoe"></a>运行 Nexmoe</h3><p>在站点根目录下运行下面的命令在本地启动一个 Hexo Server</p>
-<pre><code>hexo s --debug</code></pre><blockquote>
-<p>在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助他人更好的定位错误。</p>
+<pre><code>$ npm i --save hexo-wordcount</code></pre><h4 id="3-启用-Nexmoe"><a href="#3-启用-Nexmoe" class="headerlink" title="3. 启用 Nexmoe"></a>3. 启用 Nexmoe</h4><p>在 config.yml 中，修改 theme 的值为 nexmoe</p>
+<h4 id="4-配置-Nexmoe"><a href="#4-配置-Nexmoe" class="headerlink" title="4. 配置 Nexmoe"></a>4. 配置 Nexmoe</h4><p>安装好主题后，在 Hexo 根目录下修改 _config.nexmoe.yml</p>
+<h4 id="5-运行-Nexmoe"><a href="#5-运行-Nexmoe" class="headerlink" title="5. 运行 Nexmoe"></a>5. 运行 Nexmoe</h4><p>在站点根目录下运行下面的命令在本地启动一个 Hexo Server</p>
+<pre><code>$ hexo s --debug</code></pre><blockquote>
+<p>在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助你更好的定位错误。</p>
 </blockquote>
 <p>当命令行输出下述内容时说明 Hexo 已经监听在本机的 4000 端口，使用浏览器访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> ，检查站点是否正确运行</p>
-<pre><code>INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code></pre><blockquote>
-<p>如果你在使用过程中遇到问题，请尝试在文档中进行搜索，或者在 GitHub 上提出 issue</p>
-</blockquote>
-<h1 id="更新-Nexmoe"><a href="#更新-Nexmoe" class="headerlink" title="更新 Nexmoe#"></a>更新 Nexmoe#</h1><p>使用 NPM 的 install 命令即可升级</p>
-<pre><code>npm i hexo-theme-nexmoe</code></pre><p>更新后在 Hexo 根目录下对照_config.new.yml 修改 _config.nexmoe.yml</p>
+<pre><code>$ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code></pre><ul>
+<li>如果你在使用过程中遇到问题，请尝试在文档中进行搜索，或者在 GitHub 上提出 issue</li>
+</ul>
+<h4 id="6-更新-Nexmoe"><a href="#6-更新-Nexmoe" class="headerlink" title="6. 更新 Nexmoe#"></a>6. 更新 Nexmoe#</h4><p>使用 NPM 的 install 命令即可升级</p>
+<pre><code>$   npm i hexo-theme-nexmoe</code></pre><p>更新后在 Hexo 根目录下对照_config.new.yml 修改 _config.nexmoe.yml</p>
 <p>参考：<a href="https://docs.nexmoe.com/" target="_blank" rel="noopener">https://docs.nexmoe.com/</a></p>
 
   </article>
@@ -187,7 +193,7 @@
     
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>非酋囧菌<br>
-    <strong>本文链接：</strong><a href="http://yoursite.com/2021/08/07/hexo1.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;07&#x2F;hexo1.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;07&#x2F;hexo1.html&#x2F;</a><br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2021/08/07/hexo-Nexmoe.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;07&#x2F;hexo-Nexmoe.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;07&#x2F;hexo-Nexmoe.html&#x2F;</a><br>
     
       <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
     
@@ -229,17 +235,13 @@
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1655399440248"></script>
+<script src="/js/app.js?v=1658073317680"></script>
   
 
 
 
 
 
-  <link rel="stylesheet" href="/dist/APlayer.min.css">
-<div id="aplayer"></div>
-<script type="text/javascript" src="/dist/APlayer.min.js"></script>
-<script type="text/javascript" src="/dist/music.js"></script>
 
 </body>
 

@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>Bug调试笔记 - 火星环游日记</title>
+  <title>面向对象编程 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -12,14 +12,15 @@
   
 
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
-  <meta name="description" content="Debug 用来追踪代码的运行流程，一般在程序运行过程中出现异常，启用 Debug 模式可以分析定位异常发生的位置，以及在运行过程中参数的变化。通常我们也可以启用 Debug 模式来跟踪代码的运行流程去学习三方框架的源码，现在就开始学习bug是如何调试的！">
+  <meta name="description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bug调试笔记">
-<meta property="og:url" content="http://yoursite.com/2020/02/06/java7.html/index.html">
+<meta property="og:title" content="面向对象编程">
+<meta property="og:url" content="http://yoursite.com/2020/02/06/JavaDay2.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
-<meta property="og:description" content="Debug 用来追踪代码的运行流程，一般在程序运行过程中出现异常，启用 Debug 模式可以分析定位异常发生的位置，以及在运行过程中参数的变化。通常我们也可以启用 Debug 模式来跟踪代码的运行流程去学习三方框架的源码，现在就开始学习bug是如何调试的！">
+<meta property="og:description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/java4/java41.PNG">
+<meta property="og:image" content="http://yoursite.com/images/java1/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/java1/java12.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java4/java41.PNG">
 <meta property="og:image" content="http://yoursite.com/images/java4/java42.PNG">
 <meta property="og:image" content="http://yoursite.com/images/java4/java44.PNG">
@@ -28,13 +29,13 @@
 <meta property="og:image" content="http://yoursite.com/images/java4/java46.PNG">
 <meta property="og:image" content="http://yoursite.com/images/java4/java47.PNG">
 <meta property="article:published_time" content="2020-02-06T13:00:11.000Z">
-<meta property="article:modified_time" content="2022-07-16T14:45:38.559Z">
+<meta property="article:modified_time" content="2022-07-16T14:45:24.440Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/java4/java41.PNG">
+<meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1658073317745">
+  <link rel="stylesheet" href="/css/style.css?v=1658073317741">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
@@ -158,15 +159,15 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
-          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Bug调试笔记" class="lazyload">
-          <h1>Bug调试笔记</h1>
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="面向对象编程" class="lazyload">
+          <h1>面向对象编程</h1>
       </div>
   
   
   <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月06日</a>
-    <a><i class="nexmoefont icon-areachart"></i>6.4k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 29 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>6.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 27 分钟</a>
 </div>
 
   <div class="nexmoe-post-right">
@@ -174,43 +175,38 @@
   </div>
 
   <article>
-    <p>Debug 用来追踪代码的运行流程，一般在程序运行过程中出现异常，启用 Debug 模式可以分析定位异常发生的位置，以及在运行过程中参数的变化。通常我们也可以启用 Debug 模式来跟踪代码的运行流程去学习三方框架的源码，现在就开始学习bug是如何调试的！<a id="more"></a></p>
-<h4 id="一、Debug的用法"><a href="#一、Debug的用法" class="headerlink" title="一、Debug的用法"></a>一、Debug的用法</h4><p>首先看下 IDEA 中 Debug 模式下的界面。如下是在 IDEA 中启动 Debug 模式，进入断点后的界面，我这里是 Windows，可能和 Mac 的图标等会有些不一样。就简单说下图中标注的 8 个地方：</p>
-<blockquote>
-<p>1.以 Debug 模式启动服务，左边的一个按钮则是以 Run 模式启动。在开发中，我一般会直接启动 Debug 模式，方便随时调试代码。</p>
+    <p>主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="3-1-面向对象与面向过程"><a href="#3-1-面向对象与面向过程" class="headerlink" title="3.1 面向对象与面向过程"></a>3.1 面向对象与面向过程</h3><h4 id="面向对象-OOP-与面向过程-POP"><a href="#面向对象-OOP-与面向过程-POP" class="headerlink" title="面向对象(OOP)与面向过程(POP)"></a>面向对象(OOP)与面向过程(POP)</h4><blockquote>
+<p>二者都是一种思想，面向对象是相对于面向过程而言的。面向过程，强调的是功能行为。面向对象，将功能封装进对象，强调具备了功能的对象。</p>
 </blockquote>
 <blockquote>
-<p>2.断点：在左边行号栏单击左键，或者快捷键 Ctrl+F8 打上 / 取消断点，断点行的颜色可自己去设置。</p>
+<p>面向对象更加强调运用人类在日常的思维逻辑中采用的思想方法与原则，如抽象、分类、继承、聚合、多态等。</p>
+</blockquote>
+<h4 id="面向对象的三大特征"><a href="#面向对象的三大特征" class="headerlink" title="面向对象的三大特征"></a>面向对象的三大特征</h4><ul>
+<li><strong>封装  (Encapsulation)</strong></li>
+<li><strong>继承  (Inheritance)</strong></li>
+<li><strong>多态  (Polymorphism)</strong></li>
+</ul>
+<ul>
+<li>OOP: Object Oriented Programming  </li>
+<li>面向过程：procedure oriented programming</li>
+</ul>
+<hr>
+<h4 id="java类及类的成员"><a href="#java类及类的成员" class="headerlink" title="java类及类的成员"></a>java类及类的成员</h4><blockquote>
+<p>现实世界万事万物是由分子、原子构成的。同理，Java代码世界是由诸多个不同功能的类构成的。</p>
 </blockquote>
 <blockquote>
-<p>3.Debug 窗口：访问请求到达第一个断点后，会自动激活 Debug 窗口。如果没有自动激活，可以去设置里设置，如图 1.2。</p>
+<p>现实世界中的分子、原子又是由什么构成的呢？原子核、电子！那么，Java中用类class来描述事物也是如此</p>
 </blockquote>
-<blockquote>
-<p>4.调试按钮：一共有 8 个按钮，调试的主要功能就对应着这几个按钮，鼠标悬停在按钮上可以查看对应的快捷键。在菜单栏 Run 里可以找到同样的对应的功能，如图 1.4。</p>
-</blockquote>
-<blockquote>
-<p>5.服务按钮：可以在这里关闭 / 启动服务，设置断点等。</p>
-</blockquote>
-<blockquote>
-<p>6.方法调用栈：这里显示了该线程调试所经过的所有方法，勾选右上角的 [Show All Frames] 按钮，就不会显示其它类库的方法了，否则这里会有一大堆的方法。</p>
-</blockquote>
-<blockquote>
-<p>7.Variables：在变量区可以查看当前断点之前的当前方法内的变量。</p>
-</blockquote>
-<blockquote>
-<p>8.Watches：查看变量，可以将 Variables 区中的变量拖到 Watches 中查<br><img data-sizes="auto" data-src="/images/java4/java41.PNG" alt="" class="lazyload"></p>
-</blockquote>
-<h3 id="java类及类的成员"><a href="#java类及类的成员" class="headerlink" title="java类及类的成员"></a>java类及类的成员</h3><ul>
-<li><p>现实世界万事万物是由分子、原子构成的。同理，Java代码世界是由诸多个不同功能的类构成的。</p>
-</li>
-<li><p>现实世界中的分子、原子又是由什么构成的呢？原子核、电子！那么，Java中用类class来描述事物也是如此</p>
 <ul>
 <li>属 性：对应类中的成员变量</li>
 <li>行 为：对应类中的成员方法</li>
 </ul>
-</li>
-<li><p><strong>Field = 属性 = 成员变量，Method =  (成员)方法 = 函数</strong></p>
-</li>
+<ul>
+<li>Field = 属性 = 成员变量</li>
+<li>Method =  (成员)方法 = 函数</li>
 </ul>
 <hr>
 <h3 id="面向对象的思想概述"><a href="#面向对象的思想概述" class="headerlink" title="面向对象的思想概述"></a>面向对象的思想概述</h3><p><img data-sizes="auto" data-src="/images/java4/java41.PNG" alt="" class="lazyload"></p>
@@ -221,151 +217,163 @@
 </ul>
 <h4 id="1-java类及类的成员"><a href="#1-java类及类的成员" class="headerlink" title="1.java类及类的成员"></a>1.java类及类的成员</h4><p><img data-sizes="auto" data-src="/images/java4/java42.PNG" alt="" class="lazyload"></p>
 <hr>
-<h3 id="类的语法格式"><a href="#类的语法格式" class="headerlink" title="类的语法格式"></a>类的语法格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 class  类名 &#123;</span><br><span class="line">	属性声明;</span><br><span class="line">	方法声明;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="类的语法格式"><a href="#类的语法格式" class="headerlink" title="类的语法格式"></a>类的语法格式</h4><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 class  类名 &#123;</span><br><span class="line"> 属性声明;</span><br><span class="line"> 方法声明;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>说明：</p>
 <ul>
-<li>说明：<ul>
 <li>修饰符public：类可以被任意访问</li>
 <li>类的正文要用{  }括起来</li>
 </ul>
-</li>
-</ul>
 <p>举例：</p>
-<pre><code>public class  Person{
-public int age ;                //声明公有变量 age
-public void showAge() { //声明方法showAge( )
- System.out.println(age);
-  }
-}</code></pre><h4 id="创建Java自定义类"><a href="#创建Java自定义类" class="headerlink" title="创建Java自定义类"></a>创建Java自定义类</h4><p>步骤：</p>
-<pre><code>1.定义类（考虑修饰符、类名）
-2.编写类的属性（考虑修饰符、属性类型、属性名、初始化值）
-3.编写类的方法（考虑修饰符、返回值类型、方法名、形参等）</code></pre><p>练习：</p>
-<p>定义Person、Animal等类，加以体会。</p>
+<pre><code>$ public class  Person{
+    public int age ;                //声明公有变量 age
+    public void showAge() { //声明方法showAge( )
+     System.out.println(age);
+      }
+    }</code></pre><h4 id="创建Java自定义类"><a href="#创建Java自定义类" class="headerlink" title="创建Java自定义类"></a>创建Java自定义类</h4><p>步骤：</p>
+<ol>
+<li>定义类（考虑修饰符、类名）</li>
+<li>编写类的属性（考虑修饰符、属性类型、属性名、初始化值）</li>
+<li>编写类的方法（考虑修饰符、返回值类型、方法名、形参等）</li>
+</ol>
+<p>练习：<br>  定义Person、Animal等类，加以体会。</p>
 <hr>
-<h3 id="3-5-对象的创建和使用"><a href="#3-5-对象的创建和使用" class="headerlink" title="3.5 对象的创建和使用"></a>3.5 对象的创建和使用</h3><ul>
-<li><p>java类及类的成员(如何使用Java类)</p>
-</li>
-<li><p>java类的实例化，即创建类的对象</p>
-<ul>
+<h3 id="3-5-对象的创建和使用"><a href="#3-5-对象的创建和使用" class="headerlink" title="3.5 对象的创建和使用"></a>3.5 对象的创建和使用</h3><blockquote>
+<p>java类及类的成员(如何使用Java类)</p>
+</blockquote>
+<blockquote>
+<p>java类的实例化，即创建类的对象</p>
+</blockquote>
+<ol>
 <li>使用new +构造器创建一个新的对象；</li>
 <li>使用“对象名.对象成员”的方式访问对象成员（包括属性和方法）；</li>
-</ul>
-</li>
-</ul>
-<pre><code> public class Animal  {
- public int legs;   
- public void  eat(){
- System.out.println(“ Eating.”);
- }
- public viod move(){
-  System.out.println(“Move.”);
-  }    
-}</code></pre><p>举例:</p>
-<pre><code>public class Zoo{
-public static void main(String args[]){
-Animal xb=new Animal();
-xb.legs=4;
-System.out.println(xb.legs);
-xb.eat();
-xb.move();
- }
-}</code></pre><h3 id="3-3-类的成员之一：属性"><a href="#3-3-类的成员之一：属性" class="headerlink" title="3.3 类的成员之一：属性"></a>3.3 类的成员之一：属性</h3><ul>
-<li><p>语法格式：</p>
-<p>  修饰符  类型  属性名 =初值 ;</p>
-<pre><code>说明:修饰符private:该属性只能由该类的方法访问。
-      修饰符public:该属性可以被该类以外的方法访问。    
-              类型：任何基本类型，如int、boolean或任何类。</code></pre></li>
-<li><p>举例：</p>
-<pre><code>public class Person{
-     private int age;             //声明private变量 age
-     public String name = “Lila”;    //声明public变 量 name
-  }</code></pre></li>
-</ul>
-<h4 id="补：变量的分类：成员变量与局部变量"><a href="#补：变量的分类：成员变量与局部变量" class="headerlink" title="补：变量的分类：成员变量与局部变量"></a>补：变量的分类：成员变量与局部变量</h4><ul>
-<li>在方法体外，类体内声明的变量称为成员变量。</li>
-<li>在方法体内部声明的变量称为局部变量。</li>
-</ul>
+</ol>
+<pre><code>$ public class Animal  {
+    public int legs;   
+     public void  eat(){
+     System.out.println(“ Eating.”);
+     }
+     public viod move(){
+      System.out.println(“Move.”);
+       }    
+    }</code></pre><p>举例:</p>
+<pre><code>$ public class Zoo{
+    public static void main(String args[]){
+    Animal xb=new Animal();
+    xb.legs=4;
+    System.out.println(xb.legs);
+    xb.eat();
+    xb.move();
+     }
+    }</code></pre><h3 id="3-3-类的成员之一：属性"><a href="#3-3-类的成员之一：属性" class="headerlink" title="3.3 类的成员之一：属性"></a>3.3 类的成员之一：属性</h3><p>语法格式：</p>
+<pre><code>$ 修饰符  类型  属性名 =初值 ;</code></pre><p>说明:</p>
+<blockquote>
+<p>修饰符private:该属性只能由该类的方法访问。</p>
+</blockquote>
+<blockquote>
+<p>修饰符public:该属性可以被该类以外的方法访问。    </p>
+</blockquote>
+<blockquote>
+<p>类型：任何基本类型，如int、boolean或任何类。</p>
+</blockquote>
+<p>举例：</p>
+<pre><code>$  public class Person{
+       private int age;             //声明private变量 age
+       public String name = “Lila”;    //声明public变 量 name
+    }</code></pre><h5 id="补：变量的分类：成员变量与局部变量"><a href="#补：变量的分类：成员变量与局部变量" class="headerlink" title="补：变量的分类：成员变量与局部变量"></a>补：变量的分类：成员变量与局部变量</h5><blockquote>
+<p>在方法体外，类体内声明的变量称为成员变量。<br>在方法体内部声明的变量称为局部变量。</p>
+</blockquote>
 <p><img data-sizes="auto" data-src="/images/java4/java44.PNG" alt="" class="lazyload"></p>
-<h4 id="成员变量（属性）和局部变量的区别？"><a href="#成员变量（属性）和局部变量的区别？" class="headerlink" title="成员变量（属性）和局部变量的区别？"></a>成员变量（属性）和局部变量的区别？</h4><ul>
-<li><p>成员变量：</p>
-<pre><code>- 成员变量定义在类中，在整个类中都可以被访问。
-- 成员变量分为类成员变量和实例成员变量，实例变量存在于对象所在的堆内存中。
-- 成员变量有默认初始化值。
-- 成员变量的权限修饰符可以根据需要，选择任意一个</code></pre></li>
+<h4 id="成员变量（属性）和局部变量的区别？"><a href="#成员变量（属性）和局部变量的区别？" class="headerlink" title="成员变量（属性）和局部变量的区别？"></a>成员变量（属性）和局部变量的区别？</h4><p>成员变量：</p>
+<ul>
+<li>成员变量定义在类中，在整个类中都可以被访问。</li>
+<li>成员变量分为类成员变量和实例成员变量，实例变量存在于对象所在的堆内存中。</li>
+<li>成员变量有默认初始化值。</li>
+<li>成员变量的权限修饰符可以根据需要，选择任意一个</li>
 </ul>
 <p>局部变量：</p>
-<pre><code>- 局部变量只定义在局部范围内，如：方法内，代码块内等。
-- 局部变量存在于栈内存中。
-- 作用的范围结束，变量空间会自动释放。
-- 局部变量没有默认初始化值，每次必须显式初始化。
-- 局部变量声明时不指定权限修饰符</code></pre><hr>
+<ul>
+<li>局部变量只定义在局部范围内，如：方法内，代码块内等。</li>
+<li>局部变量存在于栈内存中。</li>
+<li>作用的范围结束，变量空间会自动释放。</li>
+<li>局部变量没有默认初始化值，每次必须显式初始化。</li>
+<li>局部变量声明时不指定权限修饰符</li>
+</ul>
+<hr>
 <h3 id="3-4-类的成员之二：方-法"><a href="#3-4-类的成员之二：方-法" class="headerlink" title="3.4  类的成员之二：方  法"></a>3.4  类的成员之二：方  法</h3><p>语法格式：</p>
-<pre><code> 修饰符  返回值类型  方法名 ( 参数列表) {
-   方法体语句；
-}</code></pre><p>说明：</p>
+<pre><code>$ 修饰符  返回值类型  方法名 ( 参数列表) {
+      方法体语句；
+   }</code></pre><p>说明：</p>
 <ul>
 <li><p>修饰符：public, private, protected等。</p>
 </li>
 <li><p>返回值类型：return语句传递返回值。没有返回值：void。</p>
 </li>
 <li><p>举例：</p>
-<pre><code>   public class Person{
-  private int age;
- public int getAge()   { return age; } //声明方法getAge
- public void setAge(int i) {          //声明方法setAge
-age = i;        //将参数i的值赋给类的成员变量age
-   }
- }</code></pre></li>
+<pre><code>$    public class Person{
+   private int age;
+  public int getAge()   { return age; } //声明方法getAge
+  public void setAge(int i) {          //声明方法setAge
+ age = i;        //将参数i的值赋给类的成员变量age
+    }
+  }</code></pre></li>
 </ul>
-<h4 id="对象的创建和使用"><a href="#对象的创建和使用" class="headerlink" title="对象的创建和使用"></a>对象的创建和使用</h4><ul>
-<li>如果创建了一个类的多个对象，对于类中定义的属性，每个对象都拥有各自的一套副本，且互不干扰。</li>
-</ul>
+<h4 id="对象的创建和使用"><a href="#对象的创建和使用" class="headerlink" title="对象的创建和使用"></a>对象的创建和使用</h4><blockquote>
+<p>如果创建了一个类的多个对象，对于类中定义的属性，每个对象都拥有各自的一套副本，且互不干扰。</p>
+</blockquote>
 <p>举例:</p>
-<pre><code>public class Zoo{
-public static void main(String args[]){
-Animal xb=new Animal();
-Animal xh=new Animal();
-xb.legs=4;
-xh.legs=0;
-System.out.println(xb.legs);   //4
-System.out.println(xh.legs);   //0
-xb.legs=2;
-System.out.println(xb.legs);   //2
-System.out.println(xh.legs);   //0
-}  }</code></pre><p>练  习 1<br>编写教师类和学生类，并通过测试类创建对象进行测试</p>
+<pre><code>$ public class Zoo{
+   public static void main(String args[]){
+   Animal xb=new Animal();
+   Animal xh=new Animal();
+   xb.legs=4;
+   xh.legs=0;
+   System.out.println(xb.legs);   //4
+   System.out.println(xh.legs);   //0
+   xb.legs=2;
+   System.out.println(xb.legs);   //2
+   System.out.println(xh.legs);   //0
+     }
+  }</code></pre><p>练  习 1<br>编写教师类和学生类，并通过测试类创建对象进行测试</p>
 <hr>
-<h3 id="3-6-方法-method"><a href="#3-6-方法-method" class="headerlink" title="3.6 方法(method)"></a>3.6 方法(method)</h3><ul>
-<li><p>什么是方法（函数）？</p>
-<pre><code>方法是类或对象行为特征的抽象，也称为函数。
-Java里的方法不能独立存在，所有的方法必须定义在类里。                  
-
-   修饰符 返回值类型 方法名（参数类型 形参1，参数类型 形参2，….）｛
-   程序代码
-   return 返回值;
-   ｝</code></pre></li>
-</ul>
-<p>其中：</p>
-<pre><code>- 形式参数：在方法被调用时用于接收外部传入的数据的变量。
-- 参数类型：就是该形式参数的数据类型。
-- 返回值：方法在执行完毕后返还给调用它的程序的数据。
-- 返回值类型：方法要返回的结果的数据类型。
-- 实参：调用方法时实际传给函数形式参数的数据。</code></pre><ul>
-<li>如何理解方法返回值类型为void的情况 ?</li>
-</ul>
+<h3 id="3-6-方法-method"><a href="#3-6-方法-method" class="headerlink" title="3.6 方法(method)"></a>3.6 方法(method)</h3><p>什么是方法（函数）？</p>
+<blockquote>
+<p>方法是类或对象行为特征的抽象，也称为函数。<br>Java里的方法不能独立存在，所有的方法必须定义在类里。                  </p>
+</blockquote>
+<pre><code>$ 修饰符 返回值类型 方法名（参数类型 形参1，参数类型 形参2，….）｛
+    程序代码
+     return 返回值;
+  ｝</code></pre><p>其中：</p>
+<blockquote>
+<p>形式参数：在方法被调用时用于接收外部传入的数据的变量。</p>
+</blockquote>
+<blockquote>
+<p>参数类型：就是该形式参数的数据类型。</p>
+</blockquote>
+<blockquote>
+<p>返回值：方法在执行完毕后返还给调用它的程序的数据。</p>
+</blockquote>
+<blockquote>
+<p>返回值类型：方法要返回的结果的数据类型。</p>
+</blockquote>
+<blockquote>
+<p>实参：调用方法时实际传给函数形式参数的数据。</p>
+</blockquote>
+<p>如何理解方法返回值类型为void的情况 ?</p>
 <h4 id="方法的调用"><a href="#方法的调用" class="headerlink" title="方法的调用"></a>方法的调用</h4><ul>
 <li>方法只有被调用才会被执行</li>
-<li>方法调用的过程分析<br><img data-sizes="auto" data-src="/imagges/java4/java45.PNG" alt="" class="lazyload"></li>
+<li>方法调用的过程分析</li>
 </ul>
-<h4 id="方法的调用-1"><a href="#方法的调用-1" class="headerlink" title="方法的调用"></a>方法的调用</h4><h5 id="注-意："><a href="#注-意：" class="headerlink" title="注  意："></a>注  意：</h5><ul>
+<p><img data-sizes="auto" data-src="/imagges/java4/java45.PNG" alt="" class="lazyload"></p>
+<h4 id="方法的调用-1"><a href="#方法的调用-1" class="headerlink" title="方法的调用"></a>方法的调用</h4><h4 id="注-意："><a href="#注-意：" class="headerlink" title="注  意："></a>注  意：</h4><ul>
 <li><p>没有具体返回值的情况，返回值类型用关键字void表示，那么该函数中的return语句如果在最后一行可以省略不写。</p>
 </li>
-<li><p><strong>定义方法时，方法的结果应该返回给调用者，交由调用者处理。</strong></p>
+<li><p>定义方法时，方法的结果应该返回给调用者，交由调用者处理。</p>
 </li>
-<li><p><strong>方法中只能调用方法，不可以在方法内部定义方法。</strong></p>
+<li><p>方法中只能调用方法，不可以在方法内部定义方法。</p>
 </li>
 </ul>
-<h4 id="对象的产生"><a href="#对象的产生" class="headerlink" title="对象的产生"></a>对象的产生</h4><ul>
-<li>当一个对象被创建时，会对其中各种类型的成员变量自动进行初始化赋值。除           了基本数据类型之外的变量类型都是引用类型，如上面的Person及前面讲过的数组。</li>
-</ul>
+<h4 id="对象的产生"><a href="#对象的产生" class="headerlink" title="对象的产生"></a>对象的产生</h4><blockquote>
+<p>当一个对象被创建时，会对其中各种类型的成员变量自动进行初始化赋值。除           了基本数据类型之外的变量类型都是引用类型，如上面的Person及前面讲过的数组。</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -410,65 +418,76 @@ Java里的方法不能独立存在，所有的方法必须定义在类里。
 <td>null</td>
 </tr>
 </tbody></table>
-<h4 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h4><ul>
-<li><p>我们也可以不定义对象的句柄，而直接调用这个对象的方法。这样的对象叫做匿名对象。</p>
-<pre><code>如：new Person().shout();</code></pre></li>
-<li><p>使用情况</p>
-<pre><code>  如果对一个对象只需要进行一次方法调用，那么就可以使用匿名对象。
-我们经常将匿名对象作为实参传递给一个方法调用。</code></pre></li>
-</ul>
+<h4 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h4><blockquote>
+<p>我们也可以不定义对象的句柄，而直接调用这个对象的方法。这样的对象叫做匿名对象。</p>
+</blockquote>
+<p>如：</p>
+<pre><code>$ new Person().shout();</code></pre><p>使用情况</p>
+<blockquote>
+<p>如果对一个对象只需要进行一次方法调用，那么就可以使用匿名对象。<br>我们经常将匿名对象作为实参传递给一个方法调用。</p>
+</blockquote>
 <p>练习2<br>1.创建一个Person类，其定义如下：</p>
-<pre><code>Person
-name:String
-age:int
-sex:int
-study():void
-showAge():void
-addAge(int i):int</code></pre><p>要求：(1)创建Person类的对象，设置该对象的name、age和sex属性，调用study方法，输出字符串“studying”，调用showAge()方法显示age值，调用addAge()方法给对象的age属性值增加2岁。<br>(2)创建第二个对象，执行上述操作，体会同一个类的不同对象之间的关系。</p>
+<pre><code>$ Person
+  name:String
+  age:int
+  sex:int
+  study():void
+  showAge():void
+  addAge(int i):int</code></pre><p>要求：</p>
+<p>(1)创建Person类的对象，设置该对象的name、age和sex属性，调用study方法，输出字符串“studying”，调用showAge()方法显示age值，调用addAge()方法给对象的age属性值增加2岁。<br>(2)创建第二个对象，执行上述操作，体会同一个类的不同对象之间的关系。</p>
 <p>2.利用面向对象的编程方法，设计类Circle计算圆的面积。</p>
-<h4 id="提-示"><a href="#提-示" class="headerlink" title="提 示"></a>提 示</h4><h5 id="类的访问机制："><a href="#类的访问机制：" class="headerlink" title="类的访问机制："></a>类的访问机制：</h5><ul>
-<li><p><strong>在一个类中的访问机制：类中的方法可以直接访问类中的成员变量。（例外：static方法访问非static的成员变量，编译不通过。）</strong></p>
+<h4 id="提-示"><a href="#提-示" class="headerlink" title="提 示"></a>提 示</h4><h5 id="类的访问机制："><a href="#类的访问机制：" class="headerlink" title="类的访问机制："></a>类的访问机制：</h5><blockquote>
+<p>在一个类中的访问机制：类中的方法可以直接访问类中的成员变量。（例外：static方法访问非static的成员变量，编译不通过。）</p>
+</blockquote>
+<blockquote>
+<p>在不同类中的访问机制：先创建要访问类的对象，再用对象访问类中定义的成员。</p>
+</blockquote>
+<h4 id="面向对象思想“落地”法则-一"><a href="#面向对象思想“落地”法则-一" class="headerlink" title="面向对象思想“落地”法则(一)"></a>面向对象思想“落地”法则(一)</h4><ol>
+<li>关注于类的设计，即设计类的成员：属性 、方法</li>
+<li>类的实例化，即创建类的对象（比如：Person p = new Person()）</li>
+<li>通过“对象.属性” 、 “对象.方法” 执行</li>
+</ol>
+<hr>
+<h3 id="方法的重载-overload"><a href="#方法的重载-overload" class="headerlink" title="方法的重载(overload)"></a>方法的重载(overload)</h3><h4 id="重载的概念"><a href="#重载的概念" class="headerlink" title="重载的概念"></a>重载的概念</h4><blockquote>
+<p>在同一个类中，允许存在一个以上的同名方法，只要它们的参数个数或者参数类型不同即可。</p>
+</blockquote>
+<h4 id="重载的特点："><a href="#重载的特点：" class="headerlink" title="重载的特点："></a>重载的特点：</h4><blockquote>
+<p>与返回值类型无关，只看参数列表，且参数列表必须不同。(参数个数或参数类型)。调用时，根据方法参数列表的不同来区别。</p>
+</blockquote>
+<h5 id="重载示例："><a href="#重载示例：" class="headerlink" title="重载示例："></a>重载示例：</h5><pre><code>$ //返回两个整数的和
+  int add(int x,int  y){return x+y;}
+  //返回三个整数的和
+  int add(int x,int y,int z){return x+y+z;}
+  //返回两个小数的和
+  double add(double x,double y){return x+y;}</code></pre><h4 id="函数的重载"><a href="#函数的重载" class="headerlink" title="函数的重载"></a>函数的重载</h4><pre><code>$ public class PrintStream{
+  public static void print(int i) {……}
+  public static void print(float f) {……}
+  private static void print(String s) {……}
+   public static void main(String[] args){
+      print(3)；
+      print(1.2f)；
+       print(“hello!”)；  
+      }
+   }</code></pre><h5 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h5><ol>
+<li><p>判 断：</p>
+<p>与void show(int a,char b,double c){}构成重载的有：<br>a) void show(int x,char y,double z){}   //no<br>b) int show(int a,double c,char b){}   //yes顺序不同也是重载<br>c)  void show(int a,double c,char b){}  //yes顺序不同也是重载<br>d)  boolean show(int c,char b){}  //yes<br>e)  void show(double c){}  //yes<br>f)  double show(int x,char y,double z){}  //no<br>g)  void shows(){double c}  //no</p>
 </li>
-<li><p><strong>在不同类中的访问机制：先创建要访问类的对象，再用对象访问类中定义的成员。</strong></p>
+<li><p>编写程序，定义三个重载方法并调用。方法名为mOL。<br>三个方法分别接收一个int参数、两个int参数、一个字符串参数。分别执行平方运算并输出结果，相乘并输出结果，输出字符串信息。<br>在主类的main ()方法中分别用参数区别调用三个方法。</p>
 </li>
+<li><p>定义三个重载方法max()，第一个方法求两个int值中的最大值，第二个方法求两个double值中的最大值，第三个方法求三个double值中的最大值，并分别调用三个方法。</p>
+</li>
+</ol>
+<h4 id="体会可变个数的形参"><a href="#体会可变个数的形参" class="headerlink" title="体会可变个数的形参"></a>体会可变个数的形参</h4><pre><code>$ //下面采用数组形参来定义方法
+ public static void test(int a ,String[] books);
+ //以可变个数形参来定义方法
+ public static void test(int a ,String…books);</code></pre><h4 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h4><ul>
+<li>1.可变参数：方法参数部分指定类型的参数个数是可变多个</li>
+<li>2.声明方式：方法名（参数的类型名…参数名）</li>
+<li>3.可变参数方法的使用与方法参数部分使用数组是一致的</li>
+<li>4.方法的参数部分有可变形参，需要放在形参声明的最后</li>
 </ul>
-<h4 id="面向对象思想“落地”法则-一"><a href="#面向对象思想“落地”法则-一" class="headerlink" title="面向对象思想“落地”法则(一)"></a>面向对象思想“落地”法则(一)</h4><pre><code> 1.关注于类的设计，即设计类的成员：属性 、方法
-2.类的实例化，即创建类的对象（比如：Person p = new Person()）
-3.通过“对象.属性” 、 “对象.方法” 执行</code></pre><hr>
-<h3 id="方法的重载-overload"><a href="#方法的重载-overload" class="headerlink" title="方法的重载(overload)"></a>方法的重载(overload)</h3><h5 id="重载的概念"><a href="#重载的概念" class="headerlink" title="重载的概念"></a>重载的概念</h5><p>在同一个类中，允许存在一个以上的同名方法，只要它们的参数个数或者参数类型不同即可。</p>
-<h5 id="重载的特点："><a href="#重载的特点：" class="headerlink" title="重载的特点："></a>重载的特点：</h5><p>与返回值类型无关，只看参数列表，且参数列表必须不同。(参数个数或参数类型)。调用时，根据方法参数列表的不同来区别。</p>
-<h5 id="重载示例："><a href="#重载示例：" class="headerlink" title="重载示例："></a>重载示例：</h5><pre><code>//返回两个整数的和
-int add(int x,int  y){return x+y;}
-//返回三个整数的和
-int add(int x,int y,int z){return x+y+z;}
-//返回两个小数的和
-double add(double x,double y){return x+y;}</code></pre><h4 id="函数的重载"><a href="#函数的重载" class="headerlink" title="函数的重载"></a>函数的重载</h4><pre><code>public class PrintStream{
-public static void print(int i) {……}
-public static void print(float f) {……}
-private static void print(String s) {……}
- public static void main(String[] args){
-    print(3)；
-    print(1.2f)；
-     print(“hello!”)；  
-    }
- }</code></pre><h5 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h5><p>1.判 断：</p>
-<pre><code>与void show(int a,char b,double c){}构成重载的有：
-  1.void show(int x,char y,double z){}   //no
-  2.int show(int a,double c,char b){}   //yes顺序不同也是重载
-c)  void show(int a,double c,char b){}  //yes顺序不同也是重载
-d)  boolean show(int c,char b){}  //yes
-e)  void show(double c){}  //yes
-f)  double show(int x,char y,double z){}  //no
-g)  void shows(){double c}  //no</code></pre><p>2.编写程序，定义三个重载方法并调用。方法名为mOL。<br>三个方法分别接收一个int参数、两个int参数、一个字符串参数。分别执行平方运算并输出结果，相乘并输出结果，输出字符串信息。<br>在主类的main ()方法中分别用参数区别调用三个方法。</p>
-<p>3.定义三个重载方法max()，第一个方法求两个int值中的最大值，第二个方法求两个double值中的最大值，第三个方法求三个double值中的最大值，并分别调用三个方法。</p>
-<h4 id="体会可变个数的形参"><a href="#体会可变个数的形参" class="headerlink" title="体会可变个数的形参"></a>体会可变个数的形参</h4><pre><code>//下面采用数组形参来定义方法
-public static void test(int a ,String[] books);
-//以可变个数形参来定义方法
-public static void test(int a ,String…books);</code></pre><h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h5><pre><code>1.可变参数：方法参数部分指定类型的参数个数是可变多个
-2.声明方式：方法名（参数的类型名...参数名）
-3.可变参数方法的使用与方法参数部分使用数组是一致的
-4.方法的参数部分有可变形参，需要放在形参声明的最后</code></pre><p>例子：</p>
-<pre><code> public void  test(String[] msg){
+<p>例子：</p>
+<pre><code>$ public void  test(String[] msg){
    System.out.println(“含字符串数组参数的test方法 &quot;);
  }
  public void test1(String book){
@@ -485,20 +504,21 @@ to.test1(&quot;aa&quot; , &quot;bb&quot;);
 //下面将执行第一个test方法
 to.test(new String[]{&quot;aa&quot;});
  }</code></pre><hr>
-<h3 id="方法的参数传递"><a href="#方法的参数传递" class="headerlink" title="方法的参数传递"></a>方法的参数传递</h3><ul>
-<li><p>方法，必须有其所在类或对象调用才有意义。若方法含有参数：</p>
+<h3 id="方法的参数传递"><a href="#方法的参数传递" class="headerlink" title="方法的参数传递"></a>方法的参数传递</h3><blockquote>
+<p>方法，必须有其所在类或对象调用才有意义。若方法含有参数：</p>
+</blockquote>
 <ul>
-<li>形参：方法声明时的参数</li>
-<li>实参：方法调用时实际传给形参的参数值</li>
-</ul>
+<li><p>形参：方法声明时的参数</p>
+</li>
+<li><p>实参：方法调用时实际传给形参的参数值</p>
 </li>
 <li><p>Java的实参值如何传入方法呢？</p>
-<ul>
-<li>Java里方法的参数传递方式只有一种：值传递。  即将实际参数值的副本（复制品）传入方法内，</li>
-</ul>
 </li>
 </ul>
-<pre><code>public class TestTransfer {
+<blockquote>
+<p>Java里方法的参数传递方式只有一种：值传递。  即将实际参数值的副本（复制品）传入方法内，</p>
+</blockquote>
+<pre><code>$ public class TestTransfer {
 public static void swap(int a , int b){
     int tmp = a;
     a = b;
@@ -537,7 +557,7 @@ public static void main(String[] args) {
     System.out.println(&quot;交换结束后，a Field的值是&quot;
         + ds.a + &quot;；b Field的值是&quot; + ds.b);
      }
-}</code></pre><h5 id="再体会参数的传递"><a href="#再体会参数的传递" class="headerlink" title="再体会参数的传递"></a>再体会参数的传递</h5><pre><code>class BirthDate{
+}</code></pre><h5 id="再体会参数的传递"><a href="#再体会参数的传递" class="headerlink" title="再体会参数的传递"></a>再体会参数的传递</h5><pre><code>$ class BirthDate{
 private int day;
 private int month;
 private int year;
@@ -574,37 +594,40 @@ public static void main(String[] args) {
     System.out.println(&quot;date=&quot;+date);
     d1.display();
     d2.display();
-}    }</code></pre><h3 id="3-7面向对象特征之一：封装和隐藏"><a href="#3-7面向对象特征之一：封装和隐藏" class="headerlink" title="3.7面向对象特征之一：封装和隐藏"></a>3.7面向对象特征之一：封装和隐藏</h3><ul>
-<li><p><strong>使用者对类内部定义的属性(对象的成员变量)的直接操作会导致数据的错误、混乱或安全性问题。</strong></p>
-<pre><code>public class Animal {
-public int legs;        
-public void  eat(){
- System.out.println(“Eating.”);
-  }
-public void move(){
- System.out.println(“Moving.”);
- }
-}</code></pre></li>
+}    }</code></pre><h3 id="3-7面向对象特征之一：封装和隐藏"><a href="#3-7面向对象特征之一：封装和隐藏" class="headerlink" title="3.7面向对象特征之一：封装和隐藏"></a>3.7面向对象特征之一：封装和隐藏</h3><blockquote>
+<p>使用者对类内部定义的属性(对象的成员变量)的直接操作会导致数据的错误、混乱或安全性问题。</p>
+</blockquote>
+<pre><code>$ public class Animal {
+   public int legs;        
+   public void  eat(){
+    System.out.println(“Eating.”);
+     }
+   public void move(){
+    System.out.println(“Moving.”);
+    }
+   }
+
+
+  public class Zoo{
+   public static void main(String args[]){
+     Animal xb=new Animal();
+     xb.legs=4;
+     System.out.println(xb.legs);
+           xb.eat();xb.move();
+   }  }</code></pre><ul>
+<li>应该将legs属性保护起来，防止乱用。</li>
+<li>保护的方式：信息隐藏</li>
 </ul>
-<pre><code>public class Zoo{
- public static void main(String args[]){
-   Animal xb=new Animal();
-   xb.legs=4;
-   System.out.println(xb.legs);
-         xb.eat();xb.move();
- }  }</code></pre><ul>
-<li><strong>应该将legs属性保护起来，防止乱用。<br>保护的方式：信息隐藏</strong></li>
-<li>问题：xb.legs = -1000;</li>
-</ul>
-<h4 id="信息的封装和隐藏"><a href="#信息的封装和隐藏" class="headerlink" title="信息的封装和隐藏"></a>信息的封装和隐藏</h4><ul>
-<li>Java中通过将数据声明为私有的(private)，再提供公共的（public）方法:getXxx()和setXxx()实现对该属性的操作，以实现下述目的：<ul>
+<p>问题：xb.legs = -1000;</p>
+<h4 id="信息的封装和隐藏"><a href="#信息的封装和隐藏" class="headerlink" title="信息的封装和隐藏"></a>信息的封装和隐藏</h4><blockquote>
+<p>ava中通过将数据声明为私有的(private)，再提供公共的（public）方法:getXxx()和setXxx()实现对该属性的操作，以实现下述目的：</p>
+</blockquote>
+<ul>
 <li>隐藏一个类中不需要对外提供的实现细节；</li>
 <li>使用者只能通过事先定制好的方法来访问数据，可以方便地加入控制逻辑，限制对属性的不合理操作；</li>
 <li>便于修改，增强代码的可维护性；</li>
 </ul>
-</li>
-</ul>
-<pre><code>public class Animal{
+<pre><code>$ public class Animal{
 private int legs;//将属性legs定义为private，只能被Animal类内部访问
 public void setLegs(int i){  //在这里定义方法 eat() 和 move()
     if (i != 0 &amp;&amp; i != 2 &amp;&amp; i != 4){
@@ -624,9 +647,9 @@ public static void main(String args[]){
     xb.setLegs(4);      //xb.setLegs(-1000);       
              xb.legs=-1000;      //非法
     System.out.println(xb.getLegs());
-}  }</code></pre><h4 id="四种访问权限修饰符"><a href="#四种访问权限修饰符" class="headerlink" title="四种访问权限修饰符"></a>四种访问权限修饰符</h4><ul>
-<li><strong>Java权限修饰符public、protected、private置于类的成员定义前，用来限定对象对该类成员的访问权限。</strong></li>
-</ul>
+}  }</code></pre><h4 id="四种访问权限修饰符"><a href="#四种访问权限修饰符" class="headerlink" title="四种访问权限修饰符"></a>四种访问权限修饰符</h4><blockquote>
+<p>Java权限修饰符public、protected、private置于类的成员定义前，用来限定对象对该类成员的访问权限。</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -666,13 +689,12 @@ public static void main(String args[]){
 <td>Yes</td>
 </tr>
 </tbody></table>
-<ul>
-<li><p>对于class的权限修饰只可以用public和default(缺省)。</p>
+<blockquote>
+<p>对于class的权限修饰只可以用public和default(缺省)。</p>
+</blockquote>
 <ul>
 <li>public类可以在任意地方被访问。</li>
-<li>default类只可以被同一个包内部的类访问。\</li>
-</ul>
-</li>
+<li>default类只可以被同一个包内部的类访问。</li>
 </ul>
 <p><img data-sizes="auto" data-src="/images/java4/java43.PNG" alt="" class="lazyload"></p>
 <h6 id="练习4"><a href="#练习4" class="headerlink" title="练习4"></a>练习4</h6><p>1.创建程序,在其中定义两个类：Person和TestPerson类。定义如下：<br>    用setAge()设置人的合法年龄(0~130)，用getAge()返回人的年龄。在TestPerson类中实例化Person类的对象b，调用setAge()和getAge()方法，体会Java的封装性。</p>
@@ -697,52 +719,53 @@ public static void main(String args[]){
 </tr>
 </tbody></table>
 <hr>
-<h3 id="3-8-类的成员之三：构造器-构造方法"><a href="#3-8-类的成员之三：构造器-构造方法" class="headerlink" title="3.8  类的成员之三：构造器(构造方法)"></a>3.8  类的成员之三：构造器(构造方法)</h3><ul>
-<li><p>构造器的特征</p>
-<ul>
+<h3 id="3-8-类的成员之三：构造器-构造方法"><a href="#3-8-类的成员之三：构造器-构造方法" class="headerlink" title="3.8  类的成员之三：构造器(构造方法)"></a>3.8  类的成员之三：构造器(构造方法)</h3><h5 id="构造器的特征"><a href="#构造器的特征" class="headerlink" title="构造器的特征"></a>构造器的特征</h5><ul>
 <li>它具有与类相同的名称</li>
 <li>它不声明返回值类型。（与声明为void不同）</li>
 <li>不能被static、final、synchronized、abstract、native修饰，不能有return语句返回值</li>
 </ul>
-</li>
-<li><p>构造器的作用：创建对象；给对象进行初始化</p>
-<ul>
-<li>如：Order o = new Order();    Person p = new Person(Peter,15);</li>
+<blockquote>
+<p>构造器的作用：创建对象；给对象进行初始化</p>
+</blockquote>
+<p>如：</p>
+<pre><code>$ Order o = new Order();    Person p = new Person(Peter,15);</code></pre><ul>
 <li>如同我们规定每个“人”一出生就必须先洗澡，我们就可以在“人”的构造方法中加入完成“洗澡”的程序代码，于是每个“人”一出生就会自动完成“洗澡”，程序就不必再在每个人刚出生时一个一个地告诉他们要“洗澡”了。</li>
 </ul>
-</li>
-</ul>
-<h4 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h4><p>*语法格式：</p>
-<pre><code>修饰符  类名 (参数列表) {
-   初始化语句；
-}</code></pre><ul>
-<li><p>举 例：</p>
-<pre><code>public class Animal {
-private int legs;
-public Animal()  {legs = 4; }       //构造器
-public void setLegs(int i) { legs = i; }
-public int     getLegs(){return legs;}
-}
- 创建Animal类的实例 ：Animal  a=new Animal();    
- /调用构造器，将legs初始化为4。</code></pre></li>
-</ul>
-<h4 id="构造器-1"><a href="#构造器-1" class="headerlink" title="构造器"></a>构造器</h4><ul>
-<li><p>根据参数不同，构造器可以分为如下两类：</p>
+<h4 id="构造器格式"><a href="#构造器格式" class="headerlink" title="构造器格式"></a>构造器格式</h4><p>语法格式：</p>
+<pre><code>$ 修饰符  类名 (参数列表) {
+     初始化语句；
+  }</code></pre><p>举 例：</p>
+<pre><code>$ public class Animal {
+  private int legs;
+  public Animal()  {legs = 4; }       //构造器
+  public void setLegs(int i) { legs = i; }
+  public int     getLegs(){return legs;}
+  }
+   创建Animal类的实例 ：Animal  a=new Animal();    
+   /调用构造器，将legs初始化为4。</code></pre><h4 id="构造器分类"><a href="#构造器分类" class="headerlink" title="构造器分类"></a>构造器分类</h4><p>根据参数不同，构造器可以分为如下两类：</p>
 <ul>
-<li>隐式无参构造器（系统默认提供）</li>
-<li>显式定义一个或多个构造器（无参、有参）</li>
-</ul>
+<li><p>隐式无参构造器（系统默认提供）</p>
+</li>
+<li><p>显式定义一个或多个构造器（无参、有参）</p>
 </li>
 <li><p>注  意：</p>
-<ul>
-<li>Java语言中，每个类都至少有一个构造器</li>
-<li>默认构造器的修饰符与所属类的修饰符一致</li>
-<li>一旦显式定义了构造器，则系统不再提供默认构造器</li>
-<li>一个类可以创建多个重载的构造器</li>
-<li>父类的构造器不可被子类继承</li>
-</ul>
+<blockquote>
+<p>Java语言中，每个类都至少有一个构造器</p>
+</blockquote>
 </li>
 </ul>
+<blockquote>
+<p>默认构造器的修饰符与所属类的修饰符一致</p>
+</blockquote>
+<blockquote>
+<p>一旦显式定义了构造器，则系统不再提供默认构造器</p>
+</blockquote>
+<blockquote>
+<p>一个类可以创建多个重载的构造器</p>
+</blockquote>
+<blockquote>
+<p> 父类的构造器不可被子类继承</p>
+</blockquote>
 <h5 id="练习5"><a href="#练习5" class="headerlink" title="练习5"></a>练习5</h5><ol>
 <li><p>在前面定义的Person类中添加构造器，利用构造器设置所有人的age属性初始值都为18。</p>
 </li>
@@ -769,15 +792,19 @@ public int     getLegs(){return legs;}
 <td>-</td>
 </tr>
 </tbody></table>
-<p>3.定义一个“点”（Point）类用来表示三维空间中的点（有三个坐标）。要求如下：<br>    1）可以生成具有特定坐标的点对象。<br>    2）提供可以设置三个坐标的方法。<br>4.编写两个类，TriAngle和TestTriAngle，其中TriAngle中声明私有的底边长base和高height，同时声明公共方法访问私有变量；另一个类中使用这些公共方法，计算三角形的面积。</p>
-<h4 id="构造器重载"><a href="#构造器重载" class="headerlink" title="构造器重载"></a>构造器重载</h4><ul>
-<li>构造器一般用来创建对象的同时初始化对象。如</li>
-</ul>
-<pre><code>class Person{
-   String name;
-   int age;
-   public Person(String n , int a){  name=n; age=a;}
-  }</code></pre><ul>
+<ol start="3">
+<li>定义一个“点”（Point）类用来表示三维空间中的点（有三个坐标）。要求如下：<br> 1）可以生成具有特定坐标的点对象。<br> 2）提供可以设置三个坐标的方法。</li>
+<li>编写两个类，TriAngle和TestTriAngle，其中TriAngle中声明私有的底边长base和高height，同时声明公共方法访问私有变量；另一个类中使用这些公共方法，计算三角形的面积。</li>
+</ol>
+<h4 id="构造器重载"><a href="#构造器重载" class="headerlink" title="构造器重载"></a>构造器重载</h4><blockquote>
+<p>构造器一般用来创建对象的同时初始化对象。</p>
+</blockquote>
+<p>如：</p>
+<pre><code>$ class Person{
+    String name;
+    int age;
+    public Person(String n , int a){  name=n; age=a;}
+   }</code></pre><ul>
 <li>构造器重载使得对象的创建更加灵活，方便创建各种不同的对象。</li>
 </ul>
 <p>构造器重载举例：</p>
@@ -1038,7 +1065,7 @@ public void getInfo(){
     
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>非酋囧菌<br>
-    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/06/java7.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;java7.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;java7.html&#x2F;</a><br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/06/JavaDay2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;JavaDay2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;JavaDay2.html&#x2F;</a><br>
     
       <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
     
@@ -1080,7 +1107,7 @@ public void getInfo(){
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1658073317747"></script>
+<script src="/js/app.js?v=1658073317742"></script>
   
 
 

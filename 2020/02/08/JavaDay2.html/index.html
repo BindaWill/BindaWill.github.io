@@ -15,7 +15,7 @@
   <meta name="description" content="类（class）是构造对象的模板或蓝图，由类构造（construct)对象的过程称为创建类的实例（instance）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java高级类特性">
-<meta property="og:url" content="http://yoursite.com/2020/02/08/java5.html/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/02/08/JavaDay2.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="类（class）是构造对象的模板或蓝图，由类构造（construct)对象的过程称为创建类的实例（instance）">
 <meta property="og:locale" content="zh_CN">
@@ -28,16 +28,20 @@
 <meta property="og:image" content="http://yoursite.com/images/java5/java56.PNG">
 <meta property="og:image" content="http://yoursite.com/images/java5/java57.PNG">
 <meta property="article:published_time" content="2020-02-08T12:12:13.000Z">
-<meta property="article:modified_time" content="2020-02-28T15:11:54.000Z">
+<meta property="article:modified_time" content="2022-07-16T14:45:28.538Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1655399440310">
+  <link rel="stylesheet" href="/css/style.css?v=1658073317739">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
   
   <div id="nexmoe-background">
     <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
@@ -153,8 +157,8 @@
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
   
-      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
-          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java高级类特性" class="lazyload">
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java高级类特性" class="lazyload">
           <h1>Java高级类特性</h1>
       </div>
   
@@ -399,7 +403,7 @@ public void printAge(){
 public class Student extends Person {
         public String school;
         public String getInfo() {       //重写方法
-        return  &quot;Name: &quot;+ name + &quot;\nage: &quot;+ age 
+        return  &quot;Name: &quot;+ name + &quot;\nage: &quot;+ age
           + &quot;\nschool: &quot;+ school;
          }
         public static void main(String args[]){
@@ -454,7 +458,7 @@ public static void main(String[] args) {
     private  void  fm1() {System.out.println(&quot;in fm1() f1=&quot; + f1);}
     void fm2() {System.out.println(&quot;in fm2() f2=&quot; + f2);}
     protected  void  fm3() {System.out.println(&quot;in fm3() f3=&quot; + f3);}
-    public void fm4() {System.out.println(&quot;in fm4() f4=&quot; + f4);}    
+    public void fm4() {System.out.println(&quot;in fm4() f4=&quot; + f4);}
  }
 
 
@@ -464,7 +468,7 @@ public static void main(String[] args) {
 private void cm1(){System.out.println(&quot;in cm1() c1=&quot; + c1);}
 public  void cm2(){System.out.println(&quot;in cm2() c2=&quot; + c2);}
 public static void main(String args[]){
-    int i; 
+    int i;
     Parent  p = new Parent();        
     i = p.f2;            //    i = p.f3;        i = p.f4;                p.fm2();         //    p.fm3();    p.fm4();        
     Child  c = new Child();
@@ -542,7 +546,7 @@ public static void main(String[] args){
 
  private String name;
  private int age;
-private Date birthDate;    
+private Date birthDate;
 
  public Person(String name, int age, Date d) {
          this.name = name;
@@ -635,7 +639,7 @@ public Student(String s) { // 编译出错: no super(),系统将调用父类
 <li><p>一个引用类型变量如果声明为父类的类型，但实际引用的是子类对象，那么该变量就不能再访问子类中添加的属性和方法</p>
 <pre><code>Student m = new Student();
 m.school = “pku”;       //合法,Student类有school成员变量
-Person e = new Student(); 
+Person e = new Student();
 e.school = “pku”;    //非法,Person类没有school成员变量
 属性是在编译时确定的，编译时e为Person类型，没有school成员变量，因而编译错误。</code></pre></li>
 </ul>
@@ -678,7 +682,7 @@ e.getInfo();    //调用Student类的getInfo()方法</code></pre></li>
 </ul>
 <h4 id="多态性应用举例"><a href="#多态性应用举例" class="headerlink" title="多态性应用举例"></a>多态性应用举例</h4><ul>
 <li><p>方法声明的形参类型为父类类型，可以使用子类的对象作为实参调用该方法</p>
-<pre><code>public class Test{ 
+<pre><code>public class Test{
 public void method(Person e) {
          //……
          e.getInfo();
@@ -692,7 +696,7 @@ public static  void main(Stirng args[]){
 </ul>
 <h4 id="多态性应用举例-1"><a href="#多态性应用举例-1" class="headerlink" title="多态性应用举例"></a>多态性应用举例</h4><ul>
 <li><p>方法声明的形参类型为父类类型，可以使用子类的对象作为实参调用该方法</p>
-<pre><code>public class Test{ 
+<pre><code>public class Test{
  public void method(Person e) {
          //……
          e.getInfo();
@@ -718,9 +722,9 @@ public static  void main(Stirng args[]){
  public class Graduate extends Person {…}
  -------------------------------------------------------------------
  public void method1(Person e) {
-  if (e instanceof Person) 
+  if (e instanceof Person)
     // 处理Person类及其子类对象
-if (e instanceof Student) 
+if (e instanceof Student)
     //处理Student类及其子类对象
 if (e instanceof Graduate)
     //处理Graduate类及其子类对象
@@ -728,7 +732,7 @@ if (e instanceof Graduate)
 <h3 id="4-7-Object-类"><a href="#4-7-Object-类" class="headerlink" title="4.7  Object 类"></a>4.7  Object 类</h3><ul>
 <li><p>Object类是所有Java类的根父类</p>
 </li>
-<li><p>如果在类的声明中未使用extends关键字指明其父类，则默认父类为Object类 </p>
+<li><p>如果在类的声明中未使用extends关键字指明其父类，则默认父类为Object类</p>
 <pre><code>public class Person {
 ...
 }
@@ -803,7 +807,7 @@ public static void main(String[] args) {
    //所以下面代码运行时引发ClassCastException异常
    String str = (String)objPri;
     }
-}</code></pre><h4 id="对象类型转换举例-1"><a href="#对象类型转换举例-1" class="headerlink" title="对象类型转换举例"></a>对象类型转换举例</h4><pre><code>public class Test{ 
+}</code></pre><h4 id="对象类型转换举例-1"><a href="#对象类型转换举例-1" class="headerlink" title="对象类型转换举例"></a>对象类型转换举例</h4><pre><code>public class Test{
           public void method(Person e) {     //设Person类中没有getschool()                        方法
     // System.out.pritnln(e.getschool());   //非法,编译时错误
 
@@ -819,7 +823,7 @@ public static void main(String[] args) {
       }
   }</code></pre><p>! <a href="/images/java5/java510.PNG"></a></p>
 <h4 id="操作符与equals方法"><a href="#操作符与equals方法" class="headerlink" title="==操作符与equals方法"></a>==操作符与equals方法</h4><ul>
-<li><p>= =： </p>
+<li><p>= =：</p>
 <ul>
 <li><p>基本类型比较值:只要两个变量的值相等，即为true.<br>int a=5; if(a==6){…}</p>
 </li>
@@ -1025,7 +1029,7 @@ public class OtherClass {
        Person.total = 100;  // 不用创建对象就可以访问静态成员
                     //访问方式：类名.类属性，类名.类方法
       System.out.println(Person.total);
-      Person c = new Person(); 
+      Person c = new Person();
       System.out.println(c.total);    //输出101
      }}</code></pre><h4 id="类方法-class-Method"><a href="#类方法-class-Method" class="headerlink" title="类方法(class Method)"></a>类方法(class Method)</h4><ul>
 <li><p>没有对象的实例时，可以用类名.方法名()的形式访问由static标记的类方法。</p>
@@ -1034,7 +1038,7 @@ public class OtherClass {
 <pre><code>class Person {
 private int id;
 private static int total = 0;
-public static int getTotalPerson() { 
+public static int getTotalPerson() {
 id++;    //非法
 return total;
 }
@@ -1057,7 +1061,7 @@ public class TestPerson {
 </ul>
 <h4 id="单例-Singleton-设计模式-饿汉式"><a href="#单例-Singleton-设计模式-饿汉式" class="headerlink" title="单例(Singleton)设计模式-饿汉式"></a>单例(Singleton)设计模式-饿汉式</h4><pre><code>class Single{
 //private的构造器，不能在类的外部创建该类的对象
-private Single() {} 
+private Single() {}
 //私有的，只能在类的内部访问
 private static Single onlyone = new Single();
 //getSingle()为static，不用创建对象即可访问
@@ -1091,9 +1095,9 @@ public static Singleton  getInstance(){
 </ul>
 <p>！<a href="/images/java5/java513.PNG"></a></p>
 <hr>
-<p>###5.2  理解main方法的语法 </p>
+<p>###5.2  理解main方法的语法</p>
 <ul>
-<li>由于java虚拟机需要调用类的main()方法，所以该方法的访问权限必须是public，又因为java虚拟机在执行main()方法时不必创建对象，所以该方法必须是static的，该方法接收一个String类型的数组参数，该数组中保存执行java命令时传递给所运行的类的参数。 </li>
+<li>由于java虚拟机需要调用类的main()方法，所以该方法的访问权限必须是public，又因为java虚拟机在执行main()方法时不必创建对象，所以该方法必须是static的，该方法接收一个String类型的数组参数，该数组中保存执行java命令时传递给所运行的类的参数。</li>
 </ul>
 <p>！<a href="/images/java5/java514.PNG"></a></p>
 <h4 id="命令行参数用法举例"><a href="#命令行参数用法举例" class="headerlink" title="命令行参数用法举例"></a>命令行参数用法举例</h4><pre><code>public class CommandPara {
@@ -1127,7 +1131,7 @@ public static Singleton  getInstance(){
 <pre><code>class Person {
 public static int total;
 static {
-      total = 100;//为total赋初值 
+      total = 100;//为total赋初值
    }
  …… //其它属性或方法声明
  }</code></pre></li>
@@ -1333,7 +1337,7 @@ void stop();
 <li><p>一个类可以实现多个无关的接口</p>
 <pre><code>interface Runner { public void run();}
 interface Swimmer {public double swim();}
-class Creator{public int eat(){…}} 
+class Creator{public int eat(){…}}
 class Man extends Creator implements Runner ,Swimmer{
  public void run() {……}
  public double swim()  {……}
@@ -1356,7 +1360,7 @@ class Man extends Creator implements Runner ,Swimmer{
 }</code></pre></li>
 </ul>
 <h4 id="接口的其他问题"><a href="#接口的其他问题" class="headerlink" title="接口的其他问题"></a>接口的其他问题</h4><ul>
-<li><p>如果实现接口的类中没有实现接口中的全部方法，必须将此类定义为抽象类 </p>
+<li><p>如果实现接口的类中没有实现接口中的全部方法，必须将此类定义为抽象类</p>
 </li>
 <li><p>接口也可以继承另一个接口，使用extends关键字。</p>
 <pre><code> interface MyInterface{
@@ -1400,11 +1404,11 @@ public class B{
    i.mb();
   }  }
 
-  public class Test {    
+  public class Test {
   public static void main(String args[]){
        A o = new A();
        o.ma();
-    }   } </code></pre><h4 id="内部类特性"><a href="#内部类特性" class="headerlink" title="内部类特性"></a>内部类特性</h4><ul>
+    }   }</code></pre><h4 id="内部类特性"><a href="#内部类特性" class="headerlink" title="内部类特性"></a>内部类特性</h4><ul>
 <li>Inner class作为类的成员：<ul>
 <li>可以声明为final的</li>
 <li>和外部类不同，Inner class可声明为private或protected；</li>
@@ -1448,7 +1452,7 @@ public class Outer{
     
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>非酋囧菌<br>
-    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/08/java5.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;08&#x2F;java5.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;08&#x2F;java5.html&#x2F;</a><br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/08/JavaDay2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;08&#x2F;JavaDay2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;08&#x2F;JavaDay2.html&#x2F;</a><br>
     
       <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
     
@@ -1490,17 +1494,13 @@ public class Outer{
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1655399440311"></script>
+<script src="/js/app.js?v=1658073317740"></script>
   
 
 
 
 
 
-  <link rel="stylesheet" href="/dist/APlayer.min.css">
-<div id="aplayer"></div>
-<script type="text/javascript" src="/dist/APlayer.min.js"></script>
-<script type="text/javascript" src="/dist/music.js"></script>
 
 </body>
 

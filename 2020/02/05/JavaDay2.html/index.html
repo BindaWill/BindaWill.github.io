@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>Java之基本语法 - 火星环游日记</title>
+  <title>Java基本语法2 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -14,8 +14,8 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
   <meta name="description" content="主要介绍Java基本语法篇2，涉及循环结构，流程控制语句及Java中数组的使用，供回顾使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java之基本语法">
-<meta property="og:url" content="http://yoursite.com/2020/02/05/java3.html/index.html">
+<meta property="og:title" content="Java基本语法2">
+<meta property="og:url" content="http://yoursite.com/2020/02/05/JavaDay2.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="主要介绍Java基本语法篇2，涉及循环结构，流程控制语句及Java中数组的使用，供回顾使用。">
 <meta property="og:locale" content="zh_CN">
@@ -27,16 +27,20 @@
 <meta property="og:image" content="http://yoursite.com/images/java3/java32.PNG">
 <meta property="og:image" content="http://yoursite.com/images/java3/java35.PNG">
 <meta property="article:published_time" content="2020-02-05T13:30:26.000Z">
-<meta property="article:modified_time" content="2020-09-07T09:18:41.000Z">
+<meta property="article:modified_time" content="2022-07-16T14:45:07.092Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/java1/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1655399440316">
+  <link rel="stylesheet" href="/css/style.css?v=1658073317749">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
   
   <div id="nexmoe-background">
     <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
@@ -152,9 +156,9 @@
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
   
-      <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
-          <img data-src="http://5b0988e595225.cdn.sohucs.com/images/20190418/47658e88f01a43d5b520242152262ddb.jpeg" data-sizes="auto" alt="Java之基本语法" class="lazyload">
-          <h1>Java之基本语法</h1>
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基本语法2" class="lazyload">
+          <h1>Java基本语法2</h1>
       </div>
   
   
@@ -171,31 +175,35 @@
   <article>
     <p>主要介绍Java基本语法篇2，涉及循环结构，流程控制语句及Java中数组的使用，供回顾使用。</p>
 <a id="more"></a>
-<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
-<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="循环语句功能"><a href="#循环语句功能" class="headerlink" title="循环语句功能"></a>循环语句功能</h3><h5 id="在某些条件满足的情况下，反复执行特定代码的功能"><a href="#在某些条件满足的情况下，反复执行特定代码的功能" class="headerlink" title="在某些条件满足的情况下，反复执行特定代码的功能"></a>在某些条件满足的情况下，反复执行特定代码的功能</h5><h4 id="循环语句的四个组成部分"><a href="#循环语句的四个组成部分" class="headerlink" title="循环语句的四个组成部分"></a>循环语句的四个组成部分</h4><ul>
+<h3 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h3><p><img data-sizes="auto" data-src="/images/java1/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java1/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><h4 id="循环语句功能"><a href="#循环语句功能" class="headerlink" title="循环语句功能"></a>循环语句功能</h4><blockquote>
+<p>在某些条件满足的情况下，反复执行特定代码的功能</p>
+</blockquote>
+<h5 id="循环语句的四个组成部分"><a href="#循环语句的四个组成部分" class="headerlink" title="循环语句的四个组成部分"></a>循环语句的四个组成部分</h5><ul>
 <li>初始化部分（init_statement）</li>
 <li>循环条件部分（test_exp）</li>
 <li>循环体部分（body_statement）</li>
 <li>迭代部分（alter_statement）</li>
 </ul>
-<h4 id="循环语句分类"><a href="#循环语句分类" class="headerlink" title="循环语句分类"></a>循环语句分类</h4><ul>
+<h5 id="循环语句分类"><a href="#循环语句分类" class="headerlink" title="循环语句分类"></a>循环语句分类</h5><ul>
 <li>for 循环</li>
 <li>while 循环</li>
 <li>do/while 循环</li>
 </ul>
 <hr>
-<h3 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h3><h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><pre><code>for (初始化表达式①; 布尔值测试表达式②; 更改表达式)｛
-            语句或语句块③；
-          ｝</code></pre><p><img data-sizes="auto" data-src="/images/java3/java31.PNG" alt="" class="lazyload"></p>
-<h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><pre><code>public class ForLoop {
-        public static void main(String args[]){
-            int result = 0;
-            for(int i=1; i&lt;=100; i++) {
-                  result += i;
-                 }
-          System.out.println(&quot;1到100之间整数之和为：&quot; + result);
-             }
-          }</code></pre><h4 id="for语句例题"><a href="#for语句例题" class="headerlink" title="for语句例题"></a>for语句例题</h4><ul>
+<h4 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h4><p>语法格式</p>
+<pre><code>$ for (初始化表达式①; 布尔值测试表达式②; 更改表达式)｛
+           语句或语句块③；
+         ｝</code></pre><p><img data-sizes="auto" data-src="/images/java3/java31.PNG" alt="" class="lazyload"></p>
+<h5 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h5><pre><code>$ public class ForLoop {
+             public static void main(String args[]){
+                 int result = 0;
+                 for(int i=1; i&lt;=100; i++) {
+                       result += i;
+                      }
+               System.out.println(&quot;1到100之间整数之和为：&quot; + result);
+                  }
+               }</code></pre><h4 id="for语句例题"><a href="#for语句例题" class="headerlink" title="for语句例题"></a>for语句例题</h4><ul>
 <li><p>编写程序FooBizBaz.java，从1循环到150并在每行打印一个值，另外在每个3的倍数行上打印出“foo”,在每个5的倍数行上打印“biz”,在每个7的倍数行上打印输出“baz”。<br>1<br>2<br>3 foo<br>4<br>5 biz<br>6 foo<br>7 baz<br>…<br>15 foo biz<br>….<br>105 foo biz baz<br>…</p>
 <pre><code>    public class FooBizBaz {
       public static void main(String[]args) {
@@ -217,42 +225,51 @@
       }
 }</code></pre></li>
 </ul>
-<h4 id="for语句练习"><a href="#for语句练习" class="headerlink" title="for语句练习"></a>for语句练习</h4><p>1.打印1~100之间所有奇数的和</p>
-<p>2.打印1~100之间所有是7的倍数的整数的个数及总和（体会设置计数器的思想）</p>
-<p>3.输出所有的水仙花数，所谓水仙花数是指一个3位数，其各个位上数字立方和等于其本身。<br>    例如： 153 = 1<em>1</em>1 + 3<em>3</em>3 + 5<em>5</em>5</p>
+<h4 id="for语句练习"><a href="#for语句练习" class="headerlink" title="for语句练习"></a>for语句练习</h4><ol>
+<li><p>打印1~100之间所有奇数的和</p>
+</li>
+<li><p>打印1~100之间所有是7的倍数的整数的个数及总和（体会设置计数器的思想）</p>
+</li>
+<li><p>输出所有的水仙花数，所谓水仙花数是指一个3位数，其各个位上数字立方和等于其本身。<br> 例如： 153 = 1<em>1</em>1 + 3<em>3</em>3 + 5<em>5</em>5</p>
+</li>
+</ol>
 <hr>
-<h3 id="while-循环语句"><a href="#while-循环语句" class="headerlink" title="while 循环语句"></a>while 循环语句</h3><h4 id="语法格式-1"><a href="#语法格式-1" class="headerlink" title="语法格式"></a>语法格式</h4><pre><code>  [初始化语句]
-  while( 布尔值测试表达式)｛
-           语句或语句块;
-   [更改语句;]
-}</code></pre><h4 id="应用举例-1"><a href="#应用举例-1" class="headerlink" title="应用举例"></a>应用举例</h4><pre><code>public class WhileLoop {
-        public static void main(String args[]){
-        int result = 0;
-    int i=1;
-    while(i&lt;=100) {
-            result += i;
-                           i++;
-    }
-            System.out.println(&quot;result=&quot; + result);
-         }
-}</code></pre><hr>
-<h3 id="do-while-循环语句"><a href="#do-while-循环语句" class="headerlink" title="do-while 循环语句"></a>do-while 循环语句</h3><h4 id="语法格式-2"><a href="#语法格式-2" class="headerlink" title="语法格式"></a>语法格式</h4><pre><code>[初始化语句]
-do｛
-        语句或语句块;
-        [更改语句;]
-｝while(布尔值测试表达式);</code></pre><h4 id="应用举例-2"><a href="#应用举例-2" class="headerlink" title="应用举例"></a>应用举例</h4><pre><code>public class WhileLoop {
-        public static void main(String args[]){
-          int result = 0,  i=1;
-            do{
-                   result += i;
-                         i++;
-         }while(i&lt;=100);
-     System.out.println(&quot;result=&quot; + result);
-       }
-}  </code></pre><h4 id="循环语句练习"><a href="#循环语句练习" class="headerlink" title="循环语句练习"></a>循环语句练习</h4><p>编写程序一：求1到100之间所有偶数的和。用for和while语句分别完成。</p>
-<h4 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h4><p><strong>最简单无限循环格式：while(true) , for(;;),无限循环存在的原因是并不知道循环多少次，需要根据某些条件，来控制循环。</strong></p>
+<h4 id="while-循环语句"><a href="#while-循环语句" class="headerlink" title="while 循环语句"></a>while 循环语句</h4><p> 语法格式</p>
+<pre><code>$    [初始化语句]
+     while( 布尔值测试表达式)｛
+              语句或语句块;
+      [更改语句;]
+   }</code></pre><h5 id="应用举例-1"><a href="#应用举例-1" class="headerlink" title="应用举例"></a>应用举例</h5><pre><code>$    public class WhileLoop {
+            public static void main(String args[]){
+            int result = 0;
+        int i=1;
+        while(i&lt;=100) {
+                result += i;
+                               i++;
+        }
+                System.out.println(&quot;result=&quot; + result);
+             }
+    }</code></pre><hr>
+<h4 id="do-while-循环语句"><a href="#do-while-循环语句" class="headerlink" title="do-while 循环语句"></a>do-while 循环语句</h4><p>语法格式</p>
+<pre><code>$    [初始化语句]
+    do｛
+            语句或语句块;
+            [更改语句;]
+    ｝while(布尔值测试表达式);</code></pre><h5 id="应用举例-2"><a href="#应用举例-2" class="headerlink" title="应用举例"></a>应用举例</h5><pre><code>$    public class WhileLoop {
+            public static void main(String args[]){
+              int result = 0,  i=1;
+                do{
+                       result += i;
+                             i++;
+             }while(i&lt;=100);
+         System.out.println(&quot;result=&quot; + result);
+           }
+    }  </code></pre><h5 id="循环语句练习"><a href="#循环语句练习" class="headerlink" title="循环语句练习"></a>循环语句练习</h5><p>编写程序一：求1到100之间所有偶数的和。用for和while语句分别完成。</p>
+<h4 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h4><blockquote>
+<p>最简单无限循环格式：while(true) , for(;;),无限循环存在的原因是并不知道循环多少次，需要根据某些条件，来控制循环。</p>
+</blockquote>
 <hr>
-<h3 id="嵌套循环"><a href="#嵌套循环" class="headerlink" title="嵌套循环"></a>嵌套循环</h3><ul>
+<h4 id="嵌套循环"><a href="#嵌套循环" class="headerlink" title="嵌套循环"></a>嵌套循环</h4><ul>
 <li><p>将一个循环放在另一个循环体内，就形成了嵌套循环。其中，for ,while ,do…while均可以作为外层循环和内层循环。</p>
 </li>
 <li><p>实质上，嵌套循环就是把内层循环当成外层循环的循环体。当只有内层循环的循环条件为false时，才会完全跳出内层循环，才可结束外层的当次循环，开始下一次的循环。</p>
@@ -260,18 +277,17 @@ do｛
 <li><p>设外层循环次数为m次，内层为n次，则内层循环体实际上需要执行m*n=mn次。</p>
 </li>
 </ul>
-<h4 id="例题：1）九九乘法表"><a href="#例题：1）九九乘法表" class="headerlink" title="例题：1）九九乘法表"></a>例题：1）九九乘法表</h4><pre><code>2）1—100之间的所有质数</code></pre><hr>
-<h3 id="特殊流程控制语句1"><a href="#特殊流程控制语句1" class="headerlink" title="特殊流程控制语句1"></a>特殊流程控制语句1</h3><h4 id="break-语句"><a href="#break-语句" class="headerlink" title="break 语句"></a>break 语句</h4><ul>
-<li><p>break语句用于终止某个语句块的执行</p>
-<pre><code>{    … …     
- break;
-  ……
- }</code></pre></li>
-<li><p><strong>break终止当前所在的循环</strong></p>
-</li>
+<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><pre><code>1）九九乘法表
+2）1—100之间的所有质数</code></pre><hr>
+<h4 id="特殊流程控制语句1"><a href="#特殊流程控制语句1" class="headerlink" title="特殊流程控制语句1"></a>特殊流程控制语句1</h4><h5 id="break-语句"><a href="#break-语句" class="headerlink" title="break 语句"></a>break 语句</h5><p> break语句用于终止某个语句块的执行</p>
+<pre><code>$ {    … …     
+   break;
+    ……
+   }</code></pre><ul>
+<li>break终止当前所在的循环</li>
 </ul>
-<h4 id="break-语句用法举例"><a href="#break-语句用法举例" class="headerlink" title="break 语句用法举例"></a>break 语句用法举例</h4><pre><code>public class TestBreak{
-   public static void main(String args[]){
+<h5 id="break-语句用法举例"><a href="#break-语句用法举例" class="headerlink" title="break 语句用法举例"></a>break 语句用法举例</h5><pre><code>$ public class TestBreak{
+       public static void main(String args[]){
    for(int i = 0; i&lt;10; i++){
         if(i==3)
          break;      
@@ -280,59 +296,74 @@ do｛
    System.out.println(&quot;Game Over!&quot;);
    }</code></pre><p>}</p>
 <hr>
-<h3 id="特殊流程控制语句2"><a href="#特殊流程控制语句2" class="headerlink" title="特殊流程控制语句2"></a>特殊流程控制语句2</h3><h4 id="continue-语句"><a href="#continue-语句" class="headerlink" title="continue 语句"></a>continue 语句</h4><ul>
-<li><strong>continue语句用于跳过某个循环语句块的一次执行</strong></li>
-<li><strong>continue语句出现在多层嵌套的循环语句体中时，可以通过标签指明要跳过的是哪一层循环</strong></li>
+<h4 id="特殊流程控制语句2"><a href="#特殊流程控制语句2" class="headerlink" title="特殊流程控制语句2"></a>特殊流程控制语句2</h4><h5 id="continue-语句"><a href="#continue-语句" class="headerlink" title="continue 语句"></a>continue 语句</h5><ul>
+<li>continue语句用于跳过某个循环语句块的一次执行</li>
+<li>continue语句出现在多层嵌套的循环语句体中时，可以通过标签指明要跳过的是哪一层循环</li>
 </ul>
-<h4 id="continue语句用法举例"><a href="#continue语句用法举例" class="headerlink" title="continue语句用法举例"></a>continue语句用法举例</h4><pre><code>public class ContinueTest {
-            public static void main(String args[]){
-            for (int i = 0; i &lt; 100; i++) {
-                         if (i%10==0)
-                        continue;
-                                 System.out.println(i);
-                                }  }  }</code></pre><hr>
-<h3 id="特殊流程控制语句3"><a href="#特殊流程控制语句3" class="headerlink" title="特殊流程控制语句3"></a>特殊流程控制语句3</h3><h4 id="return：并非专门用于结束循环的，它的功能是结束一个方法。当一个方法执行到一个return语句时，这个方法将被结束。"><a href="#return：并非专门用于结束循环的，它的功能是结束一个方法。当一个方法执行到一个return语句时，这个方法将被结束。" class="headerlink" title="return：并非专门用于结束循环的，它的功能是结束一个方法。当一个方法执行到一个return语句时，这个方法将被结束。"></a>return：并非专门用于结束循环的，它的功能是结束一个方法。当一个方法执行到一个return语句时，这个方法将被结束。</h4><h4 id="与break和continue不同的是，return直接结束整个方法，不管这个return处于多少层循环之内"><a href="#与break和continue不同的是，return直接结束整个方法，不管这个return处于多少层循环之内" class="headerlink" title="与break和continue不同的是，return直接结束整个方法，不管这个return处于多少层循环之内"></a>与break和continue不同的是，return直接结束整个方法，不管这个return处于多少层循环之内</h4><h4 id="特殊流程控制语句说明"><a href="#特殊流程控制语句说明" class="headerlink" title="特殊流程控制语句说明"></a>特殊流程控制语句说明</h4><ul>
-<li><strong>break只能用于switch语句和循环语句中。</strong></li>
-<li><strong>continue 只能用于循环语句中。</strong></li>
-<li><strong>二者功能类似，但continue是终止本次循环，break是终止本层循环。</strong></li>
-<li><strong>break、continue之后不能有其他的语句，因为程序永远不会执行其* **后的语句。</strong></li>
+<h5 id="continue语句用法举例"><a href="#continue语句用法举例" class="headerlink" title="continue语句用法举例"></a>continue语句用法举例</h5><pre><code>$    public class ContinueTest {
+           public static void main(String args[]){
+           for (int i = 0; i &lt; 100; i++) {
+                        if (i%10==0)
+                       continue;
+                                System.out.println(i);
+                               }  }  }</code></pre><hr>
+<h4 id="特殊流程控制语句3"><a href="#特殊流程控制语句3" class="headerlink" title="特殊流程控制语句3"></a>特殊流程控制语句3</h4><ul>
+<li><p>return：并非专门用于结束循环的，它的功能是结束一个方法。当一个方法执行到一个return语句时，这个方法将被结束。</p>
+</li>
+<li><p>与break和continue不同的是，return直接结束整个方法，不管这个return处于多少层循环之内</p>
+</li>
+</ul>
+<h4 id="特殊流程控制语句说明"><a href="#特殊流程控制语句说明" class="headerlink" title="特殊流程控制语句说明"></a>特殊流程控制语句说明</h4><ul>
+<li>break只能用于switch语句和循环语句中。</li>
+<li>continue 只能用于循环语句中。</li>
+<li>二者功能类似，但continue是终止本次循环，break是终止本层循环。</li>
+<li>break、continue之后不能有其他的语句，因为程序永远不会执行其* **后的语句。</li>
 </ul>
 <hr>
-<h3 id="一维数组声明"><a href="#一维数组声明" class="headerlink" title="一维数组声明"></a>一维数组声明</h3><h4 id="一维数组的声明方式："><a href="#一维数组的声明方式：" class="headerlink" title="一维数组的声明方式："></a>一维数组的声明方式：</h4><ul>
-<li><strong>type  var[] 或 type[]  var；</strong><h4 id="例如："><a href="#例如：" class="headerlink" title="例如："></a>例如：</h4><pre><code>int a[];
-   int[] a1;
-double  b[];
-Mydate[] c;  //对象数组</code></pre></li>
+<h3 id="一维数组声明"><a href="#一维数组声明" class="headerlink" title="一维数组声明"></a>一维数组声明</h3><p> 一维数组的声明方式：</p>
+<ul>
+<li>type  var[] 或 type[]  var；</li>
 </ul>
-<h3 id="一维数组初始化"><a href="#一维数组初始化" class="headerlink" title="一维数组初始化"></a>一维数组初始化</h3><ul>
-<li><strong>动态初始化：数组声明且为数组元素分配空间与赋值的操作分开进行</strong><pre><code>int[] arr = new int[3];
-arr[0] = 3;
+<h5 id="例如："><a href="#例如：" class="headerlink" title="例如："></a>例如：</h5><pre><code>$  int a[];
+     int[] a1;
+  double  b[];
+  Mydate[] c;  //对象数组</code></pre><h4 id="一维数组初始化"><a href="#一维数组初始化" class="headerlink" title="一维数组初始化"></a>一维数组初始化</h4><ul>
+<li><p>动态初始化：数组声明且为数组元素分配空间与赋值的操作分开进行</p>
+<p>  $ int[] arr = new int[3];</p>
+<pre><code>arr[0] = 3;
 arr[1] = 9;
 arr[2] = 8;</code></pre></li>
-<li><strong>静态初始化：在定义数组的同时就为数组元素分配空间并赋值。</strong><pre><code>int a[] = new int[]{ 3, 9, 8};
-int[] a = {3,9,8};</code></pre></li>
+<li><p>静态初始化：在定义数组的同时就为数组元素分配空间并赋值。</p>
+<p>  $ int a[] = new int[]{ 3, 9, 8};</p>
+<pre><code>int[] a = {3,9,8};</code></pre></li>
 </ul>
-<h3 id="数组元素的引用"><a href="#数组元素的引用" class="headerlink" title="数组元素的引用"></a>数组元素的引用</h3><ul>
-<li><strong>定义并用运算符new为之分配空间后，才可以引用数组中的每个元素；</strong></li>
-<li><strong>数组元素的引用方式：数组名[数组元素下标]</strong></li>
-<li>数组元素下标可以是整型常量或整型表达式。如a[3] , b[i] , c[6*i];</li>
-<li>数组元素下标从0开始；长度为n的数组合法下标取值范围: 0 —&gt;n-1；如int a[]=new int[3];  可引用的数组元素为a[0]、a[1]、a[2]</li>
-<li><strong>每个数组都有一个属性length指明它的长度，例如：a.length 指明数组a的长度(元素个数)</strong></li>
-<li>数组一旦初始化，其长度是不可变的</li>
+<h4 id="数组元素的引用"><a href="#数组元素的引用" class="headerlink" title="数组元素的引用"></a>数组元素的引用</h4><ul>
+<li><p>定义并用运算符new为之分配空间后，才可以引用数组中的每个元素；</p>
+</li>
+<li><p>数组元素的引用方式：数组名[数组元素下标]</p>
+</li>
+<li><p>数组元素下标可以是整型常量或整型表达式。如a[3] , b[i] , c[6*i];</p>
+</li>
+<li><p>数组元素下标从0开始；长度为n的数组合法下标取值范围: 0 —&gt;n-1；如int a[]=new int[3];  可引用的数组元素为a[0]、a[1]、a[2]</p>
+</li>
+<li><p>每个数组都有一个属性length指明它的长度，例如：a.length 指明数组a的长度(元素个数)</p>
+</li>
+<li><p>数组一旦初始化，其长度是不可变的</p>
+</li>
 </ul>
-<h3 id="数组元素的默认初始化"><a href="#数组元素的默认初始化" class="headerlink" title="数组元素的默认初始化"></a>数组元素的默认初始化</h3><ul>
-<li><p><strong>数组是引用类型，它的元素相当于类的成员变量，因此数组一经分配空间，其中的每个元素也被按照成员变量同样的方式被隐式初始化。例如：</strong></p>
-<pre><code>public class Test {
-public static void main(String argv[]){
-int a[]= new int[5]; 
-System.out.println(a[3]);    //a[3]的默认值为0
-}
-}</code></pre></li>
+<h4 id="数组元素的默认初始化"><a href="#数组元素的默认初始化" class="headerlink" title="数组元素的默认初始化"></a>数组元素的默认初始化</h4><ul>
+<li>数组是引用类型，它的元素相当于类的成员变量，因此数组一经分配空间，其中的每个元素也被按照成员变量同样的方式被隐式初始化。</li>
 </ul>
-<hr>
+<p>例如：</p>
+<pre><code>$ public class Test {
+  public static void main(String argv[]){
+  int a[]= new int[5]; 
+  System.out.println(a[3]);    //a[3]的默认值为0
+  }
+  }</code></pre><hr>
 <h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p><img data-sizes="auto" data-src="/images/java3/java33.PNG" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/java3/java34.PNG" alt="" class="lazyload"></p>
-<h4 id="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"><a href="#练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。" class="headerlink" title="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"></a>练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。</h4><p><img data-sizes="auto" data-src="/images/java3/java32.PNG" alt="" class="lazyload"></p>
-<h4 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h4><p>声明：int[] x,y[];  以下选项允许通过编译的是：<br>a )   x[0] = y;  //no, x[0]是一个数，y是一个二维数组</p>
+<h5 id="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"><a href="#练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。" class="headerlink" title="练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。"></a>练习2：获取arr数组中所有元素的和。使用for的嵌套循环即可。</h5><p><img data-sizes="auto" data-src="/images/java3/java32.PNG" alt="" class="lazyload"></p>
+<h5 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h5><p>声明：int[] x,y[];  以下选项允许通过编译的是：<br>a )   x[0] = y;  //no, x[0]是一个数，y是一个二维数组</p>
 <p>b)    y[0] = x; //yes， y[0]就是一维数组，x是一维数组</p>
 <p>c)    y[0][0] = x;//no， y[0][0] 是一个数字，x是一维数组</p>
 <p>d)    x[0][0] = y;//no， x[0][0] 不存在，x是一维数组，没有第二维</p>
@@ -353,19 +384,18 @@ System.out.println(a[3]);    //a[3]的默认值为0
 </li>
 <li><p><strong>选择排序</strong><br>简单选择排序、堆排序</p>
 </li>
-<li><p><strong>归并排序</strong></p>
+<li><p><strong>归并排序</strong><br>基数排序</p>
 </li>
 </ul>
-<p>基数排序</p>
-<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><h5 id="排序思想："><a href="#排序思想：" class="headerlink" title="排序思想："></a>排序思想：</h5><ul>
-<li><strong>相邻两元素进行比较，如有需要则进行交换，每完成一次循环就将最大元素排在最后（如从小到大排序），下一次循环是将其它的数进行类似操作。</strong></li>
-</ul>
+<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><h5 id="排序思想："><a href="#排序思想：" class="headerlink" title="排序思想："></a>排序思想：</h5><blockquote>
+<p>相邻两元素进行比较，如有需要则进行交换，每完成一次循环就将最大元素排在最后（如从小到大排序），下一次循环是将其它的数进行类似操作。</p>
+</blockquote>
 <hr>
 <h3 id="数组操作常见问题"><a href="#数组操作常见问题" class="headerlink" title="数组操作常见问题"></a>数组操作常见问题</h3><ul>
 <li>编译时，不报错！！<br><img data-sizes="auto" data-src="/images/java3/java35.PNG" alt="" class="lazyload"></li>
 </ul>
 <h5 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h5><p>使用简单数组<br>(1)创建一个名为TestArray的类，在main()方法中声明array1和array2两个变量，他们是int[]类型的数组。<br>(2)使用大括号{}，把array1初始化为8个素数：2,3,5,7,11,13,17,19。<br>(3)显示array1的内容。<br>(4)赋值array2变量等于array1，修改array2中的偶索引元素，使其等于索引值(如array[0]=0,array[2]=2)。打印出array1。</p>
-<h5 id="思考：array1和array2是什么关系？"><a href="#思考：array1和array2是什么关系？" class="headerlink" title="思考：array1和array2是什么关系？"></a>思考：array1和array2是什么关系？</h5><h5 id="拓展：修改题目，实现array2对array1数组的复制"><a href="#拓展：修改题目，实现array2对array1数组的复制" class="headerlink" title="拓展：修改题目，实现array2对array1数组的复制"></a>拓展：修改题目，实现array2对array1数组的复制</h5><h3 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h3><pre><code>public class Test3 {
+<h5 id="思考：array1和array2是什么关系？"><a href="#思考：array1和array2是什么关系？" class="headerlink" title="思考：array1和array2是什么关系？"></a>思考：array1和array2是什么关系？</h5><h5 id="拓展：修改题目，实现array2对array1数组的复制"><a href="#拓展：修改题目，实现array2对array1数组的复制" class="headerlink" title="拓展：修改题目，实现array2对array1数组的复制"></a>拓展：修改题目，实现array2对array1数组的复制</h5><h4 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h4><pre><code> $  public class Test3 {
      public static void main(String[] args){
     //连续输出5次hello world
     System.out.println(&quot;hello world&quot;);
@@ -737,7 +767,7 @@ System.out.println(a[3]);    //a[3]的默认值为0
     
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>非酋囧菌<br>
-    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/05/java3.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;java3.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;java3.html&#x2F;</a><br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/05/JavaDay2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;JavaDay2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;JavaDay2.html&#x2F;</a><br>
     
       <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
     
@@ -779,17 +809,13 @@ System.out.println(a[3]);    //a[3]的默认值为0
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1655399440317"></script>
+<script src="/js/app.js?v=1658073317750"></script>
   
 
 
 
 
 
-  <link rel="stylesheet" href="/dist/APlayer.min.css">
-<div id="aplayer"></div>
-<script type="text/javascript" src="/dist/APlayer.min.js"></script>
-<script type="text/javascript" src="/dist/music.js"></script>
 
 </body>
 
