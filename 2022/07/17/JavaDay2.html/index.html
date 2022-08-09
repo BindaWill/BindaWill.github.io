@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>Java基础Day2-Java基本语法1 - 火星环游日记</title>
+  <title>Java基础Day2-Java基本语法 - 火星环游日记</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -14,8 +14,8 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
   <meta name="description" content="主要介绍Java基本语法，供回顾使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java基础Day2-Java基本语法1">
-<meta property="og:url" content="http://yoursite.com/2020/02/03/JavaDay2.html/index.html">
+<meta property="og:title" content="Java基础Day2-Java基本语法">
+<meta property="og:url" content="http://yoursite.com/2022/07/17/JavaDay2.html/index.html">
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="主要介绍Java基本语法，供回顾使用。">
 <meta property="og:locale" content="zh_CN">
@@ -38,14 +38,14 @@
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java216.PNG">
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java217.PNG">
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java218.PNG">
-<meta property="article:published_time" content="2020-02-03T13:30:26.000Z">
-<meta property="article:modified_time" content="2022-07-17T15:47:00.810Z">
+<meta property="article:published_time" content="2022-07-17T13:30:26.000Z">
+<meta property="article:modified_time" content="2022-07-27T15:35:48.525Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1658073317757">
+  <link rel="stylesheet" href="/css/style.css?v=1660047884513">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
@@ -73,7 +73,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>49</div>
+        <div><span>文章</span>54</div>
         <div><span>标签</span>0</div>
         <div><span>分类</span>0</div>
     </div>
@@ -140,7 +140,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">47</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
     </div>
   </div>
 
@@ -169,15 +169,15 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
-          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day2-Java基本语法1" class="lazyload">
-          <h1>Java基础Day2-Java基本语法1</h1>
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day2-Java基本语法" class="lazyload">
+          <h1>Java基础Day2-Java基本语法</h1>
       </div>
   
   
   <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月03日</a>
-    <a><i class="nexmoefont icon-areachart"></i>5.3k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 24 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年07月17日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 16 分钟</a>
 </div>
 
   <div class="nexmoe-post-right">
@@ -458,415 +458,185 @@ s+=2;
 </ul>
 <hr>
 <h4 id="5-位运算符"><a href="#5-位运算符" class="headerlink" title="5.位运算符"></a>5.位运算符</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java216.PNG" alt="" class="lazyload"></p>
-<h5 id="注意：无-lt-lt-lt"><a href="#注意：无-lt-lt-lt" class="headerlink" title="注意：无&lt;&lt;&lt;"></a>注意：无&lt;&lt;&lt;</h5><blockquote>
+<blockquote>
+<p>有符号位移是看右移之后的首位是0还是1，是0前面空位补0，是1补1</p>
+</blockquote>
+<blockquote>
+<p>无符号位移，移动之后不管首位是0还是1，空位都是直接补0。</p>
+</blockquote>
+<ul>
+<li>注意：无&lt;&lt;&lt;</li>
+</ul>
+<blockquote>
+<p>&amp;运算，同类&amp;运算时，都是1结果为1，其他情况都是0</p>
+</blockquote>
+<blockquote>
+<p>|运算，同类|运算时，都是0结果为0，其他情况都是1</p>
+</blockquote>
+<blockquote>
+<p>^运算，同类^运算时，都是0或者都是1时结果为0，其他情况都是1</p>
+</blockquote>
+<blockquote>
+<p>~运算，就是把二进制的同位翻转，也就是1变0,0变1</p>
+</blockquote>
+<blockquote>
 <p>位运算是直接对二进制进行运算</p>
 </blockquote>
+<h5 id="位运算符的总结"><a href="#位运算符的总结" class="headerlink" title="位运算符的总结"></a>位运算符的总结</h5><table>
+<thead>
+<tr>
+<th></th>
+<th>位运算符的总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;&lt;</td>
+<td>空位补0，被移除的高位丢弃，空缺位补0。</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>被移位的二进制最高位是0，右移后，空缺位补0；最高位是1，空缺位补1。</td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>被移位的二进制最高位无论是0或是1，空缺位都补0。</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>二进制进行&amp;运算时，只有1&amp;1时结果是1，否则是0。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>^</td>
+<td>相同二进制进行^运算，结果是0；1^1=0,0^0=0；不同二进制^运算结果是1。1^0=1,0^1=1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>正数取反，各二进制码按补码各位取反； 负数取反，各二进制码按补码各位取反；</td>
+</tr>
+</tbody></table>
 <p><img data-sizes="auto" data-src="/images/JavaStudyData/java217.PNG" alt="" class="lazyload"></p>
 <hr>
-<h3 id="6-三元运算符"><a href="#6-三元运算符" class="headerlink" title="6.三元运算符"></a>6.三元运算符</h3><h4 id="格式"><a href="#格式" class="headerlink" title="格式:"></a>格式:</h4><pre><code>$ (条件表达式)? 表达式1：表达式2；</code></pre><ul>
+<h4 id="6-三元运算符"><a href="#6-三元运算符" class="headerlink" title="6.三元运算符"></a>6.三元运算符</h4><h5 id="格式"><a href="#格式" class="headerlink" title="格式:"></a>格式:</h5><pre><code>(条件表达式)? 表达式1：表达式2；</code></pre><ul>
 <li>为true，运算后的结果是表达式1；</li>
 <li>为false，运算后的结果是表达式2；</li>
 </ul>
-<h4 id="运算符的优先级"><a href="#运算符的优先级" class="headerlink" title="运算符的优先级"></a>运算符的优先级</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java218.PNG" alt="" class="lazyload"></p>
-<h2 id="2-5-程序流程控制"><a href="#2-5-程序流程控制" class="headerlink" title="2.5  程序流程控制"></a>2.5  程序流程控制</h2><h4 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h4><blockquote>
-<p>程序从上到下逐行地执行，中间没有任何判断和跳转。</p>
-</blockquote>
-<h4 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h4><blockquote>
-<p>根据条件，选择性地执行某段代码。</p>
-</blockquote>
-<ul>
-<li>有if…else和switch两种分支语句。</li>
-</ul>
-<h4 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h4><blockquote>
-<p>根据循环条件，重复性的执行某段代码。</p>
-</blockquote>
-<ul>
-<li>有while、do…while、for三种循环语句。</li>
-</ul>
-<p>注：JDK1.5之后提供了foreach循环，方便的遍历集合、数组元素。</p>
-<ul>
-<li>上一行运算符总优先于下一行。</li>
-</ul>
-<h3 id="顺序结构-1"><a href="#顺序结构-1" class="headerlink" title="顺序结构"></a>顺序结构</h3><ul>
-<li>Java中定义成员变量时采用合法的前向引用。如：<br>   $ public class Test{<pre><code>    int num1 = 12;
-    int num2 = num1 + 2;
-}</code></pre></li>
-</ul>
-<p>错误形式：<br>     $ public class Test{<br>        int num2 = num1 + 2；<br>        int num1 = 12;<br>      }</p>
-<h4 id="分支语句1：-if-else语句"><a href="#分支语句1：-if-else语句" class="headerlink" title="分支语句1： if-else语句"></a>分支语句1： if-else语句</h4><h4 id="if语句三种格式："><a href="#if语句三种格式：" class="headerlink" title="if语句三种格式："></a>if语句三种格式：</h4><p>1.</p>
-<pre><code>$ if(true){
-   执行代码块；
-  }</code></pre><p>2.</p>
-<pre><code>$ if(条件表达式){
-   执行代码块；
-  }
-  else{
-   执行代码块；
-  }</code></pre><p>3.</p>
-<pre><code>$ if(条件表达式){
-  执行代码块；
-      }
-      else if (条件表达式){
-  执行代码块；
-      }
-       ……
-       else{
-  执行代码块；
-       }</code></pre><p>if-else语句应用举例</p>
-<pre><code>$   public class TestAge{
-       public static void main(String args[]){
-     int age = 75;
-     if (age&lt; 0) {
-    System.out.println(&quot;不可能！&quot;);
-  } else if (age&gt;250) {
-       System.out.println(&quot;是个妖怪！&quot;);
-     } else {
- System.out.println(“人家芳龄 &quot; + age +&quot; ,马马乎乎啦！&quot;);
-      }
-    }
- }</code></pre><h4 id="分支结构2：switch语句"><a href="#分支结构2：switch语句" class="headerlink" title="分支结构2：switch语句"></a>分支结构2：switch语句</h4><pre><code>$ switch(变量){
-  case 常量1:
-  语句1;
-  break;
-  case 常量2:
-  语句2;
-  break;
-  … …
-  case 常量N:
-  语句N;
-  break;
-  default:
-  语句;
-  break;
-   }</code></pre><p>switch语句应用举例</p>
-<pre><code>$  public class Test{
-    public static void main(String args[]){
-       int i = 1;
-       switch (i) {
-     case 0:
-System.out.println(&quot;zero&quot;);
-       break;
-           case 1:
-   System.out.println(&quot;one&quot;);
-       break;
-          default:
-       System.out.println(&quot;default&quot;);
-       break;
-        }
-    }
- }</code></pre><p>switch语句应用举例</p>
-<pre><code>$  public class Test{
-      public static void main(String args[]){
-         String season = “summer”;
-       switch (season) {
-            case “spring”:
-     System.out.println(“春暖花开&quot;);
-          break;
-            case “summer”:
-     System.out.println(“夏日炎炎&quot;);
-          break;
-            case “autumn”:
-     System.out.println(“秋高气爽&quot;);
-          break;
-            case “winter”:
-    System.out.println(“冬雪皑皑&quot;);
-          break;
-                 default:
-     System.out.println(“季节输入有误&quot;);
-          break;
-               }}}</code></pre><h3 id="switch语句有关规则"><a href="#switch语句有关规则" class="headerlink" title="switch语句有关规则"></a>switch语句有关规则</h3><ul>
-<li><p>switch(表达式)中表达式的返回值必须是下述几种类型之一：byte，short，char，int，枚举，String；</p>
+<pre><code>int m=1;
+int n=2;
+System.out.println(m&gt;n ? m:n);
+//两个数输出较大的数
+
+int k=0;
+//(条件表达式)? 表达式1：表达式2；
+System.out.println(m &gt; n ? (m &gt; k ? m : k):(n &gt; k ? n : k));
+//判断三个数输出较大的数
+//表达式1(m &gt; k ? m : k)
+//表达式2(n &gt; k ? n : k)</code></pre><h5 id="运算符的优先级"><a href="#运算符的优先级" class="headerlink" title="运算符的优先级"></a>运算符的优先级</h5><p><img data-sizes="auto" data-src="/images/JavaStudyData/java218.PNG" alt="" class="lazyload"></p>
+<hr>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ul>
+<li><p>关键字：就是在java语言编程的时候，在关键的地方使用的单词，体现关键的地方的含义，这些单词都是特有的事先定义好的</p>
 </li>
-<li><p>case子句中的值必须是常量，且所有case子句中的值应是不同的；</p>
-</li>
-<li><p>default子句是可任选的，当没有匹配的case时，执行default</p>
-</li>
-<li><p>break语句用来在执行完一个case分支后使程序跳出switch语句块；如果没有break，程序会顺序执行到switch结尾</p>
+<li><p>保留字：可能在以后被用来作为关键字的单词，java已经把这些单词预定了，这些单词尽量就不要在编程中去随意使用</p>
 </li>
 </ul>
-<h4 id="switch和if语句的对比"><a href="#switch和if语句的对比" class="headerlink" title="switch和if语句的对比"></a>switch和if语句的对比</h4><h4 id="if和switch语句很像，具体什么场景下，应用哪个语句呢？"><a href="#if和switch语句很像，具体什么场景下，应用哪个语句呢？" class="headerlink" title="if和switch语句很像，具体什么场景下，应用哪个语句呢？"></a>if和switch语句很像，具体什么场景下，应用哪个语句呢？</h4><blockquote>
-<p>如果判断的具体数值不多，而且符合byte、 short 、int、 char这四种类型。虽然两个语句都可以使用，建议使用swtich语句。因为效率稍高。</p>
-</blockquote>
-<blockquote>
-<p>其他情况：对区间判断，对结果为boolean类型判断，使用if，if的使用范围更广。</p>
-</blockquote>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
-<p>关键字：就是在java语言编程的时候，在关键的地方使用的单词，体现关键的地方的含义，这些单词都是特有的事先定义好的</p>
-</blockquote>
-<blockquote>
-<p>保留字：可能在以后被用来作为关键字的单词，java已经把这些单词预定了，这些单词尽量就不要在编程中去随意使用</p>
-</blockquote>
-<pre><code>$ abc_1$</code></pre><blockquote>
-<p>标识符可以是Test1,不能是1Test</p>
-</blockquote>
+<pre><code>abc_1$</code></pre><ul>
+<li>标识符可以是Test1,不能是1Test<blockquote>
 <p>比如，类名不能直接使用class,可以是class1</p>
-<blockquote>
-<p>命名规范，是一套约定俗成的规则</p>
 </blockquote>
-<blockquote>
-<p>代数，未知数的概念</p>
-</blockquote>
-<p>设x=1，x+1=?</p>
-<blockquote>
-<p>java中变量的定义：数据类型 变量名 = 变量的值，例如：int i = 1</p>
-</blockquote>
-<pre><code>$ int i = 1
-  i = 2</code></pre><ul>
-<li>注意：声明变量过程中的这个=，不是数学意义上的=，在java编程中代表赋值（赋予变量值）</li>
+</li>
 </ul>
+<ul>
+<li>命名规范，是一套约定俗成的规则</li>
+</ul>
+<ul>
+<li><p>代数，未知数的概念</p>
 <blockquote>
-<p>变量的类型：声明的变量的数据类型就是变量的类型</p>
+<p>设x=1，x+1=?</p>
 </blockquote>
+</li>
+<li><p>java中变量的定义：数据类型 变量名 = 变量的值，</p>
 <blockquote>
-<p>在java中，数据类型分为基本数据类型和引用数据类型，其中基本数据类型有8中，除了这8中之外其他所有的数据类型都是引用数据类型</p>
+<p>例如：int i = 1</p>
 </blockquote>
-<blockquote>
-<p>byte的范围-128到127之间，声明byte类型变量的时候赋值不能超过这个范围，给byte类型变量赋值时不能超过这个范围</p>
-</blockquote>
-<pre><code>$ byte b = 130，这个就是超出范围了是错误的
-  byte b = 126</code></pre><p>bit是什么单位？</p>
+</li>
+<li><p>注意：声明变量过程中的这个=，不是数学意义上的=，在java编程中代表赋值（赋予变量值）</p>
+</li>
+<li><p>变量的类型：声明的变量的数据类型就是变量的类型</p>
+</li>
+<li><p>在java中，数据类型分为基本数据类型和引用数据类型，其中基本数据类型有8中，除了这8中之外其他所有的数据类型都是引用数据类型</p>
+</li>
+<li><p>byte的范围-128到127之间，声明byte类型变量的时候赋值不能超过这个范围，给byte类型变量赋值时不能超过这个范围</p>
+</li>
+</ul>
+<pre><code>byte b = 130，这个就是超出范围了是错误的
+byte b = 126</code></pre><ul>
+<li><p>bit是什么单位？</p>
 <blockquote>
 <p>0100110，这个就7bit</p>
 </blockquote>
-<pre><code>$ byte b = 126
-  int i = 1
-  short s = 1
-  long l = 3l</code></pre><blockquote>
+<pre><code>byte b = 126
+int i = 1
+short s = 1
+long l = 3l</code></pre><blockquote>
 <p>这个long类型变量赋值时要在值的后面跟上一个字母l</p>
 </blockquote>
-<pre><code>$ double d = 1.22
-  float f = 1.22f</code></pre><blockquote>
+<pre><code>double d = 1.22
+float f = 1.22f</code></pre><blockquote>
 <p>float类型变量赋值时值后面跟上字母f</p>
 </blockquote>
+</li>
+<li><p>字符：用英文的单引号括起来的单个的字母、数字、符号</p>
+</li>
+</ul>
 <blockquote>
-<p>字符：用英文的单引号括起来的单个的字母、数字、符号</p>
-</blockquote>
 <p>比如：</p>
-<pre><code>$ char c1 = &apos;a&apos;
-   char c2 = &apos;1&apos;
-   char c3 = &apos;%&apos;
-   char c4 = &apos;\n&apos;
-   char c5 = &apos;\&apos;&apos;
-   boolean b2 = false</code></pre><blockquote>
-<p> byte short int long float double char boolean,8种基本数据类型</p>
 </blockquote>
+<pre><code>char c1 = &apos;a&apos;
+char c2 = &apos;1&apos;
+char c3 = &apos;%&apos;
+char c4 = &apos;\n&apos;
+char c5 = &apos;\&apos;&apos;
+boolean b2 = false</code></pre><ul>
+<li><p>byte short int long float double char boolean,8种基本数据类型</p>
+</li>
+<li><p>字符串？就是由0到多个字母数字符号共同组成的一个串，这个串要用英文的双引号括起来</p>
+<pre><code>String str = &quot;hello world&quot;;
+System.out.println(str);</code></pre></li>
+<li><p>引用类型，都可以用null作为值，也就是说可以在初始化的时候赋值为null</p>
 <blockquote>
-<p>字符串？就是由0到多个字母数字符号共同组成的一个串，这个串要用英文的双引号括起来</p>
+<p>String是引用类型，也就是说可以使用null作为值</p>
 </blockquote>
-<pre><code>$ String str = &quot;hello world&quot;;
-  System.out.println(str);</code></pre><blockquote>
-<p>引用类型，都可以用null作为值，也就是说可以在初始化的时候赋值为null<br>String是引用类型，也就是说可以使用null作为值</p>
-</blockquote>
-<pre><code>$ int i0 = 1
-  int i1 = 1</code></pre><p>以上这种会在内存中存储2个1的值</p>
-<pre><code>$ String s0 = &quot;hello&quot;
-  String s1 = &quot;hello&quot;</code></pre><ul>
+</li>
+</ul>
+<pre><code>int i0 = 1
+int i1 = 1</code></pre><ul>
+<li>以上这种会在内存中存储2个1的值</li>
+</ul>
+<pre><code>String s0 = &quot;hello&quot;
+String s1 = &quot;hello&quot;</code></pre><ul>
 <li><p>这种的，不会在内存中存在两个”hello”，只存在1一个”hello”</p>
 </li>
 <li><p>假设”hello”的内存地址xxxxx,声明s0变量时给s0赋值”hello”实际上让s0变量引用”hello”的内存地址xxxxx；当我们再声明变量s1也赋值”hello”的时候实际上也是直接把已经存在的”hello”的内存地址给s1引用</p>
 </li>
+<li><p>ASCII码：上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为ASCII码。ASCII码一共规定了128个字符的编码，比如空格“SPACE”是32（二进制00100000），大写的字母A是65（二进制01000001）。</p>
+</li>
 </ul>
-<blockquote>
-<p>ASCII码：上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为ASCII码。ASCII码一共规定了128个字符的编码，比如空格“SPACE”是32（二进制00100000），大写的字母A是65（二进制01000001）。</p>
-</blockquote>
-<pre><code>$ String s3 = &quot;he&quot; + &quot;ll&quot; + &quot;o&quot;;</code></pre><p>创建一个java文件，用文本编辑器打开，写代码，打开dos界面，javac编译，java运行</p>
-<blockquote>
-<p>集成开发环境就是为了解决刚才咱们所说的问题，里面包含文本编辑工作，自动编译，简化运行，随时进行代码的调试</p>
-</blockquote>
-<h4 id="数字类型的运算规则："><a href="#数字类型的运算规则：" class="headerlink" title="数字类型的运算规则："></a>数字类型的运算规则：</h4><blockquote>
-<p> 1、有多种类型的数据混合运算时，系统首先自动将所有数据转换成容量最大的那种数据类型，然后再进行计算。数字类型的从小到大分别是byte、short、int、long、float、double。<br>2、数字类型的运算中，多个相同类型变量参与的运算，变量要先转换为相对应的数据类型的默认类型（比如两个byte类型的变量相加，会先把两个byte类型的变量转换成默认的int类型之后再计算，得到的结果是int类型）。这种情况适用于变量的数据类型的容量比默认类型的容量小，（比如byte，short，都比int小）<br>3、byte,short,char之间不会相互转换，他们三者在计算时首先转换为int类型。</p>
-</blockquote>
-<hr>
-<h4 id="相关代码："><a href="#相关代码：" class="headerlink" title="相关代码："></a>相关代码：</h4><pre><code>        $    public class Test1{
-                public static void main(String[] args){
-                //System.out.print(&quot;sss\n&quot;);
-                 //System.out.println(&quot;sss&quot;);
+<h4 id="数字类型的运算规则："><a href="#数字类型的运算规则：" class="headerlink" title="数字类型的运算规则："></a>数字类型的运算规则：</h4><ol>
+<li>有多种类型的数据混合运算时，系统首先自动将所有数据转换成容量最大的那种数据类型，然后再进行计算。数字类型的从小到大分别是byte、short、int、long、float、double。</li>
+<li>数字类型的运算中，多个相同类型变量参与的运算，变量要先转换为相对应的数据类型的默认类型（比如两个byte类型的变量相加，会先把两个byte类型的变量转换成默认的int类型之后再计算，得到的结果是int类型）。这种情况适用于变量的数据类型的容量比默认类型的容量小，（比如byte，short，都比int小）</li>
+<li>byte,short,char之间不会相互转换，他们三者在计算时首先转换为int类型。</li>
+</ol>
 
-                    byte b = 1;
-                      System.out.println(b);
-
-                           short s = 2;
-                              System.out.println(s);
-
-                           int i = 4;
-                         System.out.println(i);
-
-                          long l = 79l;
-                     System.out.println(l);
-
-                    float f = 1.23f;
-                              System.out.println(f);
-
-                        double d = 1.56;
-                    System.out.println(d);
-
-                       char c = &apos;a&apos;;
-                        System.out.println(c);
-
-                      boolean b1 = false;
-                                  System.out.println(b1);
-
-                       String str = &quot;hello&quot; + &quot; world&quot;;
-                  System.out.println(str);
-                             }
-                      }
-
-
-
-        $   public class Test {
-              public static void main(String[] args){
-                //System.out.println(&quot;hello world!!!!&quot;);
-//        int i = 0;//声明并初始化变量
-//        i = 1;
-//        int k = 10;
-//        i = k;
-
-//        short s = 9;
-//        short s0 = 11;
-//        s0 = s;
-//        
- //        byte b = 1;
-//        int m = b;
-
- //        int i = 0;
-//        byte b = i;//这种的异常叫做编译期异常，在javac的时候可以发现
-//
-//        int i = 1;
-//        short s = 2;
-//        byte b = 3;
-//        
-//        int res = i + s + b;//问题，最后得到的数字6是一个声明类型的呢？在计算过程中i、s、b这3个变量会做数据类型的转化吗？
-//        //在计算过程中，整数类型是int的范围最大，所以s和b都分别先转换成int类型然后进行加的运算，最终的结果是int的数据
-//        
-//        char c = &apos;a&apos;;//char类型的数据在与数字进行数学运算的时候，它是转换为相对应的ASCII码的值然后再进行的计算
-//        
-//        byte b0 = 2;
-//        
-//        int k = c + b0;
-//        System.out.println(k);
-
-//        String str = &quot;abc&quot;;
-//        
-//        int i = 1;
-//        
-//        String str0 = &quot;&quot; + 1 + 2 + 3;
-//        //当把任何基本类型的值和字符串值进行连接运算时(+)，基本类型的值将自动转化为字符串类型。
-//        System.out.println(str0);
-//        System.out.println(3 + 4 + &quot;hello&quot;);
-//        
-//        //注意：当有一些列的+的运算的时候，如果某个部分其中含有字符串，那么这个字符串前边挨着的+开始一直往后都是要按照
-//        //字符串拼接去看
-//        
-//        String str1 = 1 + 3 + 5 + &quot;a&quot; + 2 + 6;//9a26
-//        System.out.println(str1);
-
-//        byte b = 9;
-//        int i = b;
-//        //以上这两行属于正常隐式转换数据类型，自动的
-//        
-//        
-//        int k = 7;
-//        
-//        byte b0 = (byte)k;//这个就是强制转换数据类型,转换的数据类型要用英文的小括号括起来
-//        
-//        
-//        int i0 = -3;
-//        
-//        System.out.println(-i0);
-//        
-//        System.out.println(1 + 2);
-//        //当整数除以整数的时候，会把结果的小数部分舍弃，只保留整数部分
-//        System.out.println(7.0 / 2);
-//        
-//        System.out.println(7 % 5);
-
-//        int i = 0;
-//        
-//        i++;
-//        ++i;
-//        int k = i++;
-//        int k = ++i;
-//        //++和--分别是加1和减1的运算，++或者--符号在变量之前，先对变量进行运算然后再取变量的值；
-//        //如果++或者--符号在变量之后，就先取变量的值，再对变量进行运算
-//        System.out.println(k);
-//        System.out.println(i);
-
-//        String str = &quot;h&quot; + &quot;e&quot; + &quot;llo&quot;;//字符串的加号是字符串拼接
-//        System.out.println(str);
-
-//        System.out.println(-5 % 2);
-//        
-//        System.out.println(&quot;5+5=&quot;+5+5);
-//        
-//        //char类型数据是可以做数学运算的，在做数学运算的时候把字符转化为ASCII码进行计算
-//        System.out.println(&apos;*&apos; + &apos;\t&apos; +&apos;*&apos;);
-//
-//        //字符串与其他数据类型相加时，实际上是把其他的数据转换为字符串，做字符串的拼接
-//        System.out.println(&quot;*&quot; + &apos;\t&apos; +&apos;*&apos;);
-
-//        int i = 1;
-//        short s = 2;
-//        
-//        i = s;//自动类型转换
-//        s = (short)i;//强制类型转换
-//        
-//        int i0 = 0;
-//        int i1 = 0;
-        //        int i2 = 0;
-//        
-////        i0 = 1;
-////        i1 = 1;
-////        i2 = 1;
-                        //        
-                //        i0 = i1 = i2 = 1;//=可以联系赋值
-
-//        System.out.println(i0 + &quot;,&quot; + i1 + &quot;,&quot; + i2);
-
-//        int i = 1;
-
-////        i = i + 2;
-//        
-//        i += 2;
-//        
-//        i -= 2;
-//        
-//        System.out.println(i);
-//        
-//        String str = &quot;he&quot;;
-//        
-//        str += &quot;llo&quot;;//字符串的+=是字符串的拼接
-//        
-//        System.out.println(str);
-//        
-//        short s = 2;
-//        
-//        s = (short)(s + 3);//变量参与运算时候，java程序不知道具体的这个变量在做完运算后会不会查重当前变量的范围，
-//                  //所有会先把变量转换为一个更大长度,这这个例子中，short是一个短整形数据，会转化为默认的int
-//        
-//        s += 3;//在使用扩展赋值运算符时，变量在参与运算时会把结果自动强制转换为当前变量的类型
-//        
-//        int  i = 1;
-//        
-//        i *= 0.1;
-////        i = (int) (i * 0.1);
-//        System.out.println(i);
-//        
-//        i++;
-//        System.out.println(i);//
-
-//        System.out.println(4 == 5);
-                //        System.out.println(4 != 5);
-System.out.println(2 == 2 ? (3 == 3 ? 3 : 4) : &quot;1&quot;);
-
-            }
-}</code></pre>
   </article>
 
   
     
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>非酋囧菌<br>
-    <strong>本文链接：</strong><a href="http://yoursite.com/2020/02/03/JavaDay2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;JavaDay2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;JavaDay2.html&#x2F;</a><br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/07/17/JavaDay2.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;17&#x2F;JavaDay2.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;17&#x2F;JavaDay2.html&#x2F;</a><br>
     
       <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
     
@@ -908,7 +678,7 @@ System.out.println(2 == 2 ? (3 == 3 ? 3 : 4) : &quot;1&quot;);
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1658073317759"></script>
+<script src="/js/app.js?v=1660047884514"></script>
   
 
 

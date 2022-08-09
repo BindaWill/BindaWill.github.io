@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day6-面向对象编程 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day6-面向对象编程">
+<meta property="og:url" content="http://yoursite.com/2022/07/25/JavaDay6.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java601.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java602.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java603.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java46.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java47.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java43.PNG">
+<meta property="article:published_time" content="2022-07-25T13:20:17.000Z">
+<meta property="article:modified_time" content="2022-07-27T15:34:54.576Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660047884507">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>54</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day6-面向对象编程" class="lazyload">
+          <h1>Java基础Day6-面向对象编程</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年07月25日</a>
+    <a><i class="nexmoefont icon-areachart"></i>5.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 24 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="可变个数形参"><a href="#可变个数形参" class="headerlink" title="可变个数形参"></a>可变个数形参</h3><h4 id="体会可变个数的形参"><a href="#体会可变个数的形参" class="headerlink" title="体会可变个数的形参"></a>体会可变个数的形参</h4><pre><code>//下面采用数组形参来定义方法
+public static void test(int a ,String[] books);
+//以可变个数形参来定义方法
+public static void test(int a ,String…books);</code></pre><h4 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h4><ul>
+<li>1.可变参数：方法参数部分指定类-型的参数个数是可变多个</li>
+<li>2.声明方式：方法名（参数的类型名…参数名）</li>
+<li>3.可变参数方法的使用与方法参数部分使用数组是一致的</li>
+<li>4.方法的参数部分有可变形参，需要放在形参声明的最后</li>
+</ul>
+<p>实例：</p>
+<pre><code>/**
+* @description:
+* @author: MingWill
+* @date: 2022/07/24
+**/
+public class Person3 {
+/**
+ * 用数组的方式来传递可变个数的参数
+ * 如果没有参数，就要定义一个空数组或是null
+ * @param args
+ */
+  public void printInfo(String[]args) {
+  //问题：我们能够打印的信息都有来源于方法的参数也就是形参的传递
+  //我现在可能给方法要传递的不同的参数？如法在这种情况下，我们不知道想要给方法传递多少个参数（姓名、性别、年龄、也可能是身份证号，家庭住址等等）
+      for (int i = 0; i &lt; args.length; i++) {
+          System.out.println(args[i]);
+      }
+  }
+
+ /**
+ * 用Java特有的...方式来传递可变个数的参数，这种参数在使用时与数组的使用方式相同
+ * 如果没有参数，可以不填
+ * 这种...代表可以传递0到多个参数
+ * 如果一个方法有多个形参，可变参数（...这种参数）一定要放在所以的参数最后
+ * printInfo1(String s,int d,String... args)这样的放置方式是对的
+ * printInfo1(String s,String... args,int d)这样的放置方式是不对的
+ * printInfo1(String... args,String s,int d)这样的放置方式是不对的
+ * @param args
+ */
+public void printInfo1(String... args) {
+    for (int i = 0; i &lt; args.length; i++) {
+        System.out.println(args[i]);
+    }
+}
+}
+
+
+
+/**
+ * @description:
+ * @author: MingWill
+ * @date: 2022/07/24
+ **/
+public class Test5 {
+    public static void main(String[] args) {
+         Person3 p3 = new Person3();
+         String[] ss =new String[]{&quot;张三&quot;,&quot;11&quot;};
+         p3.printInfo(ss);
+         String[] ss1 = new String[]{&quot;北京市xxx&quot;,&quot;13112341234&quot;,&quot;123456789987654321&quot;};
+         p3.printInfo(ss1);
+
+         p3.printInfo1(&quot;李四&quot;,&quot;23&quot;,&quot;男&quot;);
+         //第一种方法
+
+         String[] ss2 = new String[]{&quot;北京市xxx&quot;,&quot;13112341234&quot;,&quot;123456789987654321&quot;};
+         p3.printInfo1(ss2);
+         p3.printInfo1();//如果没有参数，可以不填
+         //第二种方法
+    }
+}</code></pre><p>例子：</p>
+<pre><code> public void  test(String[] msg){
+       System.out.println(“含字符串数组参数的test方法 &quot;);
+ }
+ public void test1(String book){
+       System.out.println(“****与可变形参方法构成重载的test1方法****&quot;);
+ }
+ public void test1(String ... books){
+       System.out.println(&quot;****形参长度可变的test1方法****&quot;);
+  }
+public static void main(String[] args){
+      TestOverload to = new TestOverload();
+      //下面两次调用将执行第二个test方法
+      to.test1();
+    to.test1(&quot;aa&quot; , &quot;bb&quot;);
+      //下面将执行第一个test方法
+    to.test(new String[]{&quot;aa&quot;});
+  }</code></pre><hr>
+<h3 id="方法的参数传递"><a href="#方法的参数传递" class="headerlink" title="方法的参数传递"></a>方法的参数传递</h3><blockquote>
+<p>方法，必须有其所在类或对象调用才有意义。若方法含有参数：</p>
+</blockquote>
+<ul>
+<li><p>形参：方法声明时的参数</p>
+</li>
+<li><p>实参：方法调用时实际传给形参的参数值</p>
+</li>
+<li><p>Java的实参值如何传入方法呢？</p>
+</li>
+</ul>
+<blockquote>
+<p>Java里方法的参数传递方式只有一种：值传递。  即将实际参数值的副本（复制品）传入方法内，</p>
+</blockquote>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java601.PNG" alt="" class="lazyload"></p>
+<blockquote>
+<p>基本数据类型，值保存在栈中</p>
+</blockquote>
+<blockquote>
+<p>引用对象，值保存在堆中，栈中存的是对象在栈中的地址</p>
+</blockquote>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java602.jpg" alt="" class="lazyload"></p>
+<ul>
+<li>先执行的int a = 0,在栈中开辟了一块内存，地址就是AD8500，存的值是0</li>
+<li>调用swap方法，执行int i 部分，在栈中开辟一块内存，地址是AD8600，值就是从a那里复制过来的值，就是0，执行swap的方法体里面的代码， i=6,把i在栈中的值改成6，最终i在栈中的值就是6</li>
+<li>总之，基本数据类型在参数传递过程中，就是把实参的值复制到形参上</li>
+</ul>
+<p>例子：</p>
+<pre><code>public class TestTransfer {
+     public static void swap(int a , int b){
+          int tmp = a;
+          a = b;
+          b = tmp;
+          System.out.println(&quot;swap方法里，a的值是&quot;+ a + &quot;；b的值是&quot; +b);
+     }
+
+  public static void main(String[] args) {
+          int a = 6;
+          int b = 9;
+          swap(a , b);
+          System.out.println(&quot;交换结束后，变量a的值是&quot;+ a + &quot;；变量b的值是&quot; + b);
+}
+}</code></pre><p><img data-sizes="auto" data-src="/images/JavaStudyData/java603.jpg" alt="" class="lazyload"></p>
+<ul>
+<li><ol>
+<li>DataSwap ds = new DataSwap(),把new DataSwap()存到了堆内存中，地址BE2500</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>ds引用对象存到栈中，地址是AD9500，值是new DataSwap()对象在堆中的地址BE2500</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>调用swsp方法，给ds1引用对象保存到栈中，地址是AD9600，存的值是来源于实参（ds），也就是ds的栈中存的值，这个值实际上就是之前new DataSwap()对象正在堆内存中的地址</li>
+</ol>
+</li>
+<li>到第三步的时候，实际上，ds，ds1其实都是指向同一个对象，这个对象就是在堆内存中地址是BE2500上保存的对象</li>
+<li>这个例子中，最后的结果是ds和ds1操作实际上是同一个对象</li>
+</ul>
+<p>例子：</p>
+<pre><code>class DataSwap{
+      public int a;
+      public int b;
+}
+public class TestTransfer1 {
+      public static void swap(DataSwap ds){
+           int tmp = ds.a;
+          ds.a = ds.b;
+          ds.b = tmp;
+          System.out.println(&quot;swap方法里，a Field的值是&quot;+ ds.a + &quot;；b Field的值是&quot; + ds.b);
+      }
+  public static void main(String[] args) {
+          DataSwap ds = new DataSwap();
+          ds.a = 6;
+          ds.b = 9;
+           swap(ds);
+          System.out.println(&quot;交换结束后，a Field的值是&quot;    + ds.a + &quot;；b Field的值是&quot; + ds.b);
+     }
+}</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>方法的参数传递</p>
+<ol>
+<li>如果方法的形参是基本数据类型，那么实参(实际的数据)向形参传递参数时，就是直接传递值，把实参的值复制给形参。</li>
+<li>如果方法的形参是对象，那么实参(实际的对象)，向形参传递参数的时，也是把值给形参，这个值是实参在栈内存中的值，也就是引用对象在堆内存中的地址<br>基本数据类型都是保存在栈内存中，引用对象在栈内存中保存的是引用对象的地址，那么方法的参数传递是传递值(是变量在栈内存的当中的值)</li>
+</ol>
+<hr>
+<h3 id="关键字—package"><a href="#关键字—package" class="headerlink" title="关键字—package"></a>关键字—package</h3><p>源文件布局：<br><img data-sizes="auto" data-src="/images/JavaStudyData/java46.PNG" alt="" class="lazyload"></p>
+<h4 id="软件包："><a href="#软件包：" class="headerlink" title="软件包："></a>软件包：</h4><ul>
+<li>包帮助管理大型软件系统：将语义近似的类组织到包中；解决类命名冲突的问题。</li>
+<li>包可以包含类和子包。</li>
+<li>例：某航运软件系统包括：一组域对象、GUI和reports子系统<br><img data-sizes="auto" data-src="/images/JavaStudyData/java47.PNG" alt="" class="lazyload"></li>
+</ul>
+<h4 id="关键字—package-1"><a href="#关键字—package-1" class="headerlink" title="关键字—package"></a>关键字—package</h4><ul>
+<li>package语句作为Java源文件的第一条语句，指明该文件中定义的类所在的包。(若缺省该语句，则指定为无名包)。</li>
+</ul>
+<p>它的格式为：  </p>
+<pre><code>package 顶层包名.子包名 ;</code></pre><p>举例：</p>
+<pre><code>pack\Test.java
+      package p1;    //指定类Test属于包p1
+      public class Test{
+          public void display(){
+               System.out.println(&quot;in  method display()&quot;);
+          }
+        }</code></pre><blockquote>
+<p>java中的包package等同于文件夹概念，包和文件夹一样可以有多级，也就是包下可以有包和文件。多级的包使用.分隔，例如com包下的cn包下的test包，写法就是com.cn.test</p>
+</blockquote>
+<ul>
+<li>包对应于文件系统的目录，package语句中，用 “.” 来指明包(目录)的层次；</li>
+<li>包通常用小写单词，类名首字母通常大写。</li>
+</ul>
+<h4 id="关键字—import"><a href="#关键字—import" class="headerlink" title="关键字—import"></a>关键字—import</h4><ul>
+<li><p>为使用定义在不同包中的Java类，需用import语句来引入指定包层次下所需要的类或全部类(.*)。import语句告诉编译器到哪里去寻找类。</p>
+</li>
+<li><p>语法格式：</p>
+<pre><code>import  包名[.子包名…]. &lt;类名 |*&gt;</code></pre></li>
+<li><p>应用举例：</p>
+</li>
+</ul>
+<pre><code>import  p1.Test;   //import p1.*;表示引入p1包中的所有类
+public class TestPackage{
+        public static void main(String args[]){
+              Test t = new Test();          //Test类在p1包中定义
+              t.display();
+        }
+}</code></pre><h4 id="import语句"><a href="#import语句" class="headerlink" title="import语句"></a>import语句</h4><ul>
+<li><p>注意：</p>
+<ul>
+<li>若引入的包为：java.lang，则编译器默认可获取此包下的类，不需要再显示声明。</li>
+<li>import语句出现在package语句之后、类定义之前</li>
+<li>一个源文件中可包含多个import语句</li>
+<li>可以使用import lee.* ;语句，表明导入lee包下的所有类。而lee包下sub子包内的类则不会被导入。import lee.sub.*;</li>
+<li>import语句不是必需的，可坚持在类里使用其它类的全名</li>
+<li>JDK 1.5加入import static语句</li>
+</ul>
+</li>
+</ul>
+<h4 id="JDK中主要的包介绍"><a href="#JDK中主要的包介绍" class="headerlink" title="JDK中主要的包介绍"></a>JDK中主要的包介绍</h4><ol>
+<li><p>java.lang—-包含一些Java语言的核心类，如String、Math、Integer、System和Thread，提供常用功能。</p>
+</li>
+<li><p>java.net—-包含执行与网络相关的操作的类和接口。</p>
+</li>
+<li><p>java.io   —-包含能提供多种输入/输出功能的类。</p>
+</li>
+<li><p>java.util—-包含一些实用工具类，如定义系统特性、接口的集合框架类、使用与日期日历相关的函数。</p>
+</li>
+<li><p>java.text—-包含了一些java格式化相关的类</p>
+</li>
+<li><p>java.sql—-包含了java进行JDBC数据库编程的相关类/接口</p>
+</li>
+<li><p>java.awt—-包含了构成抽象窗口工具集（abstract window toolkits）的多个类，这些类被用来构建和管理应用程序的图形用户界面(GUI)。</p>
+</li>
+<li><p>java.applet—-包含applet运行所需的一些类。</p>
+</li>
+</ol>
+<hr>
+<h3 id="3-7面向对象特征之一：封装和隐藏"><a href="#3-7面向对象特征之一：封装和隐藏" class="headerlink" title="3.7面向对象特征之一：封装和隐藏"></a>3.7面向对象特征之一：封装和隐藏</h3><blockquote>
+<p>使用者对类内部定义的属性(对象的成员变量)的直接操作会导致数据的错误、混乱或安全性问题。</p>
+</blockquote>
+<pre><code>public class Animal {
+     public int legs;        
+     public void  eat(){
+            System.out.println(“Eating.”);
+     }
+     public void move(){
+            System.out.println(“Moving.”);
+   }
+  }
+
+public class Zoo{
+    public static void main(String args[]){
+           Animal xb=new Animal();
+           xb.legs=4;
+           System.out.println(xb.legs);
+         xb.eat();xb.move();
+}  }</code></pre><ul>
+<li>应该将legs属性保护起来，防止乱用。</li>
+<li>保护的方式：信息隐藏</li>
+</ul>
+<p>问题：xb.legs = -1000;</p>
+<pre><code>package day6;
+
+public class Person{
+  // public int age; //像这种情况，是把类的属性开放出来，让调用者随意使用，这样会有问题
+
+  //我们需对这样不能让那个调用者随意使用的属性进行封装和隐藏
+
+  private int age;
+
+  public void printAge(){
+    System.out.println(&quot;年龄是&quot;:+age);
+  }
+
+  public int getAge(){
+    return age;
+  }
+
+  public void setAge(int a){
+    if(a&lt;= 150 &amp;&amp; a&gt;=0){
+      age =a;
+    }else{
+      System.out.println(&quot;输入的年龄：&quot; +a+&quot;不在0到100之间&quot;);
+    }
+  }
+}
+
+package day6;
+import day06.Person; //如果使用同一个包下的类。import可以省略
+public class Test{
+  public static void main(String[]args){
+     Person p = new Person();
+//    p.age = -100; // 这种情况，程序是对的，能执行，但是不符合正常逻辑
+     //这种情况，是吧类的属性开放出来，让调用者随意使用，这样会有问题
+     p.setAge(12);
+     p.printAge();
+  }</code></pre><ul>
+<li>先把属性设置声明私有的，用private关键字</li>
+<li>通过编写public类型的setXxx()和getXx()方法来设置属性和获取属性,比如对age去写get和set方法，那么方法名就是getAge和setAge</li>
+</ul>
+<h4 id="信息的封装和隐藏"><a href="#信息的封装和隐藏" class="headerlink" title="信息的封装和隐藏"></a>信息的封装和隐藏</h4><blockquote>
+<p>ava中通过将数据声明为私有的(private)，再提供公共的（public）方法:getXxx()和setXxx()实现对该属性的操作，以实现下述目的：</p>
+</blockquote>
+<ul>
+<li>隐藏一个类中不需要对外提供的实现细节；</li>
+<li>使用者只能通过事先定制好的方法来访问数据，可以方便地加入控制逻辑，限制对属性的不合理操作；</li>
+<li>便于修改，增强代码的可维护性；</li>
+</ul>
+<pre><code>public class Animal{
+  private int legs;//将属性legs定义为private，只能被Animal类内部访问
+  public void setLegs(int i){  //在这里定义方法 eat() 和 move()
+        if (i != 0 &amp;&amp; i != 2 &amp;&amp; i != 4){
+             System.out.println(&quot;Wrong number of legs!&quot;);
+             return;
+        }
+        legs=i;
+   }
+ public int getLegs(){
+        return legs;
+  }  }
+
+
+public class Zoo{
+  public static void main(String args[]){
+      Animal xb=new Animal();
+      xb.setLegs(4);      //xb.setLegs(-1000);       
+  xb.legs=-1000;      //非法
+      System.out.println(xb.getLegs());
+}  }</code></pre><h4 id="四种访问权限修饰符"><a href="#四种访问权限修饰符" class="headerlink" title="四种访问权限修饰符"></a>四种访问权限修饰符</h4><blockquote>
+<p>Java权限修饰符public、protected、private置于类的成员定义前，用来限定对象对该类成员的访问权限。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>类内部</th>
+<th>同一个包</th>
+<th>子类</th>
+<th>任何地方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>private</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>（缺省）</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>protected</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>public</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>对于class的权限修饰只可以用public和default(缺省)。</p>
+</blockquote>
+<ul>
+<li>public类可以在任意地方被访问。</li>
+<li>default类只可以被同一个包内部的类访问。</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java43.PNG" alt="" class="lazyload"></p>
+<ul>
+<li>在同一个Java文件中可以写多个的class，但是只有一个public，其他的class只能缺省的</li>
+</ul>
+<hr>
+<h3 id="3-8-类的成员之三：构造器-构造方法"><a href="#3-8-类的成员之三：构造器-构造方法" class="headerlink" title="3.8  类的成员之三：构造器(构造方法)"></a>3.8  类的成员之三：构造器(构造方法)</h3><h5 id="构造器的特征"><a href="#构造器的特征" class="headerlink" title="构造器的特征"></a>构造器的特征</h5><blockquote>
+<p>它具有与类相同的名称</p>
+</blockquote>
+<blockquote>
+<p>它不声明返回值类型。（与声明为void不同）</p>
+</blockquote>
+<blockquote>
+<p>不能被static、final、synchronized、abstract、native修饰，不能有return语句返回值</p>
+</blockquote>
+<h5 id="构造器的作用：创建对象；给对象进行初始化"><a href="#构造器的作用：创建对象；给对象进行初始化" class="headerlink" title="构造器的作用：创建对象；给对象进行初始化"></a>构造器的作用：创建对象；给对象进行初始化</h5><p>如：</p>
+<pre><code>Order o = new Order(); //new Order对象调用的是public Order(){}
+Person p = new Person(Peter,15);</code></pre><ul>
+<li>默认的构造方法签名有没有访问修饰符跟定义的类有关，类是public的，默认构造方法就是public的;默认的类是缺省的，它们的构造方法就是缺省的.</li>
+<li>如同我们规定每个“人”一出生就必须先洗澡，我们就可以在“人”的构造方法中加入完成“洗澡”的程序代码，于是每个“人”一出生就会自动完成“洗澡”，程序就不必再在每个人刚出生时一个一个地告诉他们要“洗澡”了。</li>
+</ul>
+<h4 id="构造器格式"><a href="#构造器格式" class="headerlink" title="构造器格式"></a>构造器格式</h4><p>语法格式：</p>
+<pre><code>修饰符  类名 (参数列表) {
+      初始化语句；
+}</code></pre><p>举 例：</p>
+<pre><code>$ public class Animal {
+  private int legs;
+  public Animal()  {legs = 4; }       //构造器
+  public void setLegs(int i) { legs = i; }
+  public int     getLegs(){return legs;}
+  }
+   创建Animal类的实例 ：Animal  a=new Animal();    
+   /调用构造器，将legs初始化为4。</code></pre><h4 id="构造器分类"><a href="#构造器分类" class="headerlink" title="构造器分类"></a>构造器分类</h4><p>根据参数不同，构造器可以分为如下两类：</p>
+<ul>
+<li>隐式无参构造器（系统默认提供）</li>
+<li>显式定义一个或多个构造器（无参、有参）</li>
+</ul>
+<pre><code>package day06;
+
+/**
+ * @description:
+  * @author: MingWill
+  * @date: 2022/07/26
+  **/
+ public class Person5 {
+     /**
+      * 如果显式的定义了构造方法，那么就会使用显式的构造
+      */
+ //    public Person5(){
+ //        age = 1;
+ //        name = &quot;张三&quot;;
+ //    }
+
+       public Person5(int a,String n){
+           age = a;
+      name = n;
+       }
+
+     public int age;
+     public String name;
+    public void showInfo(){
+        System.out.println(age);
+        System.out.println(name);
+    }
+
+public static void main(String[] args) {
+//        Person5 p5 = new Person5();
+//        p5.showInfo();
+//        p5.showInfo();
+
+        //需求？希望在new对象的时候自己给属性不同的值
+        Person5 p6 = new Person5(12,&quot;李四&quot;);
+        p6.showInfo();
+    }
+}</code></pre><h5 id="注-意："><a href="#注-意：" class="headerlink" title="注  意："></a>注  意：</h5><blockquote>
+<p>Java语言中，每个类都至少有一个构造器</p>
+</blockquote>
+<blockquote>
+<p>默认构造器的修饰符与所属类的修饰符一致</p>
+</blockquote>
+<blockquote>
+<p>一旦显式定义了构造器，则系统不再提供默认构造器</p>
+</blockquote>
+<blockquote>
+<p>一个类可以创建多个重载的构造器</p>
+</blockquote>
+<blockquote>
+<p> 父类的构造器不可被子类继承</p>
+</blockquote>
+<ul>
+<li>new对象实际上就是调用类的构造方法</li>
+</ul>
+<h5 id="练习5"><a href="#练习5" class="headerlink" title="练习5"></a>练习5</h5><ol>
+<li><p>在前面定义的Person类中添加构造器，利用构造器设置所有人的age属性初始值都为18。</p>
+</li>
+<li><p>修改上题中类和构造器，增加name属性,使得每次创建Person对象的同时初始化对象的age属性值和name属性值。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Person</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name:String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>setName(i: String)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>getName(): String</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<pre><code>/**
+* @description:
+* @author: MingWill
+* @date: 2022/07/26
+**/
+public class Person6 {
+
+public Person6(int a,String n){
+//      age = 18;// 设置age初始值都为18
+    age = a; //每次创建Person对象的同时初始化对象的age属性值和name属性值
+    name = n;
+}
+
+public int age;
+public String name;
+}</code></pre><ol start="3">
+<li>定义一个“点”（Point）类用来表示三维空间中的点（有三个坐标）。要求如下：<br> 1）可以生成具有特定坐标的点对象。<br> 2）提供可以设置三个坐标的方法。</li>
+</ol>
+<pre><code>/**
+ * @description:
+ * @author: MingWill
+ * @date: 2022/07/27
+ **/
+public class Point {
+
+/**
+ * 初始化生成具有特定坐标的点对象
+ * @param a
+ * @param b
+ * @param c
+ */
+public Point(int a,int b,int c){
+    x = a;
+    y = b;
+    z = c;
+}
+
+public int x;
+public int y;
+public int z;
+
+/**
+ * 设置三个坐标的方法
+ * @param a
+ * @param b
+ * @param c
+ */
+public void setPoint(int a,int b,int c){
+    x = a;
+    y = b;
+    z = c;
+ }
+
+}</code></pre><ol start="4">
+<li>编写两个类，TriAngle和TestTriAngle，其中TriAngle中声明私有的底边长base和高height，同时声明公共方法访问私有变量；另一个类中使用这些公共方法，计算三角形的面积。</li>
+</ol>
+<p>TriAngle.java</p>
+<pre><code>package day06;
+
+/**
+* @description:
+* @author: MingWill
+* @date: 2022/07/27
+**/
+public class TriAngle {
+
+public TriAngle(double a,double b){
+    base =a;
+    height = b;
+}
+
+private double base;
+private double height;
+
+public double getTriangle(){
+    double s;
+    s = base * height/2;
+    return s;
+}
+}</code></pre><p>TestTriAngle.java</p>
+<pre><code>package day06;
+
+/**
+ * @description:
+ * @author: MingWill
+ * @date: 2022/07/27
+ **/
+public class TestTriAngle {
+    public static void main(String[] args) {
+        TriAngle t1 = new TriAngle(3,2);
+        double area = t1.getTriangle();
+        System.out.println(&quot;三角形的面积是：&quot;+area);
+    }
+}</code></pre><h4 id="构造器重载"><a href="#构造器重载" class="headerlink" title="构造器重载"></a>构造器重载</h4><blockquote>
+<p>构造器一般用来创建对象的同时初始化对象。</p>
+</blockquote>
+<p>如：</p>
+<pre><code>class Person{
+    String name;
+    int age;
+public Person(String n , int a){
+     name=n;
+     age=a;
+}
+}</code></pre><ul>
+<li>构造器重载使得对象的创建更加灵活，方便创建各种不同的对象。</li>
+</ul>
+<blockquote>
+<p>构造器的重载，就是为了方便调用方可以灵活的创建出不同需要的对象<br>重载的多个构造方法实际上就是相当于提供了多个初始化new对象的模板</p>
+</blockquote>
+<p>构造器重载举例：</p>
+<pre><code>public class Person{
+public Person(String name, int age, Date d) {this(name,age);…}
+public Person(String name, int age) {…}
+public Person(String name, Date d) {…}
+public Person(){…}
+}</code></pre><ul>
+<li>构造器重载，参数列表必须不同</li>
+</ul>
+<h5 id="构造器重载举例"><a href="#构造器重载举例" class="headerlink" title="构造器重载举例"></a>构造器重载举例</h5><pre><code>public class Person {
+  private String name;
+  private int age;
+  private Date birthDate;
+
+public Person(String name, int age, Date d) {
+     this.name = name;
+    this.age = age;
+    this.birthDate = d;
+}
+
+public Person(String name, int age) {
+    this(name, age, null);    
+  // this.name=name; this.age=age; this.birthDate=null;
+}
+
+public Person(String name, Date d) {
+     this(name, 30, d);           
+   // this.name=name;
+  this.age=30;
+  this.birthDate=d;
+}
+
+public Person(String name) {
+    this(name, 30);
+// this.name=name;
+  this.age=30;
+}
+}</code></pre><h5 id="练习6"><a href="#练习6" class="headerlink" title="练习6"></a>练习6</h5><p>(1)定义Person类,有4个属性：String name; int age; String school;String major</p>
+<p>(2)定义Person类的3个构造方法:</p>
+<p>第一个构造方法Person(String n, int a)设置类的name和age属性；</p>
+<p>第二个构造方法Person(String n, int a, String s)设置类的name, age 和school属性；</p>
+<p>第三个构造方法Person(String n, int a, String s, String m)设置类的name, age ,school和major属性；</p>
+<p>(3)在main方法中分别调用不同的构造方法创建的对象，并输出其属性值。</p>
+<hr>
+<h3 id="3-9-关键字—this"><a href="#3-9-关键字—this" class="headerlink" title="3.9  关键字—this"></a>3.9  关键字—this</h3><h5 id="this是什么？"><a href="#this是什么？" class="headerlink" title="this是什么？"></a>this是什么？</h5><ul>
+<li>在java中，this关键字比较难理解，它的作用和其词义很接近。<ul>
+<li>它在方法内部使用，即这个方法所属对象的引用；</li>
+<li>它在构造器内部使用，表示该构造器正在初始化的对象。</li>
+</ul>
+</li>
+<li>this表示当前对象，可以调用类的属性、方法和构造器</li>
+<li>什么时候使用this关键字呢？<ul>
+<li>当在方法内需要用到调用该方法的对象时，就用this。</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用this，调用属性、方法"><a href="#使用this，调用属性、方法" class="headerlink" title="使用this，调用属性、方法"></a>使用this，调用属性、方法</h4><pre><code>class Person{        // 定义Person类
+      private String name ;
+      private int age ;            
+  public Person(String name,int age){
+        this.name = name ;   
+        this.age = age ;  }
+  public void getInfo(){
+         System.out.println(&quot;姓名：&quot; + name) ;
+        this.speak();
+  }
+  public void speak(){
+        System.out.println(“年龄：” + this.age);
+  }
+}</code></pre><ul>
+<li><p><strong>1.当形参与成员变量重名时，如果在方法内部需要使用成员变量，必须添加this来表明该变量时类成员</strong></p>
+</li>
+<li><p><strong>2.在任意方法内，如果使用当前类的成员变量或成员方法可以在其前面添加this，增强程序的阅读性</strong></p>
+</li>
+</ul>
+<h5 id="使用this调用本类的构造器"><a href="#使用this调用本类的构造器" class="headerlink" title="使用this调用本类的构造器"></a>使用this调用本类的构造器</h5><pre><code>class Person{        // 定义Person类
+      private String name ;        
+      private int age ;            
+  public Person(){      // 无参构造
+        System.out.println(&quot;新对象实例化&quot;) ;
+  }
+  public Person(String name){
+        this();      // 调用本类中的无参构造方法
+        this.name = name ;
+  }
+  public Person(String name,int age){
+        this(name) ;  // 调用有一个参数的构造方法
+        this.age = age;
+  }
+  public String getInfo(){
+        return &quot;姓名：&quot; + name + &quot;，年龄：&quot; + age ;
+  }
+}</code></pre><ul>
+<li><strong>3.this可以作为一个类中，构造器相互调用的特殊格式</strong></li>
+</ul>
+<h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><ul>
+<li><p>1.使用this()必须放在构造器的首行！</p>
+</li>
+<li><p>2.使用this调用本类中其他的构造器，保证至少有一个构造器是不用this的。</p>
+</li>
+</ul>
+<pre><code> class Person{  // 定义Person类
+      String name;
+ Person(String name){
+        this.name = name;
+ }  
+   public void getInfo(){
+        System.out.println(&quot;Person类 --&gt; &quot; + this.name) ;
+ }  
+ public boolean compare(Person p){
+        return this.name==p.name;
+ }
+ }
+ public class TestPerson{
+
+public static void main(String args[]){
+        Person per1 = new Person(&quot;张三&quot;) ;
+        Person per2 = new Person(&quot;李四&quot;) ;
+        per1.getInfo() ;    // 当前调用getInfo()方法的对象是per1
+        per2.getInfo() ;    // 当前调用getInfo()方法的对象是per2
+        boolean b = per1.compare(per2);
+}
+}</code></pre><ul>
+<li>当前正在操作本方法的对象称为当前对象。</li>
+<li><h5 id="练习7"><a href="#练习7" class="headerlink" title="练习7"></a>练习7</h5></li>
+</ul>
+<p>添加必要的构造器，综合应用构造器的重载，this关键字。</p>
+<table>
+<thead>
+<tr>
+<th>Girl</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name:String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>setName(i: String)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>getName(): String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>marry(boy:Boy)</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Boy</th>
+<th>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name:String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>age:int</td>
+<td>-</td>
+</tr>
+<tr>
+<td>setName(i: String)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>getName(): String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>setAge(i: int)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>getAge(): int</td>
+<td>-</td>
+</tr>
+<tr>
+<td>marry(girl:Girl)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>shout():void</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><ul>
+<li><p><strong>JavaBean是一种Java语言写成的可重用组件。</strong></p>
+</li>
+<li><p><strong>所谓javaBean，是指符合如下标准的Java类：</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>类是公共的</p>
+</blockquote>
+<blockquote>
+<p>有一个无参的公共的构造器</p>
+</blockquote>
+<blockquote>
+<p>属性，且有对应的get、set方法</p>
+</blockquote>
+<ul>
+<li><strong>用户可以使用JavaBean将功能、处理、值、数据库访问和其他任何可以用java代码创造的对象进行打包，并且其他的开发者可以通过内部的JSP页面、Servlet、其他JavaBean、applet程序或者应用来使用这些对象。用户可以认为JavaBean提供了一种随时随地的复制和粘贴的功能，而不用关心任何改变。</strong></li>
+</ul>
+<h5 id="JavaBean示例"><a href="#JavaBean示例" class="headerlink" title="JavaBean示例"></a>JavaBean示例</h5><pre><code>public class TestJavaBean{
+   private String name;  //属性一般定义为private
+   private int age;
+   public  TestJavaBean(){}
+
+public int getAge(){
+         return age;
+}
+
+public void setAge(int age){
+         this.age = age;
+}
+
+public String getName(){
+        return name;
+}
+
+public void setName(String name){
+        this.name = name;
+}</code></pre><hr>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/07/25/JavaDay6.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;25&#x2F;JavaDay6.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;25&#x2F;JavaDay6.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660047884508"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>

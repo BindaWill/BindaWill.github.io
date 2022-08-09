@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day5-面向对象编程 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day5-面向对象编程">
+<meta property="og:url" content="http://yoursite.com/2022/07/23/JavaDay5.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java41.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java42.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java44.PNG">
+<meta property="og:image" content="http://yoursite.com/imagges/JavaStudyData/java45.PNG">
+<meta property="article:published_time" content="2022-07-23T13:00:11.000Z">
+<meta property="article:modified_time" content="2022-07-27T15:35:02.647Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660047884505">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>54</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day5-面向对象编程" class="lazyload">
+          <h1>Java基础Day5-面向对象编程</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年07月23日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.8k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 16 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>主要介绍Java面向对象编程相关知识，涉及面向对象与面向过程的区别，详细阐述面向对象编程中类和对象的使用。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="3-1-面向对象与面向过程"><a href="#3-1-面向对象与面向过程" class="headerlink" title="3.1 面向对象与面向过程"></a>3.1 面向对象与面向过程</h3><h4 id="面向对象-OOP-与面向过程-POP"><a href="#面向对象-OOP-与面向过程-POP" class="headerlink" title="面向对象(OOP)与面向过程(POP)"></a>面向对象(OOP)与面向过程(POP)</h4><blockquote>
+<p>二者都是一种思想，面向对象是相对于面向过程而言的。面向过程，强调的是功能行为。面向对象，将功能封装进对象，强调具备了功能的对象。</p>
+</blockquote>
+<blockquote>
+<p>面向对象更加强调运用人类在日常的思维逻辑中采用的思想方法与原则，如抽象、分类、继承、聚合、多态等。</p>
+</blockquote>
+<p>打球</p>
+<ol>
+<li><p>面向对象编写：专注于打球的动作。</p>
+</li>
+<li><p>面向对象编写：打球的动作是归属于谁？人,所以会出现一个人的对象，人的对象里包含了一个打球的动作。</p>
+</li>
+</ol>
+<h4 id="面向对象的三大特征"><a href="#面向对象的三大特征" class="headerlink" title="面向对象的三大特征"></a>面向对象的三大特征</h4><blockquote>
+<p><strong>封装  (Encapsulation)</strong></p>
+</blockquote>
+<blockquote>
+<p> <strong>继承  (Inheritance)</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>多态  (Polymorphism)</strong></p>
+</blockquote>
+<ul>
+<li>OOP: Object Oriented Programming  </li>
+<li>面向过程：procedure oriented programming</li>
+</ul>
+<hr>
+<h3 id="java类及类的成员"><a href="#java类及类的成员" class="headerlink" title="java类及类的成员"></a>java类及类的成员</h3><blockquote>
+<p>现实世界万事万物是由分子、原子构成的。同理，Java代码世界是由诸多个不同功能的类构成的。</p>
+</blockquote>
+<blockquote>
+<p>现实世界中的分子、原子又是由什么构成的呢？原子核、电子！那么，Java中用类class来描述事物也是如此</p>
+</blockquote>
+<blockquote>
+<p>万物皆是对象，类是对某一类事物的抽象描述，对象用于表示现实中该类事物的个体，类是对象的抽象，是生产对象的模板，用来描述一组对象的共同特征(属性)和行为（方法）。</p>
+</blockquote>
+<ul>
+<li>属 性：对应类中的成员变量</li>
+<li>行 为：对应类中的成员方法</li>
+</ul>
+<ul>
+<li>Field = 属性 = 成员变量</li>
+<li>Method =  (成员)方法 = 函数</li>
+</ul>
+<hr>
+<h3 id="面向对象的思想概述"><a href="#面向对象的思想概述" class="headerlink" title="面向对象的思想概述"></a>面向对象的思想概述</h3><p><img data-sizes="auto" data-src="/images/JavaStudyData/java41.PNG" alt="" class="lazyload"></p>
+<ul>
+<li>可以理解为：类 = 汽车设计图；对象 = 实实在在的汽车</li>
+<li>面向对象程序设计的重点是类的设计</li>
+<li>定义类其实是定义类中的成员(成员变量和成员方法)</li>
+</ul>
+<h4 id="1-java类及类的成员"><a href="#1-java类及类的成员" class="headerlink" title="1.java类及类的成员"></a>1.java类及类的成员</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java42.PNG" alt="" class="lazyload"></p>
+<ol>
+<li>我要开车去丽江，这句话包含的类和方法有什么？</li>
+</ol>
+<p>类：我，车</p>
+<p>方法：</p>
+<ul>
+<li><p>我{ 开车（丽江）{} }</p>
+</li>
+<li><p>车{ 启动(){} 停止(){} 前进(){} 后退(){} }</p>
+</li>
+</ul>
+<hr>
+<h4 id="类的语法格式"><a href="#类的语法格式" class="headerlink" title="类的语法格式"></a>类的语法格式</h4><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 class  类名 &#123;</span><br><span class="line"> 属性声明;</span><br><span class="line"> 方法声明;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>说明：</p>
+<ul>
+<li>修饰符public：类可以被任意访问</li>
+<li>类的正文要用{  }括起来</li>
+</ul>
+<p>举例：</p>
+<pre><code>public class  Person{
+    public int age ;                //声明公有变量 age
+    public void showAge() { //声明方法showAge( )
+     System.out.println(age);
+      }
+    }</code></pre><h4 id="创建Java自定义类"><a href="#创建Java自定义类" class="headerlink" title="创建Java自定义类"></a>创建Java自定义类</h4><p>步骤：</p>
+<ol>
+<li>定义类（考虑修饰符、类名）</li>
+<li>编写类的属性（考虑修饰符、属性类型、属性名、初始化值）</li>
+<li>编写类的方法（考虑修饰符、返回值类型、方法名、形参等）</li>
+</ol>
+<p>例如编写个人的类：</p>
+<pre><code>/**
+ * @description: 人
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+public class Person{
+//属性，成员变量，类的成员变量可以先声明，不用初始化，类成员变量是有默认值
+
+    String name;
+    //姓名，String的默认值是null
+
+    int age;
+    //年龄，int的默认值是0
+
+    //行为，方法，也叫函数
+    /**
+     * 打印姓名
+     */
+
+    public void showName(){
+    //方法的名称如果是多个单词，采用驼峰命名法，首个单词的首字母小写，其他单词的首字母大写
+        System.out.println(&quot;姓名&quot;+name);
+    }
+
+    /**
+     * 获取年龄
+     * @return
+     */
+    public int getAge(){
+    //如果是一个有返回值的方法，那么方法体的最后一行一定是要返回相应的数据，使用return国际站，返回的数据类型与方法体定义的一致
+        return age;
+    }</code></pre><p>例如编写动物类：</p>
+<pre><code>/**
+ * @description:动物的类
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+public class Animal {
+   String name;
+   //动物名称
+
+   int eye;
+   //眼睛的个数
+
+   int legs;
+   //几条腿
+
+   /**
+    * 输出动物吃的食物
+    * @param food 食物
+    */
+   public void eat(String food){
+       System.out.println(&quot;此种动物的食物是&quot; +food);
+   }
+
+   /**
+    * 动物的移动方式
+    * @param moveType
+    */
+   public void move(String moveType){
+       System.out.println(&quot;此种动物的移动方式是&quot;+ moveType);
+    }
+  }</code></pre><hr>
+<h3 id="3-2-对象的创建和使用"><a href="#3-2-对象的创建和使用" class="headerlink" title="3.2 对象的创建和使用"></a>3.2 对象的创建和使用</h3><blockquote>
+<p>java类及类的成员(如何使用Java类)</p>
+</blockquote>
+<blockquote>
+<p>java类的实例化，即创建类的对象</p>
+</blockquote>
+<ol>
+<li>使用new +构造器创建一个新的对象；</li>
+<li>使用“对象名.对象成员”的方式访问对象成员（包括属性和方法）；</li>
+</ol>
+<pre><code>/**
+ * @description: 对象的创建和实例化
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+public class Test4 {
+public static void main(String[]args){
+    //实例化Person类，也就是创建Person对象
+//  int i = 0;
+//  String s = &quot;&quot;;
+    Person person = new Person();
+    //声明一个Person类型的变量，变量名Person，实例化Person类并且给person赋值，赋值的值就是当前的实例
+    //new Person（）就是实例化Person类
+    person.name = &quot;张三&quot;;
+    //给person对象的name属性赋值
+    person.showName();
+    //对象的方法的调用
+    int i = person.getAge();
+    //有返回值的方法，在调用之后就会有一个值，这个值就是方法中return的那部分
+    System.out.println(i);
+
+    person.age = 11;
+    //给person对象的age属性赋值
+    int a = person.getAge();
+    System.out.println(a);
+
+
+    }
+}</code></pre><p>对于对象的使用无外乎两个地方：</p>
+<ul>
+<li>操作对象的变量</li>
+<li>调用类的方法</li>
+</ul>
+<hr>
+<h3 id="3-3-类的成员之一：属性"><a href="#3-3-类的成员之一：属性" class="headerlink" title="3.3 类的成员之一：属性"></a>3.3 类的成员之一：属性</h3><p>语法格式：</p>
+<pre><code>修饰符  类型  属性名 =初值 ;</code></pre><p>说明:</p>
+<blockquote>
+<p><strong>修饰符private</strong>:私有的，该属性只能由该类的方法访问。</p>
+</blockquote>
+<blockquote>
+<p><strong>修饰符public</strong>:公有的，该属性可以被该类以外的方法访问。    </p>
+</blockquote>
+<blockquote>
+<p>类型：任何基本类型，如int、boolean或任何类。</p>
+</blockquote>
+<pre><code>/**
+ * @description:
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+public class Person1 {
+    public String name = &quot;张三&quot;;
+    //public 公有的，这样类的变量可以在类的外部使用，也可以在本类的方法中使用
+
+    private int age;
+    //private私有的，可以在本类的方法使用，不能在类的外部使用
+
+    public void setAge(){
+        System.out.println(age);
+    }
+}</code></pre><h5 id="变量的分类：成员变量与局部变量"><a href="#变量的分类：成员变量与局部变量" class="headerlink" title="变量的分类：成员变量与局部变量"></a>变量的分类：成员变量与局部变量</h5><blockquote>
+<p>在方法体外，类体内声明的变量称为成员变量。</p>
+</blockquote>
+<blockquote>
+<p>在方法体内部声明的变量称为局部变量。</p>
+</blockquote>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java44.PNG" alt="" class="lazyload"></p>
+<pre><code>/**
+ * @description: 成员变量与局部变量
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+public class Person1 {
+    private int age;
+    //实例变量就是说在类实例化之后才能使用
+
+    public static String sex = &quot;男&quot;;
+    //static，意思是静态的，不需这样的变量不需要类实例化成对象就可以使用。
+    //直接可以通过类名.属性这样的方式直接调用，就叫做类变量
+
+    public void move(String moveType){
+    //String moveType叫做方法的形参,在方法签名中定义的
+
+        int i = 0;
+        //方法局部变量
+
+        System.out.println(&quot;当前动作&quot; +moveType);
+    }
+
+    {
+        //这就是代码块
+        int m = 0;
+        //代码块局部变量
+    }
+
+}</code></pre><h4 id="成员变量（属性）和局部变量的区别？"><a href="#成员变量（属性）和局部变量的区别？" class="headerlink" title="成员变量（属性）和局部变量的区别？"></a>成员变量（属性）和局部变量的区别？</h4><p>成员变量：</p>
+<ul>
+<li><p>成员变量定义在类中，在整个类中都可以被访问。</p>
+</li>
+<li><p>成员变量分为类成员变量和实例成员变量，实例变量存在于对象所在的堆内存中(实例变量只能在类实例化后的对象中可以使用)。</p>
+</li>
+<li><p>成员变量有默认初始化值。</p>
+</li>
+<li><p>成员变量的权限修饰符可以根据需要，选择任意一个。</p>
+</li>
+</ul>
+<p>局部变量：</p>
+<ul>
+<li><p>局部变量只定义在局部范围内，如：方法内，代码块内等（局部变量只能在它所属的方法内或代码块内可以使用）。</p>
+</li>
+<li><p>局部变量存在于栈内存中。</p>
+</li>
+<li><p>作用的范围结束，变量空间会自动释放。</p>
+</li>
+<li><p>局部变量没有默认初始化值，每次必须显式初始化（必须编写初始化值）。</p>
+</li>
+<li><p>局部变量声明时不指定权限修饰符。</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-4-类的成员之二：方-法"><a href="#3-4-类的成员之二：方-法" class="headerlink" title="3.4  类的成员之二：方  法"></a>3.4  类的成员之二：方  法</h3><p>语法格式：</p>
+<pre><code>修饰符  返回值类型  方法名 ( 参数列表) {
+  方法体语句；
+}</code></pre><p>说明：</p>
+<ul>
+<li>修饰符：public, private, protected等。</li>
+<li>返回值类型：return语句传递返回值。没有返回值：void。</li>
+</ul>
+<p>举例：</p>
+<pre><code>public class Person{
+   private int age;
+   public int getAge(){
+   //方法上定义的int是返回值类型，return后面跟的是方法的返回值
+       return age;
+
+   }
+   public void setAge(int i) {  
+       //声明方法setAge
+       age = i;
+       //将参数i的值赋给类的成员变量age
+   }
+}</code></pre><hr>
+<h3 id="3-5-对象的创建和使用"><a href="#3-5-对象的创建和使用" class="headerlink" title="3.5 对象的创建和使用"></a>3.5 对象的创建和使用</h3><blockquote>
+<p>如果创建了一个类的多个对象，对于类中定义的属性，每个对象都拥有各自的一套副本，且互不干扰。</p>
+</blockquote>
+<pre><code>//类一个，通过类实例化出来的对象可以多个，每个对象相互对立，互不干扰
+Person p1 = new Person();
+Person p2 = new Person();
+p1.name = &quot;张三&quot;;
+p2.name = &quot;李四&quot;;
+p1.showName();
+p2.showName();</code></pre><p>编写学生类，并通过测试类创建对象进行测试</p>
+<pre><code>/**
+ * @description: 学生类
+ * @author: MingWill
+ * @date: 2022/07/23
+ **/
+public class Student {
+    public String name;
+    //姓名
+
+    public int age;
+    //年龄
+
+    public String course;
+    //课程
+
+    public String interest;
+    //兴趣
+
+    /**
+     * 显示学生的个人信息
+     */
+    public void showInfo(){
+        //打印输出基本信息
+        System.out.println(&quot;姓名:&quot;+name);
+        System.out.println(&quot;年龄:&quot;+age);
+        System.out.println(&quot;课程:&quot;+course);
+        System.out.println(&quot;兴趣:&quot;+interest);
+
+    }
+}
+
+/**
+ * @description: 测试类
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+public class Test {
+    public static void main(String[] args) {
+        Student stu = new Student();
+        stu.name = &quot;蔡徐坤&quot;;
+        stu.age = 22;
+        stu.course = &quot;音乐&quot;;
+        stu.interest = &quot;唱，跳，rap，篮球&quot;;
+        stu.showInfo();
+    }
+}</code></pre><hr>
+<h3 id="3-6-方法-method"><a href="#3-6-方法-method" class="headerlink" title="3.6 方法(method)"></a>3.6 方法(method)</h3><p>什么是方法（函数）？</p>
+<blockquote>
+<p>方法是类或对象行为特征的抽象，也称为函数。<br>Java里的方法不能独立存在，所有的方法必须定义在类里。                  </p>
+</blockquote>
+<pre><code>修饰符 返回值类型 方法名（参数类型 形参1，参数类型 形参2，….）｛
+    程序代码
+     return 返回值;
+｝</code></pre><p>例如：</p>
+<pre><code>public void showInfo(String name,int age,String course){
+//方法的形参可以有多个，参数之间用,号分隔，由参数类型和参数名构成
+  System.out.println();
+}</code></pre><p>其中：</p>
+<ul>
+<li><p>形式参数：在方法被调用时用于接收外部传入的数据的变量。</p>
+</li>
+<li><p>参数类型：就是该形式参数的数据类型。</p>
+</li>
+<li><p>返回值：方法在执行完毕后返还给调用它的程序的数据。</p>
+</li>
+<li><p>返回值类型：方法要返回的结果的数据类型。</p>
+</li>
+<li><p>实参：调用方法时实际传给函数形式参数的数据。</p>
+</li>
+</ul>
+<h4 id="方法的调用"><a href="#方法的调用" class="headerlink" title="方法的调用"></a>方法的调用</h4><blockquote>
+<p>方法只有被调用才会被执行</p>
+</blockquote>
+<blockquote>
+<p>方法调用的过程分析</p>
+</blockquote>
+<p><img data-sizes="auto" data-src="/imagges/JavaStudyData/java45.PNG" alt="" class="lazyload"></p>
+<h4 id="注-意："><a href="#注-意：" class="headerlink" title="注  意："></a>注  意：</h4><ul>
+<li><p>没有具体返回值的情况，返回值类型用关键字void表示，那么该函数中的return语句如果在最后一行可以省略不写。</p>
+</li>
+<li><p>定义方法时，方法的结果应该返回给调用者，交由调用者处理。</p>
+</li>
+<li><p>方法中只能调用方法，不可以在方法内部定义方法。</p>
+</li>
+</ul>
+<hr>
+<h3 id="对象的产生"><a href="#对象的产生" class="headerlink" title="对象的产生"></a>对象的产生</h3><blockquote>
+<p>当一个对象被创建时，会对其中各种类型的成员变量自动进行初始化赋值。除了基本数据类型之外的变量类型都是引用类型，如上面的Person及前面讲过的数组。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>成员变量类型</th>
+<th>初始值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>0</td>
+</tr>
+<tr>
+<td>short</td>
+<td>0</td>
+</tr>
+<tr>
+<td>int</td>
+<td>0</td>
+</tr>
+<tr>
+<td>long</td>
+<td>0L</td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0F</td>
+</tr>
+<tr>
+<td>double</td>
+<td>0.0D</td>
+</tr>
+<tr>
+<td>char</td>
+<td>‘\u0000’(表示为空)</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>引用类型</td>
+<td>null</td>
+</tr>
+</tbody></table>
+<h4 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h4><blockquote>
+<p>我们也可以不定义对象的句柄，而直接调用这个对象的方法。这样的对象叫做匿名对象。</p>
+</blockquote>
+<p>如：</p>
+<pre><code>new Person().shout();</code></pre><p>使用情况</p>
+<blockquote>
+<p>如果对一个对象只需要进行一次方法调用，那么就可以使用匿名对象。</p>
+</blockquote>
+<blockquote>
+<p>我们经常将匿名对象作为实参传递给一个方法调用。</p>
+</blockquote>
+<p>练习2<br>1.创建一个Person类，其定义如下：</p>
+<p>Person</p>
+<pre><code>name:String
+age:int
+sex:int
+study():void
+showAge():void
+addAge(int i):int</code></pre><p>要求：</p>
+<p>(1)创建Person类的对象，设置该对象的name、age和sex属性，调用study方法，输出字符串“studying”，调用showAge()方法显示age值，调用addAge()方法给对象的age属性值增加2岁。<br>(2)创建第二个对象，执行上述操作，体会同一个类的不同对象之间的关系。</p>
+<pre><code>/**
+ * @description: 人
+ * @author: MingWill
+ * @date: 2022/07/22
+ **/
+
+ public class Person{
+
+     public String name;
+     //姓名
+
+     public int age;
+     //年龄
+
+     public int sex;
+     //性别
+
+     public void study(){
+
+         System.out.println(&quot;studying&quot;);
+     }
+
+     public void showAge(){
+         System.out.println(&quot;年龄&quot;+age);
+     }
+
+     public int addage(int i){
+       age += i;
+         return age;
+     }
+
+     public static void main(String[] args) {
+         Person p1 = new Person();
+         Person p2 = new Person();
+
+         p1.study();
+         p1.age = 20;
+         p1.showAge();
+         int m = p1.addage(2);
+         System.out.println(m);
+
+         p2.study();
+         p2.age = 11;
+         p2.showAge();
+         int n = p2.addage(2);
+         System.out.println(n);
+     }
+
+ }</code></pre><p>2.利用面向对象的编程方法，设计类Circle计算圆的面积。</p>
+<pre><code>/**
+* @description: 计算圆的面积
+* @author: MingWill
+* @date: 2022/07/23
+**/
+public class Circle {
+/**
+ * 面积的计算方法
+ * @param r 圆的半径
+ * @return
+ */
+public  double area(double r){
+    return  3.24 * r * r;
+}
+
+public static void main(String[] args) {
+    double area = new Circle().area(2);
+    System.out.println(&quot;半径为2的圆的面积是：&quot;+area);
+}
+}</code></pre><h4 id="提-示"><a href="#提-示" class="headerlink" title="提 示"></a>提 示</h4><h5 id="类的访问机制："><a href="#类的访问机制：" class="headerlink" title="类的访问机制："></a>类的访问机制：</h5><blockquote>
+<p>在一个类中的访问机制：类中的方法可以直接访问类中的成员变量。（例外：static方法访问非static的成员变量，编译不通过。）</p>
+</blockquote>
+<blockquote>
+<p>在不同类中的访问机制：先创建要访问类的对象，再用对象访问类中定义的成员。</p>
+</blockquote>
+<h4 id="面向对象思想“落地”法则-一"><a href="#面向对象思想“落地”法则-一" class="headerlink" title="面向对象思想“落地”法则(一)"></a>面向对象思想“落地”法则(一)</h4><blockquote>
+<ol>
+<li>关注于类的设计，即设计类的成员：属性 、方法</li>
+<li>类的实例化，即创建类的对象（比如：Person p = new Person()）</li>
+<li>通过“对象.属性” 、 “对象.方法” 执行</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="方法的重载-overload"><a href="#方法的重载-overload" class="headerlink" title="方法的重载(overload)"></a>方法的重载(overload)</h3><h4 id="重载的概念"><a href="#重载的概念" class="headerlink" title="重载的概念"></a>重载的概念</h4><blockquote>
+<p>在同一个类中，允许存在一个以上的同名方法，只要它们的参数个数或者参数类型不同即可。</p>
+</blockquote>
+<h4 id="重载的特点："><a href="#重载的特点：" class="headerlink" title="重载的特点："></a>重载的特点：</h4><blockquote>
+<p>与返回值类型无关，只看参数列表，且参数列表必须不同。(参数个数或参数类型)。调用时，根据方法参数列表的不同来区别。</p>
+</blockquote>
+<h5 id="重载示例："><a href="#重载示例：" class="headerlink" title="重载示例："></a>重载示例：</h5><pre><code>//多个相同名称的方法如果想在一个类中共存，那么这些同名方法一定是参数的个数或者参数的数据类型不一样
+//这样的同名方法叫做重载
+public int add(int x,int y){
+return x +y;
+}
+public double add(double x,double y){
+    return x + y;
+}
+public int add(int x,int y,int z){
+    return x + y + z;
+}</code></pre><h4 id="函数的重载"><a href="#函数的重载" class="headerlink" title="函数的重载"></a>函数的重载</h4><pre><code>public class PrintStream{
+  public static void print(int i) {……}
+  public static void print(float f) {……}
+  private static void print(String s) {……}
+    public static void main(String[] args){
+          print(3)；
+          print(1.2f)；
+           print(“hello!”)；  
+  }
+}</code></pre><h5 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h5><ol>
+<li><p>判 断：</p>
+<p>与void show(int a,char b,double c){}构成重载的有：</p>
+<p>a) void show(int x,char y,double z){}   //no</p>
+<p>b) int show(int a,double c,char b){}   //yes顺序不同也是重载</p>
+<p>c)  void show(int a,double c,char b){}  //yes顺序不同也是重载</p>
+<p>d)  boolean show(int c,char b){}  //yes</p>
+<p>e)  void show(double c){}  //yes</p>
+<p>f)  double show(int x,char y,double z){}  //no</p>
+<p>g)  void shows(){double c}  //no</p>
+</li>
+<li><p>编写程序，定义三个重载方法并调用。方法名为mOL。<br>三个方法分别接收一个int参数、两个int参数、一个字符串参数。分别执行平方运算并输出结果，相乘并输出结果，输出字符串信息。<br>在主类的main ()方法中分别用参数区别调用三个方法。</p>
+</li>
+<li><p>定义三个重载方法max()，第一个方法求两个int值中的最大值，第二个方法求两个double值中的最大值，第三个方法求三个double值中的最大值，并分别调用三个方法。</p>
+</li>
+</ol>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/07/23/JavaDay5.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;23&#x2F;JavaDay5.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;23&#x2F;JavaDay5.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660047884506"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day8-Java高级类特性 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="单例模式（SingletenPattern）是Java中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方法，本文我将通过资料以及自己的理解详细梳理对单例模式的运用和理解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day8-Java高级类特性">
+<meta property="og:url" content="http://yoursite.com/2022/07/29/JavaDay8.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="单例模式（SingletenPattern）是Java中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方法，本文我将通过资料以及自己的理解详细梳理对单例模式的运用和理解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java510.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/Java081.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java511.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java512.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java513.PNG">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java514.PNG">
+<meta property="article:published_time" content="2022-07-29T14:12:13.000Z">
+<meta property="article:modified_time" content="2022-08-02T16:22:28.493Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660047884500">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>54</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day8-Java高级类特性" class="lazyload">
+          <h1>Java基础Day8-Java高级类特性</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年07月29日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.4k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 20 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>单例模式（SingletenPattern）是Java中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方法，本文我将通过资料以及自己的理解详细梳理对单例模式的运用和理解。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="对象类型转换-Casting"><a href="#对象类型转换-Casting" class="headerlink" title="对象类型转换 (Casting)"></a>对象类型转换 (Casting)</h3><ul>
+<li><p>基本数据类型的Casting：</p>
+<ul>
+<li>自动类型转换：小的数据类型可以自动转换成大的数据类型<pre><code>long g=20;
+double d=12.0f;</code></pre></li>
+<li>强制类型转换：可以把大的数据类型强制转换(casting)成小的数据类型<pre><code>float f=(float)12.0;   
+int a=(int)1200L;</code></pre></li>
+</ul>
+</li>
+</ul>
+<p><strong>对Java对象的强制类型转换称为造型</strong></p>
+<ul>
+<li><p><strong>从子类到父类的类型转换可以自动进行</strong></p>
+<pre><code>Student s = new Student();
+Preson p = s;</code></pre></li>
+<li><p><strong>从父类到子类的类型转换必须通过造型(强制类型转换)实现</strong></p>
+<pre><code>Person p = new Person();
+Student s = (Student)p;</code></pre></li>
+<li><p><strong>无继承关系的引用类型间的转换是非法的</strong></p>
+<pre><code>Tset t = new Test();
+Person p1 =t;//代码报错，非法转换</code></pre></li>
+</ul>
+<h4 id="对象类型转换举例"><a href="#对象类型转换举例" class="headerlink" title="对象类型转换举例"></a>对象类型转换举例</h4><pre><code>public class ConversionTest{
+  public static void main(String[] args) {
+    double d = 13.4;
+    long l = (long)d;
+    System.out.println(l);
+
+    int in = 5;
+    //boolean b = (boolean)in;
+        Object obj = &quot;Hello&quot;;
+        String objStr = (String)obj;
+        System.out.println(objStr);
+
+        Object objPri = new Integer(5);
+        //所以下面代码运行时引发ClassCastException异常
+        String str = (String)objPri;
+     }
+ }</code></pre><h4 id="对象类型转换举例-1"><a href="#对象类型转换举例-1" class="headerlink" title="对象类型转换举例"></a>对象类型转换举例</h4><pre><code> public class Test{
+   public void method(Person e) {     //设Person类中没有getschool()方法
+       // System.out.pritnln(e.getschool());
+
+    if(e  instanceof  Student){
+      System.out.pritnln(me.getschool());
+    }
+  }
+  public static  void main(Stirng args[]){
+           Test t = new Test();
+           Student m = new Student();
+           t.method(m);
+    }
+}</code></pre><p>Person.java</p>
+<pre><code>public class Person {
+  public void test(){
+      System.out.println(&quot;这是Person的test方法&quot;);
+  }
+}</code></pre><p>Student.java</p>
+<pre><code>public class Student extends Person{
+  public void getSchool(){
+      System.out.println(&quot;这是Student的getSchool方法&quot;);
+  }
+}</code></pre><p>Test.java</p>
+<pre><code>public class Test {
+    public static void main(String[] args) {
+
+        Test t = new Test();
+        t.method(new Student());
+      //t.method(new Person());  
+
+    }
+
+    public void method(Person e){
+        if (e instanceof Student){
+            Student s = (Student) e;
+            s.getSchool();
+        }else {
+            e.test();
+        }
+    }
+}</code></pre><p><img data-sizes="auto" data-src="/images/JavaStudyData/java510.PNG" alt="" class="lazyload"></p>
+<hr>
+<h3 id="操作符与equals方法"><a href="#操作符与equals方法" class="headerlink" title="==操作符与equals方法"></a>==操作符与equals方法</h3><ul>
+<li><p><strong>==</strong>：</p>
+<ul>
+<li><p>基本类型比较值:只要两个变量的值相等，即为true.<br>int a=5; if(a==6){…}</p>
+</li>
+<li><p>引用类型比较引用(是否指向同一个对象):只有指向同一个对象时，==才返回true.</p>
+<pre><code>Person p1=new Person();   
+Person p2=new Person();
+if (p1==p2){…}</code></pre><ul>
+<li>用“==”进行比较时，符号两边的数据类型必须兼容(可自动转换的基本数据类型除外)，否则编译出错；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>equals()：所有类都继承了Object，也就获得了equals()方法。还可以重写。</p>
+<ul>
+<li>只能比较引用类型，其作用与“==”相同,比较是否指向同一个对象。     </li>
+<li>格式:obj1.equals(obj2)</li>
+</ul>
+</li>
+<li><p>特例：当用equals()方法进行比较时，对类File、String、Date及包装类（Wrapper Class）来说，是比较类型及内容而不考虑引用的是否是同一个对象；</p>
+<ul>
+<li>原因：在这些类中重写了Object类的equals()方法。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>对于对象来说，特殊的类，如String、File、Date，使用==比较的是对象（对象的地址），equals比较的内容。</p>
+</blockquote>
+<blockquote>
+<p>除了特殊的类之外的其他普通的类的对象，==和equals比较的都是对象（对象的内存地址）</p>
+</blockquote>
+<blockquote>
+<p>如果你想要改变某一个类的equals，不想equals来比较对象的内存地址，就需要重写equals方法。</p>
+</blockquote>
+<h4 id="String对象创建"><a href="#String对象创建" class="headerlink" title="String对象创建"></a>String对象创建</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/Java081.PNG" alt="" class="lazyload"></p>
+<blockquote>
+<p>字面量创建对象的时候，只在常量池创建一个对象。</p>
+</blockquote>
+<blockquote>
+<p>new的时候，常量池有对象，堆中也要有对象。</p>
+</blockquote>
+<blockquote>
+<p>字面量方法要比new省内存。</p>
+</blockquote>
+<pre><code>int it = 65;
+float fl = 65.0f;
+System.out.println(“65和65.0f是否相等？” + (it == fl)); //true
+
+char ch1 = &apos;A&apos;; char ch2 = 12;
+System.out.println(“65和‘A’是否相等？” + (it == ch1));//true，65是A的ASCII码
+System.out.println(“12和ch2是否相等？&quot; + (12 == ch2));//true
+
+String str1 = new String(&quot;hello&quot;);
+String str2 = new String(&quot;hello&quot;);
+System.out.println(“str1和str2是否相等？”+ (str1 == str2));//false，不是同一个对象
+
+System.out.println(“str1是否equals str2？”+(str1.equals(str2)));//true，特殊情况，在String中equals是用来比较值的
+
+System.out.println(“hello” == new java.sql.Date()); //编译不通过</code></pre><p>例子：</p>
+<pre><code>Person p1 = new Person();
+p1.name = &quot;atguigu&quot;;
+
+Person p2 = new Person();
+p2.name = &quot;atguigu&quot;;
+
+System.out.println(p1.name .equals( p2.name));//true，name属性是字符串
+System.out.println(p1.name == p2.name);//true
+System.out.println(p1.name == &quot;atguigu&quot;);
+
+String s1 = new String(&quot;bcde&quot;);
+
+String s2 = new String(&quot;bcde&quot;);
+System.out.println(s1==s2);//false</code></pre><p>1.编写Order类，有int型的orderId，String型的OrderName，相应的getter()和setter()方法，两个参数的构造器，重写父类的equals()方法：public boolean equals(Object obj)，并判断测试类中创建的两个对象是否相等。</p>
+<p>Order.java</p>
+<pre><code>import java.util.Objects;
+
+public class Order {
+
+    public Order(int orderId, String orderName){
+        this.orderId = orderId;
+        this.orderName = orderName;
+    }
+
+    int orderId;
+    String orderName;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean flag = false;
+        if (obj instanceof Order){
+            Order o = (Order) obj;
+
+            if (this.orderId ==o.orderId &amp;&amp; this.orderName.equals(o.orderName)){
+                flag = true;
+            }
+        }
+        return flag;
+    }
+}</code></pre><p>Test.java11</p>
+<pre><code>public class Test {
+    public static void main(String[] args) {
+       Order o1 = new Order(123123,&quot;a002&quot;);
+       Order o2 = new Order(123123,&quot;a001&quot;);
+
+       System.out.println(o1.equals(o2));
+   }
+}</code></pre><p>2.请根据以下代码自行定义能满足需要的MyDate类,在MyDate类中覆盖equals方法，使其判断当两个MyDate类型对象的年月日都相同时，结果为true，否则为false。    public boolean equals(Object o)</p>
+<p>MyData.java</p>
+<pre><code>import java.util.Objects;
+
+public class MyData {
+
+public MyData(int year,int month,int day){
+    this.year = year;
+    this.month =month;
+    this.day = day;
+}
+
+int year;
+int month;
+int day;
+
+@Override
+public boolean equals(Object o) {
+    int flag = 1;
+
+    if (o instanceof MyData){
+        MyData md = (MyData) o;
+        flag = 0;
+        if (this.year != md.year){
+            flag +=1;
+        }
+
+        if (this.month != md.month){
+            flag +=1;
+        }
+
+        if (this.day != md.day){
+            flag +=1;
+        }
+
+    }
+
+    if (flag ==0) {
+        return true;
+    }else {
+        return false;
+    }
+}
+
+}</code></pre><p>Test.java</p>
+<pre><code>public class Test {
+    public static void main(String[] args) {
+
+        MyData md1 = new MyData(2022,3,22);
+        MyData md2 = new MyData(2022,3,21);
+
+        System.out.println(md1.equals(md2));
+   }
+}</code></pre><hr>
+<h3 id="4-7-包装类-Wrapper"><a href="#4-7-包装类-Wrapper" class="headerlink" title="4.7  包装类(Wrapper)"></a>4.7  包装类(Wrapper)</h3><ul>
+<li>针对八种基本定义相应的引用类型—包装类（封装类）</li>
+<li>有了类的特点，就可以调用类中的方法。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>基本数据类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>基本数据类型包装成包装类的实例    —装箱</p>
+<ul>
+<li><p>通过包装类的构造器实现：</p>
+<pre><code>int i = 500;
+Integer t = new Integer(i);</code></pre></li>
+<li><p>还可以通过字符串参数构造包装类对象：</p>
+<pre><code>Float f = new Float(“4.56”);
+Long l = new Long(“asdf”);  //NumberFormatException</code></pre></li>
+</ul>
+</li>
+<li><p>获得包装类对象中包装的基本类型变量    —拆箱<br>调用包装类的.xxxValue()方法：</p>
+<pre><code>boolean b = bObj.booleanValue();</code></pre></li>
+<li><p>JDK1.5之后，支持自动装箱，自动拆箱。但类型必须匹配。</p>
+</li>
+<li><p>字符串转换成基本数据类型</p>
+<ul>
+<li><p>通过包装类的构造器实现：</p>
+<pre><code>int i = new Integer(“12”);</code></pre></li>
+<li><p>通过包装类的parseXxx(String s)静态方法：</p>
+<pre><code>Float f = Float.parseFloat(“12.1”);</code></pre></li>
+</ul>
+</li>
+<li><p>基本数据类型转换成字符串</p>
+<ul>
+<li><p>调用字符串重载的valueOf()方法：</p>
+<pre><code>String fstr = String.valueOf(2.34f);</code></pre></li>
+<li><p>更直接的方式：</p>
+<pre><code>String intStr = 5 + “”</code></pre></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>基本数据类的包装类主要应用于基本数据类型与字符串直接转化</p>
+</blockquote>
+<h4 id="包装类用法举例"><a href="#包装类用法举例" class="headerlink" title="包装类用法举例"></a>包装类用法举例</h4><pre><code>int i = 500;
+Integer t = new Integer(i);</code></pre><ul>
+<li><p>装箱：包装类使得一个基本数据类型的数据变成了类。<br>有了类的特点，可以调用类中的方法。</p>
+<p>  String s = t.toString(); // s = “500“,t是类，有toString方法<br>  String s1 = Integer.toString(314); // s1= “314“  将数字转换成字符串。<br>  String s2=“4.56”;<br>  double ds=Double.parseDouble(s2);   //将字符串转换成数字</p>
+</li>
+</ul>
+<h4 id="包装类的用法举例"><a href="#包装类的用法举例" class="headerlink" title="包装类的用法举例"></a>包装类的用法举例</h4><ul>
+<li><p>拆箱：将数字包装类中内容变为基本数据类型。</p>
+<p>  int j = t.intValue();    // j = 500，intValue取出包装类中的数据</p>
+</li>
+</ul>
+<ul>
+<li><p>包装类在实际开发中用的最多的在于字符串变为基本数据类型。</p>
+<pre><code>String str1 = &quot;30&quot; ;
+String str2 = &quot;30.3&quot; ;
+int x = Integer.parseInt(str1) ;    // 将字符串变为int型
+float f = Float.parseFloat(str2) ; // 将字符串变为int型</code></pre></li>
+</ul>
+<h4 id="toString-方法"><a href="#toString-方法" class="headerlink" title="toString() 方法"></a>toString() 方法</h4><ul>
+<li><p>toString()方法在Object类中定义，其返回值是String类型，返回类名和它的引用地址。</p>
+</li>
+<li><p>在进行String与其它类型数据的连接操作时，自动调用toString()方法</p>
+<pre><code>Date now=new Date();
+System.out.println(“now=”+now);
+//相当于
+System.out.println(“now=”+now.toString());  </code></pre></li>
+</ul>
+<ul>
+<li><p>可以根据需要在用户自定义类型中重写toString()方法<br>  如String 类重写了toString()方法，返回字符串的值。</p>
+<pre><code>s1=“hello”;
+System.out.println(s1);
+//相当于
+System.out.println(s1.toString());</code></pre></li>
+<li><p>基本类型数据转换为String类型时，调用了对应包装类的toString()方法</p>
+<pre><code>int a=10;
+System.out.println(“a=”+a);</code></pre></li>
+</ul>
+<blockquote>
+<p>父类Object的toString方法就是输出当前对象的内存地址，如果你想要输出其他信息，则需要重写toString方法</p>
+</blockquote>
+<pre><code>MyData m = new MyData(2022,3,21);
+
+System.out.println(m.toString());
+System.out.println(m);//二者结果相同</code></pre><blockquote>
+<p>打印m对象相当于执行打印m.toString(),这个在其他对象也是如此</p>
+</blockquote>
+<hr>
+<h3 id="5-1-关键字static（静态的）"><a href="#5-1-关键字static（静态的）" class="headerlink" title="5.1  关键字static（静态的）"></a>5.1  关键字static（静态的）</h3><ul>
+<li>当我们编写一个类时，其实就是在描述其对象的属性和行为，而并没有产生实质上的对象，只有通过new关键字才会产生出对象，这时系统才会分配内存空间给对象，其方法才可以供外部调用。我们有时候希望无论是否产生了对象或无论产生了多少对象的情况下，某些特定的数据在内存空间里只有一份，例如所有的中国人都有个国家名称，每一个中国人都共享这个国家名称，不必在每一个中国人的实例对象中都单独分配一个用于代表国家名称的变量。</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java511.PNG" alt="" class="lazyload"></p>
+<pre><code>class Circle{
+  private double radius;
+      public Circle(double radius){
+    this.radius=radius;
+  }
+      public double findArea(){
+    return Math.PI*radius*radius;
+  }
+}</code></pre><ul>
+<li><p>创建两个Circle对象</p>
+<pre><code>Circle c1=new Circle(2.0);    //c1.radius=2.0
+Circle c2=new Circle(3.0);    //c2.radius=3.0</code></pre></li>
+<li><p>Circle类中的变量radius是一个实例变量(instance variable)，它属于类的每一个对象，不能被同一个类的不同对象所共享。</p>
+</li>
+<li><p>上例中c1的radius独立于c2的radius，存储在不同的空间。c1中的radius变化不会影响c2的radius，反之亦然。</p>
+</li>
+<li><p><strong>如果想让一个类的所有实例共享数据，就用类变量！</strong></p>
+</li>
+</ul>
+<pre><code>public class Chinese{
+
+  static String country;
+  //类变量，不用实例化，直接使用类名。属性名就可以使用，是类的一部分，被所有这个类的实例化对象所共享，也可以叫做静态变量
+
+  String name;
+  int age;
+  //实例变量，只有实例化之后才能使用，属于实例化对象的一部分，不能共用
+}</code></pre><h4 id="类属性、类方法的设计思想"><a href="#类属性、类方法的设计思想" class="headerlink" title="类属性、类方法的设计思想"></a>类属性、类方法的设计思想</h4><ul>
+<li><p>类属性作为该类各个对象之间共享的变量。在设计类时,分析哪些类属性不因对象的不同而改变，将这些属性设置为类属性。相应的方法设置为类方法。</p>
+</li>
+<li><p>如果方法与调用者无关，则这样的方法通常被声明为类方法，由于不需要创建对象就可以调用类方法，从而简化了方法的调用</p>
+</li>
+</ul>
+<blockquote>
+<p>有些的方法不想因为对象的不同而频繁通过new对象方式去调用，方法就写成static</p>
+</blockquote>
+<blockquote>
+<p>类方法，就是静态方法，做工具类：在未来的开发中，可能会多次使用一些判断，在大量次数的基础上，就发现代码重复率很高，可以将这些代码抽取到工具类做出一个方法。</p>
+</blockquote>
+<h4 id="关键字static"><a href="#关键字static" class="headerlink" title="关键字static"></a>关键字static</h4><ul>
+<li><p>使用范围：</p>
+<ul>
+<li>在Java类中，可用static修饰属性、方法、代码块、内部类</li>
+</ul>
+</li>
+<li><p>被修饰后的成员具备以下特点：</p>
+<ul>
+<li>随着类的加载而加载（类加载之后，静态方法或者属性就能使用）</li>
+<li>优先于对象存在（不用new就能用）</li>
+<li>修饰的成员，被所有对象所共享</li>
+<li>访问权限允许时，可不创建对象，直接被类调用</li>
+</ul>
+</li>
+</ul>
+<pre><code>class Circle {
+  private double radius;
+  public static String name = &quot;这是一个圆&quot;;
+
+public static String getName(){
+  return name;}
+  public Circle(double radius) {
+    getName();
+    this.radius = radius;
+  }
+  public double findArea() {
+    return Math.PI * radius * radius;
+  }
+  public void display(){
+    System.out.println(&quot;name:&quot;+name+&quot;radius:&quot;+radius);
+  }
+}
+
+ public class TestStatic {
+   public static void main(String[] args) {
+     Circle c1 = new Circle(2.0);
+     Circle c2 = new Circle(3.0);
+     c1.display();
+     c2.display();
+   }
+ }</code></pre><h4 id="类变量-class-Variable"><a href="#类变量-class-Variable" class="headerlink" title="类变量(class Variable)"></a>类变量(class Variable)</h4><ul>
+<li>类变量（类属性）由该类的所有实例共享</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java512.PNG" alt="" class="lazyload"></p>
+<pre><code>public class Person {
+  private int id;
+  public static int total = 0;
+  public Person() {
+       total++;
+       id = total;
+  }
+}</code></pre><h4 id="类变量应用举例"><a href="#类变量应用举例" class="headerlink" title="类变量应用举例"></a>类变量应用举例</h4><pre><code>class Person {
+  private int id;
+  public static int total = 0;
+  public Person() {
+       total++;
+       id = total;
+  }
+  public static void main(String args[]){
+    Person Tom=new Person();
+      Tom.id=0;
+      total=100; // 不用创建对象就可以访问静态成员
+  }
+}
+
+public class OtherClass {
+  public static void main(String args[]) {
+       Person.total = 100;  // 不用创建对象就可以访问静态成员
+
+    //访问方式：类名.类属性，类名.类方法
+      System.out.println(Person.total);
+      Person c = new Person();
+      System.out.println(c.total);    //输出101
+  }
+}</code></pre><blockquote>
+<p>类变量，这种可以被所有的实例化对象共享的属性，使用起来要慎重，因为只要一改，所有类都能得到变化。</p>
+</blockquote>
+<h4 id="类方法-class-Method"><a href="#类方法-class-Method" class="headerlink" title="类方法(class Method)"></a>类方法(class Method)</h4><ul>
+<li>没有对象的实例时，可以用类名.方法名()的形式访问由static标记的类方法。</li>
+</ul>
+<blockquote>
+<p>因为不需要实例就可以访问static方法，因此static方法方法内部不能有this（也不能有super？yes！）</p>
+</blockquote>
+<blockquote>
+<p>重载的方法需要同时为static或者非static的、</p>
+</blockquote>
+<ul>
+<li><p>在static方法内部只能访问类的static属性，不能访问类的非static属性。</p>
+<pre><code>class Person {
+  private int id;
+  private static int total = 0;
+  public static int getTotalPerson() {
+      id++;    //非法
+      return total;
+  }
+  public Person() {
+       total++;
+       id = total;
+ }
+}
+
+public class TestPerson {
+  public static void main(String[] args) {
+        System.out.println(&quot;Number of total is &quot; +Person.getTotalPerson());
+     //没有创建对象也可以访问静态方法
+        Person p1 = new Person();
+     System.out.println( &quot;Number of total is &quot;+ Person.getTotalPerson());
+  }
+}</code></pre></li>
+</ul>
+<hr>
+<h3 id="单例-Singleton-设计模式"><a href="#单例-Singleton-设计模式" class="headerlink" title="单例 (Singleton)设计模式"></a>单例 (Singleton)设计模式</h3><h4 id="设计模式概述"><a href="#设计模式概述" class="headerlink" title="设计模式概述"></a>设计模式概述</h4><ul>
+<li><p>设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索。</p>
+</li>
+<li><p>所谓类的单例设计模式，就是采取一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法。如果我们要让类在一个虚拟机中只能产生一个对象，我们首先必须将类的构造方法的访问权限设置为private，这样，就不能用new操作符在类的外部产生类的对象了，但在类内部仍可以产生该类的对象。因为在类的外部开始还无法得到类的对象，只能调用该类的某个静态方法以返回类内部创建的对象，静态方法只能访问类中的静态成员变量，所以，指向类内部产生的该类对象的变量也必须定义成静态的。</p>
+</li>
+</ul>
+<blockquote>
+<p>设计模式就是在我们实际编程过程中，逐渐总结出的一些解决问题的套路。</p>
+</blockquote>
+<blockquote>
+<p>单例设计模式：只有一个实例（实例化对象），在整个软件运行过程中，这个类只被实例化一次，以后Burundi在哪都只调用这一个实例。</p>
+</blockquote>
+<blockquote>
+<p>使用单例模式来解决什么问题？一般都是new对象太费劲，或者频繁的new新的对象没有必要。</p>
+</blockquote>
+<h4 id="单例-Singleton-设计模式-饿汉式"><a href="#单例-Singleton-设计模式-饿汉式" class="headerlink" title="单例(Singleton)设计模式-饿汉式"></a>单例(Singleton)设计模式-饿汉式</h4><pre><code>class Single{
+  //private的构造器，不能在类的外部创建该类的对象
+  private Single() {}
+
+    //私有的，只能在类的内部访问
+  private static Single onlyone = new Single();
+
+    //getSingle()为static，不用创建对象即可访问
+  public static Single getSingle() {
+        return onlyone;
+     }
+}
+
+
+public class TestSingle{
+    public static void main(String args[]) {        
+        Single  s1 = Single.getSingle();      //访问静态方法
+        Single  s2 = Single.getSingle();
+      if (s1==s2){
+          System.out.println(&quot;s1 is equals to s2!&quot;);
+      }
+}
+}</code></pre><h4 id="单例-Singleton-设计模式-懒汉式"><a href="#单例-Singleton-设计模式-懒汉式" class="headerlink" title="单例(Singleton)设计模式-懒汉式"></a>单例(Singleton)设计模式-懒汉式</h4><pre><code>class Singleton{
+
+  //1.将构造器私有化，保证在此类的外部，不能调用本类的构造器。
+  private Singleton(){
+  }
+
+  //2.先声明类的引用
+  //4.也需要配合static的方法，用static修饰此类的引用。
+  private static Singleton  instance = null;
+
+  //3.设置公共的方法来访问类的实例
+  public static Singleton  getInstance(){
+
+  //3.1如果类的实例未创建，那些先要创建，然后返回给调用者：本类。因此，需要static 修饰。
+      if(instance == null){
+          instance = new Singleton();
+      }
+
+  //3.2 若有了类的实例，直接返回给调用者。
+      return instance;
+  }
+}</code></pre><ul>
+<li><p>单例模式，软件运行有且仅有一个实例化对象（只会new一次）</p>
+</li>
+<li><p>饿汉式，在类加载之后，还没有人调用的时候，先new好一个对象，以后不论谁来调用getInstance方法，都是返回之前new好的那个对象。</p>
+</li>
+<li><p>懒汉式，在第一次有人调用getInstance方法时来new对象，以后不论谁来调用getInstance方法，都是返回第一次调用时new好的那个对象。</p>
+</li>
+<li><p>懒汉式存在线程安全。</p>
+</li>
+<li><p>举例：java.lang.Runtime</p>
+</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java513.PNG" alt="" class="lazyload"></p>
+<hr>
+<h3 id="5-2-理解main方法的语法"><a href="#5-2-理解main方法的语法" class="headerlink" title="5.2  理解main方法的语法"></a>5.2  理解main方法的语法</h3><ul>
+<li>由于java虚拟机需要调用类的main()方法，所以该方法的访问权限必须是public，又因为java虚拟机在执行main()方法时不必创建对象，所以该方法必须是static的，该方法接收一个String类型的数组参数，该数组中保存执行java命令时传递给所运行的类的参数。</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java514.PNG" alt="" class="lazyload"></p>
+<h4 id="命令行参数用法举例"><a href="#命令行参数用法举例" class="headerlink" title="命令行参数用法举例"></a>命令行参数用法举例</h4><pre><code>public class CommandPara {
+  public static void main(String[] args) {
+    for ( int i = 0; i &lt; args.length; i++ ) {
+      System.out.println(&quot;args[&quot; + i + &quot;] = &quot; + args[i]);
+      }
+  }
+}
+
+//运行程序CommandPara.java
+java CommandPara &quot;lisa&quot;  &quot;bily&quot;  &quot;Mr Brown&quot;
+
+输出结果：
+
+args[0] = lisa
+args[1] = bily
+args[2] = Mr Brown</code></pre>
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/07/29/JavaDay8.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;29&#x2F;JavaDay8.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;07&#x2F;29&#x2F;JavaDay8.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660047884501"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>
