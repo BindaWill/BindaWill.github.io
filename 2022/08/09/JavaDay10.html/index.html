@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day11-泛型 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day11-泛型">
+<meta property="og:url" content="http://yoursite.com/2022/08/09/JavaDay10.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1101.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1102.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1103.png">
+<meta property="article:published_time" content="2022-08-09T14:42:13.000Z">
+<meta property="article:modified_time" content="2022-08-09T16:53:06.159Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660064000372">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>55</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day11-泛型" class="lazyload">
+          <h1>Java基础Day11-泛型</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月09日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.7k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 8 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><h4 id="一、为什么要有泛型Generic"><a href="#一、为什么要有泛型Generic" class="headerlink" title="一、为什么要有泛型Generic?"></a>一、为什么要有泛型Generic?</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1101.png" alt="" class="lazyload"></p>
+<blockquote>
+<p>泛型，JDK1.5新加入的，解决数据类型的安全性问题，其主要原理是在类声明时通过一个标识表示类中某个属性的类型或者是某个方法的返回值及参数类型。这样在类声明或实例化时只要指定好需要的具体的类型即可。</p>
+</blockquote>
+<blockquote>
+<p>Java泛型可以保证如果程序在编译时没有发出警告，运行时就不会产生ClassCastException异常。同时，代码更加简洁、健壮。</p>
+</blockquote>
+<h4 id="二、一个例子"><a href="#二、一个例子" class="headerlink" title="二、一个例子"></a>二、一个例子</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1102.png" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java1103.png" alt="" class="lazyload"></p>
+<blockquote>
+<p>没有指定泛型，集合将可以随意存储任何类型的数据</p>
+</blockquote>
+<blockquote>
+<p>指定泛型后，集合只能存储指定类型的数据</p>
+</blockquote>
+<ul>
+<li><strong>Java中的泛型，只在编译阶段有效。</strong>在编译过程中，正确检验泛型结果后，会将泛型的相关信息擦出，并且在对象进入和离开方法的边界处添加类型检查和类型转换的方法。也就是说，<strong>泛型信息不会进入到运行时阶段。</strong></li>
+</ul>
+<hr>
+<h3 id="泛型的使用"><a href="#泛型的使用" class="headerlink" title="泛型的使用"></a>泛型的使用</h3><h4 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h4><ol>
+<li><p>对象实例化时不指定泛型，默认为：Object。</p>
+</li>
+<li><p>泛型不同的引用不能相互赋值。</p>
+</li>
+</ol>
+<pre><code>package day11;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @package: day11
+ * @className: Test
+ * @author: MingWill
+ * @description: TODO
+  * @date: 2022/8/9 22:52
+  * @version: 1.0
+  */
+ public class Test {
+     public static void main(String[] args) {
+         List list = new ArrayList&lt;&gt;();
+         list.add(111);
+         list.add(&quot;sss&quot;);
+         list.add(true);
+
+         //需求，只能在集合中存在字符串
+         List&lt;String&gt; list1 = new ArrayList&lt;&gt;();
+         list1.add(&quot;xxx&quot;);
+ //        list1.add(true);//这是编译期发现的问题
+
+         A&lt;String&gt; a1 = new A&lt;&gt;();//在new A的对象时指定泛型的类型String
+         a1.setKey(&quot;aaaa&quot;);//对象使用setK俄语(T key)方法，中的key形参就是String
+         System.out.println(a1.getKey());//返回值就有new对象确定返回值是String
+
+         A&lt;Integer&gt; a2 = new A&lt;&gt;();
+         a2.setKey(11111);
+         System.out.println(a2.getKey());
+
+         A a3 = new A();//如果不指定泛型，相当于指定了一个Object类型
+ //        A&lt;Object&gt; a3 = new A&lt;&gt;();
+         a3.setKey(new Object());
+         Object obj = a3.getKey();
+
+         //同样的类，但是在new对象时泛型指定不同的数据类型，这些对象不能相互赋值
+ //        a2 = a1; 不同类型不能相互赋值
+     }
+ }
+
+ /**
+  * 此处的泛型T可以任意的取名，A,B,V
+  * 一般使用T，意为type类型
+  * @param &lt;T&gt;
+  */
+ class  A&lt;T&gt;{
+     private  T key;
+     public void setKey(T key){
+         this.key = key;
+     }
+
+     public T getKey(){
+         return this.key;
+     }
+ }</code></pre><h4 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h4><pre><code>//定义一个泛型接口
+interface Generator&lt;T&gt; {
+T next();
+}</code></pre><ul>
+<li>未传入泛型实参时，与泛型类的定义相同，在声明类的时候，需将泛型的声明也一起加到类中</li>
+<li>即：class FruitGenerator<T> implements Generator<T>{</li>
+<li>如果不声明泛型，如：class FruitGenerator implements Generator<T>，编译器会报错：”Unknown class”</li>
+</ul>
+<pre><code>class FruitGenerator&lt;T&gt; implements Generator&lt;T&gt;{
+@Override
+public T next() {
+    return null;
+}
+}</code></pre><ul>
+<li>传入泛型实参时：</li>
+<li>定义一个生产器实现这个接口,虽然我们只创建了一个泛型接口Generator<T></li>
+<li>但是我们可以为T传入无数个实参，形成无数种类型的Generator接口。</li>
+<li>在实现类实现泛型接口时，如已将泛型类型传入实参类型，则所有使用泛型的地方都要替换成传入的实参类型</li>
+<li>即：Generator<T>，public T next();中的的T都要替换成传入的String类型。</li>
+</ul>
+<pre><code>class FruitGenerator implements Generator&lt;String&gt; {
+@Override
+public String next() {
+// TODO Auto-generated method stub
+return null;
+}
+}</code></pre><p>例子：</p>
+<pre><code>package day11;
+
+/**
+ * @package: day11
+ * @className: Test1
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/9 23:42
+ * @version: 1.0
+ */
+public class Test1 {
+    public static void main(String[] args) {
+        B1&lt;Object&gt; b1 =new B1&lt;Object&gt;();
+        B1&lt;String&gt; b11 = new B1&lt;String&gt;();
+
+        B2 b2 = new B2();
+
+    }
+}
+
+interface IB&lt;T&gt;{
+    T test(T t);
+}
+
+/**
+ * 未传入泛型实参时，与泛型类的定义相同，在声明类的时候，需将泛型的声明也一起加到类    中
+ * @param &lt;T&gt;
+ */
+class B1&lt;T&gt; implements IB&lt;T&gt;{
+
+
+    @Override
+    public T test(T t) {
+        return t;
+    }
+}
+
+/**
+ * 如果实现接口时指定接口的泛型的具体数据类型
+ * 这个类实现接口所有方法的位置都要泛型替换实际的具体数据类型
+ * @param &lt;T&gt;
+ */
+class B2&lt;T&gt; implements IB&lt;String&gt;{
+
+    @Override
+    public String test(String s) {
+        return s;
+    }
+}</code></pre><h4 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h4><p>方法，也可以被泛型化，不管此时定义在其中的类是不是泛型化的。在泛型方法中可以定义泛型参数，此时，参数的类型就是传入数据的类型。</p>
+<p>泛型方法的格式：</p>
+<pre><code>public class DAO {
+     public &lt;E&gt;  void show(E e){
+       System.out.println(e.toString());
+   }
+     public &lt;T&gt; T show1(T t){
+            return t;
+    }
+}</code></pre><hr>
+<pre><code>/**
+ * 泛型方法与可变参数
+ * @param args
+ */
+public &lt;T&gt; void printMsg( T... args){
+    for(T t : args){
+       System.out.println(&quot;泛型测试 ,t is &quot; + t);
+    }
+}</code></pre><hr>
+<pre><code>/**
+ * 静态方法无法访问类上定义的泛型；
+ * 如果静态方法操作的引用数据类型不确定的时候，必须要将泛型定义在方法上
+ * @author lby
+ * @param &lt;T&gt;
+ */
+class StaticGenerator&lt;T&gt; {
+    /**
+     * 如果在类中定义使用泛型的静态方法，需要添加额外的泛型声明（将这个方法定义成泛型方法）
+     * 即使静态方法要使用泛型类中已经声明过的泛型也不可以。
+     * 如：public static void show(T t){..},此时编译器会提示错误信息：
+      &quot;StaticGenerator cannot be refrenced from static context&quot;
+     */
+    public static &lt;T&gt; void show(T t){
+
+    }
+}</code></pre><p>例子：</p>
+<pre><code>package day11;
+
+/**
+ * @package: day11
+ * @className: Test1
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/9 23:42
+ * @version: 1.0
+ */
+public class Test1 {
+    public static void main(String[] args) {
+
+        Cc&lt;Object&gt; c = new Cc();
+        c.test(&quot;xxx&quot;);
+        //泛型方法，在调用之前没有什么固定的数据类型
+        //在调用之前，传入的参数是什么类型，就会把泛型改成什么类型、
+        //也就是说，泛型方法会在调用时确定泛型具体的数据类型
+        c.test1(2);//传递的参数是Integer，泛型就固定成Integer，返回值就是Integer
+        c.test1(true);//传递的参数是Boolean，泛型就固定成Boolean，返回值就是Boolean
+
+    }
+}
+
+
+class Cc&lt;E&gt;{
+    private E e;
+
+    /**
+     * 静态方法的泛型方法
+     * @param t
+     * @param &lt;T&gt;
+     */
+    public static &lt;T&gt; void test3(T t){
+        //在类上定义的泛型,不能在静态方法中使用，只能使用静态方法自己定义的泛型
+//        System.out.println(this.e);
+    }
+
+    /**
+     * 无返回值泛型方法
+     * @param s
+     * @param &lt;T&gt;
+     */
+    public &lt;T&gt; void test(T s){
+        //在类上定义的泛型可以在普通方法中使用
+        System.out.println(this.e);
+        T t = s;
+    }
+
+    /**
+     * 有返回值泛型方法
+     * @param s
+     * @param &lt;T&gt;
+     */
+    public &lt;T&gt; T test1(T s){
+        return s;
+    }
+
+    /**
+     * 形参为可变参数泛型方法
+     * @param
+     * @param &lt;T&gt;
+     */
+    public &lt;T&gt; void test2(T...strs){
+        for (T s: strs){
+            System.out.println(s);
+        }
+    }
+}</code></pre>
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/08/09/JavaDay10.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;09&#x2F;JavaDay10.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;09&#x2F;JavaDay10.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660064000373"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>
