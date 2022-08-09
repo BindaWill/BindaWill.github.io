@@ -26,14 +26,16 @@
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java103.png">
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java104.png">
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java105.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java106.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java107.png">
 <meta property="article:published_time" content="2022-08-06T14:42:13.000Z">
-<meta property="article:modified_time" content="2022-08-09T12:23:46.861Z">
+<meta property="article:modified_time" content="2022-08-09T14:45:06.432Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1660047884496">
+  <link rel="stylesheet" href="/css/style.css?v=1660056316359">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
@@ -164,8 +166,8 @@
   
   <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月06日</a>
-    <a><i class="nexmoefont icon-areachart"></i>4.4k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 20 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>6.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 30 分钟</a>
 </div>
 
   <div class="nexmoe-post-right">
@@ -766,6 +768,275 @@ class Person implements Comparator&lt;Person&gt; {//把person对象存到treeSet
 <p>List 默认按元素的添加顺序设置元素的索引。</p>
 <p>List 集合里添加了一些根据索引来操作集合元素的方法</p>
 <p><img data-sizes="auto" data-src="/images/JavaStudyData/java105.png" alt="" class="lazyload"></p>
+<p>例子：</p>
+<pre><code>package day10;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+* @package: day10
+* @className: Test5
+* @author: MingWill
+* @description: TODO
+* @date: 2022/8/9 20:32
+* @version: 1.0
+*/
+public class Test5 {
+public static void main(String[] args) {
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;b&quot;);//第一个，索引下标0
+    list.add(&quot;a&quot;);//索引下标1
+    list.add(&quot;c&quot;);//索引下标2
+    list.add(&quot;d&quot;);//索引下标3
+    list.add(&quot;a&quot;);
+
+    System.out.println(list);
+    System.out.println(list.get(2));//通过索引来访问指定位置元素
+
+    list.add(1,&quot;f&quot;);//在指定索引下标位置插入数据
+    System.out.println(list);
+
+    List&lt;String&gt; l = new ArrayList&lt;&gt;();
+    l.add(&quot;123&quot;);
+    l.add(&quot;456&quot;);
+
+    list.addAll(2,l);//在指定索引下标位置插入集合
+
+    System.out.println(list);
+
+    System.out.println(list.indexOf(&quot;d&quot;));//获取指定元素在集合中第一次出现的索引下标
+    System.out.println(list.lastIndexOf(&quot;d&quot;));////获取指定元素在集合中最后一次出现的索引下标
+
+    list.remove(2);//根据指定下标移除元素
+    System.out.println(list);
+
+    list.set(1,&quot;ff&quot;);//根据指定索引下标修改元素
+    System.out.println(list);
+    //根据索引下标的起始位置截取一段元素形成一个新的集合，截取时，包含开始的索引不包含结束时的索引
+    List&lt;String&gt; subList = list.subList(2,4);//截取索引下标大于等于2小于4的元素
+
+    System.out.println(subList);
+
+    System.out.println(list.size());//集合的长度
+}
+}</code></pre><h4 id="ArrayList-和-Vector"><a href="#ArrayList-和-Vector" class="headerlink" title="ArrayList 和 Vector"></a>ArrayList 和 Vector</h4><p>ArrayList 和 Vector 是 List 接口的两个典型实现<br>区别：</p>
+<ul>
+<li>Vector是一个古老的集合，通常建议使用 ArrayList</li>
+<li>ArrayList 是线程不安全的，而 Vector 是线程安全的。</li>
+</ul>
+<blockquote>
+<p>即使为保证 List 集合线程安全，也不推荐使用 Vector</p>
+</blockquote>
+<hr>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map 用于保存具有映射关系的数据，因此 Map 集合里保存着两组值，一组值用于保存 Map 里的 Key，另外一组用于保存 Map 里的 Value</p>
+<p>Map 中的 key 和  value 都可以是任何引用类型的数据</p>
+<p>Map 中的 Key 不允许重复，即同一个 Map 对象的任何两个 Key 通过 equals 方法比较中返回 false</p>
+<p>Key 和 Value 之间存在单向一对一关系，即通过指定的 Key 总能找到唯一的，确定的 Value。</p>
+<p>例子：</p>
+<pre><code>package day10;
+
+import day09.Employee;
+
+import java.security.KeyStore;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * @package: day10
+ * @className: Test6
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/9 21:18
+ * @version: 1.0
+ */
+public class Test6 {
+    public static void main(String[] args) {
+        Map&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();
+
+        map.put(&quot;b&quot;,1);//添加数据
+        map.put(&quot;c&quot;,2);
+        map.put(&quot;e&quot;,2);
+        System.out.println(map);
+
+        System.out.println(map.get(&quot;b&quot;));//根据key取值
+
+        map.remove(&quot;c&quot;);//根据key移除键值对
+        System.out.println(map);
+
+        System.out.println(map.size());//map集合的长度
+
+        System.out.println(map.containsKey(&quot;a&quot;));//判断当前的map集合是否包含指定的key
+
+        System.out.println(map.containsValue(10));//判断当前的map集合是否包含指定的value
+
+//        map.clear();//清空集合
+
+        Set&lt;String&gt; keys = map.keySet();//获取map集合的key的集合
+
+        map.values();//获取集合的所有value值
+
+        //遍历map集合,通过map.keySet();
+        for (String key : keys){
+            System.out.println(&quot;key&quot;+ key + &quot;, value:&quot;+map.get(key));
+        }
+
+
+        //通过map.entrySet();
+        Set&lt;Map.Entry&lt;String,Integer&gt;&gt; entrys = map.entrySet();
+        for (Map.Entry&lt;String,Integer&gt; en : entrys ){
+            System.out.println(&quot;key&quot;+ en.getKey() + &quot;, value:&quot;+en.getValue());
+        }
+    }
+}</code></pre><h4 id="Map-接口与HashMap类"><a href="#Map-接口与HashMap类" class="headerlink" title="Map 接口与HashMap类"></a>Map 接口与HashMap类</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java106.png" alt="" class="lazyload"></p>
+<h4 id="HashMap-amp-Hashtable"><a href="#HashMap-amp-Hashtable" class="headerlink" title="HashMap &amp; Hashtable"></a>HashMap &amp; Hashtable</h4><p>HashMap 和 Hashtable 是 Map 接口的两个典型实现类<br>区别：</p>
+<ul>
+<li>Hashtable 是一个古老的 Map 实现类，不建议使用</li>
+<li>Hashtable 是一个线程安全的 Map 实现，但 HashMap 是线程不安全的。</li>
+<li>Hashtable 不允许使用 null 作为 key 和 value，而 HashMap 可以<br>与 HashSet 集合不能保证元素的顺序一样，Hashtable 、HashMap 也不能保证其中 key-value 对的顺序</li>
+</ul>
+<p>Hashtable 、HashMap 判断两个 Key 相等的标准是：两个 Key 通过 equals 方法返回 true，hashCode 值也相等。</p>
+<p>Hashtable 、相等的标准是：两个 Value 通过 equalHashMap 判断两个 Values 方法返回 true</p>
+<h4 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h4><pre><code>Map&lt;Integer,String&gt; map = new TreeMap&lt;Integer,String&gt;();
+   map.put(4,&quot;a&quot;);
+   map.put(2,&quot;a&quot;);
+   map.put(3,&quot;a&quot;);
+   map.put(1,&quot;a&quot;);
+
+   System.out.println(map);
+   //TreeMap的自然排序是字典排序
+   Map&lt;String,String&gt; map1 = new TreeMap&lt;String,String&gt;();
+   map1.put(&quot;b&quot;,&quot;b&quot;);
+   map1.put(&quot;c&quot;,&quot;b&quot;);
+   map1.put(&quot;d&quot;,&quot;b&quot;);
+   map1.put(&quot;a&quot;,&quot;b&quot;);
+   map1.put(&quot;ab&quot;,&quot;ab&quot;);
+   map1.put(&quot;1&quot;,&quot;b&quot;);
+   map1.put(&quot;10&quot;,&quot;b&quot;);
+
+   System.out.println(map1);</code></pre><p>TreeMap 存储 Key-Value 对时，需要根据 Key 对 key-value 对进行排序。TreeMap 可以保证所有的 Key-Value 对处于有序状态。</p>
+<p>TreeMap 的 Key 的排序：</p>
+<ul>
+<li>自然排序：TreeMap 的所有的 Key 必须实现 Comparable 接口，而且所有的 Key 应该是同一个类的对象，否则将会抛出 ClasssCastException</li>
+<li>定制排序（了解）：创建 TreeMap 时，传入一个 Comparator 对象，该对象负责对 TreeMap 中的所有 key 进行排序。此时不需要 Map 的 Key 实现 Comparable 接口</li>
+</ul>
+<hr>
+<h3 id="操作集合的工具类：Collections"><a href="#操作集合的工具类：Collections" class="headerlink" title="操作集合的工具类：Collections"></a>操作集合的工具类：Collections</h3><p>Collections 是一个操作 Set、List 和 Map 等集合的工具类</p>
+<p>Collections 中提供了大量方法对集合元素进行排序、查询和修改等操作，还提供了对集合对象设置不可变、对集合对象实现同步控制等方法</p>
+<p>排序操作：</p>
+<ul>
+<li>reverse(List)：反转 List 中元素的顺序</li>
+<li>shuffle(List)：对 List 集合元素进行随机排序</li>
+<li>sort(List)：根据元素的自然顺序对指定 List 集合元素按升序排序</li>
+<li>sort(List，Comparator)：根据指定的 Comparator 产生的顺序对 List 集合元素进行排序</li>
+<li>swap(List，int， int)：将指定 list 集合中的 i 处元素和 j 处元素进行交换</li>
+</ul>
+<h4 id="查找、替换"><a href="#查找、替换" class="headerlink" title="查找、替换"></a>查找、替换</h4><p>Object max(Collection)：根据元素的自然顺序，返回给定集合中的最大元素</p>
+<p>Object max(Collection，Comparator)：根据 Comparator 指定的顺序，返回给定集合中的最大元素</p>
+<pre><code>Object min(Collection)
+Object min(Collection，Comparator)</code></pre><p>int frequency(Collection，Object)：返回指定集合中指定元素的出现次数</p>
+<p>boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替换 List 对象的所有旧值</p>
+<p>例子：</p>
+<pre><code>package day10;
+
+import java.util.*;
+
+/**
+ * @package: day10
+ * @className: Test7
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/9 22:04
+ * @version: 1.0
+ */
+public class Test7 {
+    public static void main(String[] args) {
+          List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add(&quot;b&quot;);
+        list.add(&quot;cd&quot;);
+        list.add(&quot;ca&quot;);
+        list.add(&quot;aa&quot;);
+        list.add(&quot;a&quot;);
+        list.add(&quot;1&quot;);
+
+        System.out.println(list);
+
+        Collections.reverse(list);//反转list中的元素顺序
+        System.out.println(list);
+
+        Collections.shuffle(list);//对list集元素进行随机排序
+        System.out.println(list);
+
+        Collections.sort(list);//list集合字典升序排序
+        System.out.println(list);
+
+        Collections.swap(list,0,4);//指定位置的元素交换，将i处元素与J处元素进行交换
+        System.out.println(list);
+
+        System.out.println(Collections.frequency(list,&quot;a&quot;));//返回指定集合中指定元素的出现次数
+
+        Collections.replaceAll(list,&quot;a&quot;,&quot;aa&quot;);//使用新值替换 List 对象的所有旧值
+        System.out.println(list);
+
+//        System.out.println(Collections.max(list));//返回最大值
+//        System.out.println(Collections.min(list));//返回最小值
+//
+//        Student s1= new Student(14,&quot;张三&quot;);
+//
+//        List&lt;Student&gt; stus = new ArrayList&lt;&gt;();
+//        stus.add(s1);
+//        stus.add(s2);
+//        stus.add(s3);
+//        stus.add(s4);
+//
+//
+//        //根据 Comparator 指定的顺序，返回给定集合中的最大元素
+//        Student s = Collections.max(stus,new Student());
+//        System.out.println(s.name + &quot;,&quot; + s.age);
+//
+//        //根据 Comparator 指定的顺序，返回给定集合中的最小元素
+//        Student ss = Collections.min(stus,new Student());
+//        System.out.println(ss.name + &quot;,&quot; + ss.age);
+
+//        for (Student stu : stus){
+//            System.out.println(stu.name +&quot;,&quot;+ stu.age);
+//        }
+//
+//        Collections.sort(stus,new Student());
+//        System.out.println(&quot;____________________________&quot;);
+//
+//        for (Student stu : stus){//对指定的对象进行排序
+//            System.out.println(stu.name +&quot;,&quot;+ stu.age);
+//        }
+
+    }
+}
+
+class Student implements Comparator&lt;Student&gt;{
+    int age;
+    String name;
+
+    public Student(){
+
+    }
+
+    public Student(int age,String name){
+        this.age = age;
+        this.name = name;
+    }
+    @Override
+    public int compare(Student o1, Student o2) {//根据年龄升序排列对象
+       if (o1.age &gt; o2.age){
+           return 1;
+       }else if (o1.age &lt; o2.age){
+           return -1;
+       }else {
+           return 0;
+       }
+    }
+}</code></pre><h4 id="同步控制"><a href="#同步控制" class="headerlink" title="同步控制"></a>同步控制</h4><p>Collections 类中提供了多个 synchronizedXxx() 方法，该方法可使将指定集合包装成线程同步的集合，从而可以解决多线程并发访问集合时的线程安全问题</p>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java107.png" alt="" class="lazyload"></p>
 
   </article>
 
@@ -815,7 +1086,7 @@ class Person implements Comparator&lt;Person&gt; {//把person对象存到treeSet
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1660047884497"></script>
+<script src="/js/app.js?v=1660056316361"></script>
   
 
 
