@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day15-线程 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day15-线程">
+<meta property="og:url" content="http://yoursite.com/2022/08/14/JavaDay15.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1501.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1502.png">
+<meta property="article:published_time" content="2022-08-14T13:06:13.000Z">
+<meta property="article:modified_time" content="2022-08-14T16:57:02.124Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660569633933">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>59</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day15-线程" class="lazyload">
+          <h1>Java基础Day15-线程</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月14日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 13 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><h4 id="一、基本概念：程序-进程-线程"><a href="#一、基本概念：程序-进程-线程" class="headerlink" title="一、基本概念：程序 - 进程 - 线程"></a>一、基本概念：程序 - 进程 - 线程</h4><p><strong>程序(program)</strong>是为完成特定任务、用某种语言编写的一组指令的集合。即指一段静态的代码，静态对象。</p>
+<p><strong>进程(process)</strong>是程序的一次执行过程，或是正在运行的一个程序。动态过程：有它自身的产生、存在和消亡的过程。</p>
+<ul>
+<li>如：运行中的QQ，运行中的MP3播放器</li>
+<li>程序是静态的，进程是动态的</li>
+</ul>
+<p><strong>线程(thread)</strong>，进程可进一步细化为线程，是一个程序内部的一条执行路径。</p>
+<ul>
+<li>若一个程序可同一时间执行多个线程，就是支持多线程的</li>
+</ul>
+<h4 id="何时需要多线程"><a href="#何时需要多线程" class="headerlink" title="何时需要多线程"></a>何时需要多线程</h4><ul>
+<li><p>程序需要同时执行两个或多个任务。</p>
+</li>
+<li><p>程序需要实现一些需要等待的任务时，如用户输入、文件读写操作、网络操作、搜索等。<br>需要一些后台运行的程序时。</p>
+</li>
+</ul>
+<blockquote>
+<p>因为多线程是进程的分支，当分支之后，就各走各的</p>
+</blockquote>
+<blockquote>
+<p>假设在进程上跑的代码是主程序，当其中第三行代码是开启线程的，那么开启线程后之后，线程运行的代码就和主程序并行了。</p>
+</blockquote>
+<h4 id="多线程的创建和启动"><a href="#多线程的创建和启动" class="headerlink" title="多线程的创建和启动"></a>多线程的创建和启动</h4><ul>
+<li>Java语言的JVM允许程序运行多个线程，它通过java.lang.Thread类来实现。</li>
+</ul>
+<blockquote>
+<p>想要在开启的多线程中运行的代码逻辑，就要写到run方法里</p>
+</blockquote>
+<ul>
+<li><p>Thread类的特性</p>
+<ul>
+<li>每个线程都是通过某个特定Thread对象的run()方法来完成操作的，经常把run()方法的主体称为线程体</li>
+<li>通过该Thread对象的start()方法来调用这个线程</li>
+</ul>
+</li>
+</ul>
+<h4 id="Thread类"><a href="#Thread类" class="headerlink" title="Thread类"></a>Thread类</h4><p>构造方法</p>
+<ul>
+<li><p>Thread()：创建新的Thread对象</p>
+</li>
+<li><p>Thread(String threadname)：创建线程并指定线程实例名</p>
+</li>
+<li><p>Thread(Runnable target)：指定创建线程的目标对象，它实现了Runnable接口中的run方法</p>
+</li>
+<li><p>Thread(Runnable target, String name)：创建新的Thread对象</p>
+</li>
+</ul>
+<h4 id="创建线程的两种方式"><a href="#创建线程的两种方式" class="headerlink" title="创建线程的两种方式"></a>创建线程的两种方式</h4><ol>
+<li>继承Thread类</li>
+</ol>
+<ul>
+<li>1)  定义子类继承Thread类。</li>
+<li>2)  子类中重写Thread类中的run方法。</li>
+<li>3)  创建Thread子类对象，即创建了线程对象。</li>
+<li>4)  调用线程对象start方法：启动线程，调用run方法。</li>
+</ul>
+<p>示例：</p>
+<pre><code>package day15;
+
+/**
+ * @author: MingWill
+ * @description: 继承Thread类方式实现多线程
+ * @date: 2022/8/15 0:17
+ * @version: 1.0
+ */
+public class TestThread extends Thread{
+    @Override
+    public void run() {
+        System.out.println(&quot;多线程运行的代码&quot;);
+        for (int i=0;i &lt; 5;i++){
+            System.out.println(&quot;这是多线程逻辑代码&quot; + i);
+        }
+    }
+}
+
+
+
+package day15;
+
+/**
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/15 0:16
+  * @version: 1.0
+  */
+ public class Test {
+     public static void main(String[] args) {
+         Thread t0 = new TestThread();
+         //启动线程,开始运行run方法中的代码
+         t0.start();
+
+         Thread t1= new TestThread();
+         //启动线程,开始运行run方法中的代码
+         t1.start();
+
+         Thread t2 = new TestThread();
+         //启动线程,开始运行run方法中的代码
+         t2.start();
+
+         System.out.println(&quot;----------------------1&quot;);
+         System.out.println(&quot;----------------------2&quot;);
+         System.out.println(&quot;----------------------3&quot;);
+
+         /**
+          *多次运行这个main方法之后
+          * 我们发现main方法中打印的3行与开启线程运行run方法中的打印语句是混合起来的
+          * 而且main方法中的打印与main方法中的打印语句顺序是不固定的
+          * 为什么呢
+          * main方法执行t0.start()方法开启多线程之后，就在main方法之外开启了一个支流
+          * 这个时候t0.start()的之后的main方法的其他代码运行就和run方法运行无关了
+          * 以当前代码为例
+          * t0.start（）的之后的mian方法的其他代码与run方法的代码并行运行
+          * 就像两条河流，各走各的
+          * 那么控制台输出的结果就是两条并行程序的运行结果总和，这个结果需要拆开成两部分看
+          * 就可以看到，各自是保持自己的输出顺序的
+          * 这个就是多线程的异步，这个异步相当于执行t0.start()的主程序来说的
+          * 简单来说开启了线程之后run方法中运行的代码主程序中t0.start()之后的程序是并行执行的，没有先后关系，这个就叫做异步
+          */
+     }
+ }</code></pre><ol start="2">
+<li>实现Runnable接口</li>
+</ol>
+<ul>
+<li>1）定义子类，实现Runnable接口。</li>
+<li>2）子类中重写Runnable接口中的run方法。</li>
+<li>3）通过Thread类含参构造器创建线程对象。</li>
+<li>4）将Runnable接口的子类对象作为实际参数传递给Thread类的构造方法中。</li>
+<li>5）调用Thread类的start方法：开启线程，调用Runnable子类接口的run方法。</li>
+</ul>
+<p>示例：</p>
+<pre><code>package day15;
+
+/**
+* @author: MingWill
+* @description: 这是通过实现Runnable接口方式实现多线程
+* @date: 2022/8/15 0:40
+* @version: 1.0
+*/
+public class TestRunnable implements Runnable{
+@Override
+public void run() {
+  //Thread.currentThread().getName() 获取线程名称
+    System.out.println(Thread.currentThread().getName() +&quot;Runnable多线程运行的代    码&quot;);
+    for (int i=0;i &lt; 10;i++){
+        System.out.println(Thread.currentThread().getName() +&quot;这是多线程逻辑代码&quot; +     i);
+    }
+}
+}
+
+
+package day15;
+
+/**
+ * @author: MingWill
+ * @description: 这是通过继承Runnable接口方式实现多线程
+ * @date: 2022/8/15 0:41
+ * @version: 1.0
+ */
+public class Test2 {
+    public static void main(String[] args) {
+
+//        Thread t3 = new Thread(new TestRunnable());
+//        //启动线程,开始运行run方法中的代码
+//        t3.start();
+
+        //参数1是线程实例化对象,参数2是线程名称
+        Thread t4 = new Thread(new TestRunnable(),&quot;t-1&quot;);
+        t4.start();
+
+        Thread t5 = new Thread(new TestRunnable(),&quot;t-2&quot;);
+        t5.start();
+
+        System.out.println(&quot;----------------------1&quot;);
+        System.out.println(&quot;----------------------2&quot;);
+        System.out.println(&quot;----------------------3&quot;);
+
+    }
+}</code></pre><h4 id="继承方式和实现方式的联系与区别"><a href="#继承方式和实现方式的联系与区别" class="headerlink" title="继承方式和实现方式的联系与区别"></a>继承方式和实现方式的联系与区别</h4><pre><code>public class Thread extends Object implements Runnable</code></pre><p>【区别】</p>
+<ul>
+<li><p>继承Thread:线程代码存放Thread子类run方法中。重写run方法</p>
+</li>
+<li><p>实现Runnable：线程代码存在接口的子类的run方法。实现run方法</p>
+</li>
+</ul>
+<p>【实现接口方式的好处】</p>
+<ul>
+<li>避免了单继承的局限性</li>
+<li>多个线程可以共享同一个接口实现类的对象，非常适合多个相同线程来处理同一份资源。</li>
+<li>一般使用实现接口方式来实现多线程</li>
+</ul>
+<h4 id="使用多线程的优点"><a href="#使用多线程的优点" class="headerlink" title="使用多线程的优点"></a>使用多线程的优点</h4><p>多线程程序的优点：</p>
+<ul>
+<li>提高应用程序的响应。对图形化界面更有意义，可增强用户体验。</li>
+<li>提高计算机系统CPU的利用率</li>
+<li>改善程序结构。将既长又复杂的进程分为多个线程，独立运行，利于理解和修改</li>
+</ul>
+<h4 id="Thread类的有关方法-1"><a href="#Thread类的有关方法-1" class="headerlink" title="Thread类的有关方法(1)"></a>Thread类的有关方法(1)</h4><ul>
+<li>void start():  启动线程，并执行对象的run()方法</li>
+<li>run():  线程在被调度时执行的操作</li>
+<li>String getName():  返回线程的名称</li>
+<li>void setName(String name):设置该线程名称</li>
+<li>static currentThread(): 返回当前线程</li>
+</ul>
+<h4 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h4><p>线程的优先级控制<br>MAX_PRIORITY（10）;<br>MIN _PRIORITY （1）;<br>NORM_PRIORITY （5）;<br>涉及的方法：<br>getPriority() ：返回线程优先值<br>setPriority(int newPriority) ：改变线程的优先级<br>线程创建时继承父线程的优先级</p>
+<h4 id="Thread类的有关方法-2"><a href="#Thread类的有关方法-2" class="headerlink" title="Thread类的有关方法(2)"></a>Thread类的有关方法(2)</h4><p>static  void  yield()：线程让步<br>暂停当前正在执行的线程，把执行机会让给优先级相同或更高的线程<br>若队列中没有同优先级的线程，忽略此方法<br>join() ：当某个程序执行流中调用其他线程的 join() 方法时，调用线程将被阻塞，直到 join() 方法加入的 join 线程执行完为止<br>低优先级的线程也可以获得执行<br>static  void  sleep(long millis)：(指定时间:毫秒)<br>令当前活动线程在指定时间段内放弃对CPU控制,使其他线程有机会被执行,时间到后重排队。<br>抛出InterruptedException异常<br>stop(): 强制线程生命期结束<br>boolean isAlive()：返回boolean，判断线程是否还活着</p>
+<h4 id="三、线程的生命周期"><a href="#三、线程的生命周期" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p>JDK中用Thread.State枚举表示了线程的几种状态<br>要想实现多线程，必须在主线程中创建新的线程对象。Java语言使用Thread类及其子类的对象来表示线程，在它的一个完整的生命周期中通常要经历如下的五种状态：<br>新建： 当一个Thread类或其子类的对象被声明并创建时，新生的线程对象处于新建状态<br>就绪：处于新建状态的线程被start()后，将进入线程队列等待CPU时间片，此时它已具备了运行的条件<br>运行：当就绪的线程被调度并获得处理器资源时,便进入运行状态， run()方法定义了线程的操作和功能<br>阻塞：在某种特殊情况下，被人为挂起或执行输入输出操作时，让出 CPU 并临时中止自己的执行，进入阻塞状态<br>死亡：线程完成了它的全部工作或线程被提前强制性地中止   </p>
+<h4 id="三、线程的生命周期-1"><a href="#三、线程的生命周期-1" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1501.png" alt="" class="lazyload"></p>
+<h4 id="四、线程的同步"><a href="#四、线程的同步" class="headerlink" title="四、线程的同步"></a>四、线程的同步</h4><p>问题的提出<br>多个线程执行的不确定性引起执行结果的不稳定<br>多个线程对账本的共享，会造成操作的不完整性，会破坏数据。</p>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java1502.png" alt="" class="lazyload"></p>
+<h4 id="多线程出现了安全问题"><a href="#多线程出现了安全问题" class="headerlink" title="多线程出现了安全问题"></a>多线程出现了安全问题</h4><p>问题的原因：<br>当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，另一个线程参与进来执行。导致共享数据的错误。<br>解决办法:<br>对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。</p>
+<h4 id="Synchronized的使用方法"><a href="#Synchronized的使用方法" class="headerlink" title="Synchronized的使用方法"></a>Synchronized的使用方法</h4><p>Java对于多线程的安全问题提供了专业的解决方式：<br>      同步机制<br>1、synchronized还可以放在方法声明中，表示整个方法<br>      为同步方法。<br>例如：<br>    public synchronized void show (String name){<br>            ….<br>   }<br>2、synchronized (对象）{<br>         // 需要被同步的代码；<br>    }</p>
+<h4 id="线程的死锁问题"><a href="#线程的死锁问题" class="headerlink" title="线程的死锁问题"></a>线程的死锁问题</h4><p>死锁<br>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁<br>解决方法<br>专门的算法、原则，比如加锁顺序一致<br>尽量减少同步资源的定义，尽量避免锁未释放的场景</p>
+<h4 id="五、线程通信"><a href="#五、线程通信" class="headerlink" title="五、线程通信"></a>五、线程通信</h4><p>wait() 与 notify() 和 notifyAll()<br>wait()：令当前线程挂起并放弃CPU、同步资源，使别的线程可访问并修改共享资源，而当前线程排队等候再次对资源的访问<br>notify()：唤醒正在排队等待同步资源的线程中优先级最高者结束等待<br>notifyAll ()：唤醒正在排队等待资源的所有线程结束等待.<br>Java.lang.Object提供的这三个方法只有在synchronized方法或synchronized代码块中才能使用，否则会报java.lang.IllegalMonitorStateException异常</p>
+<h4 id="wait-方法"><a href="#wait-方法" class="headerlink" title="wait() 方法"></a>wait() 方法</h4><p>在当前线程中调用方法：  对象名.wait()<br>使当前线程进入等待（某对象）状态 ，直到另一线程对该对象发出 notify (或notifyAll) 为止。<br>调用方法的必要条件：当前线程必须具有对该对象的监控权（加锁）<br>调用此方法后，当前线程将释放对象监控权  ，然后进入等待<br>在当前线程被notify后，要重新获得监控权，然后从断点处继续代码的执行。</p>
+<h4 id="notify-notifyAll"><a href="#notify-notifyAll" class="headerlink" title="notify()/notifyAll()"></a>notify()/notifyAll()</h4><p>在当前线程中调用方法：  对象名.notify()<br>功能：唤醒等待该对象监控权的一个线程。<br>调用方法的必要条件：当前线程必须具有对该对象的监控权（加锁）</p>
+<h4 id="经典例题：生产者-消费者问题"><a href="#经典例题：生产者-消费者问题" class="headerlink" title="经典例题：生产者/消费者问题"></a>经典例题：生产者/消费者问题</h4><p>生产者(Productor)将产品交给店员(Clerk)，而消费者(Customer)从店员处取走产品，店员一次只能持有固定数量的产品(比如:20），如果生产者试图生产更多的产品，店员会叫生产者停一下，如果店中有空位放产品了再通知生产者继续生产；如果店中没有产品了，店员会告诉消费者等一下，如果店中有产品了再通知消费者来取走产品。<br>这里可能出现两个问题：<br>         生产者比消费者快时，消费者会漏掉一些数据没有取到。<br>         消费者比生产者快时，消费者会取相同的数据。</p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/08/14/JavaDay15.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;14&#x2F;JavaDay15.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;14&#x2F;JavaDay15.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660569633934"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>

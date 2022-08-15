@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day14-反射 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="Reflection（反射）是被视为动态语言的关键，反射机制允许程序在执行期借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day14-反射">
+<meta property="og:url" content="http://yoursite.com/2022/08/14/JavaDay14.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="Reflection（反射）是被视为动态语言的关键，反射机制允许程序在执行期借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1401.png">
+<meta property="article:published_time" content="2022-08-13T17:06:13.000Z">
+<meta property="article:modified_time" content="2022-08-14T14:43:06.860Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660569633935">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>59</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day14-反射" class="lazyload">
+          <h1>Java基础Day14-反射</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月14日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 17 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>Reflection（反射）是被视为动态语言的关键，反射机制允许程序在执行期借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><h4 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h4><p>想象葫芦娃的形象：头顶带叶小葫芦，胖娃 娃，敞胸坎肩，腰间围着一圈叶子，<br>一个大短裤，光脚。</p>
+<p>这个过程就是人类的一个思维的反射过程，通过抽象的一个名字，在记忆中寻找跟<br>这个名字相匹配的形象的画面</p>
+<ul>
+<li>前提：脑海中有葫芦娃的记忆</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java1401.png" alt="" class="lazyload"></p>
+<ul>
+<li>前提：jvm已经加载这个类</li>
+</ul>
+<p>现在，给jvm一个类名，能不能知道类的具体信息呢？能</p>
+<ul>
+<li>反射机制，就是通过一个抽象的类名能够在自己记忆（加载类的内存）中找到相匹配的类的具体信息</li>
+</ul>
+<blockquote>
+<p>java能够反射的前提：已经加载过这个类，就可以通过类名来寻找到这个类的所有相关信息</p>
+</blockquote>
+<h4 id="Java-Reflection"><a href="#Java-Reflection" class="headerlink" title="Java Reflection"></a>Java Reflection</h4><p><strong>Reflection（反射）是被视为动态语言的关键，反射机制允许程序在执行期借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法</strong></p>
+<p>Java反射机制提供的功能</p>
+<ul>
+<li>在运行时判断任意一个对象所属的类</li>
+<li>在运行时构造任意一个类的对象</li>
+<li>在运行时判断任意一个类所具有的成员变量和方法</li>
+<li>在运行时调用任意一个对象的成员变量和方法</li>
+<li><strong>生成动态代理</strong></li>
+</ul>
+<h4 id="Java反射机制研究及应用"><a href="#Java反射机制研究及应用" class="headerlink" title="Java反射机制研究及应用"></a>Java反射机制研究及应用</h4><p>反射相关的主要API：</p>
+<ul>
+<li>java.lang.Class:代表一个类</li>
+<li>java.lang.reflect.Method:代表类的方法</li>
+<li>java.lang.reflect.Field:代表类的成员变量</li>
+<li>java.lang.reflect.Constructor:代表类的构造方法</li>
+</ul>
+<blockquote>
+<p>一个类极限情况都有什么？一个父类，多个接口，多个属性，多个构造方法，包括构造参数及其类型，多个普通方法，包括参数及其类型，返回值类型。</p>
+</blockquote>
+<h4 id="一、Class-类"><a href="#一、Class-类" class="headerlink" title="一、Class 类"></a>一、Class 类</h4><p>在Object类中定义了以下的方法，此方法将被所有子类继承：</p>
+<pre><code>public final Class getClass()</code></pre><ul>
+<li>以上的方法返回值的类型是一个Class类，此类是Java反射的源头， 实际上所谓反射从程序的运行结果来看也很好理解，即：可以通过对象反射求出类的名称</li>
+</ul>
+<p>反射可以得到的信息：某个类的属性、方法和构造器、某个类到底实现了哪些接口。对于每个类而言，JRE 都为其保留一个不变的 Class 类型的对象。一个 Class 对象包含了特定某个类的有关信息。</p>
+<ul>
+<li>Class本身也是一个类</li>
+<li>Class 对象只能由系统建立对象</li>
+<li>一个类在 JVM 中只会有一个Class实例</li>
+<li>一个Class对象对应的是一个加载到JVM中的一个.class文件</li>
+<li>每个类的实例都会记得自己是由哪个 Class 实例所生成</li>
+</ul>
+<p><strong>通过Class可以完整地得到一个类中的完整结构</strong></p>
+<h4 id="Class类的常用方法"><a href="#Class类的常用方法" class="headerlink" title="Class类的常用方法"></a>Class类的常用方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static Class  forName(String name)</td>
+<td>根据类的全类名（包名+类名）获取Class对象</td>
+</tr>
+<tr>
+<td>Object newInstance()</td>
+<td>创建目标类对象</td>
+</tr>
+<tr>
+<td>getName()</td>
+<td>获取全类名</td>
+</tr>
+<tr>
+<td>Class getSuperclass()</td>
+<td>获取所有的父类的Class对象</td>
+</tr>
+<tr>
+<td>Class [] getInterfaces()</td>
+<td>获取所有实现的接口</td>
+</tr>
+<tr>
+<td>ClassLoader getClassLoader()</td>
+<td>获取类 的类加载器</td>
+</tr>
+<tr>
+<td>Class getSuperclass()</td>
+<td>获取父类的Class对象</td>
+</tr>
+<tr>
+<td>Constructor[] getConstructors()</td>
+<td>获取所有的构造器</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredFields()</td>
+<td>获取所有的属性</td>
+</tr>
+<tr>
+<td>Method getMethod(String name,Class  …  paramTypes)</td>
+<td>获取对应的方法</td>
+</tr>
+</tbody></table>
+<h4 id="实例化Class类对象-四种方法"><a href="#实例化Class类对象-四种方法" class="headerlink" title="实例化Class类对象(四种方法)"></a>实例化Class类对象(四种方法)</h4><p>前提：若已知具体的类，通过类的class属性获取，该方法最为安全可靠，程序性能最高</p>
+<p>实例：</p>
+<pre><code>Class clazz = String.class;</code></pre><p>前提：已知某个类的实例，调用该实例的getClass()方法获取Class对象</p>
+<p>实例：</p>
+<pre><code>Class clazz = “www.xyd.com”.getClass();</code></pre><p>前提：已知一个类的全类名，且该类在类路径下，可通过Class类的静态方法forName()获取，可能抛出ClassNotFoundException</p>
+<p>实例：</p>
+<pre><code>Class clazz = Class.forName(“java.lang.String”);</code></pre><p>其他方式(不做要求)</p>
+<pre><code>ClassLoader cl = this.getClass().getClassLoader();
+Class clazz4 = cl.loadClass(“类的全类名”);</code></pre><p>代码：</p>
+<pre><code>public class Test {
+    public static void main(String[] args) {
+        Person p =new Person();
+
+        //clazz对象就包含对象p所属的Person类的所有信息
+        Class clazz = p.getClass();
+
+        //通过类名.class创建指定类的class实例
+        Class c0 = Person.class;
+
+        //通过一个类的实例对象的getClas（）方法，获取对应实例对象的类的Class实例
+        Class c1 = p.getClass();
+
+        try {
+             //通过Class的静态方法forname（String classname）来获取一个类的Class实例
+            //forname（String classname）方法中的参数是你要获取的Class实例的类的全路径（包名.类名）
+            //这个是获取Class实例的常用方式
+            Class c2 = Class.forName(&quot;day14.Person&quot;);
+         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+}</code></pre><h4 id="二、通过反射调用类的完整结构"><a href="#二、通过反射调用类的完整结构" class="headerlink" title="二、通过反射调用类的完整结构"></a>二、通过反射调用类的完整结构</h4><p>Field、Method、Constructor、Superclass、Interface、Annotation<br>实现的全部接口<br>所继承的父类<br>全部的构造器<br>全部的方法<br>全部的Field</p>
+<p>使用反射可以取得：</p>
+<ol>
+<li><p>实现的全部接口</p>
+<pre><code>public Class&lt;?&gt;[] getInterfaces()   </code></pre></li>
+</ol>
+<p>确定此对象所表示的类或接口实现的接口。</p>
+<ol start="2">
+<li><p>所继承的父类</p>
+<pre><code>public Class&lt;? Super T&gt; getSuperclass()</code></pre></li>
+</ol>
+<p>返回表示此 Class 所表示的实体（类、接口、基本类型）的父类的 Class。</p>
+<p>代码：</p>
+<pre><code>public class Test1 {
+    public static void main(String[] args) {
+        try {
+            //通过包名。类名的字符串，调用Class.forname方法获取指定Class类的实例
+            Class clazz = Class.forName(&quot;day14.Student&quot;);
+
+            //获取父类
+            Class superClazz = clazz.getSuperclass();
+            System.out.println(&quot;父类：&quot;+ superClazz.getName());
+
+            //获取当前类的所有接口
+            Class[] interfaces = clazz.getInterfaces();
+            for (Class c : interfaces){
+                System.out.println(&quot;接口：&quot; + c.getName());
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre><ol start="3">
+<li>全部的构造器</li>
+</ol>
+<pre><code>public Constructor&lt;T&gt;[] getConstructors()</code></pre><p>返回此 Class 对象所表示的类的所有public构造方法。</p>
+<pre><code>public Constructor&lt;T&gt;[] getDeclaredConstructors()</code></pre><p>返回此 Class 对象表示的类声明的所有构造方法。</p>
+<p> Constructor类中：</p>
+<ul>
+<li>取得修饰符: public int getModifiers();</li>
+<li>取得方法名称: public String getName();</li>
+<li>取得参数的类型：public Class&lt;?&gt;[] getParameterTypes();</li>
+</ul>
+<p>代码：</p>
+<pre><code>//获取当前类的公有构造方法
+      Constructor[] cons = clazz.getConstructors();
+      for (Constructor c : cons) {
+          //getName()获取方法名称
+          System.out.println(&quot;构造方法名称&quot; + c.getName());
+          //getModifiers()取得方法修饰符,返回数字1代表public
+          System.out.println(&quot;构造方法名称&quot; + c.getName() + &quot;修饰符是：&quot; + c.getModifiers());
+
+          //获取构造方法的参数类型，有几个参数，数组元素就有几个
+          Class[] paramClazz = c.getParameterTypes();
+          for (Class pc : paramClazz){
+              System.out.println(&quot;构造方法名称&quot; + c.getName() +&quot;参数类型是：&quot; + pc.getName());
+          }
+      }
+
+      //获取当前类的构造方法
+          Constructor[] cons1 = clazz.getDeclaredConstructors();
+      for (Constructor c : cons1) {
+          //getName()获取方法名称
+          System.out.println(&quot;构造方法名称&quot; + c.getName());
+          //getModifiers()取得方法修饰符，返回数字2代表private
+          System.out.println(&quot;构造方法名称&quot; + c.getName() + &quot;修饰符是：&quot; + c.getModifiers());
+
+          //获取构造方法的参数类型，有几个参数，数组元素就有几个
+          Class[] paramClazz = c.getParameterTypes();
+          for (Class pc : paramClazz){
+              System.out.println(&quot;构造方法名称&quot; + c.getName() +&quot;参数类型是：&quot; + pc.getName());
+          }
+      }
+
+      //如果用反射的构造方法来创建对象
+     try {
+         //相当于调用Student类的无参公有的构造方法
+         Object obj = clazz.newInstance();
+         Student stu = (Student) obj;
+
+         System.out.println(stu.school);
+
+         //指定获取有一个参数并为String类型的公有构造方法
+         Constructor c = clazz.getConstructor(String.class);
+         Student stu1 = (Student) c.newInstance(&quot;第一中学&quot;);
+         System.out.println(stu1.school);
+
+         //通过反射机制，可以强制的调用私有的构造方法
+         //指定获取有两个参数（String,int）的构造方法
+         Constructor c1 =clazz.getDeclaredConstructor(String.class,int.class);
+
+         //解除私有的封装，下面就可以对这个私有方法进行强制调用
+         c1.setAccessible(true);
+
+         Student stu2 = (Student)c1.newInstance(&quot;zhangsan&quot;,12);
+
+     } catch (Exception e) {
+         e.printStackTrace();
+     }</code></pre><ol start="4">
+<li>全部的方法</li>
+</ol>
+<pre><code>public Method[] getDeclaredMethods()</code></pre><p>  返回此Class对象所表示的类或接口的全部方法</p>
+<pre><code>public Method[] getMethods()  </code></pre><p>  返回此Class对象所表示的类或接口的public的方法</p>
+<p>  Method类中：</p>
+<pre><code>- public Class&lt;?&gt; getReturnType()取得全部的返回值
+- public Class&lt;?&gt;[] getParameterTypes()取得全部的参数
+- public int getModifiers()取得修饰符</code></pre><p>代码：</p>
+<pre><code>//获取类的所有公有方法
+//    Method[] ms = clazz.getMethods();
+      //获取类的所有的方法，包括私有方法
+      Method[] ms = clazz.getDeclaredMethods();
+      for (Method md :ms){
+          System.out.println(&quot;方法名：&quot;+ md.getName());
+
+          System.out.println(&quot;返回值类型：&quot;+ md.getReturnType());
+
+          System.out.println(&quot;修饰符：&quot;+ md.getModifiers());
+
+          //获取方法的参数类型，是一个数组，方法有几个参数，就有几个元素
+          Class[] pcs = md.getParameterTypes();
+          if (pcs != null &amp;&amp; pcs.length &gt;0){
+              for (Class pc : pcs){
+                  System.out.println(&quot;参数类型：&quot; + pc.getName());
+              }
+          }
+
+          System.out.println(&quot;================================&quot;);
+      }</code></pre><ol start="5">
+<li>全部的Field</li>
+</ol>
+<pre><code>public Field[] getFields()</code></pre><p> 返回此Class对象所表示的类或接口的public的Field。</p>
+<pre><code>public Field[] getDeclaredFields()</code></pre><p> 返回此Class对象所表示的类或接口的全部Field。</p>
+<p> Field方法中：</p>
+<ul>
+<li>public int getModifiers()  以整数形式返回此Field的修饰符</li>
+<li>public Class&lt;?&gt; getType()  得到Field的属性类型</li>
+<li>public String getName()  返回Field的名称。</li>
+</ul>
+<p>代码:</p>
+<pre><code>//获取所有公有的属性，包含父类的公有属性
+//Field[] fl =  clazz.getFields();
+
+//获取本类（不包含父类的属性）所有的属性,包括私有的
+  Field[] fl =  clazz.getDeclaredFields();
+
+  for (Field f : fl){
+      System.out.println(&quot;修饰符:&quot; +f.getModifiers());
+      System.out.println(&quot;属性类型:&quot; +f.getType());
+      System.out.println(&quot;属性名:&quot; +f.getName());
+  }</code></pre><ol start="6">
+<li>类所在的包</li>
+</ol>
+<pre><code>Package getPackage()</code></pre><p>代码：</p>
+<pre><code>//获取类所在的包名
+Package p =clazz.getPackage();
+System.out.println(p.getName());</code></pre><hr>
+<h3 id="三、通过反射调用类中的指定方法、指定属性"><a href="#三、通过反射调用类中的指定方法、指定属性" class="headerlink" title="三、通过反射调用类中的指定方法、指定属性"></a>三、通过反射调用类中的指定方法、指定属性</h3><h4 id="1-调用指定方法"><a href="#1-调用指定方法" class="headerlink" title="1.调用指定方法"></a>1.调用指定方法</h4><p> 通过反射，调用类中的方法，通过Method类完成。步骤：</p>
+<ol>
+<li>通过Class类的getMethod(String name,Class…parameterTypes)方法取得一个Method对象，并设置此方法操作时所需要的参数类型。</li>
+<li>之后使用Object invoke(Object obj, Object[] args)进行调用，并向方法中传递要设置的obj对象的参数信息。</li>
+</ol>
+<pre><code>Object invoke(Object obj, Object …  args)</code></pre><p>说明：</p>
+<ol>
+<li>Object 对应原方法的返回值，若原方法无返回值，此时返回null</li>
+<li>若原方法若为静态方法，此时形参Object obj可为null</li>
+<li>若原方法形参列表为空，则Object[] args为null</li>
+<li>若原方法声明为private,则需要在调用此invoke()方法前，显式调用方法对象的setAccessible(true)方法，将可访问private的方法。</li>
+</ol>
+<p>代码 ：</p>
+<pre><code>/**
+      *   注意：下面不论是反射调用setInfo还是test方法
+      *   都是调用obj对象的方法，obj对象实际上就是Student对象
+      */
+
+     //获取无参构造
+     Constructor con = clazz.getConstructor();
+     //使用无参构造创建对象
+     Object obj = con.newInstance();
+     //这是得到名称叫setInfo，参数是String，String的方法
+     Method m = clazz.getMethod(&quot;setInfo&quot;, String.class, String.class);
+     //参数1是需要实例化对象，后面的参数是要调用方法的实际参数
+     m.invoke(obj,&quot;zhangsan&quot;,&quot;第一中学&quot;);
+
+
+     //如果想要调用一个私有方法
+     Method m1 = clazz.getDeclaredMethod(&quot;test&quot;, String.class);
+
+     //强制解除私有封装，下面可以调用私有的方法
+     m1.setAccessible(true);
+
+     m1.invoke(obj,&quot;李四&quot;);
+
+     //调用一个重载方法
+     //setinfo的重载方法
+     Method m2 = clazz.getMethod(&quot;setInfo&quot;,int.class);
+     //参数1是需要实例化对象，后面的参数是要调用方法的实际参数
+     m2.invoke(obj,2);
+
+     //调用有返回值的方法
+     //这是获取方法名为getSchool，没有参数的方法
+     Method m3 = clazz.getMethod(&quot;getSchool&quot;);
+     //调用有返回值,但是没有参数的方法
+     String school = (String) m3.invoke(obj);
+     System.out.println(school);</code></pre><h4 id="2-调用指定属性"><a href="#2-调用指定属性" class="headerlink" title="2.调用指定属性"></a>2.调用指定属性</h4><p>在反射机制中，可以直接通过Field类操作类中的属性，通过Field类提供的set()和get()方法就可以完成设置和取得属性内容的操作。</p>
+<pre><code>public Field getField(String name)</code></pre><p>返回此Class对象表示的类或接口的指定的public的Field。</p>
+<pre><code>public Field getDeclaredField(String name)</code></pre><p>返回此Class对象表示的类或接口的指定的Field。</p>
+<p>在Field中：</p>
+<pre><code>public Object get(Object obj)</code></pre><p>取得指定对象obj上此Field的属性内容</p>
+<pre><code>public void set(Object obj,Object value)</code></pre><p>设置指定对象obj上此Field的属性内容</p>
+<ul>
+<li>注：在类中属性都设置为private的前提下，在使用set()和get()方法时，首先要使用Field类中的setAccessible(true)方法将需要操作的属性设置为可以被外部访问。<br>public void setAccessible(true)访问私有属性时，让这个属性可见。</li>
+</ul>
+<pre><code>//反射创建一个对象
+      Constructor con = clazz.getConstructor();
+      Student stu = (Student) con.newInstance();
+
+      //获取名称为school的属性
+      Field f = clazz.getField(&quot;school&quot;);
+
+      //对stu对象的school属性设置值“第三中学”
+      f.set(stu,&quot;第三中学&quot;);
+      //获取stu对象的school属性的值
+      String school = (String) f.get(stu);
+      System.out.println(school);
+
+      //如果是私有的属性
+      Field f1 = clazz.getDeclaredField(&quot;PrivateFileld&quot;);
+
+      //解除私有封装，下面就可以强制的调用这个属性
+      f1.setAccessible(true);
+
+      f1.set(stu,&quot;测试私有属性&quot;);
+      System.out.println(f1.get(stu));</code></pre><hr>
+<h4 id="Java动态代理"><a href="#Java动态代理" class="headerlink" title="Java动态代理"></a>Java动态代理</h4><p>  Proxy ：专门完成代理的操作类，是所有动态代理类的父类。通过此类为一个或多个接口动态地生成实现类。</p>
+<p>创建一个动态代理类所对应的Class对象</p>
+<p>static Object   newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h)  直接创建一个动态代理对象</p>
+<ul>
+<li><strong>注意：如果一个对象想要通过proxy.newProxyInstance方法被代理</strong></li>
+<li><strong>那么这个对象的类一定要有相应的接口</strong></li>
+<li><strong>就像本类中的ITestDemo接口和实现类TestDemoImpl</strong></li>
+</ul>
+<h4 id="动态代理步骤"><a href="#动态代理步骤" class="headerlink" title="动态代理步骤"></a>动态代理步骤</h4><p> 1.创建一个实现接口InvocationHandler的类，它必须实现invoke方法，以完成代理的具体操作。<br>2.创建被代理的类以及接口</p>
+<p>3.通过Proxy的静态方法<br>newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h) 创建一个Subject接口代理<br>4.通过 Subject代理调用RealSubject实现类的方法</p>
+<p>接口：</p>
+<pre><code>package day14;
+
+public interface ITestDemo {
+void test1();
+void test2();
+}</code></pre><p>实现类：</p>
+<pre><code>package day14;
+
+/**
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/14 18:46
+ * @version: 1.0
+ */
+public class TestDemoImpl implements ITestDemo{
+    @Override
+    public void test1() {
+        System.out.println(&quot;执行test1方法&quot;);
+    }
+
+    @Override
+    public void test2() {
+        System.out.println(&quot;执行test2方法&quot;);
+    }
+}</code></pre><p>动态代理类：</p>
+<pre><code>package day14;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+/**
+ * @author: MingWill
+ * @description: 动态代理类
+ * @date: 2022/8/14 18:55
+ * @version: 1.0
+ */
+public class ProxyDemo implements InvocationHandler {
+
+    //被代理的对象
+    Object obj;
+
+    public ProxyDemo(Object obj){
+        this.obj = obj;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws     Throwable {
+
+        System.out.println(method.getName()+&quot;方法开始执行&quot;);
+
+        //执行的是指定代理对象的指定方法
+       Object result = method.invoke(this.obj,args);
+
+        System.out.println(method.getName()+&quot;方法执行完毕&quot;);
+
+        return result;
+    }
+}</code></pre><p>测试类：</p>
+<pre><code>package day14;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
+
+/**
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/14 18:47
+ * @version: 1.0
+ */
+public class Test2 {
+    public static void main(String[] args) {
+    ITestDemo test = new TestDemoImpl();
+
+    /**
+     * 注意：如果一个对象想要通过proxy.newProxyInstance方法被代理
+     * 那么这个对象的类一定要有相应的接口
+     * 就像本类中的ITestDemo接口和实现类TestDemoImpl
+     */
+    test.test1();
+    test.test2();
+    System.out.println(&quot;===============================&quot;);
+
+    /**
+     * 需求：
+     * 在执行test1和test2方法时需要加入一些东西
+     * 在执行方法前打印test1或test2开始执行
+     * 在执行方法厚打印test1或test2执行完毕
+     * 打印的方法名要和调用的方法保持一致
+     */
+
+    InvocationHandler handler = new ProxyDemo(test);
+
+    /**
+     * newProxyInstance(ClassLoader(),interfaces,h)
+     * 参数1是代理对象的类加载器
+     * 参数2是被代理对象的接口
+     * 参数3是代理对象
+     * 返回的值就是成功被代理的对象,返回的是Object类型，需要根据当时的情况去强转类型
+     */
+    ITestDemo t = (ITestDemo) Proxy.newProxyInstance(handler.getClass().getClassLoader(),test.getClass().getInterfaces(),handler);
+
+    t.test1();
+    System.out.println(&quot;======================&quot;);
+    t.test2();
+}
+}</code></pre>
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/08/14/JavaDay14.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;14&#x2F;JavaDay14.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;14&#x2F;JavaDay14.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660569633936"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>

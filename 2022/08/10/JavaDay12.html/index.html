@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day12-IO流 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day12-IO流">
+<meta property="og:url" content="http://yoursite.com/2022/08/10/JavaDay12.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1201.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1202.png">
+<meta property="article:published_time" content="2022-08-10T14:06:13.000Z">
+<meta property="article:modified_time" content="2022-08-14T14:43:33.242Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660569633938">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>59</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day12-IO流" class="lazyload">
+          <h1>Java基础Day12-IO流</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月10日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 16 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h3><h4 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h4><p>java.io.File类的使用</p>
+<blockquote>
+<p>计算机操作系统中文件和文件夹的使用</p>
+</blockquote>
+<h5 id="IO原理及流的分类"><a href="#IO原理及流的分类" class="headerlink" title="IO原理及流的分类"></a>IO原理及流的分类</h5><blockquote>
+<p>通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流</p>
+</blockquote>
+<ul>
+<li><p>文件流（数据流的读写基于文件的操作）</p>
+<pre><code>FileInputStream  /  FileOutputStream  /  FileReader  /  FileWriter</code></pre></li>
+<li><p>缓冲流（数据流的读写基于内存的操作）</p>
+<pre><code>BufferedInputStream / BufferedOutputStream / BufferedReader / BufferedWriter</code></pre></li>
+<li><p>转换流</p>
+<pre><code>InputStreamReader  /  OutputStreamWriter</code></pre></li>
+<li><p>标准输入/输出流</p>
+</li>
+<li><p>打印流（了解）</p>
+<pre><code>PrintStream  /  PrintWriter</code></pre></li>
+<li><p>数据流（了解）</p>
+<pre><code>DataInputStream  /  DataOutputStream</code></pre><p>例如：</p>
+<pre><code>System.out.println();</code></pre></li>
+<li><p>对象流    —-涉及序列化、反序列化</p>
+<blockquote>
+<p>把一个对象转化为一个数据流进行读写</p>
+</blockquote>
+<pre><code>ObjectInputStream  /  ObjectOutputStream</code></pre></li>
+<li><p>随机存取文件流</p>
+<pre><code>RandomAccessFile</code></pre><p>例如：一个txt文件，其中有100行数据，可以直接读取第50行的数据，也可以在89行插入数据，这个才是随机的概念。</p>
+</li>
+</ul>
+<h4 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h4><ul>
+<li><p>java.io.File类：文件和目录路径名的抽象表示形式，与平台无关</p>
+</li>
+<li><p>File 能新建、删除、重命名文件和目录，但 File 不能访问文件内容本身。如果需要访问文件内容本身，则需要使用输入/输出流。</p>
+</li>
+<li><p>File对象可以作为参数传递给流的构造函数</p>
+</li>
+<li><p>File类的常见构造方法：</p>
+</li>
+</ul>
+<pre><code>public File(String pathname)</code></pre><blockquote>
+<p>以pathname为路径创建File对象，可以是绝对路径或者相对路径，如果pathname是相对路径，则默认的当前路径在系统属性user.dir中存储。</p>
+</blockquote>
+<pre><code>public File(String parent,String child)</code></pre><blockquote>
+<p>以parent为父路径，child为子路径创建File对象。</p>
+</blockquote>
+<ul>
+<li>File的静态属性String separator存储了当前系统的路径分隔符。</li>
+<li>在UNIX中，此字段为‘/’，在Windows中，为‘\’</li>
+</ul>
+<p>File 类代表与平台无关的文件和目录。</p>
+<ul>
+<li>File  能新建、删除、重命名文件和目录，但 File 不能访问文件内容本身。如果需要访问文件内容本身，则需要使用输入/输出流。</li>
+</ul>
+<blockquote>
+<p>file类只能操作文件本身，但是不能操作文件内容</p>
+</blockquote>
+<ul>
+<li><p>访问文件名：</p>
+<ul>
+<li>getName() //获取文件名</li>
+<li>getPath() //获取文件或文件夹的路径</li>
+<li>getAbsoluteFile()//返回一个用当前的文件的绝对路径构建的file对象</li>
+<li>getAbsolutePath()//获取文件或文件夹的绝对路径</li>
+<li>getParent()//返回当前文件或文件夹的父级路径</li>
+<li>renameTo(File newName)//给文件或文件夹重命名</li>
+</ul>
+</li>
+<li><p>文件检测</p>
+<ul>
+<li>exists()//判断文件或文件夹是否存在</li>
+<li>canWrite()//判断文件或文件夹是否可写</li>
+<li>canRead()//判断文件或文件夹是否可读</li>
+<li>isFile()//判断当前的file对象是不是文件</li>
+<li>isDirectory()//判断当前的file对象是不是文件夹或者目录</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>获取常规文件信息<ul>
+<li>lastModified()//获取文件的最后修改时间，返回的是一个毫秒数</li>
+<li>length()//返回文件的长度，单位是字节数</li>
+</ul>
+</li>
+<li>文件操作相关<ul>
+<li>createNewFile()//创建新的文件</li>
+<li>delete()//删除文件</li>
+</ul>
+</li>
+<li>目录操作相关<ul>
+<li>mkdir()//创建单层目录</li>
+<li>mkdirs()//创建多层目录</li>
+</ul>
+</li>
+</ul>
+<p>例子：</p>
+<pre><code>public class Test {
+public static void main(String[] args) {
+    //这个时候对象f就是tt.txt文件
+    File f = new File(&quot;F:\\test\\abc\\tt.txt&quot;);
+    //当前目录
+    File f4 = new File(&quot;F:\\test\\abc&quot;);
+//      File f2 = new File(&quot;F:/test/abc/tt.txt&quot;);
+//        File f = new File(&quot;F:&quot;+File.separator+&quot;test\\abc\\tt.txt&quot;);
+
+    //这个时候对象f1也是tt.txt文件，这种方式使用较少
+//        File f1 = new File(&quot;D:\\test&quot;,&quot;abc\\tt.txt&quot;);
+
+    //主要，\在文件中是路径的分隔符，在Java编程中一个\的意思是转义符，在java中\\或者/才是文件的分隔符。
+    //也可以使用File.separator作为文件分隔符
+
+    System.out.println(f.getName());//获取文件名
+    System.out.println(f4.getName());//获取当前目录
+
+
+    File f5 = new File(&quot;src/day12/Test.java&quot;);//使用相对路径来创建file对象
+
+    System.out.println(f5.getPath());//获取文件或文件夹的路径，就是new file时候写的路径
+    System.out.println(f5.getAbsolutePath());//获取文件或文件夹的绝对路径
+
+    System.out.println(f5);
+    System.out.println(f5.getAbsoluteFile());//返回一个用当前的文件的绝对路径构建的file对象
+
+    System.out.println(f5.getParent());//返回当前文件或文件夹的父级路径
+
+    f.renameTo(new File(&quot;F:\\test\\abc\\tt1.txt&quot;));//给文件或文件夹重命名
+
+    File f6 = new File(&quot;F:\\test\\abc\\tt.txt&quot;);
+    System.out.println(f6.exists());//判断文件或文件夹是否存在
+
+    File f7 = new File(&quot;F:\\test\\abc\\tt1.txt&quot;);
+    System.out.println(f7.canWrite());//判断文件或文件夹是否可写
+    System.out.println(f7.canRead());//判断文件或文件夹是否可读
+
+    System.out.println(f7.isFile());//判断当前的file对象是不是文件
+    System.out.println(f7.isDirectory());//判断当前的file对象是不是文件夹或者目录
+
+    System.out.println(f7.lastModified());//获取文件的最后修改时间，返回的是一个毫秒数
+
+    System.out.println(f7.length());//返回文件的长度，单位是字节数
+
+
+    File f8 = new File(&quot;F:\\test\\abc\\tt3.txt&quot;);
+    System.out.println(f8.exists());//判断文件是否存在
+//        if (!f8.exists()){
+//            try {
+//                f8.createNewFile();//创建新的文件
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+    f8.delete();//删除文件
+
+    File f9 = new File(&quot;F:\\test\\abc\\cc&quot;);
+
+    f9.mkdir();//创建单层目录，如果使用这样的方法创建多层目录，就需要一层一层执行mkdir()
+
+    File f10 = new File(&quot;F:\\test\\abc\\a\\b\\c&quot;);
+
+    f10.mkdirs();//直接创建多层目录
+
+    File f11 = new File(&quot;F:\\test&quot;);
+    String[] fl = f11.list();//返回当前文件夹的子集的名称，包括目录和文件
+    for (String s: fl){
+
+        System.out.println(s);
+    }
+
+    File[] fs = f11.listFiles();//返回当前文件夹的子集的file对象，包括目录和文件
+    for (File l : fs){
+        System.out.println(l);
+    }
+
+   }
+}</code></pre><h4 id="file类递归遍历文件"><a href="#file类递归遍历文件" class="headerlink" title="file类递归遍历文件"></a>file类递归遍历文件</h4><blockquote>
+<p>当存在多层数据时，使用普通遍历，容易产生复杂且重复的代码，递归一般是在方法里面把方法自己给调用一遍，通过每次调用改变条件，来结束循环。</p>
+</blockquote>
+<blockquote>
+<p>递归在数据格式一致，在数据层级未知的情况下，比普通的遍历更有优势，代码更加简单。</p>
+</blockquote>
+<pre><code>public class Test {
+public static void main(String[] args) {
+
+    File f = new File(&quot;F:\\Test&quot;);
+    new Test().test(f);
+}
+
+//遍历F盘下的test文件，把test文件夹下的所有目录和文件全部遍历出来
+//使用递归方式来实现
+
+/**
+ * 递归遍历文件
+ * @param file
+ */
+public void test(File file){
+    if (file.isFile()){
+        System.out.println(file.getAbsolutePath() + &quot;是文件&quot;);
+    }else {
+        System.out.println(file.getAbsolutePath() +&quot;是文件夹&quot;);
+        //如果是文件夹，这个文件夹里就可能还有子文件夹或是文件
+        File[] fa = file.listFiles();//获取当前文件夹下的子文件夹或者文件的file对象
+        if (fa != null &amp;&amp; fa.length &gt; 0 ){
+            for (File ff : fa){
+                test(ff);//递归
+
+
+                //重复代码，可以直接用递归解决
+//                if (ff.isFile()){
+//                    System.out.println(file.getAbsolutePath() + &quot;是文件&quot;);
+//                }else {
+//                    System.out.println(file.getAbsolutePath() +&quot;是文件夹&quot;);
+//                }
+          }
+        }
+    }
+  }
+}</code></pre><h4 id="Java-IO原理"><a href="#Java-IO原理" class="headerlink" title="Java IO原理"></a>Java IO原理</h4><p> iO流用来处理设备之间的数据传输。</p>
+<p> Java程序中，对于数据的输入/输出操作以”流(stream)” 的方式进行。</p>
+<p> java.io包下提供了各种“流”类和接口，用以获取不同种类的数据，并通过标准的方法输入或输出数据。</p>
+<ul>
+<li><p>输入input：读取外部数据（磁盘、光盘等存储设备的数据）到程序（内存）中。</p>
+</li>
+<li><p>输出output：将程序（内存）数据输出到磁盘、光盘等存储设备中</p>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java1201.png" alt="" class="lazyload"></p>
+</li>
+</ul>
+<h4 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h4><ul>
+<li><p>按操作数据单位不同分为：字节流(8 bit)，字符流(16 bit)  </p>
+</li>
+<li><p>按数据流的流向不同分为：输入流，输出流</p>
+</li>
+<li><p>按流的角色的不同分为：节点流，处理流</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>{抽象基类}</th>
+<th>字节流</th>
+<th>字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入流</td>
+<td>InputStream</td>
+<td>Reade</td>
+</tr>
+<tr>
+<td>输出流</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody></table>
+<p>Java的IO流共涉及40多个类，实际上非常规则，都是从如下4个抽象基类派生的。<br>由这四个类派生出来的子类名称都是以其父类名作为子类名后缀。</p>
+<h4 id="IO流体系"><a href="#IO流体系" class="headerlink" title="IO流体系"></a>IO流体系</h4><p> <img data-sizes="auto" data-src="/images/JavaStudyData/java1202.png" alt="" class="lazyload"></p>
+<hr>
+<h3 id="文件字节流"><a href="#文件字节流" class="headerlink" title="文件字节流"></a>文件字节流</h3><h4 id="文件字节输入流"><a href="#文件字节输入流" class="headerlink" title="文件字节输入流"></a>文件字节输入流</h4><pre><code> package day12;
+
+ import java.io.FileInputStream;
+
+ /**
+  * @package: day12
+  * @className: Test1
+  * @author: MingWill
+  * @description: TODO
+  * @date: 2022/8/11 22:58
+  * @version: 1.0
+  */
+ public class Test1 {
+     public static void main(String[]args){
+         Test1.testFileInputStream();
+     }
+
+
+     /**
+      * 文件字节输入流FileInputStream
+      */
+     public static void testFileInputStream(){
+         try {
+             FileInputStream in = new      FileInputStream(&quot;F:\\test\\abc\\tt1.txt&quot;);
+
+             //设置一个byte数组接收读取的文件内容
+             byte[] b = new byte[10];
+
+             //设置一个读取数据的长度
+             int len = 0;
+
+             //in.read有一个返回值，返回值是读取数据的长度，如果读取到最后一个数据     ，还会向后读一个，这个时候返回值就是-1.
+             //也就意味着当in.read返回值为-1时整个文件也就读取完毕了
+             while ((len = in.read(b)) != -1){
+                 //new String(b,0,len)，参数1代表缓存数据的数组，参数2是从数组的     那个位置开始转化字符串，参数3是总共转换几个字节
+                 System.out.println(new String(b,0,len));
+             }
+             in.close();//注意，流在使用完毕后一定要关闭
+
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+
+     }
+}</code></pre><h4 id="文件字节输入流-1"><a href="#文件字节输入流-1" class="headerlink" title="文件字节输入流"></a>文件字节输入流</h4><pre><code>package day12;
+
+import java.io.FileInputStream;
+
+/**
+ * @package: day12
+ * @className: Test1
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/11 22:58
+ * @version: 1.0
+ */
+public class Test1 {
+    public static void main(String[]args){
+        Test1.testFileOutputStream();
+    }
+
+
+    /**
+     * 文件字节输出流FileOutputStream
+     */
+     public static void testFileOutputStream(){
+        try {
+            //指定向tt4输出数据
+            FileOutputStream out = new FileOutputStream(&quot;F:\\test\\abc\\tt5.txt&quot;);
+            String str = &quot;sfdsedifhsdhfisdjfold&quot;;
+            //把数据写到内存中
+            out.write(str.getBytes());
+            //把内存中的数据刷写到硬盘中
+            out.flush();
+            //关闭流
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+         }
+    }
+}</code></pre><h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><p>编写一个程序，把一个文件复制的到指定文件夹下</p>
+<p><strong>注意：文件字节流非常通用，可以用来操作字符的文档，还可以操作任何的其他类型文件（图片，压缩包等等），引用字节流直接使用二进制</strong></p>
+<pre><code>/**
+ * @package: day12
+ * @className: Test1
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/11 22:58
+ * @version: 1.0
+ */
+public class Test1 {
+    public static void main(String[]args){
+        Test1.copyFile(&quot;F:\\test\\abc\\tt1.txt&quot;,&quot;F:\\test\\abc\\cc\\tt1.txt&quot;);
+        //复制原图片到目标路径
+        Test1.copyFile(&quot;F:\\test\\abc\\1.jpg&quot;,&quot;F:\\test\\abc\\cc\\1.jpg&quot;);
+    }
+
+    /**
+     * 复制文件到指定位置
+     * @param inPath 源文件路径
+     * @param outPath 目标文件路径
+     */
+    public static void copyFile(String inPath,String outPath){
+        try {
+            //读取的源文件
+            FileInputStream in = new FileInputStream(inPath);
+
+            //复制到哪里
+            FileOutputStream out = new FileOutputStream(outPath);
+
+            byte[] b = new byte[100];
+
+            int len = 0;
+
+            while ((len = in.read(b)) != -1){
+                //参数1代表缓存数据的数组，参数2是从数组的那个位置开始写，参数3是    获取的总长度
+                //写到内存
+                out.write(b,0,len);
+            }
+            //刷到硬盘
+            out.flush();
+            //关闭流
+            out.close();
+            in.close();
+        } catch (Exception e) {
+        }
+    }
+}</code></pre><hr>
+<h3 id="文件字符流"><a href="#文件字符流" class="headerlink" title="文件字符流"></a>文件字符流</h3><h4 id="文件字符输入流"><a href="#文件字符输入流" class="headerlink" title="文件字符输入流"></a>文件字符输入流</h4><p>读取文件操作步骤:</p>
+<ol>
+<li>建立一个流对象，将已存在的一个文件加载进流。</li>
+</ol>
+<pre><code>FileReader fr = new FileReader(“Test.txt”);</code></pre><ol start="2">
+<li>创建一个临时存放数据的数组。</li>
+</ol>
+<pre><code>char[] ch = new char[1024];</code></pre><ol start="3">
+<li>调用流对象的读取方法将流中的数据读入到数组中。</li>
+</ol>
+<pre><code>fr.read(ch);</code></pre><h4 id="文件字符输出流"><a href="#文件字符输出流" class="headerlink" title="文件字符输出流"></a>文件字符输出流</h4><p>写入文件步骤</p>
+<ol>
+<li>创建流对象，建立数据存放文件</li>
+</ol>
+<pre><code>FileWriter fw = new FileWriter(“Test.txt”);</code></pre><ol start="2">
+<li>调用流对象的写入方法，将数据写入流</li>
+</ol>
+<pre><code>fw.write(“text”);</code></pre><ol start="3">
+<li>输出流关闭之前需要清空缓存</li>
+</ol>
+<pre><code>fw.flush();</code></pre><ol start="4">
+<li>关闭流资源，并将流中的数据清空到文件中。</li>
+</ol>
+<pre><code>fw.close();</code></pre><p>代码示例：</p>
+<pre><code>public class Test2 {
+public static void main(String[] args) {
+    Test2.testFileReader(&quot;F:\\test\\abc\\tt2.txt&quot;);
+    Test2.testFileWriter(&quot;玛卡巴卡，欧诺个布里欧&quot;,&quot;F:\\test\\abc\\tt3.txt&quot;);
+    Test2.copyFile(&quot;F:\\test\\abc\\tt1.txt&quot;,&quot;F:\\test\\abc\\cc\\tt5.txt&quot;);
+}
+
+/**
+ * 文件字符输入流FileReader
+ * @param inPath 输入流源文件路径
+ */
+public static void testFileReader(String inPath){
+    try {
+        FileReader fr = new FileReader(inPath);
+
+        int len = 0;
+
+        char[] c = new char[10];
+
+        //fr.read有一个返回值，返回值是读取数据的长度，如果读取到最后一个数据，还会向后读一个，这个时候返回值就是-1.
+        //也就意味着当in.read返回值为-1时整个文件也就读取完毕了
+        while ((len = fr.read(c)) != -1){
+            //new String(b,0,len)，参数1代表缓存数据的数组，参数2是从数组的那个位置开始转化字符串，参数3是总共转换几个字符
+            System.out.println(new String(c,0,len));
+        }
+        //关闭流
+        fr.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 文件字符输出流FileWriter
+ * @param text  输出的内容
+ * @param outPath 输出的文件
+ */
+public static void testFileWriter(String text,String outPath){
+    try {
+        FileWriter fw = new FileWriter(outPath);
+        //把数据写到内存中
+        fw.write(text);
+        //把内存中的数据刷写到硬盘中
+        fw.flush();
+        //关闭流
+        fw.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 字符流完成拷贝文件
+ * @param inPath 源文件路径
+ * @param outPath 目标文件路径
+ */
+public static void copyFile(String inPath,String outPath){
+    try {
+
+        FileReader fr = new FileReader(inPath);
+        FileWriter fw = new FileWriter(outPath);
+
+        char[] c = new char[100];
+
+        int len = 0;
+
+        while ((len = fr.read(c)) != -1){
+            //参数1代表缓存数据的数组，参数2是从数组的那个位置开始写，参数3是获取的总长度
+            //写到内存
+            fw.write(c,0,len);
+        }
+        //刷写到硬盘中
+        fw.flush();
+
+        //关闭流
+        fw.close();
+        fr.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+  }
+
+}</code></pre><h4 id="注-意"><a href="#注-意" class="headerlink" title="注  意"></a>注  意</h4><ul>
+<li><p>定义文件路径时，注意：可以用“/”或者“\”。</p>
+</li>
+<li><p>在写入一个文件时，如果目录下有同名文件将被覆盖。</p>
+</li>
+<li><p>在读取文件时，必须保证该文件已存在，否则出异常。</p>
+</li>
+</ul>
+<hr>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/08/10/JavaDay12.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;10&#x2F;JavaDay12.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;10&#x2F;JavaDay12.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660569633939"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>

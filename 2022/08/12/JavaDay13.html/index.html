@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Java基础Day13-IO流 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础Day13-IO流">
+<meta property="og:url" content="http://yoursite.com/2022/08/12/JavaDay13.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="article:published_time" content="2022-08-11T17:06:13.000Z">
+<meta property="article:modified_time" content="2022-08-14T14:43:40.074Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660569633937">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>59</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">42</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day13-IO流" class="lazyload">
+          <h1>Java基础Day13-IO流</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月12日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 20 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>通过程序把一个图放到某一个文件夹，把图片转化为一个数据集（例如二进制），把这些数据一点一点传到文件夹，这个传递的过程就类似于水的流动，我们就可以称这个整体的数据集是一个数据流</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="处理流之一：缓冲流"><a href="#处理流之一：缓冲流" class="headerlink" title="处理流之一：缓冲流"></a>处理流之一：缓冲流</h3><ul>
+<li><p>为了提高数据读写的速度，Java API提供了带缓冲功能的流类，在使用这些流类时，会创建一个内部缓冲区数组</p>
+</li>
+<li><p>根据数据操作单位可以把缓冲流分为：</p>
+<ul>
+<li>BufferedInputStream 和 BufferedOutputStream（针对于FileInputStream,FileOutputStream）</li>
+<li>BufferedReader 和 BufferedWriter（针对FileReader,FileWriter）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>FileInputStream,FileOutputStream,FileReader,FileWriter这些都是基于硬盘，是计算机与硬盘之间发生的IO操作，基于硬盘之间的读写是相对比较慢的，这个操作的速度受到硬盘读写能力的制约，为了能够提高读写速度，一定程度上绕过硬盘的限制，Java提供一种缓冲流来实现。</p>
+</blockquote>
+<blockquote>
+<p>注意：缓冲流是把数据缓冲到内存中, 缓冲流基于内存，就是先把数据缓冲到内存里，在内存中去做IO操作，基于内存的IO操作大概能比基于硬盘的Io操作快75000多倍。</p>
+</blockquote>
+<ul>
+<li>缓冲流要“套接”在相应的节点流之上，对读写的数据提供了缓冲的功能，提高了读写的效率，同时增加了一些新的方法</li>
+<li>对于输出的缓冲流，写出的数据会先在内存中缓存，使用flush()将会使内存中的数据立刻写出</li>
+</ul>
+<h4 id="缓冲字节流"><a href="#缓冲字节流" class="headerlink" title="缓冲字节流"></a>缓冲字节流</h4><pre><code>package day13;
+
+import java.io.*;
+
+/**
+ * @package: day13
+ * @className: Test
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/13 1:16
+ * @version: 1.0
+ */
+public class Test {
+    public static void main(String[] args) {
+        try {
+//            Test.testBufferedInputStream();
+//            Test.testBufferedOutputStream();
+            Test.copyFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 缓冲字节输入流
+     *BufferedInputStream
+     * @throws Exception
+     */
+    public static void testBufferedInputStream() throws Exception {
+        //文件字节输入流对象
+        FileInputStream in = new FileInputStream(&quot;F:\\untitled1\\src\\day13\\tt.txt&quot;);
+
+        //把文件字节输入流对象放到缓冲字节输入流对象中
+        BufferedInputStream bf = new BufferedInputStream(in);
+
+        byte[] b = new byte[100];
+
+        int len = 0;
+        //new String(b,0,len)，参数1代表缓存数据的数组，参数2是从数组的那个位置开始转化字符串，参数3是总共转换几个字符
+        while ((len = bf.read(b)) != -1){
+            System.out.println(new String(b,0,len));
+        }
+        //关闭流，最晚开的最早关
+        bf.close();
+        in.close();
+
+    }
+
+
+    /**
+     * 缓冲字节输出流
+     *BufferedOutputStream
+     * @throws Exception
+     */
+    public static void testBufferedOutputStream() throws Exception {
+        //文件字节输出流对象
+        FileOutputStream out = new FileOutputStream(&quot;F:\\untitled1\\src\\day13\\tt.txt&quot;);
+        //把文件字节输出流对象放到缓冲字节输出流对象中
+        BufferedOutputStream bo = new BufferedOutputStream(out);
+
+        String s = &quot;海绵宝宝我们去抓水母&quot;;
+
+        //写到内存中
+        bo.write(s.getBytes());
+
+        //刷到硬盘上
+        bo.flush();
+        //关闭流
+        bo.close();
+        out.close();
+
+    }
+
+    /**
+     * 缓冲字节流完成拷贝文件
+     * @throws Exception
+     */
+    public static void copyFile() throws Exception {
+        BufferedInputStream bi = new BufferedInputStream(new FileInputStream(&quot;F:\\untitled1\\src\\day13\\tt.txt&quot;));
+        BufferedOutputStream bo = new BufferedOutputStream(new FileOutputStream(&quot;F:\\untitled1\\src\\day13\\tt2txt&quot;));
+
+
+        byte[] b = new byte[100];
+
+        int len = 0;
+
+        while ((len = bi.read(b)) != -1){
+            //写到内存中
+            bo.write(b,0,len);
+        }
+
+        //刷到硬盘上
+        bo.flush();
+        //关闭流
+        bo.close();
+        bi.close();
+    }
+  }</code></pre><h4 id="缓冲字符流"><a href="#缓冲字符流" class="headerlink" title="缓冲字符流"></a>缓冲字符流</h4><pre><code>public class Test1 {
+public static void main(String[] args) {
+    try {
+//            Test1.testBufferedReader();
+//            Test1.testBufferedWriter();
+        Test1.copyFile();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+}
+
+/**
+ * 缓冲字符输入流
+ * BufferedReader
+ * @throws Exception
+ */
+public static void testBufferedReader() throws Exception {
+    FileReader fr = new FileReader(&quot;F:\\untitled1\\src\\day13\\tt.txt&quot;);
+    BufferedReader br = new BufferedReader(fr);
+
+    char[] c =new char[10];
+
+    int len =0;
+
+    while ((len = br.read(c)) != -1){
+        System.out.println(new String(c,0,len));
+    }
+    //关闭流
+    br.close();
+    fr.close();
+}
+
+/**
+ * 缓冲字符输出流
+ * BufferedWriter
+ * @throws Exception
+ */
+public static void testBufferedWriter() throws Exception {
+    FileWriter fw = new FileWriter(&quot;F:\\untitled1\\src\\day13\\tt.txt&quot;);
+    BufferedWriter bw = new BufferedWriter(fw);
+
+    String s = &quot;海绵宝宝派大星&quot;;
+
+    //写到内存中
+    bw.write(s);
+    //刷到硬盘上
+    bw.flush();
+    //关闭流
+    bw.close();
+    fw.close();
+}
+
+/**
+ * 缓冲字符流完成拷贝文件
+ * @throws Exception
+ */
+public static void copyFile() throws Exception {
+    BufferedReader br = new BufferedReader(new FileReader(&quot;F:\\untitled1\\src\\day13\\tt.txt&quot;));
+    BufferedWriter bw = new BufferedWriter(new FileWriter(&quot;F:\\untitled1\\src\\day13\\tt3.txt&quot;));
+
+    char[] c = new char[100];
+
+    int len = 0;
+
+    while ((len = br.read(c)) != -1){
+        //写到内存中
+        bw.write(c,0,len);
+    }
+    //刷到硬盘上
+    bw.flush();
+    //关闭流
+    bw.close();
+    br.close();
+}
+}</code></pre><hr>
+<h3 id="处理流之二：转换流"><a href="#处理流之二：转换流" class="headerlink" title="处理流之二：转换流"></a>处理流之二：转换流</h3><h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4><ul>
+<li>所有的文件都是有编码格式的</li>
+<li>对我们来说，txt和java文件一般来讲有三种编码格式<ul>
+<li>ISO8859-1，西欧编码，是纯粹英文编码，不适用汉字。</li>
+<li>GBK和UTF-8，这两种编码是适用于中文和英文。</li>
+<li>我们一般使用UTF-8编码。</li>
+</ul>
+</li>
+</ul>
+<h4 id="转换流概念"><a href="#转换流概念" class="headerlink" title="转换流概念"></a>转换流概念</h4><ul>
+<li>转换流提供了在字节流和字符流之间的转换</li>
+</ul>
+<p>Java API提供了两个转换流：</p>
+<pre><code>InputStreamReader和OutputStreamWriter</code></pre><blockquote>
+<p>字节流中的数据都是字符时，转成字符流操作更高效。</p>
+</blockquote>
+<h5 id="InputStreamReader"><a href="#InputStreamReader" class="headerlink" title="InputStreamReader"></a><strong>InputStreamReader</strong></h5><ul>
+<li>用于将字节流中读取到的字节按指定字符集解码成字符。需要和InputStream“套接”。</li>
+</ul>
+<p>构造方法</p>
+<pre><code>InputStreamReader(InputStream in)
+public InputSreamReader(InputStream in,String charsetName)</code></pre><p>如：</p>
+<pre><code>Reader isr = new   InputStreamReader(System.in,”ISO5334_1”);</code></pre><h5 id="OutputStreamWriter"><a href="#OutputStreamWriter" class="headerlink" title="OutputStreamWriter"></a><strong>OutputStreamWriter</strong></h5><ul>
+<li>用于将要写入到字节流中的字符按指定字符集编码成字节。  需要和OutputStream“套接”。</li>
+</ul>
+<p>构造方法</p>
+<pre><code>public OutputStreamWriter(OutputStream out)
+public OutputSreamWriter(OutputStream out,String charsetName)</code></pre><p>代码：</p>
+<pre><code>package day13;
+
+import java.io.*;
+
+/**
+ * @package: day13
+ * @className: Test2
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/13 18:18
+ * @version: 1.0
+ */
+public class Test2 {
+    public static void main(String[] args) {
+        try {
+//            Test2.testInputStreamReader();
+            Test2.testOutputStreamWriter();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+/**
+ *转换输入流
+ * 注意，在转换字符流的时候，设置的字符集编码 要与读取的文件的数据的编码一致
+ * 不然就会出现乱码
+ * InputStreamReader
+ */
+public static void testInputStreamReader() throws Exception {
+    FileInputStream fs = new FileInputStream(&quot;F:\\untitled1\\src\\day13\\tt5.txt&quot;);
+
+    //把字节流转换为字符流
+    //参数1是字节流，参数2是编码
+    InputStreamReader in = new InputStreamReader(fs,&quot;GBK&quot;);
+
+    char[] c = new char[100];
+
+    int len =0;
+
+    while((len = in.read(c)) != -1){
+        System.out.println(new String(c,0,len));
+    }
+    //关闭流
+    in.close();
+    fs.close();
+}
+
+public static void testOutputStreamWriter() throws Exception {
+    FileOutputStream fs = new FileOutputStream(&quot;F:\\untitled1\\src\\day13\\tt5.txt&quot;);
+    OutputStreamWriter ow = new OutputStreamWriter(fs,&quot;GBK&quot;);
+
+    //写到内存中
+    ow.write(&quot;海绵宝宝我们一起去抓水母吧&quot;);
+    //刷到内存上
+    ow.flush();
+    //关闭流
+    ow.close();
+    fs.close();
+
+}
+}</code></pre><hr>
+<h3 id="处理流之三：标准输入输出流"><a href="#处理流之三：标准输入输出流" class="headerlink" title="处理流之三：标准输入输出流"></a>处理流之三：标准输入输出流</h3><ul>
+<li><p>System.in和System.out分别代表了系统标准的输入和输出设备</p>
+</li>
+<li><p>默认输入设备是键盘，输出设备是显示器</p>
+<ul>
+<li>System.in的类型是InputStream</li>
+<li>System.out的类型是PrintStream，其是OutputStream的子类FilterOutputStream 的子类</li>
+</ul>
+</li>
+</ul>
+<p>练习：把控制台输入的内容写到指定的TXT文件中，当接收到字符串over，就结束程序的运行</p>
+<p>练习2：在一个TXT文件中，写一组用户名和密码，通过控制台输入用户名和密码，与TXT文件中的用户名密码做对比，如果一样就在打印登录成功，如果不一致，就打印用户名密码错误</p>
+<p>代码：</p>
+<pre><code>package day13;
+
+import java.io.*;
+
+/**
+ * @package: day13
+ * @className: Test3
+ * @author: MingWill
+ * @description: 标准输入输出流
+ * @date: 2022/8/13 19:44
+ * @version: 1.0
+ */
+public class Test3 {
+    public static void main(String[] args) {
+        try {
+//            Test3.testSystemIn();
+            Test3.writerTXT();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 标准输入流
+     * @throws Exception
+     */
+    public static void testSystemIn() throws Exception {
+        //创建一个接收键盘输入数据的输入流
+        InputStreamReader is = new InputStreamReader(System.in);
+
+        //把输入流放到缓冲流里
+        BufferedReader br = new BufferedReader(is);
+
+        //定义一个临时接收数据的字符串
+        String s = &quot;&quot;;
+
+        while ((s = br.readLine()) != null){
+            System.out.println(s);
+        }
+        //关闭流
+        br.close();
+        is.close();
+
+    }
+
+    /**
+     * 把控制台输入的内容写到指定的txt文件中，当接收到字符串over，就结束程序运行
+     */
+
+    public static void writerTXT() throws Exception {
+        //创建一个接收键盘输入数据的输入流
+        InputStreamReader is = new InputStreamReader(System.in);
+
+        //把输入流放到缓冲流里
+        BufferedReader br = new BufferedReader(is);
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(&quot;F:\\untitled1\\src\\day13\\tt6.txt&quot;));
+
+        String line =&quot;&quot;;
+
+        while ((line = br.readLine()) !=null){
+            if (line.equals(&quot;over&quot;)){
+                break;
+            }
+            //读取每一行都写到指定的txt文件内
+            bw.write(line);
+        }
+        //刷到硬盘上
+        bw.flush();
+        //关闭流
+        bw.close();
+        br.close();
+        is.close();
+
+    }
+}</code></pre><hr>
+<h3 id="处理流之四：打印流（了解）"><a href="#处理流之四：打印流（了解）" class="headerlink" title="处理流之四：打印流（了解）"></a>处理流之四：打印流（了解）</h3><ul>
+<li>在整个IO包中，打印流是输出信息最方便的类。</li>
+<li>PrintStream(字节打印流)和PrintWriter(字符打印流)提供了一系列重载的print和println方法，用于多种数据类型的输出<ul>
+<li>PrintStream和PrintWriter的输出不会抛出异常</li>
+<li>PrintStream和PrintWriter有自动flush功能</li>
+<li>System.out返回的是PrintStream的实例</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="处理流之五：数据流（了解）"><a href="#处理流之五：数据流（了解）" class="headerlink" title="处理流之五：数据流（了解）"></a>处理流之五：数据流（了解）</h3><p><strong>为了方便地操作Java语言的基本数据类型的数据，可以使用数据流。</strong></p>
+<ul>
+<li>数据流有两个类：(用于读取和写出基本数据类型的数据）<ul>
+<li>ataInputStream 和 DataOutputStream</li>
+<li>分别“套接”在 InputStream 和 OutputStream 节点流上</li>
+</ul>
+</li>
+</ul>
+<p>66DataInputStream中的方法</p>
+<ul>
+<li>boolean readBoolean()</li>
+<li>byte readByte()</li>
+<li>char readChar()            </li>
+<li>float readFloat()</li>
+<li>double readDouble()        </li>
+<li>short readShort()</li>
+<li>long readLong()            </li>
+<li>int readInt()</li>
+<li>String readUTF()                                 </li>
+<li>void readFully(byte[] b)</li>
+</ul>
+<p>DataOutputStream中的方法</p>
+<ul>
+<li>将上述的方法的read改为相应的write即可。</li>
+</ul>
+<p>代码：</p>
+<pre><code>package day13;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+/**
+ * @package: day13
+ * @className: Test4
+ * @author: MingWill
+ * @description: 数据流，专门用来做基本数据类型的读写的
+ * @date: 2022/8/13 20:50
+ * @version: 1.0
+ */
+public class Test4 {
+    public static void main(String[] args) {
+
+        try {
+ //           Test4.testDataOutputStream();
+            Test4.testDataInputStream();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 数据输出流
+     * 用数据输出流写到文件中的基本数据类型数据，是乱码的，不能直接辨认出来，需要数据的输    入流来读取
+     */
+    public static void testDataOutputStream() throws Exception{
+        DataOutputStream out =new DataOutputStream(new FileOutputStream(&quot;F:\\桌    面\\工作室\\Java开发\\项目开发\\untitled1\\src\\day13\\tt8.txt&quot;));
+//
+//        out.writeBoolean(true);
+        out.writeDouble(12.35d);
+//        out.writeInt(100);
+
+        //刷到硬盘上
+        out.flush();
+        //关闭流
+        out.close();
+    }
+
+    /**
+     * 数据输入流
+     * 用数据输入流来读取数据输出流写到文件中的基本数据类型数据时，要保证使用和当时写入时    一致的数据类型来读取
+ * 写的时候是writeDouble，读的时候就得是readDouble，数据类型保持一致
+     * @throws Exception
+     */
+    public static void testDataInputStream() throws Exception{
+        DataInputStream in = new DataInputStream(new FileInputStream(&quot;F:\\桌面\\工    作室\\Java开发\\项目开发\\untitled1\\src\\day13\\tt8.txt&quot;));
+
+        System.out.println(in.readDouble());
+
+        in.close();
+    }
+}</code></pre><h4 id="处理流之六：对象流"><a href="#处理流之六：对象流" class="headerlink" title="处理流之六：对象流"></a>处理流之六：对象流</h4><p><strong>ObjectInputStream和OjbectOutputSteam</strong></p>
+<ul>
+<li><p>用于存储和读取对象的处理流。它的强大之处就是可以把Java中的对象写入到数据源中，也能把对象从数据源中还原回来。</p>
+</li>
+<li><p>序列化(Serialize)：用ObjectOutputStream类将一个Java对象写入IO流中</p>
+</li>
+<li><p>反序列化(Deserialize)：用ObjectInputStream类从IO流中恢复该Java对象</p>
+</li>
+<li><p>ObjectOutputStream和ObjectInputStream不能序列化static和transient修饰的成员变量</p>
+<blockquote>
+<p>序列号和反序列化针对的是对象的各种属性，不包括类的属性。</p>
+</blockquote>
+</li>
+</ul>
+<p>Person对象：</p>
+<ol>
+<li>把这个对象存到电脑硬盘上，硬盘存储的基础是什么？是二进制，那就需要把对象转化成一个二进制字节流，把这个流保存到电脑上，要使用这个对象，就得把流转化为对象使用。</li>
+<li>把这个对象通过网络传输到另一台机器上，网络通信基础是什么？二进制，也就是需要把对象转化成一个二进制数据流，把这个流通过网络进行传输，在接收者如果要使用这个对象就得先把流转化为对象。<blockquote>
+<p>正是因为保存对象到硬盘(对象持久化)和对象的网络传输，需要做这两件事，就产生了对象的输入与输出流。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="对象的序列化"><a href="#对象的序列化" class="headerlink" title="对象的序列化"></a>对象的序列化</h4><ul>
+<li>对象序列化机制允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘上，或通过网络将这种二进制流传输到另一个网络节点。当其它程序获取了这种二进制流，就可以恢复成原来的Java对象</li>
+<li>序列化的好处在于可将任何实现了Serializable接口的对象转化为字节数据，使其在保存和传输时可被还原</li>
+<li>序列化是 RMI（Remote Method Invoke – 远程方法调用）过程的参数和返回值都必须实现的机制，而 RMI 是 JavaEE 的基础。因此序列化机制是 JavaEE 平台的基础</li>
+<li>如果需要让某个对象支持序列化机制，则必须让其类是可序列化的，为了让某个类是可序列化的，该类必须实现如下两个接口之一：</li>
+</ul>
+<ul>
+<li>Serializable</li>
+<li>Externalizable</li>
+</ul>
+<ul>
+<li><p>凡是实现Serializable接口的类都有一个表示序列化版本标识符的静态变量：</p>
+<ul>
+<li>private static final long serialVersionUID;</li>
+<li>serialVersionUID用来表明类的不同版本间的兼容性</li>
+<li>如果类没有显示定义这个静态变量，它的值是Java运行时环境根据类的内部细节自动生成的。若类的源代码作了修改，serialVersionUID 可能发生变化。故建议，显示声明</li>
+</ul>
+<ul>
+<li>显示定义serialVersionUID的用途</li>
+</ul>
+<ul>
+<li>希望类的不同版本对序列化兼容，因此需确保类的不同版本具有相同的serialVersionUID</li>
+<li>不希望类的不同版本对序列化兼容，因此需确保类的不同版本具有不同的serialVersionUID</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用对象流序列化对象"><a href="#使用对象流序列化对象" class="headerlink" title="使用对象流序列化对象"></a>使用对象流序列化对象</h4><ul>
+<li><p>若某个类实现了 Serializable 接口，该类的对象就是可序列化的：</p>
+<ul>
+<li>创建一个 ObjectOutputStream</li>
+<li>调用 ObjectOutputStream 对象的 writeObject(对象) 方法输出可序列化对象。注意写出一次，操作flush()</li>
+</ul>
+</li>
+<li><p>反序列化</p>
+<ul>
+<li>创建一个 ObjectInputStream</li>
+<li>调用 readObject() 方法读取流中的对象</li>
+</ul>
+</li>
+<li><p>强调：如果某个类的字段不是基本数据类型或 String  类型，而是另一个引用类型，那么这个引用类型必须是可序列化的，否则拥有该类型的 Field 的类也不能序列化</p>
+</li>
+</ul>
+<p>代码：</p>
+<pre><code>package day13;
+
+import java.io.*;
+
+/**
+* @author: MingWill
+* @description: 序列化与反序列化
+* 注意：对象的序列化与反序列化使用的类要严格一致，一致到包名，类名，类结构等等所有都要一致
+* @date: 2022/8/13 21:33
+* @version: 1.0
+*/
+public class Test5 {
+public static void main(String[] args) {
+    try {
+//            Test5.testSerialize();
+       Test5.testDeserialize();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+}
+
+/**
+ * 对象的序列化
+ */
+public static void testSerialize() throws Exception{
+    //定义对象输出流，把对象的序列化之后的流放到指定文件中
+    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(&quot;F:9\\untitled1\\src\\day13\\tt9.txt&quot;));
+
+    Person p = new Person();
+    p.name = &quot;张三&quot;;
+    p.age = 11;
+
+    //写到内存中
+    out.writeObject(p);
+    //刷写数据到硬盘
+    out.flush();
+    //关闭流
+    out.close();
+}
+
+/**
+ * 对象的反序列化
+ */
+public static void testDeserialize() throws Exception{
+    //定义对象输入流对象，从指定文件中把对象的序列化之后的流读取出来
+    ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;F:\\untitled1\\src\\day13\\tt9.txt&quot;));
+
+    Object obj = in.readObject();
+
+    Person p = (Person) obj;
+
+    System.out.println(p.name);
+    System.out.println(p.age);
+
+    in.close();
+}
+}</code></pre><h4 id="RandomAccessFile-类"><a href="#RandomAccessFile-类" class="headerlink" title="RandomAccessFile 类"></a>RandomAccessFile 类</h4><ul>
+<li>RandomAccessFile 类支持 “随机访问” 的方式，程序可以直接跳到文件的任意 地方来读、写文件<ul>
+<li>支持只访问文件的部分内容</li>
+<li>可以向已存在的文件后追加内容</li>
+</ul>
+<ul>
+<li>RandomAccessFile 对象包含一个记录指针，用以标示当前读写处的位置。   </li>
+<li>RandomAccessFile 类对象可以自由移动记录指针：</li>
+</ul>
+<ul>
+<li>long getFilePointer()：获取文件记录指针的当前位置</li>
+<li>void seek(long pos)：将文件记录指针定位到 pos 位置</li>
+</ul>
+</li>
+</ul>
+<p>构造器</p>
+<pre><code>public RandomAccessFile(File file, String mode)
+public RandomAccessFile(String  name, String  mode)</code></pre><ul>
+<li>创建 RandomAccessFile 类实例需要指定一个 mode 参数，该参数指定 RandomAccessFile 的访问模式：<ul>
+<li>r: 以只读方式打开</li>
+<li>rw：打开以便读取和写入</li>
+<li>rwd:打开以便读取和写入；同步文件内容的更新</li>
+<li>rws:打开以便读取和写入；同步文件内容和元数据的更新</li>
+</ul>
+</li>
+</ul>
+<p>代码：</p>
+<pre><code>package day13;
+
+import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * @author: MingWill
+ * @description: 文件的随机读写
+ * 程序可以直接跳到文件的任意位置来读写文件
+ * @date: 2022/8/13 22:02
+ * @version: 1.0
+ */
+public class Test6 {
+    public static void main(String[] args) {
+        try {
+//            Test6.testRandomAccesssFile();
+            Test6.testRandomAccesssFileWrite();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 随机读文件
+     */
+    public static void testRandomAccesssFile() throws Exception{
+        //RandomAccesssFile的构造有两个参数，参数1是读写文件的路径
+        //参数2是指定RandomAccesssFile的访问方式
+        //r: 以只读方式打开
+        //rw：打开以便读取和写入
+        //rwd:打开以便读取和写入；同步文件内容的更新
+        //rws:打开以便读取和写入；同步文件内容和元数据的更新
+        //最常用是r和rw
+        RandomAccessFile ra = new RandomAccessFile(&quot;F:\\桌面\\工作室\\Java开发\\项    目开发\\untitled1\\src\\day13\\tt10.txt&quot;,&quot;r&quot;);
+
+        //设置读取文件内容的起始点
+        //通过设置读取文件内容的起始点，来达到文件的任意位置读取
+        ra.seek(5);
+
+        byte[] b = new byte[1024];
+
+        int len = 0;
+
+        while ((len = ra.read(b)) != -1){
+            System.out.println(new String(b,0,len));
+        }
+    }
+
+    /**
+     *
+     */
+    public static void testRandomAccesssFileWrite() throws Exception{
+        RandomAccessFile ra = new RandomAccessFile(&quot;F:\\桌面\\工作室\\Java开发\\项    目开发\\untitled1\\src\\day13\\tt10.txt&quot;,&quot;rw&quot;);
+
+        //设置写的起始点，0代表起点
+        ra.seek(10);
+        //注意从文件开头或者中间开始写的话，就会用写的内容覆盖掉等长度的原有内容
+        //设置写的起始点，ra.length()代表从文件最后结尾写，也就是文件的追加
+//        ra.seek(ra.length());
+
+        ra.write(&quot;你好&quot;.getBytes());
+
+        ra.close();
+
+    }
+}</code></pre><h4 id="读取文件内容"><a href="#读取文件内容" class="headerlink" title="读取文件内容"></a>读取文件内容</h4><pre><code>RandomAccessFile raf = new RandomAccessFile(“test.txt”, “rw”）;
+raf.seek(5);
+byte [] b = new byte[1024];
+int off = 0;
+int len = 5;
+raf.read(b, off, len);
+String str = new String(b, 0, len);
+System.out.println(str);
+raf.close();</code></pre><h4 id="写入文件内容"><a href="#写入文件内容" class="headerlink" title="写入文件内容"></a>写入文件内容</h4><pre><code>RandomAccessFile raf = new RandomAccessFile(&quot;test.txt&quot;, &quot;rw&quot;);
+raf.seek(5);
+//先读出来
+String temp = raf.readLine();
+raf.seek(5);
+raf.write(&quot;xykj&quot;.getBytes());
+raf.write(temp.getBytes());
+raf.close();</code></pre><h4 id="流的基本应用小节"><a href="#流的基本应用小节" class="headerlink" title="流的基本应用小节"></a>流的基本应用小节</h4><ul>
+<li><p>流是用来处理数据的。</p>
+</li>
+<li><p>处理数据时，一定要先明确数据源，与数据目的地</p>
+<ul>
+<li>数据源可以是文件，可以是键盘。</li>
+<li>数据目的地可以是文件、显示器或者其他设备。</li>
+</ul>
+</li>
+<li><p>而流只是在帮助数据进行传输,并对传输的数据进行处理，比如过滤处理、转换处理等。</p>
+</li>
+<li><p>字节流-缓冲流（重点）</p>
+<ul>
+<li>输入流InputStream-FileInputStream-BufferedInputStream</li>
+<li>输出流OutputStream-FileOutputStream-BufferedOutputStream</li>
+</ul>
+</li>
+<li><p>字符流-缓冲流（重点）</p>
+<ul>
+<li>输入流Reader-FileReader-BufferedReader</li>
+<li>输出流Writer-FileWriter-BufferedWriter</li>
+</ul>
+</li>
+<li><p>转换流</p>
+<ul>
+<li>InputSteamReader和OutputStreamWriter</li>
+</ul>
+</li>
+<li><p>对象流ObjectInputStream和ObjectOutputStream（难点）</p>
+<ul>
+<li>序列化</li>
+<li>反序列化</li>
+</ul>
+</li>
+<li><p>随机存取流RandomAccessFile（掌握读取、写入）</p>
+</li>
+</ul>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/08/12/JavaDay13.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;12&#x2F;JavaDay13.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;12&#x2F;JavaDay13.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660569633938"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>
