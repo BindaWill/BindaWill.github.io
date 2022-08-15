@@ -24,13 +24,13 @@
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1501.png">
 <meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1502.png">
 <meta property="article:published_time" content="2022-08-14T13:06:13.000Z">
-<meta property="article:modified_time" content="2022-08-14T16:57:02.124Z">
+<meta property="article:modified_time" content="2022-08-15T17:36:26.394Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1660572297302">
+  <link rel="stylesheet" href="/css/style.css?v=1660585093645">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
@@ -161,8 +161,8 @@
   
   <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月14日</a>
-    <a><i class="nexmoefont icon-areachart"></i>3.1k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 13 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>5.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 24 分钟</a>
 </div>
 
   <div class="nexmoe-post-right">
@@ -350,25 +350,30 @@ public class Test2 {
         System.out.println(&quot;----------------------3&quot;);
 
     }
-}</code></pre><h4 id="继承方式和实现方式的联系与区别"><a href="#继承方式和实现方式的联系与区别" class="headerlink" title="继承方式和实现方式的联系与区别"></a>继承方式和实现方式的联系与区别</h4><pre><code>public class Thread extends Object implements Runnable</code></pre><p>【区别】</p>
+}</code></pre><h4 id="继承方式和实现方式的联系与区别"><a href="#继承方式和实现方式的联系与区别" class="headerlink" title="继承方式和实现方式的联系与区别"></a>继承方式和实现方式的联系与区别</h4><pre><code>public class Thread extends Object implements Runnable</code></pre><p><strong>区别</strong></p>
 <ul>
 <li><p>继承Thread:线程代码存放Thread子类run方法中。重写run方法</p>
 </li>
 <li><p>实现Runnable：线程代码存在接口的子类的run方法。实现run方法</p>
 </li>
 </ul>
-<p>【实现接口方式的好处】</p>
+<p><strong>实现接口方式的好处</strong></p>
 <ul>
 <li>避免了单继承的局限性</li>
 <li>多个线程可以共享同一个接口实现类的对象，非常适合多个相同线程来处理同一份资源。</li>
-<li>一般使用实现接口方式来实现多线程</li>
 </ul>
+<blockquote>
+<p><strong>一般使用实现接口方式来实现多线程</strong></p>
+</blockquote>
 <h4 id="使用多线程的优点"><a href="#使用多线程的优点" class="headerlink" title="使用多线程的优点"></a>使用多线程的优点</h4><p>多线程程序的优点：</p>
 <ul>
 <li>提高应用程序的响应。对图形化界面更有意义，可增强用户体验。</li>
 <li>提高计算机系统CPU的利用率</li>
 <li>改善程序结构。将既长又复杂的进程分为多个线程，独立运行，利于理解和修改</li>
 </ul>
+<blockquote>
+<p>如果在一个方法里有1000行代码，前300，中间300，后400行这三段代码没有因果关系，这种情况我们就可以使用线程处理，把前中后三段代码分别放到不同的线程去运行，这样三段代码都是并行运行的。                                                                                                                                       </p>
+</blockquote>
 <h4 id="Thread类的有关方法-1"><a href="#Thread类的有关方法-1" class="headerlink" title="Thread类的有关方法(1)"></a>Thread类的有关方法(1)</h4><ul>
 <li>void start():  启动线程，并执行对象的run()方法</li>
 <li>run():  线程在被调度时执行的操作</li>
@@ -376,20 +381,508 @@ public class Test2 {
 <li>void setName(String name):设置该线程名称</li>
 <li>static currentThread(): 返回当前线程</li>
 </ul>
-<h4 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h4><p>线程的优先级控制<br>MAX_PRIORITY（10）;<br>MIN _PRIORITY （1）;<br>NORM_PRIORITY （5）;<br>涉及的方法：<br>getPriority() ：返回线程优先值<br>setPriority(int newPriority) ：改变线程的优先级<br>线程创建时继承父线程的优先级</p>
-<h4 id="Thread类的有关方法-2"><a href="#Thread类的有关方法-2" class="headerlink" title="Thread类的有关方法(2)"></a>Thread类的有关方法(2)</h4><p>static  void  yield()：线程让步<br>暂停当前正在执行的线程，把执行机会让给优先级相同或更高的线程<br>若队列中没有同优先级的线程，忽略此方法<br>join() ：当某个程序执行流中调用其他线程的 join() 方法时，调用线程将被阻塞，直到 join() 方法加入的 join 线程执行完为止<br>低优先级的线程也可以获得执行<br>static  void  sleep(long millis)：(指定时间:毫秒)<br>令当前活动线程在指定时间段内放弃对CPU控制,使其他线程有机会被执行,时间到后重排队。<br>抛出InterruptedException异常<br>stop(): 强制线程生命期结束<br>boolean isAlive()：返回boolean，判断线程是否还活着</p>
-<h4 id="三、线程的生命周期"><a href="#三、线程的生命周期" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p>JDK中用Thread.State枚举表示了线程的几种状态<br>要想实现多线程，必须在主线程中创建新的线程对象。Java语言使用Thread类及其子类的对象来表示线程，在它的一个完整的生命周期中通常要经历如下的五种状态：<br>新建： 当一个Thread类或其子类的对象被声明并创建时，新生的线程对象处于新建状态<br>就绪：处于新建状态的线程被start()后，将进入线程队列等待CPU时间片，此时它已具备了运行的条件<br>运行：当就绪的线程被调度并获得处理器资源时,便进入运行状态， run()方法定义了线程的操作和功能<br>阻塞：在某种特殊情况下，被人为挂起或执行输入输出操作时，让出 CPU 并临时中止自己的执行，进入阻塞状态<br>死亡：线程完成了它的全部工作或线程被提前强制性地中止   </p>
-<h4 id="三、线程的生命周期-1"><a href="#三、线程的生命周期-1" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1501.png" alt="" class="lazyload"></p>
-<h4 id="四、线程的同步"><a href="#四、线程的同步" class="headerlink" title="四、线程的同步"></a>四、线程的同步</h4><p>问题的提出<br>多个线程执行的不确定性引起执行结果的不稳定<br>多个线程对账本的共享，会造成操作的不完整性，会破坏数据。</p>
-<p><img data-sizes="auto" data-src="/images/JavaStudyData/java1502.png" alt="" class="lazyload"></p>
-<h4 id="多线程出现了安全问题"><a href="#多线程出现了安全问题" class="headerlink" title="多线程出现了安全问题"></a>多线程出现了安全问题</h4><p>问题的原因：<br>当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，另一个线程参与进来执行。导致共享数据的错误。<br>解决办法:<br>对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。</p>
-<h4 id="Synchronized的使用方法"><a href="#Synchronized的使用方法" class="headerlink" title="Synchronized的使用方法"></a>Synchronized的使用方法</h4><p>Java对于多线程的安全问题提供了专业的解决方式：<br>      同步机制<br>1、synchronized还可以放在方法声明中，表示整个方法<br>      为同步方法。<br>例如：<br>    public synchronized void show (String name){<br>            ….<br>   }<br>2、synchronized (对象）{<br>         // 需要被同步的代码；<br>    }</p>
-<h4 id="线程的死锁问题"><a href="#线程的死锁问题" class="headerlink" title="线程的死锁问题"></a>线程的死锁问题</h4><p>死锁<br>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁<br>解决方法<br>专门的算法、原则，比如加锁顺序一致<br>尽量减少同步资源的定义，尽量避免锁未释放的场景</p>
-<h4 id="五、线程通信"><a href="#五、线程通信" class="headerlink" title="五、线程通信"></a>五、线程通信</h4><p>wait() 与 notify() 和 notifyAll()<br>wait()：令当前线程挂起并放弃CPU、同步资源，使别的线程可访问并修改共享资源，而当前线程排队等候再次对资源的访问<br>notify()：唤醒正在排队等待同步资源的线程中优先级最高者结束等待<br>notifyAll ()：唤醒正在排队等待资源的所有线程结束等待.<br>Java.lang.Object提供的这三个方法只有在synchronized方法或synchronized代码块中才能使用，否则会报java.lang.IllegalMonitorStateException异常</p>
-<h4 id="wait-方法"><a href="#wait-方法" class="headerlink" title="wait() 方法"></a>wait() 方法</h4><p>在当前线程中调用方法：  对象名.wait()<br>使当前线程进入等待（某对象）状态 ，直到另一线程对该对象发出 notify (或notifyAll) 为止。<br>调用方法的必要条件：当前线程必须具有对该对象的监控权（加锁）<br>调用此方法后，当前线程将释放对象监控权  ，然后进入等待<br>在当前线程被notify后，要重新获得监控权，然后从断点处继续代码的执行。</p>
-<h4 id="notify-notifyAll"><a href="#notify-notifyAll" class="headerlink" title="notify()/notifyAll()"></a>notify()/notifyAll()</h4><p>在当前线程中调用方法：  对象名.notify()<br>功能：唤醒等待该对象监控权的一个线程。<br>调用方法的必要条件：当前线程必须具有对该对象的监控权（加锁）</p>
-<h4 id="经典例题：生产者-消费者问题"><a href="#经典例题：生产者-消费者问题" class="headerlink" title="经典例题：生产者/消费者问题"></a>经典例题：生产者/消费者问题</h4><p>生产者(Productor)将产品交给店员(Clerk)，而消费者(Customer)从店员处取走产品，店员一次只能持有固定数量的产品(比如:20），如果生产者试图生产更多的产品，店员会叫生产者停一下，如果店中有空位放产品了再通知生产者继续生产；如果店中没有产品了，店员会告诉消费者等一下，如果店中有产品了再通知消费者来取走产品。<br>这里可能出现两个问题：<br>         生产者比消费者快时，消费者会漏掉一些数据没有取到。<br>         消费者比生产者快时，消费者会取相同的数据。</p>
+<h4 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h4><p>线程的优先级控制</p>
+<ul>
+<li>MAX_PRIORITY（10）;    </li>
+<li>MIN _PRIORITY （1）;  </li>
+<li>NORM_PRIORITY （5）;<br>涉及的方法：</li>
+<li>getPriority() ：返回线程优先值</li>
+<li>setPriority(int newPriority) ：改变线程的优先级</li>
+</ul>
+<blockquote>
+<p>线程创建时继承父线程的优先级</p>
+</blockquote>
+<h4 id="Thread类的有关方法-2"><a href="#Thread类的有关方法-2" class="headerlink" title="Thread类的有关方法(2)"></a>Thread类的有关方法(2)</h4><p><strong>static  void  yield()：</strong>线程让步</p>
+<ul>
+<li>暂停当前正在执行的线程，把执行机会让给优先级相同或更高的线程</li>
+<li>若队列中没有同优先级的线程，忽略此方法</li>
+</ul>
+<p><strong>join() ：</strong>当某个程序执行流中调用其他线程的 join() 方法时，调用线程将被阻塞，直到 join() 方法加入的 join 线程执行完为止   </p>
+<ul>
+<li>低优先级的线程也可以获得执行</li>
+</ul>
+<p><strong>static  void  sleep(long millis)：</strong>(指定时间:毫秒)</p>
+<ul>
+<li>令当前活动线程在指定时间段内放弃对CPU控制,使其他线程有机会被执行,时间到后重排队。</li>
+<li>抛出InterruptedException异常</li>
+</ul>
+<p><strong>stop():</strong>强制线程生命期结束(已弃用)</p>
+<p><strong>boolean isAlive()：</strong>返回boolean，判断线程是否还活着、</p>
+<p>代码：</p>
+<pre><code>public class Test1 {
+  public static void main(String[] args) {
+    TestRun run = new TestRun();
+    TestRun run1 = new TestRun();
 
+    Thread t0 = new Thread(run);
+    Thread t1 = new Thread(run1);
+
+    //设置线程名称
+//  t0.setName(&quot;线程t0&quot;);
+//  t1.setName(&quot;线程t1&quot;);
+
+    //启动线程
+    t0.start();
+    t1.start();
+
+    //如果在创建线程时，没有指定名称，系统会给出默认名称
+    //通过getName（）获取线程名称
+    System.out.println(t0.getName());
+
+    System.out.println(t1.getName());
+
+
+    /**
+     * 线程优先级，就是那个线程有较大概率被执行
+     * 优先级是用数组1-10表示的，数字越大优先级越高，如果没有设置默认优先级是5
+     */
+
+
+    //设置线程的优先级
+    t0.setPriority(1);
+
+    //获取线程的优先级
+    System.out.println(&quot;t0的优先级：&quot;+ t0.getPriority());
+
+
+
+    System.out.println(&quot;----------------------1&quot;);
+    System.out.println(&quot;----------------------2&quot;);
+
+    //判断当前线程是否存活
+    System.out.println(t1.isAlive());
+    //强制线程生命周期结束，强制停止此线程
+    t1.stop();
+    try {
+        //
+        //相当于在这块，把t0的run方法代码插入到这个位置执行
+        /**
+         * 专业说法
+         * 阻塞当前mian方法，先不执行System.out.println(&quot;----------------------3&quot;)代码
+         * 先执行join进来的线程的代码
+         * join的线程执行完毕之后，继续执行之前main方法被阻塞的代码System.out.println(&quot;----------------------3&quot;)
+         */
+        t0.join();
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    System.out.println(&quot;----------------------3&quot;);
+
+    System.out.println(t1.isAlive());
+    }
+}
+
+class TestRun implements Runnable{
+
+int count  = 0;
+@Override
+//线程在启动后执行的具体方法
+public void run() {
+
+    System.out.println(Thread.currentThread().getName()+ &quot;:Runnable多线程运行代码&quot;);
+    for (int i = 0;i&lt;5;i++){
+        try {
+            //当前线程睡眠1000毫秒
+            //相当于当前循环每隔1000毫秒执行一次
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//      if (i % 2 ==0){
+//      //线程让步
+//      Thread.yield();
+//       }
+        count++;
+        System.out.println(Thread.currentThread().getName()+&quot;:这是Runnable多线程的逻辑代码&quot; + count);
+      }
+   }
+}</code></pre><h4 id="三、线程的生命周期"><a href="#三、线程的生命周期" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p><strong>JDK中用Thread.State枚举表示了线程的几种状态</strong></p>
+<p>要想实现多线程，必须在主线程中创建新的线程对象。Java语言使用Thread类及其子类的对象来表示线程，在它的一个完整的生命周期中通常要经历如下的五种状态：</p>
+<ul>
+<li><strong>新建</strong>：<strong>（线程实例的创建）</strong> 当一个Thread类或其子类的对象被声明并创建时，新生的线程对象处于新建状态</li>
+<li><strong>就绪</strong>：<strong>（执行.start()方法之后）</strong>处于新建状态的线程被start()后，将进入线程队列等待CPU时间片，此时它已具备了运行的条件</li>
+<li><strong>运行</strong>：<strong>（run方法代码开始执行）</strong>当就绪的线程被调度并获得处理器资源时,便进入运行状态， run()方法定义了线程的操作和功能</li>
+<li><strong>阻塞</strong>：<strong>（类似堵车，run方法的代码暂停执行，卡住run方法）</strong>在某种特殊情况下，被人为挂起或执行输入输出操作时，让出 CPU 并临时中止自己的执行，进入阻塞状态</li>
+<li><strong>死亡</strong>：<strong>（自然死亡，程序执行完毕或是发生了异常到程序结束；强制死亡，执行.stop方法，断电，杀掉进程）</strong>线程完成了它的全部工作或线程被提前强制性地中止   </li>
+</ul>
+<h4 id="三、线程的生命周期-1"><a href="#三、线程的生命周期-1" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1501.png" alt="" class="lazyload"></p>
+<h4 id="四、线程的同步"><a href="#四、线程的同步" class="headerlink" title="四、线程的同步"></a>四、线程的同步</h4><p>问题的提出</p>
+<ul>
+<li>多个线程执行的不确定性引起执行结果的不稳定</li>
+<li>多个线程对账本的共享，会造成操作的不完整性，会破坏数据。</li>
+</ul>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/java1502.png" alt="" class="lazyload"></p>
+<h4 id="多线程出现了安全问题"><a href="#多线程出现了安全问题" class="headerlink" title="多线程出现了安全问题"></a>多线程出现了安全问题</h4><p>问题的原因：</p>
+<p>当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，另一个线程参与进来执行。导致共享数据的错误。<br>解决办法:<br>对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。</p>
+<h4 id="Synchronized的使用方法"><a href="#Synchronized的使用方法" class="headerlink" title="Synchronized的使用方法"></a>Synchronized的使用方法</h4><p>Java对于多线程的安全问题提供了专业的解决方式：</p>
+<pre><code>同步机制</code></pre><p>1、synchronized还可以放在方法声明中，表示整个方法<br>      为同步方法。<br>例如：<br>    public synchronized void show (String name){<br>            ….<br>   }<br>2、synchronized (对象）{<br>         // 需要被同步的代码；<br>    }</p>
+<p>代码：</p>
+<pre><code>package day15;
+
+/**
+ * @author: MingWill
+ * @description: TODO
+ * @date: 2022/8/15 23:45
+ * @version: 1.0
+ */
+public class Test2 {
+    public static void main(String[] args) {
+        //定义账户对象
+        Acount a =new Acount();
+        Acount a1 =new Acount();
+
+
+        //多线程对象
+        //线程同时调用两个对象
+        //线程分别调用不同对象
+        User u_weixin = new User(a,2000);
+        User u_zfb = new User(a,2000);
+
+       Thread weixin = new Thread(u_weixin,&quot;微信&quot;);
+
+        Thread zfb = new Thread(u_zfb,&quot;支付宝&quot;);
+        weixin.start();
+        zfb.start();
+
+    }
+}
+class Acount {
+    public static int money = 3000;
+
+    /**
+     * 提款，判断账户钱够不够
+     * 多线程调用这个方法，就有问题，线程共享资源时，一个方法在执行这个方法没有完毕是，另一个线程又开始执行这个方法
+     * 解决方法：先让一个线程整体执行完毕后，另一个线程再执行
+     * 通过synchronized 同步锁来完成
+     * 直接在方法上加上synchronized关键字
+     * 在普通方法上加同步锁synchronized，锁的是整个的对象，不是某一个方法，
+     * 两个方法都上同步锁，当线程1执行某一个方法是，线程2此时两个方法都不能访问
+     * 不同的对象就是不同的锁，普通方法加上synchronized关键字，线程使用不同的此方法对象，还是有共享资源的问题
+     *
+     * @param m
+     */
+
+    public synchronized void drawing(int m) {
+        if (money &lt; m) {
+            System.out.println(&quot;余额不足&quot; + money);
+        } else {
+            String name = Thread.currentThread().getName();
+            System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+            System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+            money = money - m;
+            System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+        }
+    }
+
+    public synchronized void drawing1(int m) {
+        if (money &lt; m) {
+            System.out.println(&quot;余额不足&quot; + money);
+        } else {
+            String name = Thread.currentThread().getName();
+            System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+            System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+            money = money - m;
+            System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+        }
+    }
+
+
+    /**
+     * 如果是静态的方法加同步锁，对于所有的对象，都是同一个锁
+     * @param m
+     */
+    public static synchronized void drawing2(int m) {
+        if (money &lt; m) {
+            System.out.println(&quot;余额不足&quot; + money);
+        } else {
+            String name = Thread.currentThread().getName();
+            System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+            System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+            money = money - m;
+            System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+        }
+    }
+
+    /**
+     * 代码块加synchronized同步锁
+     * @param m
+     */
+    public  void drawing3(int m) {
+
+        //表示当前对象的代码块被加了synchronized同步锁
+        //用this锁代码块代表当前对象，如果在其他方法中也有synchronized的代码使用的都是同一个同步锁
+        synchronized (this) {
+            String name = Thread.currentThread().getName();
+
+        if (money &lt; m) {
+            System.out.println(&quot;余额不足&quot; + money);
+        } else {
+            System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+            System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+            money = money - m;
+            System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+        }
+      }
+    }
+
+    /**
+     * 代码块加synchronized同步锁
+     * @param m
+     */
+    public  void drawing4(int m) {
+
+        //表示当前对象的代码块被加了synchronized同步锁
+        //用this锁代码块代表当前对象，如果在其他方法中也有synchronized的代码使用的都是同一个同步锁
+        synchronized (this) {
+            String name = Thread.currentThread().getName();
+
+            if (money &lt; m) {
+                System.out.println(&quot;余额不足&quot; + money);
+            } else {
+                System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+                System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+                money = money - m;
+                System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+            }
+        }
+    }
+
+
+    /**
+     * synchronized修饰代码块，想要根据不同的对象有不同的锁
+     * synchronized(a),这个小括号中传入不同的对象就有不同的锁
+     * @param m
+     */
+    public  void drawing5(int m,Acount a) {
+
+        //表示从方法参数中传递进来的对象的代码块被加了synchronized同步锁
+        //不同的对象就有不同的同步锁
+        synchronized (a) {
+            String name = Thread.currentThread().getName();
+
+            if (money &lt; m) {
+                System.out.println(&quot;余额不足&quot; + money);
+            } else {
+                System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+                System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+                money = money - m;
+                System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+            }
+        }
+    }
+}
+
+class User implements Runnable {
+    Acount acount;
+    int money;
+
+    public User(Acount acount, int money) {
+        this.acount = acount;
+        this.money = money;
+    }
+
+    @Override
+    public void run() {
+//        acount.drawing(money);
+//        if (Thread.currentThread().getName().equals(&quot;微信&quot;)) {
+//            acount.drawing3(money);
+////            acount.drawing(money);
+//        } else {
+//            acount.drawing4(money);
+//            acount.drawing1(money);
+//        }
+        //调用类的静态方法
+//       Acount.drawing2(money);
+
+//        acount.drawing3(money);
+
+        acount.drawing5(money,acount);
+    }
+
+}</code></pre><blockquote>
+<p>在普通方法上加同步锁synchronized: 锁的是当前方法对应的对象，当前对象（同一对象）的所有加了同步锁的方法是共用一个同步锁。</p>
+</blockquote>
+<blockquote>
+<p>静态的方法加同步锁synchronized: 对于所有的对象（包括不同对象），都是同一个锁</p>
+</blockquote>
+<blockquote>
+<p>代码块加同步锁synchronized：</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>所有当前的对象（同一对象）的synchronized（this）同步的代码都是使用同一个同步锁;</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>synchronized（a）当小括号中传入不同对象就是不同的锁。</li>
+</ul>
+</blockquote>
+<ul>
+<li>如果针对对象要加同步锁，那就加在方法上。</li>
+<li>如果针对某一段代码需要加同步锁，那就直接加在代码块上。</li>
+</ul>
+<h4 id="线程的死锁问题"><a href="#线程的死锁问题" class="headerlink" title="线程的死锁问题"></a>线程的死锁问题</h4><p>死锁</p>
+<ul>
+<li>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁</li>
+</ul>
+<p>解决方法</p>
+<ul>
+<li>专门的算法、原则，比如加锁顺序一致</li>
+<li>尽量减少同步资源的定义，尽量避免锁未释放的场景</li>
+</ul>
+<h4 id="五、线程通信"><a href="#五、线程通信" class="headerlink" title="五、线程通信"></a>五、线程通信</h4><p><strong>wait() 与 notify() 和 notifyAll()</strong></p>
+<ul>
+<li><p>wait()：令当前线程挂起并放弃CPU、同步资源，使别的线程可访问并修改共享资源，而当前线程排队等候再次对资源的访问</p>
+</li>
+<li><p>notify()：唤醒正在排队等待同步资源的线程中优先级最高者结束等待</p>
+</li>
+<li><p>notifyAll ()：唤醒正在排队等待资源的所有线程结束等待.</p>
+</li>
+</ul>
+<blockquote>
+<p>Java.lang.Object提供的这三个方法只有在synchronized方法或synchronized代码块中才能使用，否则会报java.lang.IllegalMonitorStateException异常</p>
+</blockquote>
+<pre><code>public  void drawing5(int m,Acount a) {
+
+    //表示从方法参数中传递进来的对象的代码块被加了synchronized同步锁
+    //不同的对象就有不同的同步锁
+    synchronized (a) {
+        String name = Thread.currentThread().getName();
+
+        //如果是微信操作，先不执行，等支付宝操作完，微信再继续操作
+        if (name.equals(&quot;微信&quot;)){
+            try {
+                //当前线程进入等待状态
+                a.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (money &lt; m) {
+            System.out.println(&quot;余额不足&quot; + money);
+        } else {
+            System.out.println(name + &quot;操作，账户原有金额：&quot; + money);
+            System.out.println(name + &quot;操作，取款金额：&quot; + m);
+
+            money = money - m;
+            System.out.println(name + &quot;操作，取款后余额：&quot; + money);
+        }
+
+        if (name.equals(&quot;支付宝&quot;)){
+            try {
+                //唤醒当前优先级最高的线程，进入就绪状态
+                a.notify();
+                //唤醒当前所有的线程，进入就绪状态
+                a.notifyAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}</code></pre><h4 id="wait-方法"><a href="#wait-方法" class="headerlink" title="wait() 方法"></a>wait() 方法</h4><p>在当前线程中调用方法：  对象名.wait()<br>使当前线程进入等待（某对象）状态 ，直到另一线程对该对象发出 notify (或notifyAll) 为止。<br>调用方法的必要条件：当前线程必须具有对该对象的监控权（加锁）<br>调用此方法后，当前线程将释放对象监控权  ，然后进入等待<br>在当前线程被notify后，要重新获得监控权，然后从断点处继续代码的执行。</p>
+<h4 id="notify-notifyAll"><a href="#notify-notifyAll" class="headerlink" title="notify()/notifyAll()"></a>notify()/notifyAll()</h4><p>在当前线程中调用方法：  对象名.notify()<br>功能：唤醒等待该对象监控权的一个线程。<br>调用方法的必要条件：当前线程必须具有对该对象的监控权（加锁）</p>
+<blockquote>
+<p>这三个方法只能用在有同步锁的方法或者代码块中。</p>
+</blockquote>
+<h4 id="经典例题：生产者-消费者问题"><a href="#经典例题：生产者-消费者问题" class="headerlink" title="经典例题：生产者/消费者问题"></a>经典例题：生产者/消费者问题</h4><p>生产者(Productor)将产品交给店员(Clerk)，而消费者(Customer)从店员处取走产品，店员一次只能持有固定数量的产品(比如:20），如果生产者试图生产更多的产品，店员会叫生产者停一下，如果店中有空位放产品了再通知生产者继续生产；如果店中没有产品了，店员会告诉消费者等一下，如果店中有产品了再通知消费者来取走产品。</p>
+<p>这里可能出现两个问题：</p>
+<ul>
+<li>生产者比消费者快时，消费者会漏掉一些数据没有取到。</li>
+<li>消费者比生产者快时，消费者会取相同的数据。</li>
+</ul>
+<pre><code>package day15;
+
+/**
+ * @author: MingWill
+ * @description: 生产者与消费者
+ * @date: 2022/8/16 1:13
+ * @version: 1.0
+ */
+public class Test3 {
+    public static void main(String[] args) {
+        Clerk c =new Clerk();
+        //消费时不生产，生产时不消费
+        //生产者
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (c){
+                    //无限循环，代表无限生产次数
+                    while (true){
+                        //生产数为0，开始生产
+                        if (Clerk.productNum == 0){
+                            System.out.println(&quot;生产数为0，开始生产&quot;);
+                            while (Clerk.productNum &lt; 4){
+                                //增加产品
+                                Clerk.productNum++;
+                                System.out.println(&quot;库存：&quot; + Clerk.productNum);
+                            }
+
+                            System.out.println(&quot;产品数为&quot;  + Clerk.productNum + &quot;，    结束生产&quot;);
+                            //唤醒消费者线程
+                            c.notify();
+                        }else {
+                            try {
+                                //生产者线程等待
+                                c.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                }
+            }
+        }, &quot;生产者&quot;).start();
+
+
+        //消费者
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (c){
+                    //无限循环，代表无限消费次数
+                    while (true){
+                        //生产数为0，开始生产
+                        if (Clerk.productNum == 4){
+                            System.out.println(&quot;生产数为4，开始消费&quot;);
+                            while (Clerk.productNum &gt; 0){
+                                //消费产品
+                                Clerk.productNum--;
+                                System.out.println(&quot;库存：&quot; + Clerk.productNum);
+                            }
+
+                            System.out.println(&quot;产品数为&quot;  + Clerk.productNum + &quot;，    结束消费&quot;);
+                            //唤醒生产者线程
+                            c.notify();
+                        }else {
+                            try {
+                                //消费者线程等待
+                                c.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                }
+            }
+        }, &quot;消费者&quot;).start();
+
+    }
+}
+
+class Clerk{
+    public static int productNum = 0;
+}</code></pre>
   </article>
 
   
@@ -438,7 +931,7 @@ public class Test2 {
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1660572297303"></script>
+<script src="/js/app.js?v=1660585093647"></script>
   
 
 
