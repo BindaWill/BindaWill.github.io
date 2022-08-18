@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>注解Annotation实现原理与自定义注解例子 - 火星环游日记</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="每当你创建描述符性质的类或者接口时,一旦其中包含重复性的工 作，就可以考虑使用注解来简化与自动化该过程。 Java提供了四种元注解，专门负责新注解的创建工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注解Annotation实现原理与自定义注解例子">
+<meta property="og:url" content="http://yoursite.com/2022/08/14/Annotation.html/index.html">
+<meta property="og:site_name" content="火星环游日记">
+<meta property="og:description" content="每当你创建描述符性质的类或者接口时,一旦其中包含重复性的工 作，就可以考虑使用注解来简化与自动化该过程。 Java提供了四种元注解，专门负责新注解的创建工作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/annotation.jpg">
+<meta property="article:published_time" content="2022-08-14T13:06:13.000Z">
+<meta property="article:modified_time" content="2022-08-17T17:16:19.527Z">
+<meta property="article:author" content="非酋囧菌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
+  
+  <link rel="stylesheet" href="/css/style.css?v=1660845033400">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="mdui-drawer-body-left">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(/images/logo/a1.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="非酋囧菌" class="mdui-btn mdui-btn-icon"><img src="/images/logo/a3.jpg" alt="非酋囧菌"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="非酋囧菌">
+            <img src="/images/logo/a3.jpg" alt="非酋囧菌" alt="非酋囧菌">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>62</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/me.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/py.html" title="我的基友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的基友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1161831210" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/33638990" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/nexmoe/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">40</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 非酋囧菌
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="注解Annotation实现原理与自定义注解例子" class="lazyload">
+          <h1>注解Annotation实现原理与自定义注解例子</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年08月14日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.8k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 12 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>每当你创建描述符性质的类或者接口时,一旦其中包含重复性的工 作，就可以考虑使用注解来简化与自动化该过程。 Java提供了四种元注解，专门负责新注解的创建工作。</p>
+<a id="more"></a>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="注解Annotation实现原理"><a href="#注解Annotation实现原理" class="headerlink" title="注解Annotation实现原理"></a>注解Annotation实现原理</h3><blockquote>
+<p>注解作用：每当你创建描述符性质的类或者接口时,一旦其中包含重复性的工 作，就可以考虑使用注解来简化与自动化该过程。 Java提供了四种元注解，专门负责新注解的创建工作。</p>
+</blockquote>
+<h4 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h4><ul>
+<li>元注解的作用就是负责注解其他注解。Java5.0定义了4个标准的meta­ annotation类型，它们被用来提供对其它 annotation类型作说明。</li>
+</ul>
+<p><strong>Java5.0定义的元注解：</strong></p>
+<ol>
+<li>@Target,</li>
+<li>@Retention,</li>
+<li>@Documented,</li>
+<li>@Inherited</li>
+</ol>
+<ul>
+<li>这些类型和它们所支持的类在java.lang.annotation包中可以找到。下 面我们看一下每个元注解的作用和相应分参数的使用说明。</li>
+</ul>
+<h4 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h4><ul>
+<li><p>@Target说明了Annotation所修饰的对象范围：Annotation可被用 于 packages、types（类、接口、枚举、Annotation类型）、类型成员 （方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、 catch参数）。在Annotation类型的声明中使用了target可更加明晰其修饰 的目标。</p>
+</li>
+<li><p><em>作用：*</em>用于描述注解的使用范围（即：被描述的注解可以用在什么地方）</p>
+</li>
+<li><p><em>取值(ElementType)有：*</em></p>
+<ol>
+<li>CONSTRUCTOR:用于描述构造器</li>
+<li>FIELD:用于描述域</li>
+<li>LOCAL_VARIABLE:用于描述局部变量</li>
+<li>METHOD:用于描述方法</li>
+<li>PACKAGE:用于描述包</li>
+<li>PARAMETER:用于描述参数</li>
+<li>TYPE:用于描述类、接口(包括注解类型) 或enum声明</li>
+</ol>
+</li>
+</ul>
+<p>使用示例：</p>
+<pre><code>/***
+ *
+ * 实体注解接口
+ */
+ @Target(value = {ElementType.TYPE})
+ @Retention(value = RetentionPolicy.RUNTIME)
+ public @interface Entity {
+   /***
+    * 实体默认firstLevelCache属性为false
+    * @return boolean
+    */
+    boolean firstLevelCache() default false;
+    /***
+     * 实体默认secondLevelCache属性为false
+     * @return boolean
+     */
+    boolean secondLevelCache() default true;
+    /***
+     * 表名默认为空
+     * @return String
+     */
+    String tableName() default &quot;&quot;;
+    /***
+     * 默认以&quot;&quot;分割注解
+     */
+    String split() default &quot;&quot;; }</code></pre><h4 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h4><ul>
+<li>@Retention定义了该Annotation被保留的时间长短：某些Annotation 仅出现在源代码中，而被编译器丢弃；而另一些却被编译在class文件中；编译 在class文件中的Annotation可能会被虚拟机忽略，而另一些在class被装载 时将被读取（请注意并不影响class的执行，因为Annotation与class在使用上是被分离的）。使用这个meta­Annotation可以对 Annotation的“生命 周期”限制。</li>
+</ul>
+<p><strong>作用：</strong>表示需要在什么级别保存该注释信息，用于描述注解的生命周期 （即：被描述的注解在什么范围内有效）</p>
+<p><strong>取值（RetentionPoicy）有：</strong></p>
+<ol>
+<li>SOURCE:在源文件中有效（即源文件保留）</li>
+<li>CLASS:在class文件中有效（即class保留）</li>
+<li>RUNTIME:在运行时有效（即运行时保留）</li>
+</ol>
+<p>使用示例：</p>
+<pre><code>/***
+ * 字段注解接口
+ */
+ @Target(value = {ElementType.FIELD})//注解可以被添加在属性上
+ @Retention(value = RetentionPolicy.RUNTIME)//注解保存在JVM运行时刻,能够在运行时刻通过反射API来获取到注解的信息
+ public @interface Column {
+   String name();//注解的name属性
+   }</code></pre><ul>
+<li>Column注解的的RetentionPolicy的属性值是RUTIME,这样注解处理器可以 通过反射，获取到该注解的属性值，从而去做一些运行时的逻辑处理</li>
+</ul>
+<h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><ul>
+<li>@Documented用于描述其它类型的annotation应该被作为被标注的程序 成员的公共API，因此可以被例如javadoc此类的工具文档化。Documented是 一个标记注解，没有成员。</li>
+</ul>
+<h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><ul>
+<li>@Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的 类型是被继承的。如果一个使用了@Inherited修饰的annotation类型被用于 一个class，则这个annotation将被用于该class的子类。</li>
+</ul>
+<blockquote>
+<p>注意：@Inherited annotation类型是被标注过的class的子类所继承。类并不从它所实现的接口继承annotation，方法并不从它所重载的方法继 承annotation。</p>
+</blockquote>
+<blockquote>
+<p>当@Inherited annotation类型标注的annotation的Retention是 RetentionPolicy.RUNTIME，则反射API增强了这种继承性。如果我们使用 java.lang.reflect去查询一个@Inherited annotation类型的 annotation时，反射代码检查将展开工作：检查class和其父类，直到发现指 定的annotation类型被发现，或者到达类继承结构的顶层。</p>
+</blockquote>
+<h4 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h4><ul>
+<li><p>使用@interface自定义注解时，自动继承了 java.lang.annotation.Annotation接口，由编译程序自动完成其他细 节。在定义注解时，不能继承其他的注解或接口。@interface用来声明一个注 解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名 称，返回值类型就是参数的类型（返回值类型只能是基本类型、Class、 String、enum）。可以通过default来声明参数的默认值。</p>
+</li>
+<li><p><em>定义注解格式：*</em></p>
+<p>   public @interface 注解名 {定义体}</p>
+</li>
+</ul>
+<p><strong>注解参数的可支持数据类型：</strong><br>1.所有基本数据类型 （int,float,boolean,byte,double,char,long,short)<br>2.String类型<br>3.Class类型<br>4.enum类型<br>5.Annotation类型<br>6.以上所有类型的数组</p>
+<p><strong>Annotation类型里面的参数该怎么设定:</strong></p>
+<ul>
+<li>第一,只能用public或默认(default)这两个访问权修饰.例如,String value();这里把方法设为defaul默认类型；</li>
+<li>第二,参数成员只能用基本类型 byte,short,char,int,long,float,double,boolean八种基本数据类型 和 String,Enum,Class,annotations等数据类型,以及这一些类型的数 组.例如,String value();这里的参数成员就为String;</li>
+<li>第三,如果只有一个参数成员,最好把参数名称设为”value”,后加小括号.</li>
+</ul>
+<p>例:下面的例子FruitName注解就只有一个参数成员。</p>
+<p><strong>简单的自定义注解和使用注解实例：</strong></p>
+<p>示例1：</p>
+<pre><code>/***
+ *主键注解接口
+ */
+ @Target(value = {ElementType.FIELD}) @Retention(value = RetentionPolicy.RUNTIME)
+ public @interface Id {
+ }</code></pre><p>示例2：</p>
+<pre><code>/**属性不需要被持久化注解**/
+@Target(value = {ElementType.FIELD})
+@Retention(value = RetentionPolicy.RUNTIME)
+@Documented
+public @interface Transient {
+  }</code></pre><p><strong>注解元素的默认值：</strong></p>
+<ul>
+<li><p>注解元素必须有确定的值，要么在定义注解的默认值中指定，要么在使用注 解时指定，非基本类型的注解元素的值不可为null。因此, 使用空字符串或0 作为默认值是一种常用的做法。这个约束使得处理器很难表现一个元素的存在或 缺失的状态，因为每个注解的声明中，所有元素都存在，并且都具有相应的值， 为了绕开这个约束，我们只能定义一些特殊的值，例如空字符串或者负数，一次 表示某个元素不存在，在定义注解时，这已经成为一个习惯用法。</p>
+</li>
+<li><p>定义了注解，并在需要的时候给相关类，类属性加上注解信息，如果没有响应的 注解信息处理流程，注解可以说是没有实用价值。如何让注解真真的发挥作用，主要就在于注解处理方法，下一步我们将学习注解信息的获取和处理！</p>
+</li>
+<li><p>如果没有用来读取注解的方法和工作，那么注解也就不会比注释更有用处了。使 用注解的过程中，很重要的一部分就是创建于使用注解处理器。Java SE5扩展 了反射机制的API，以帮助程序员快速的构造自定义注解处理器。</p>
+</li>
+</ul>
+<p><strong>注解处理器类库(java.lang.reflect.AnnotatedElement)：</strong></p>
+<ul>
+<li><p>Java使用Annotation接口来代表程序元素前面的注解，该接口是所有 Annotation类型的父接口。除此之外，Java在java.lang.reflect 包下 新增了AnnotatedElement接口，该接口代表程序中可以接受注解的程序元 素，该接口主要有如下几个实现类：</p>
+<ul>
+<li>Class：类定义</li>
+<li>Constructor：构造器定义</li>
+<li>Field：累的成员变量定义</li>
+<li>Method：类的方法定义</li>
+<li>Package：类的包定义</li>
+</ul>
+</li>
+<li><p>java.lang.reflect 包下主要包含一些实现反射功能的工具类，实际 上，java.lang.reflect 包所有提供的反射API扩充了读取运行时 Annotation信息的能力。当一个Annotation类型被定义为运行时的 Annotation后，该注解才能是运行时可见，当class文件被装载时被保存在 class文件中的Annotation才会被虚拟机读取。</p>
+</li>
+<li><p>AnnotatedElement 接口是所有程序元素（Class、Method和 Constructor）的父接口，所以程序通过反射获取了某个类的 AnnotatedElement对象之后，程序就可以调用该对象的如下四个个方法来访 问Annotation信息：</p>
+</li>
+<li><p>方法1：<T extends Annotation> T getAnnotation(Class<T> annotationClass): 返回改程序元素上存在的、指定类型的注解，如果该类 型注解不存在，则返回null。</p>
+</li>
+<li><p>方法2：Annotation[] getAnnotations():返回该程序元素上存在的 所有注解。</p>
+</li>
+<li><p>方法3：boolean is AnnotationPresent(Class&lt;?extends Annotation&gt; annotationClass):判断该程序元素上是否包含指定类型的<br>注解，存在则返回true，否则返回false.</p>
+</li>
+<li><p>方法4：Annotation[] getDeclaredAnnotations()：返回直接存在 于此元素上的所有注释。与此接口中的其他方法不同，该方法将忽略继承的注 释。（如果没有注释直接存在于此元素上，则返回长度为零的一个数组。）该方 法的调用者可以随意修改返回的数组；这不会对其他调用者返回的数组产生任何 影响。</p>
+</li>
+</ul>
+<p>一个简单的注解处理器：</p>
+<pre><code>/***********注解声明***************/
+/**
+ * 水果名称注解
+ * @author peida
+ *
+ */
+ @Target(ElementType.FIELD)
+ @Retention(RetentionPolicy.RUNTIME)
+ @Documented
+ public @interface FruitName {
+   String value() default &quot;&quot;;
+ }
+ /**
+  * 水果颜色注解
+  * @author peida
+  *
+  */
+  @Target(ElementType.FIELD)
+  @Retention(RetentionPolicy.RUNTIME)
+  @Documented
+  public @interface FruitColor {
+    /**
+     * 颜色枚举
+     * @author peida
+     *
+     */
+     public enum Color{ BULE,RED,GREEN};
+     /**
+      * 颜色属性
+      * @return
+      */
+      Color fruitColor() default Color.GREEN;
+      }
+      /**
+       * 水果供应者注解
+       * @author peida
+       *
+       */
+       @Target(ElementType.FIELD)
+       @Retention(RetentionPolicy.RUNTIME)
+       @Documented
+       public @interface FruitProvider {
+         /**
+          * 供应商编号
+          * @return
+          */
+          public int id() default ­1;
+          /**
+           * 供应商名称
+           * @return
+           */
+           public String name() default &quot;&quot;;
+           /**
+            * 供应商地址
+            * @return
+            */
+            public String address() default &quot;&quot;;
+          }
+            /***********注解使用***************/
+
+
+public class Apple {
+
+  @FruitName(&quot;Apple&quot;)
+  private String appleName;
+
+  @FruitColor(fruitColor=Color.RED)
+  private String appleColor;
+
+  @FruitProvider(id=1,name=&quot;陕西红富士集团&quot;,address=&quot;陕西省西安市延安路89号红 富士大厦&quot;)
+  private String appleProvider;
+
+  public void setAppleColor(String appleColor) {
+     this.appleColor = appleColor;
+     }
+
+     public String getAppleColor() {
+       return appleColor;
+       }
+
+       public void setAppleName(String appleName) {
+         this.appleName = appleName;
+         }
+
+         public String getAppleName() {
+           return appleName;
+           }
+
+           public void setAppleProvider(String appleProvider) {
+              this.appleProvider = appleProvider;
+              }
+
+              public String getAppleProvider() {
+                return appleProvider; }public void displayName(){ System.out.println(&quot;水果的名字是：苹果&quot;);
+              }
+              }
+
+              /***********注解处理器***************/
+
+            public class FruitInfoUtil {
+               public static void getFruitInfo(Class&lt;?&gt; clazz){
+                 String strFruitName=&quot; 水果名称：&quot;;
+                 String strFruitColor=&quot; 水果颜色：&quot;;
+                 String strFruitProvicer=&quot;供应商信息：&quot;;
+                 Field[] fields = clazz.getDeclaredFields();
+                 for(Field field :fields){
+                    if(field.isAnnotationPresent(FruitName.class)){
+                      FruitName fruitName = (FruitName)field.getAnnotation(FruitName.class);
+                       strFruitName=strFruitName+fruitName.value();
+                        System.out.println(strFruitName);
+                        }else if(field.isAnnotationPresent(FruitColor.class)){
+                           FruitColor fruitColor= (FruitColor)field.getAnnotation(FruitColor.class);
+                            strFruitColor=strFruitColor+fruitColor.fruitColor().toString(); System.out.println(strFruitColor);
+                             }else if(field.isAnnotationPresent(FruitProvider.class)){
+                                FruitProvider fruitProvider= (FruitProvider) field.getAnnotation(FruitProvider.class);
+                                 strFruitProvicer=&quot; 供应商编号：&quot;+fruitProvider.id()+&quot; 供应 商名称：&quot;+fruitProvider.name()+&quot; 供应商地址：&quot;+fruitProvider.address();
+                                 System.out.println(strFruitProvicer);
+                                 }
+                              }
+                            }
+                         }
+
+                         /***********输出结果***************/
+
+                         public class FruitRun {
+                           /**
+                            * @param args
+                            */
+                            public static void main(String[] args) {
+                               FruitInfoUtil.getFruitInfo(Apple.class);
+                               }
+                            }</code></pre><hr>
+<pre><code>水果名称：Apple
+水果颜色：RED
+供应商编号：1 供应商名称：陕西红富士集团 供应商地址：陕西省西安市延安路 89号红富士大厦</code></pre><h4 id="Java注解的基础知识点"><a href="#Java注解的基础知识点" class="headerlink" title="Java注解的基础知识点"></a>Java注解的基础知识点</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/annotation.jpg" alt="" class="lazyload"></p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>非酋囧菌<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2022/08/14/Annotation.html/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;14&#x2F;Annotation.html&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;08&#x2F;14&#x2F;Annotation.html&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'MingWill-Marvel.github.io',
+        owner: 'MingWill-Marvel',
+        admin: 'MingWill-Marvel'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script >hljs.initHighlightingOnLoad();</script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+<script src="/js/app.js?v=1660845033401"></script>
+  
+
+
+
+
+
+
+</body>
+
+</html>
