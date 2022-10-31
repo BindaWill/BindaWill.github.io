@@ -19,20 +19,20 @@
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="泛型，JDK1.5新加入的，解决数据类型的安全性问题，其主要原理是在类声明时通过一个标识表示类中某个属性的类型或者是某个方法的返回值及参数类型。这样在类声明或实例化时只要指定好需要的具体的类型即可。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1101.png">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1102.png">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1103.png">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1106.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java1101.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java1102.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java1103.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java1106.png">
 <meta property="article:published_time" content="2022-08-09T14:42:13.000Z">
-<meta property="article:modified_time" content="2022-08-10T14:06:59.941Z">
+<meta property="article:modified_time" content="2022-09-03T17:56:00.151Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1660928173865">
+  <link rel="stylesheet" href="/css/style.css?v=1667230751509">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
@@ -60,7 +60,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>62</div>
+        <div><span>文章</span>61</div>
         <div><span>标签</span>0</div>
         <div><span>分类</span>0</div>
     </div>
@@ -127,7 +127,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">40</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">39</span></li></ul>
     </div>
   </div>
 
@@ -156,7 +156,7 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
-          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day11-泛型和枚举" class="lazyload">
+          <img data-src="/images/JavaStudyData/JavaBasics/banner.jpg" data-sizes="auto" alt="Java基础Day11-泛型和枚举" class="lazyload">
           <h1>Java基础Day11-泛型和枚举</h1>
       </div>
   
@@ -174,15 +174,15 @@
   <article>
     <p>泛型，JDK1.5新加入的，解决数据类型的安全性问题，其主要原理是在类声明时通过一个标识表示类中某个属性的类型或者是某个方法的返回值及参数类型。这样在类声明或实例化时只要指定好需要的具体的类型即可。</p>
 <a id="more"></a>
-<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
-<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><h4 id="一、为什么要有泛型Generic"><a href="#一、为什么要有泛型Generic" class="headerlink" title="一、为什么要有泛型Generic?"></a>一、为什么要有泛型Generic?</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1101.png" alt="" class="lazyload"></p>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java12.jpg" alt="" class="lazyload"></p>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><h4 id="一、为什么要有泛型Generic"><a href="#一、为什么要有泛型Generic" class="headerlink" title="一、为什么要有泛型Generic?"></a>一、为什么要有泛型Generic?</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java1101.png" alt="" class="lazyload"></p>
 <blockquote>
 <p>泛型，JDK1.5新加入的，解决数据类型的安全性问题，其主要原理是在类声明时通过一个标识表示类中某个属性的类型或者是某个方法的返回值及参数类型。这样在类声明或实例化时只要指定好需要的具体的类型即可。</p>
 </blockquote>
 <blockquote>
 <p>Java泛型可以保证如果程序在编译时没有发出警告，运行时就不会产生ClassCastException异常。同时，代码更加简洁、健壮。</p>
 </blockquote>
-<h4 id="二、一个例子"><a href="#二、一个例子" class="headerlink" title="二、一个例子"></a>二、一个例子</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1102.png" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java1103.png" alt="" class="lazyload"></p>
+<h4 id="二、一个例子"><a href="#二、一个例子" class="headerlink" title="二、一个例子"></a>二、一个例子</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java1102.png" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java1103.png" alt="" class="lazyload"></p>
 <blockquote>
 <p>没有指定泛型，集合将可以随意存储任何类型的数据</p>
 </blockquote>
@@ -574,7 +574,7 @@ enum Season implements ITest{//枚举类可以实现接口
 
 interface ITest{
     void test();
-}</code></pre><h4 id="枚举类的方法"><a href="#枚举类的方法" class="headerlink" title="枚举类的方法"></a>枚举类的方法</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1106.png" alt="" class="lazyload"></p>
+}</code></pre><h4 id="枚举类的方法"><a href="#枚举类的方法" class="headerlink" title="枚举类的方法"></a>枚举类的方法</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java1106.png" alt="" class="lazyload"></p>
 <hr>
 <h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><h4 id="Annotation-注解-概述"><a href="#Annotation-注解-概述" class="headerlink" title="Annotation(注解) 概述"></a>Annotation(注解) 概述</h4><ul>
 <li>从 JDK 5.0 开始, Java 增加了对元数据(MetaData) 的支持, 也就是 Annotation(注释)</li>
@@ -706,7 +706,7 @@ class TestB extends TestA{
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1660928173866"></script>
+<script src="/js/app.js?v=1667230751510"></script>
   
 
 

@@ -19,18 +19,18 @@
 <meta property="og:site_name" content="火星环游日记">
 <meta property="og:description" content="任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java12.jpg">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1501.png">
-<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/java1502.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java11.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java12.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java1501.png">
+<meta property="og:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java1502.png">
 <meta property="article:published_time" content="2022-08-14T13:06:13.000Z">
-<meta property="article:modified_time" content="2022-08-15T17:36:26.394Z">
+<meta property="article:modified_time" content="2022-09-03T17:57:39.690Z">
 <meta property="article:author" content="非酋囧菌">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/java11.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/JavaStudyData/JavaBasics/java11.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css?v=233" crossorigin>
   
-  <link rel="stylesheet" href="/css/style.css?v=1660928173849">
+  <link rel="stylesheet" href="/css/style.css?v=1667230751498">
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="mdui-drawer-body-left">
@@ -58,7 +58,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>62</div>
+        <div><span>文章</span>61</div>
         <div><span>标签</span>0</div>
         <div><span>分类</span>0</div>
     </div>
@@ -125,7 +125,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">40</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">39</span></li></ul>
     </div>
   </div>
 
@@ -154,7 +154,7 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
-          <img data-src="/images/JavaStudyData/banner.jpg" data-sizes="auto" alt="Java基础Day15-线程" class="lazyload">
+          <img data-src="/images/JavaStudyData/JavaBasics/banner.jpg" data-sizes="auto" alt="Java基础Day15-线程" class="lazyload">
           <h1>Java基础Day15-线程</h1>
       </div>
   
@@ -172,7 +172,7 @@
   <article>
     <p>任何一种程序设计语言设计的程序在运行时都有可能出现错误，例如除数为0，数组下标越界，要读写的文件不存在等等。</p>
 <a id="more"></a>
-<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/java12.jpg" alt="" class="lazyload"></p>
+<h2 id="学习思维导图"><a href="#学习思维导图" class="headerlink" title="学习思维导图"></a>学习思维导图</h2><p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java11.jpg" alt="" class="lazyload"><br><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java12.jpg" alt="" class="lazyload"></p>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><h4 id="一、基本概念：程序-进程-线程"><a href="#一、基本概念：程序-进程-线程" class="headerlink" title="一、基本概念：程序 - 进程 - 线程"></a>一、基本概念：程序 - 进程 - 线程</h4><p><strong>程序(program)</strong>是为完成特定任务、用某种语言编写的一组指令的集合。即指一段静态的代码，静态对象。</p>
 <p><strong>进程(process)</strong>是程序的一次执行过程，或是正在运行的一个程序。动态过程：有它自身的产生、存在和消亡的过程。</p>
 <ul>
@@ -505,13 +505,13 @@ public void run() {
 <li><strong>阻塞</strong>：<strong>（类似堵车，run方法的代码暂停执行，卡住run方法）</strong>在某种特殊情况下，被人为挂起或执行输入输出操作时，让出 CPU 并临时中止自己的执行，进入阻塞状态</li>
 <li><strong>死亡</strong>：<strong>（自然死亡，程序执行完毕或是发生了异常到程序结束；强制死亡，执行.stop方法，断电，杀掉进程）</strong>线程完成了它的全部工作或线程被提前强制性地中止   </li>
 </ul>
-<h4 id="三、线程的生命周期-1"><a href="#三、线程的生命周期-1" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/java1501.png" alt="" class="lazyload"></p>
+<h4 id="三、线程的生命周期-1"><a href="#三、线程的生命周期-1" class="headerlink" title="三、线程的生命周期"></a>三、线程的生命周期</h4><p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java1501.png" alt="" class="lazyload"></p>
 <h4 id="四、线程的同步"><a href="#四、线程的同步" class="headerlink" title="四、线程的同步"></a>四、线程的同步</h4><p>问题的提出</p>
 <ul>
 <li>多个线程执行的不确定性引起执行结果的不稳定</li>
 <li>多个线程对账本的共享，会造成操作的不完整性，会破坏数据。</li>
 </ul>
-<p><img data-sizes="auto" data-src="/images/JavaStudyData/java1502.png" alt="" class="lazyload"></p>
+<p><img data-sizes="auto" data-src="/images/JavaStudyData/JavaBasics/java1502.png" alt="" class="lazyload"></p>
 <h4 id="多线程出现了安全问题"><a href="#多线程出现了安全问题" class="headerlink" title="多线程出现了安全问题"></a>多线程出现了安全问题</h4><p>问题的原因：</p>
 <p>当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，另一个线程参与进来执行。导致共享数据的错误。<br>解决办法:<br>对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。</p>
 <h4 id="Synchronized的使用方法"><a href="#Synchronized的使用方法" class="headerlink" title="Synchronized的使用方法"></a>Synchronized的使用方法</h4><p>Java对于多线程的安全问题提供了专业的解决方式：</p>
@@ -931,7 +931,7 @@ class Clerk{
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
-<script src="/js/app.js?v=1660928173851"></script>
+<script src="/js/app.js?v=1667230751499"></script>
   
 
 
